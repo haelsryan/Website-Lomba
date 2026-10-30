@@ -1,175 +1,498 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dompet Cerdas — Financial Resilience for Everyone</title>
+    <title>Dompet Cerdas — Ketahanan Finansial untuk Keluarga dan UMKM</title>
+    <meta name="description" content="Platform pencatatan arus kas bersama, pengingat tagihan bebas denda, dan simulasi anggaran praktis untuk keluarga dan UMKM di Indonesia." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script type="module" src="/src/js/main.js"></script>
   </head>
-  <body class="min-h-screen bg-canvas p-3 font-sans text-navy antialiased sm:p-6">
-    <svg class="absolute size-0" aria-hidden="true">
-      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+  <body class="min-h-screen bg-canvas font-sans text-navy antialiased">
+    <!-- SVG sprite -->
+    <svg class="hidden" aria-hidden="true">
       <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><circle cx="16.5" cy="14" r="1"/></symbol>
       <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
       <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/><path d="M4 17a3 3 0 0 1 3-3h12"/></symbol>
       <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h8M20 6h0M4 12h2M14 12h6M4 18h10M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
-      <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7M12 17h.01"/></symbol>
-      <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
-      <symbol id="i-plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
-      <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
-      <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
       <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
       <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
-      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
-      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></symbol>
-      <symbol id="i-bell-off" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0M3 3l18 18"/></symbol>
       <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></symbol>
-      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
-      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
-      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
-      <symbol id="i-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 12l-4-4-4 4M12 16V8"/></symbol>
-      <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
-      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
     </svg>
 
-    <div class="mx-auto flex max-w-[1440px] flex-col gap-5 rounded-[2.5rem] bg-[#edf2f9] p-4 sm:p-6 lg:flex-row">
-      <aside class="lg:w-[4.5rem] lg:shrink-0">
-        <nav aria-label="Navigasi utama" class="flex items-center gap-1 rounded-full bg-navy p-3 lg:sticky lg:top-6 lg:h-[calc(100vh-6rem)] lg:min-h-[34rem] lg:flex-col lg:gap-2 lg:py-5">
-          <a href="/" aria-label="Dompet Cerdas" class="mr-2 grid size-10 place-items-center rounded-2xl bg-primary text-lg font-extrabold text-white lg:mb-4 lg:mr-0">D</a>
-          <a href="/" class="nav-link" aria-label="Dasbor" title="Dasbor"><svg class="icon"><use href="#i-grid"/></svg></a>
-          <a href="/pages/finances.html" class="nav-link" aria-label="Keuangan" title="Keuangan"><svg class="icon"><use href="#i-wallet"/></svg></a>
-          <a href="/pages/simulator.html" class="nav-link" aria-label="Simulator" title="Simulator"><svg class="icon"><use href="#i-target"/></svg></a>
-          <a href="/pages/learn.html" class="nav-link" aria-label="Belajar" title="Belajar"><svg class="icon"><use href="#i-book"/></svg></a>
-          <a href="/pages/settings.html" class="nav-link" aria-label="Pengaturan" title="Pengaturan"><svg class="icon"><use href="#i-sliders"/></svg></a>
-          <button type="button" data-act="help" class="nav-link ml-auto lg:ml-0 lg:mt-auto" aria-label="Bantuan" title="Bantuan"><svg class="icon"><use href="#i-help"/></svg></button>
-          <button type="button" data-act="logout" class="nav-link" aria-label="Keluar" title="Keluar"><svg class="icon"><use href="#i-logout"/></svg></button>
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 border-b border-navy/5 bg-canvas/90 backdrop-blur-md">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a href="/" class="flex items-center gap-3" aria-label="Dompet Cerdas Beranda">
+          <span class="grid size-10 place-items-center rounded-2xl bg-primary text-white shadow-sm">
+            <svg class="icon size-5 text-white" aria-hidden="true"><use href="#i-wallet" /></svg>
+          </span>
+          <div class="leading-none">
+            <span class="text-lg font-bold tracking-tight text-navy">Dompet Cerdas</span>
+            <span class="block text-[0.6875rem] font-medium text-muted">Inklusi &amp; Ketahanan Finansial</span>
+          </div>
+        </a>
+
+        <nav aria-label="Navigasi situs" class="hidden items-center gap-7 md:flex">
+          <a href="#masalah" class="text-sm font-medium text-navy/80 transition hover:text-primary">Tantangan</a>
+          <a href="#fitur" class="text-sm font-medium text-navy/80 transition hover:text-primary">Fitur Utama</a>
+          <a href="#simulasi" class="text-sm font-medium text-navy/80 transition hover:text-primary">Simulasi Anggaran</a>
+          <a href="#edukasi" class="text-sm font-medium text-navy/80 transition hover:text-primary">Edukasi &amp; Privasi</a>
         </nav>
-      </aside>
 
-      <main class="grid min-w-0 flex-1 content-start gap-5 xl:grid-cols-[minmax(0,1fr)_22rem]">
-        <div class="grid content-start gap-5">
-          <section class="relative overflow-hidden rounded-[1.75rem] bg-primary-soft p-7">
-            <div class="relative z-10 max-w-md">
-              <h1 class="text-3xl font-medium tracking-tight">Keuangan kuat dimulai dari langkah kecil</h1>
-              <p class="mt-4 text-sm leading-relaxed text-navy/80">Tambahkan anggota keluarga atau tim usaha agar bisa mencatat dan memantau arus kas bersama.</p>
-              <button type="button" data-act="add-member" class="btn mt-5 bg-navy text-white hover:bg-navy/90"><svg class="icon size-4"><use href="#i-plus"/></svg>Tambah anggota</button>
-            </div>
-            <div class="pointer-events-none absolute -right-6 -top-10 h-56 w-72" aria-hidden="true">
-              <div class="absolute right-4 top-2 size-48 rounded-full bg-gradient-to-br from-blue-300 via-primary to-indigo-500 opacity-90 blur-[2px] animate-drift motion-reduce:animate-none"></div>
-              <div class="absolute right-24 top-16 size-40 rounded-full bg-gradient-to-tr from-white/90 to-blue-200 opacity-80 animate-drift-slow motion-reduce:animate-none"></div>
-              <div class="absolute right-0 top-28 size-32 rounded-full bg-gradient-to-br from-sky-200 to-primary/70 opacity-80 animate-drift motion-reduce:animate-none"></div>
-            </div>
-          </section>
+        <div class="flex items-center gap-3">
+          <a href="/pages/dashboard.html" class="btn bg-navy text-white hover:bg-navy/90">
+            Masuk ke Dasbor
+          </a>
+        </div>
+      </div>
+    </header>
 
-          <div class="grid gap-5 md:grid-cols-[1.35fr_1.1fr_.8fr]">
-            <section class="card" aria-labelledby="members-title">
-              <header class="flex items-center justify-between">
-                <h2 id="members-title" class="text-xl font-medium">Anggota</h2>
-                <button type="button" data-act="add-member" class="grid size-8 place-items-center rounded-full hover:bg-primary-tint" aria-label="Tambah anggota"><svg class="icon size-[1.125rem]"><use href="#i-plus"/></svg></button>
-              </header>
-              <ul data-members class="mt-4 grid h-44 grid-cols-3 content-start gap-x-2 gap-y-3 overflow-y-auto pr-1"></ul>
-            </section>
-
-            <section class="card" aria-labelledby="data-title">
-              <header class="flex items-center justify-between">
-                <h2 id="data-title" class="text-sm text-muted">Pengeluaran</h2>
-                <div class="flex gap-1">
-                  <button type="button" data-act="add-tx" class="grid size-8 place-items-center rounded-full hover:bg-primary-tint" aria-label="Catat transaksi"><svg class="icon size-[1.125rem]"><use href="#i-plus"/></svg></button>
-                  <button type="button" data-act="history" class="grid size-8 place-items-center rounded-full hover:bg-primary-tint" aria-label="Lihat transaksi minggu ini"><svg class="icon size-[1.125rem]"><use href="#i-receipt"/></svg></button>
-                </div>
-              </header>
-              <div data-spend></div>
-            </section>
-
-            <section class="card flex flex-col" aria-labelledby="impact-title">
-              <h2 id="impact-title" class="text-sm text-muted">Tabungan 3 bulan</h2>
-              <div data-impact class="mt-4 flex min-h-40 flex-1 items-end gap-2"></div>
-            </section>
-          </div>
-
-          <div class="grid gap-5 md:grid-cols-[1.2fr_1fr]">
-            <section class="card p-6" aria-labelledby="stats-title">
-              <header class="flex items-center justify-between">
-                <h2 id="stats-title" class="text-xl font-medium">Statistik</h2>
-                <div class="flex rounded-full bg-canvas p-0.5 text-xs" role="group" aria-label="Rentang waktu">
-                  <button type="button" data-act="range" data-v="weekly" aria-pressed="true" class="rounded-full px-2.5 py-1 aria-pressed:bg-navy aria-pressed:text-white">Mingguan</button>
-                  <button type="button" data-act="range" data-v="monthly" aria-pressed="false" class="rounded-full px-2.5 py-1 aria-pressed:bg-navy aria-pressed:text-white">Bulanan</button>
-                </div>
-              </header>
-              <p class="mt-6 flex items-baseline gap-3">
-                <span data-stat-a class="text-5xl font-medium tracking-tight">0</span>
-                <span class="h-9 w-px self-center bg-navy/30"></span>
-                <span data-stat-b class="text-5xl font-medium tracking-tight">0</span>
-                <span class="text-sm text-muted">tagihan lunas</span>
+    <main>
+      <!-- Hero Section -->
+      <section class="relative overflow-hidden py-12 sm:py-20 lg:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            <div class="max-w-2xl">
+              <h1 class="text-4xl font-medium tracking-tight text-navy sm:text-5xl lg:text-6xl">
+                Keuangan kuat dimulai dari langkah kecil yang konsisten
+              </h1>
+              <p class="mt-6 text-base leading-relaxed text-muted sm:text-lg">
+                Platform pencatatan arus kas bersama, kalender tagihan bebas denda, dan modul edukasi praktis yang dirancang khusus untuk mahasiswa, keluarga, serta pelaku UMKM Indonesia.
               </p>
-              <div class="mt-6 grid grid-cols-2 gap-3 text-center">
-                <div class="rounded-2xl bg-canvas px-3 py-6">
-                  <svg class="icon mx-auto size-10 stroke-1"><use href="#i-receipt"/></svg>
-                  <p data-stat-done class="mt-3 text-2xl font-medium">0</p>
-                  <p class="text-sm text-muted">Tagihan lunas</p>
+              
+              <div class="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+                <a href="/pages/dashboard.html" class="btn bg-primary px-6 py-3 text-base text-white hover:bg-primary/90">
+                  Buka Dasbor Aplikasi
+                </a>
+                <a href="#simulasi" class="btn bg-primary-soft px-6 py-3 text-base text-navy hover:bg-primary hover:text-white">
+                  Hitung Simulasi 50/30/20
+                </a>
+              </div>
+
+              <!-- Contextual Trust Note -->
+              <div class="mt-10 flex flex-wrap items-center gap-6 border-t border-navy/10 pt-6 text-xs text-muted">
+                <div class="flex items-center gap-2">
+                  <svg class="icon size-4 text-primary" aria-hidden="true"><use href="#i-shield" /></svg>
+                  <span>Data tersimpan lokal di peramban</span>
                 </div>
-                <div class="rounded-2xl bg-canvas px-3 py-6">
-                  <svg class="icon mx-auto size-10 stroke-1 text-primary"><use href="#i-clock"/></svg>
-                  <p data-stat-open class="mt-3 text-2xl font-medium">0</p>
-                  <p class="text-sm text-muted">Tagihan berjalan</p>
+                <div class="flex items-center gap-2">
+                  <svg class="icon size-4 text-primary" aria-hidden="true"><use href="#i-check" /></svg>
+                  <span>Pedoman literasi keuangan OJK</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="icon size-4 text-primary" aria-hidden="true"><use href="#i-users" /></svg>
+                  <span>Dukungan kolaborasi keluarga &amp; tim</span>
                 </div>
               </div>
-            </section>
+            </div>
 
-            <div class="grid content-start gap-5">
-              <section data-reminder class="rounded-[1.75rem] bg-navy p-5" aria-label="Pengingat tagihan"></section>
-              <section class="card flex gap-4 p-3 pr-5" aria-label="Paket">
-                <div class="relative hidden w-[38%] shrink-0 overflow-hidden rounded-3xl bg-gradient-to-b from-primary-tint to-primary-soft sm:block" aria-hidden="true">
-                  <svg viewBox="0 0 100 160" class="absolute inset-0 size-full"><path d="M20 20c50-10 60 15 10 28S-5 80 45 88s55 28 10 42" fill="none" stroke="#2563eb" stroke-opacity=".55" stroke-width="16" stroke-linecap="round"/></svg>
+            <!-- Hero Live Interface Preview -->
+            <div class="relative">
+              <div class="rounded-[2.5rem] bg-[#edf2f9] p-5 sm:p-7 shadow-sm">
+                <!-- Preview Header Card -->
+                <div class="rounded-3xl bg-primary-soft p-5 text-navy">
+                  <div class="flex items-start justify-between">
+                    <div>
+                      <p class="text-xs font-semibold uppercase tracking-wider text-primary">Pratinjau Arus Kas</p>
+                      <h2 class="mt-1 text-xl font-medium">Usaha Katering &amp; Rumah Tangga</h2>
+                    </div>
+                    <span class="rounded-full bg-navy px-3 py-1 text-xs font-semibold text-white">Minggu Ini</span>
+                  </div>
+                  <div class="mt-4 flex items-center justify-between text-xs text-navy/80">
+                    <span>Anggota aktif: 6 orang</span>
+                    <a href="/pages/dashboard.html" class="font-semibold text-primary hover:underline">Kelola &rarr;</a>
+                  </div>
                 </div>
-                <div data-upgrade class="flex flex-1 flex-col py-2"></div>
-              </section>
+
+                <!-- Preview Bento Items -->
+                <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                  <div class="card p-4">
+                    <p class="text-xs font-medium text-muted">Pengeluaran Mingguan</p>
+                    <p class="mt-2 text-2xl font-medium text-navy">Rp 1.450.000</p>
+                    <div class="mt-3 flex h-2 gap-1 overflow-hidden rounded-full bg-canvas">
+                      <span class="w-[55%] rounded-full bg-navy" title="Kebutuhan 55%"></span>
+                      <span class="w-[30%] rounded-full bg-primary" title="Tabungan 30%"></span>
+                      <span class="w-[15%] rounded-full bg-primary-soft" title="Lainnya 15%"></span>
+                    </div>
+                    <div class="mt-2 flex justify-between text-[0.6875rem] text-muted">
+                      <span>Kebutuhan: 55%</span>
+                      <span>Tabungan: 30%</span>
+                    </div>
+                  </div>
+
+                  <div class="card p-4">
+                    <p class="text-xs font-medium text-muted">Jadwal Tagihan Terdekat</p>
+                    <div class="mt-2 flex items-center gap-2.5 rounded-2xl bg-canvas p-2.5">
+                      <span class="grid size-8 place-items-center rounded-xl bg-primary-soft text-primary">
+                        <svg class="icon size-4" aria-hidden="true"><use href="#i-receipt" /></svg>
+                      </span>
+                      <div class="min-w-0 flex-1">
+                        <p class="truncate text-xs font-semibold text-navy">Listrik Rumah &amp; Usaha</p>
+                        <p class="text-[0.6875rem] text-muted">Hari ini, 12:45 WIB</p>
+                      </div>
+                      <span class="rounded-full bg-primary-soft px-2 py-0.5 text-[0.6875rem] font-semibold text-primary">Siap Bayar</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between rounded-2xl bg-surface px-4 py-3">
+                  <div class="flex items-center gap-3">
+                    <div class="flex -space-x-2">
+                      <span class="avatar size-7 bg-gradient-to-br from-sky-400 to-blue-600 text-xs">SW</span>
+                      <span class="avatar size-7 bg-gradient-to-br from-amber-400 to-orange-600 text-xs">RP</span>
+                      <span class="avatar size-7 bg-gradient-to-br from-teal-400 to-emerald-600 text-xs">DS</span>
+                    </div>
+                    <span class="text-xs font-medium text-muted">Sinkronisasi data otomatis di perangkat Anda</span>
+                  </div>
+                  <a href="/pages/dashboard.html" class="text-xs font-semibold text-primary hover:underline">Buka &rarr;</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="grid content-start gap-6">
-          <section aria-labelledby="cal-title">
-            <header class="flex items-center justify-between">
-              <h2 id="cal-title" data-cal-title class="text-3xl font-medium capitalize tracking-tight"></h2>
-              <div class="flex gap-2">
-                <button type="button" data-act="week" data-v="-7" class="icon-btn" aria-label="Minggu sebelumnya"><svg class="icon size-4"><use href="#i-left"/></svg></button>
-                <button type="button" data-act="week" data-v="7" class="icon-btn" aria-label="Minggu berikutnya"><svg class="icon size-4"><use href="#i-right"/></svg></button>
+      <!-- Real Context & Problems Section -->
+      <section id="masalah" class="border-t border-navy/5 bg-white py-16 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="max-w-2xl">
+            <h2 class="text-3xl font-medium tracking-tight text-navy sm:text-4xl">
+              Tantangan keuangan nyata di Indonesia
+            </h2>
+            <p class="mt-3 text-base text-muted">
+              Masalah keuangan UMKM dan generasi muda jarang bersumber dari minimnya kerja keras, melainkan ketiadaan alat pencatatan yang sederhana dan teratur.
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-6 md:grid-cols-3">
+            <article class="rounded-[2rem] border border-navy/10 bg-canvas p-6">
+              <span class="grid size-12 place-items-center rounded-2xl bg-primary-soft text-primary">
+                <svg class="icon size-6" aria-hidden="true"><use href="#i-wallet" /></svg>
+              </span>
+              <h3 class="mt-5 text-xl font-medium text-navy">Rekening Pribadi dan Usaha Bercampur</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">
+                Banyak pelaku UMKM tidak tahu keuntungan bersih yang sesungguhnya karena uang hasil penjualan sering terpakai untuk keperluan dapur dan harian tanpa tercatat.
+              </p>
+              <div class="mt-6 rounded-2xl bg-white p-3 text-xs text-navy/90">
+                <span class="font-semibold text-primary">Solusi Dompet Cerdas:</span> Pembagian pos kebutuhan, tabungan, dan operasional dalam satu layar ringkas.
               </div>
-            </header>
-            <ol data-cal-days class="mt-5 grid grid-cols-7 gap-1 text-center"></ol>
-          </section>
+            </article>
 
-          <section aria-labelledby="videos-title">
-            <h2 id="videos-title" class="text-xl font-medium">Video edukasi</h2>
-            <ul data-videos class="-mr-6 mt-3 flex snap-x gap-3 overflow-x-auto pb-1 pr-6"></ul>
-          </section>
-
-          <section aria-labelledby="notif-title">
-            <header class="flex items-center justify-between">
-              <h2 id="notif-title" class="text-xl font-medium">Notifikasi</h2>
-              <div class="flex rounded-full bg-surface p-1" role="group" aria-label="Pengaturan notifikasi">
-                <button type="button" data-act="mute" data-v="off" aria-pressed="true" aria-label="Nyalakan notifikasi" class="grid size-7 place-items-center rounded-full aria-pressed:bg-navy aria-pressed:text-white"><svg class="icon size-4"><use href="#i-bell"/></svg></button>
-                <button type="button" data-act="mute" data-v="on" aria-pressed="false" aria-label="Matikan notifikasi" class="grid size-7 place-items-center rounded-full aria-pressed:bg-navy aria-pressed:text-white"><svg class="icon size-4"><use href="#i-bell-off"/></svg></button>
+            <article class="rounded-[2rem] border border-navy/10 bg-canvas p-6">
+              <span class="grid size-12 place-items-center rounded-2xl bg-primary-soft text-primary">
+                <svg class="icon size-6" aria-hidden="true"><use href="#i-receipt" /></svg>
+              </span>
+              <h3 class="mt-5 text-xl font-medium text-navy">Denda dan Bunga Tagihan Terlewat</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">
+                Cicilan peralatan, tagihan utilitas, dan kewajiban bulanan sering terlambat dibayar bukan karena tidak ada uang, tetapi karena lupa jadwal tenggat waktu.
+              </p>
+              <div class="mt-6 rounded-2xl bg-white p-3 text-xs text-navy/90">
+                <span class="font-semibold text-primary">Solusi Dompet Cerdas:</span> Kalender mingguan interaktif yang menandai tanggal tagihan secara visual.
               </div>
-            </header>
-            <div role="tablist" aria-label="Jenis notifikasi" class="mt-3 flex gap-4 border-b border-slate-300/70 text-sm text-muted">
-              <button type="button" role="tab" data-act="tab" data-v="all" aria-selected="true" class="-mb-px border-b-2 border-transparent pb-2 aria-selected:border-primary aria-selected:font-semibold aria-selected:text-navy">Ringkasan</button>
-              <button type="button" role="tab" data-act="tab" data-v="shared" aria-selected="false" class="-mb-px border-b-2 border-transparent pb-2 aria-selected:border-primary aria-selected:font-semibold aria-selected:text-navy">Dibagikan</button>
-              <button type="button" role="tab" data-act="tab" data-v="comment" aria-selected="false" class="-mb-px border-b-2 border-transparent pb-2 aria-selected:border-primary aria-selected:font-semibold aria-selected:text-navy">Komentar</button>
-            </div>
-            <ul data-notif-list class="mt-4 grid gap-3"></ul>
-            <p data-notif-muted class="mt-4 hidden rounded-2xl bg-surface p-4 text-center text-sm text-muted">Notifikasi dimatikan. Tekan ikon lonceng untuk menyalakannya lagi.</p>
-            <button type="button" data-act="read-all" class="mt-3 text-sm font-semibold text-primary hover:underline">Tandai semua dibaca</button>
-          </section>
+            </article>
+
+            <article class="rounded-[2rem] border border-navy/10 bg-canvas p-6">
+              <span class="grid size-12 place-items-center rounded-2xl bg-primary-soft text-primary">
+                <svg class="icon size-6" aria-hidden="true"><use href="#i-shield" /></svg>
+              </span>
+              <h3 class="mt-5 text-xl font-medium text-navy">Minim Pemahaman Risiko Pinjaman</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">
+                Kurangnya literasi mengenai batas sehat rasio utang dan izin resmi OJK membuat banyak orang terjebak bunga pinjaman konsumtif yang mencekik.
+              </p>
+              <div class="mt-6 rounded-2xl bg-white p-3 text-xs text-navy/90">
+                <span class="font-semibold text-primary">Solusi Dompet Cerdas:</span> Modul video edukatif cara cek legalitas pinjaman dan simulasi rasio pelunasan.
+              </div>
+            </article>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
 
-    <dialog data-modal class="m-auto w-[min(28rem,calc(100%-2rem))] rounded-[1.75rem] bg-surface p-0 text-navy shadow-xl backdrop:bg-navy/40 backdrop:backdrop-blur-sm open:animate-pop motion-reduce:animate-none"></dialog>
-    <p data-toast role="status" class="fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 rounded-full bg-navy px-5 py-2.5 text-sm font-medium text-white shadow-lg"></p>
+      <!-- Key Features Section -->
+      <section id="fitur" class="py-16 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="max-w-2xl">
+            <h2 class="text-3xl font-medium tracking-tight text-navy sm:text-4xl">
+              Fitur yang berfokus pada ketahanan finansial
+            </h2>
+            <p class="mt-3 text-base text-muted">
+              Bukan software akuntansi yang rumit. Dompet Cerdas menyajikan instrumen esensial yang langsung dapat Anda gunakan hari ini.
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-8 lg:grid-cols-2">
+            <!-- Feature 1: Multi-member -->
+            <div class="card flex flex-col justify-between p-6 sm:p-8">
+              <div>
+                <div class="flex items-center gap-3">
+                  <span class="grid size-11 place-items-center rounded-2xl bg-primary text-white">
+                    <svg class="icon size-5 text-white" aria-hidden="true"><use href="#i-users" /></svg>
+                  </span>
+                  <div>
+                    <h3 class="text-2xl font-medium text-navy">Pencatatan Arus Kas Bersama</h3>
+                    <p class="text-xs text-muted">Untuk keluarga, tim usaha, dan kelompok mahasiswa</p>
+                  </div>
+                </div>
+                <p class="mt-4 text-sm leading-relaxed text-muted">
+                  Tambahkan anggota keluarga atau rekan kerja untuk memantau pengeluaran bersama. Setiap anggota memiliki avatar dan riwayat transaksi yang transparan tanpa perlu login rumit.
+                </p>
+              </div>
+
+              <div class="mt-6 rounded-2xl bg-canvas p-4">
+                <p class="text-xs font-medium text-muted">Daftar Anggota Usaha Contoh:</p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-medium text-navy shadow-xs">
+                    <span class="size-2 rounded-full bg-emerald-500"></span> Sari Wulandari (Kasir)
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-medium text-navy shadow-xs">
+                    <span class="size-2 rounded-full bg-blue-500"></span> Raka Pratama (Operasional)
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-medium text-navy shadow-xs">
+                    <span class="size-2 rounded-full bg-amber-500"></span> Dimas Saputra (Belanja)
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature 2: Bill Reminder -->
+            <div class="card flex flex-col justify-between p-6 sm:p-8">
+              <div>
+                <div class="flex items-center gap-3">
+                  <span class="grid size-11 place-items-center rounded-2xl bg-primary text-white">
+                    <svg class="icon size-5 text-white" aria-hidden="true"><use href="#i-cal" /></svg>
+                  </span>
+                  <div>
+                    <h3 class="text-2xl font-medium text-navy">Kalender Pengingat Bebas Denda</h3>
+                    <p class="text-xs text-muted">Disiplin tenggat waktu cicilan &amp; utilitas</p>
+                  </div>
+                </div>
+                <p class="mt-4 text-sm leading-relaxed text-muted">
+                  Visualisasikan minggu berjalan. Pilih tanggal untuk melihat tagihan jatuh tempo, lalu tandai lunas dengan satu ketukan begitu pembayaran selesai.
+                </p>
+              </div>
+
+              <div class="mt-6 rounded-2xl bg-canvas p-4">
+                <div class="flex items-center justify-between text-xs font-medium">
+                  <span class="text-navy">Jadwal Pekan Ini</span>
+                  <span class="text-primary font-semibold">Tandai Lunas Instan</span>
+                </div>
+                <div class="mt-2.5 space-y-2">
+                  <div class="flex items-center justify-between rounded-xl bg-white p-2.5 text-xs">
+                    <span class="font-medium text-navy">Internet &amp; WiFi Usaha</span>
+                    <span class="text-muted">10:00 WIB</span>
+                  </div>
+                  <div class="flex items-center justify-between rounded-xl bg-white p-2.5 text-xs">
+                    <span class="font-medium text-navy">Cicilan Alat Produksi</span>
+                    <span class="text-muted">09:00 WIB</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive 50/30/20 Budget Calculator Section -->
+      <section id="simulasi" class="border-t border-navy/5 bg-white py-16 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
+            <div>
+              <span class="rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-primary">
+                Simulasi Interaktif
+              </span>
+              <h2 class="mt-4 text-3xl font-medium tracking-tight text-navy sm:text-4xl">
+                Alokasi Anggaran 50 / 30 / 20
+              </h2>
+              <p class="mt-4 text-base leading-relaxed text-muted">
+                Metode pembagian keuangan teruji yang disarankan para perencana keuangan untuk menjaga stabilitas kas pribadi maupun usaha kecil:
+              </p>
+
+              <div class="mt-6 space-y-4 text-sm">
+                <div class="flex items-start gap-3">
+                  <span class="grid size-6 shrink-0 place-items-center rounded-full bg-navy text-xs font-bold text-white">50</span>
+                  <div>
+                    <b class="text-navy">Kebutuhan Pokok &amp; Operasional:</b>
+                    <p class="text-xs text-muted">Sewa tempat, belanja bahan, makan, listrik, air, dan transportasi harian.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <span class="grid size-6 shrink-0 place-items-center rounded-full bg-primary text-xs font-bold text-white">30</span>
+                  <div>
+                    <b class="text-navy">Keinginan &amp; Pengembangan:</b>
+                    <p class="text-xs text-muted">Pelatihan skill, rekreasi keluarga, dan upgrade perlengkapan penunjang.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <span class="grid size-6 shrink-0 place-items-center rounded-full bg-primary-soft text-xs font-bold text-navy">20</span>
+                  <div>
+                    <b class="text-navy">Tabungan &amp; Dana Darurat:</b>
+                    <p class="text-xs text-muted">Bantalan jika omzet menurun, asuransi, serta pelunasan utang berbunga.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calculator Widget -->
+            <div class="rounded-[2.5rem] bg-canvas p-6 sm:p-8 shadow-sm">
+              <label class="block text-sm font-semibold text-navy">
+                Masukkan Pemasukan Bulanan (Rp)
+                <input
+                  type="number"
+                  min="0"
+                  step="500000"
+                  value="5000000"
+                  data-calc-income
+                  class="mt-2 w-full rounded-2xl border border-navy/15 bg-white px-4 py-3 text-lg font-semibold text-navy shadow-xs focus:border-primary focus:outline-none"
+                  placeholder="Contoh: 5000000"
+                />
+              </label>
+
+              <!-- Quick Presets -->
+              <div class="mt-3 flex flex-wrap items-center gap-2">
+                <span class="text-xs text-muted">Pilihan cepat:</span>
+                <button type="button" data-set-income="3000000" class="btn bg-surface px-3 py-1 text-xs text-navy shadow-xs hover:bg-primary-soft">Rp3 Jt</button>
+                <button type="button" data-set-income="5000000" class="btn bg-navy px-3 py-1 text-xs text-white shadow-xs">Rp5 Jt</button>
+                <button type="button" data-set-income="10000000" class="btn bg-surface px-3 py-1 text-xs text-navy shadow-xs hover:bg-primary-soft">Rp10 Jt</button>
+                <button type="button" data-set-income="20000000" class="btn bg-surface px-3 py-1 text-xs text-navy shadow-xs hover:bg-primary-soft">Rp20 Jt</button>
+              </div>
+
+              <!-- Output Cards -->
+              <div class="mt-6 grid gap-3 sm:grid-cols-3">
+                <div class="rounded-2xl border border-navy/10 bg-white p-4">
+                  <span class="text-xs font-semibold text-navy">50% Kebutuhan</span>
+                  <p data-calc-needs class="mt-2 text-xl font-bold text-navy">Rp 2.500.000</p>
+                  <p class="mt-1 text-[0.6875rem] text-muted">Maksimal pengeluaran rutin</p>
+                </div>
+
+                <div class="rounded-2xl border border-primary/20 bg-primary-tint p-4">
+                  <span class="text-xs font-semibold text-primary">30% Keinginan</span>
+                  <p data-calc-wants class="mt-2 text-xl font-bold text-navy">Rp 1.500.000</p>
+                  <p class="mt-1 text-[0.6875rem] text-muted">Batas fleksibel gaya hidup</p>
+                </div>
+
+                <div class="rounded-2xl border border-navy/10 bg-white p-4">
+                  <span class="text-xs font-semibold text-muted">20% Tabungan</span>
+                  <p data-calc-savings class="mt-2 text-xl font-bold text-navy">Rp 1.000.000</p>
+                  <p class="mt-1 text-[0.6875rem] text-muted">Dana darurat &amp; investasi</p>
+                </div>
+              </div>
+
+              <div class="mt-6 flex items-center justify-between rounded-2xl bg-primary-soft/50 p-4">
+                <p class="text-xs text-navy/80">
+                  Ingin mencatat pos-pos ini secara harian di dasbor?
+                </p>
+                <a href="/pages/dashboard.html" class="btn bg-navy px-4 py-2 text-xs text-white hover:bg-navy/90">
+                  Buka Dasbor
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Financial Literacy & Principles Section -->
+      <section id="edukasi" class="py-16 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="max-w-2xl">
+            <h2 class="text-3xl font-medium tracking-tight text-navy sm:text-4xl">
+              Komitmen literasi dan privasi tanpa kompromi
+            </h2>
+            <p class="mt-3 text-base text-muted">
+              Dompet Cerdas dibangun dengan prinsip non-eksploitatif untuk melindungi masyarakat dari jeratan finansial buruk.
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="card p-6">
+              <span class="grid size-10 place-items-center rounded-xl bg-primary-soft text-primary">
+                <svg class="icon size-5" aria-hidden="true"><use href="#i-shield" /></svg>
+              </span>
+              <h3 class="mt-4 text-lg font-semibold text-navy">Privasi 100% di Peramban</h3>
+              <p class="mt-2 text-xs leading-relaxed text-muted">
+                Seluruh catatan keuangan, tagihan, dan nama anggota tersimpan di memori lokal browser Anda (LocalStorage). Tidak ada pengunggahan data rekening ke pihak ketiga.
+              </p>
+            </div>
+
+            <div class="card p-6">
+              <span class="grid size-10 place-items-center rounded-xl bg-primary-soft text-primary">
+                <svg class="icon size-5" aria-hidden="true"><use href="#i-book" /></svg>
+              </span>
+              <h3 class="mt-4 text-lg font-semibold text-navy">Edukasi Regulasi &amp; OJK</h3>
+              <p class="mt-2 text-xs leading-relaxed text-muted">
+                Menyediakan panduan praktis mengenali ciri-ciri entitas pinjaman ilegal dan cara mengecek keabsahan izin lembaga keuangan resmi melalui saluran resmi Otoritas Jasa Keuangan.
+              </p>
+            </div>
+
+            <div class="card p-6">
+              <span class="grid size-10 place-items-center rounded-xl bg-primary-soft text-primary">
+                <svg class="icon size-5" aria-hidden="true"><use href="#i-target" /></svg>
+              </span>
+              <h3 class="mt-4 text-lg font-semibold text-navy">Akses Terbuka &amp; Gratis</h3>
+              <p class="mt-2 text-xs leading-relaxed text-muted">
+                Dirancang sebagai solusi inklusi sosial untuk kompetisi inovasi digital, dapat diakses bebas tanpa biaya langganan untuk membantu masyarakat Indonesia bangkit secara ekonomi.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final Call to Action -->
+      <section class="pb-16 sm:pb-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="relative overflow-hidden rounded-[2.5rem] bg-navy px-6 py-12 text-center text-white sm:px-12 sm:py-16">
+            <h2 class="text-3xl font-medium tracking-tight sm:text-4xl">
+              Mulai rapikan arus kas Anda hari ini
+            </h2>
+            <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+              Tidak perlu menunggu modal besar untuk disiplin finansial. Masuk ke dasbor, catat transaksi pertama Anda, dan rasakan ketenangan arus kas yang terkendali.
+            </p>
+            <div class="mt-8 flex justify-center gap-4">
+              <a href="/pages/dashboard.html" class="btn bg-primary px-7 py-3.5 text-base font-semibold text-white hover:bg-primary/90 shadow-md">
+                Buka Dasbor Dompet Cerdas
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-navy/10 bg-canvas py-12">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
+          <div class="flex items-center gap-3">
+            <span class="grid size-9 place-items-center rounded-xl bg-primary text-white">
+              <svg class="icon size-4 text-white" aria-hidden="true"><use href="#i-wallet" /></svg>
+            </span>
+            <div>
+              <p class="text-sm font-bold text-navy">Dompet Cerdas</p>
+              <p class="text-xs text-muted">Ketahanan Finansial untuk Keluarga dan UMKM Indonesia</p>
+            </div>
+          </div>
+
+          <nav aria-label="Tautan modul" class="flex flex-wrap gap-5 text-xs font-semibold text-navy/80">
+            <a href="/pages/dashboard.html" class="hover:text-primary">Dasbor</a>
+            <a href="/pages/finances.html" class="hover:text-primary">Keuangan</a>
+            <a href="/pages/simulator.html" class="hover:text-primary">Simulator</a>
+            <a href="/pages/learn.html" class="hover:text-primary">Belajar</a>
+            <a href="/pages/settings.html" class="hover:text-primary">Pengaturan</a>
+          </nav>
+        </div>
+
+        <div class="mt-8 border-t border-navy/5 pt-6 text-xs text-muted">
+          <p>&copy; 2026 Dompet Cerdas. Hak Cipta Dilindungi. Dikembangkan untuk Inovasi Layanan Finansial Publik.</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

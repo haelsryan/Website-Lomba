@@ -50,6 +50,7 @@ function grow(sel, axis) {
 
 // Blur Text: words fade in from a blur, one after another
 function blurText(el) {
+  if (!el) return;
   const t = el.textContent.trim();
   el.setAttribute("aria-label", t);
   el.innerHTML = t.split(" ").map((w) => `<span aria-hidden="true" class="inline-block">${esc(w)}</span>`).join(" ");
@@ -115,7 +116,12 @@ const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch
 const ui = { sel: new Date(today), week: startOfWeek(today), tab: "all", range: "weekly" };
 const seen = new Set();
 const commit = () => { save(); renderAll(); };
-const notify = (n) => { if (!S.muted) S.notifs.unshift({ id: Date.now(), ts: Date.now(), read: false, who: "Saya", ...n }); };
+const notify = (n) => {
+  if (!S.muted) {
+    S.notifs.unshift({ id: Date.now(), ts: Date.now(), read: false, who: "Saya", ...n });
+    if (S.notifs.length > 20) S.notifs.length = 20;
+  }
+};
 
 /* ---------- modal + toast ---------- */
 const modal = $("[data-modal]");
@@ -243,19 +249,23 @@ function renderVideos() {
 
 function renderNotifs() {
   const list = $("[data-notif-list]");
+  if (!list) return;
   list.hidden = S.muted;
-  $("[data-notif-muted]").classList.toggle("hidden", !S.muted);
+  $("[data-notif-muted]")?.classList.toggle("hidden", !S.muted);
   $$("[data-act=mute]").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.v === "on") === S.muted)));
   const items = S.notifs.filter((n) => ui.tab === "all" || n.type === ui.tab);
-  list.innerHTML = items.length ? items.map((n) => `<li class="rounded-2xl bg-surface p-3">
-    <div class="flex gap-3"><span class="avatar size-10 bg-gradient-to-br text-sm ${tone(n.who)}">${initials(n.who)}</span>
-      <p class="min-w-0 flex-1 text-sm leading-snug ${n.read ? "" : "font-semibold"}">${esc(n.text)}</p>
-      <button type="button" data-act="open-notif" data-id="${n.id}" class="btn h-fit bg-navy px-2.5 py-1 text-xs text-white">${ico("link", "size-3")}Buka</button></div>
+  list.innerHTML = items.length ? items.map((n) => `<li class="rounded-2xl bg-canvas border border-navy/5 p-3">
+    <div class="flex items-start gap-3">
+      <span class="avatar size-10 shrink-0 bg-gradient-to-br text-sm ${tone(n.who)}">${initials(n.who)}</span>
+      <p class="min-w-0 flex-1 text-sm leading-snug break-words ${n.read ? "" : "font-semibold"}">${esc(n.text)}</p>
+      <button type="button" data-act="open-notif" data-id="${n.id}" class="btn shrink-0 h-fit bg-navy px-2.5 py-1 text-xs text-white">${ico("link", "size-3")}Buka</button>
+    </div>
     <p class="mt-2 flex items-center justify-between text-xs text-muted"><span class="flex items-center gap-1.5">${n.read ? "" : '<span class="size-2 rounded-full bg-primary"></span>'}${n.label}</span><span>${ago(n.ts)}</span></p></li>`).join("")
-    : '<li class="rounded-2xl bg-surface p-4 text-center text-sm text-muted">Belum ada notifikasi di tab ini.</li>';
+    : '<li class="rounded-2xl bg-canvas p-4 text-center text-sm text-muted">Belum ada notifikasi di tab ini.</li>';
 }
 
 function renderAll() {
+  if (!$("[data-members]")) return;
   renderMembers(); renderSpend(); renderImpact(); renderStats(); renderReminder();
   renderUpgrade(); renderCalendar(); renderVideos(); renderNotifs();
 }
@@ -356,15 +366,60 @@ document.addEventListener("click", (e) => {
   A[el.dataset.act]?.(el.dataset.id ? Number(el.dataset.id) : el.dataset.v);
 });
 
+/* ---------- landing page calculator ---------- */
+function initLandingCalc() {
+  const input = $("[data-calc-income]");
+  if (!input) return;
+
+  const update = (val) => {
+    const raw = Math.max(0, Number(val) || 0);
+    const needs = Math.round(raw * 0.5);
+    const wants = Math.round(raw * 0.3);
+    const savings = Math.round(raw * 0.2);
+
+    const f = (n) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
+
+    const elNeeds = $("[data-calc-needs]");
+    const elWants = $("[data-calc-wants]");
+    const elSavings = $("[data-calc-savings]");
+
+    if (elNeeds) elNeeds.textContent = f(needs);
+    if (elWants) elWants.textContent = f(wants);
+    if (elSavings) elSavings.textContent = f(savings);
+  };
+
+  input.addEventListener("input", (e) => {
+    update(e.target.value);
+  });
+
+  $$("[data-set-income]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      input.value = btn.dataset.setIncome;
+      update(btn.dataset.setIncome);
+      $$("[data-set-income]").forEach((b) => {
+        b.classList.remove("bg-navy", "text-white");
+        b.classList.add("bg-surface", "text-navy");
+      });
+      btn.classList.remove("bg-surface", "text-navy");
+      btn.classList.add("bg-navy", "text-white");
+    });
+  });
+
+  update(input.value || 5000000);
+}
+
 /* ---------- init ---------- */
 const here = location.pathname.replace(/index\.html$/, "");
 $$("nav a.nav-link").forEach((a) => {
   if (a.pathname.replace(/index\.html$/, "") === here) a.setAttribute("aria-current", "page");
 });
 renderAll();
+initLandingCalc();
 blurText($("h1"));
 intro();
-setInterval(renderNotifs, 6e4);
+if ($("[data-notif-list]")) {
+  setInterval(renderNotifs, 6e4);
+}
 
 // Spotlight Card: the glow follows the cursor inside any .card
 document.addEventListener("pointermove", (e) => {

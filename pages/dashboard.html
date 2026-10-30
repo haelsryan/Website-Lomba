@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard – Dompet Cerdas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="/src/js/main.js"></script>
+  </head>
+  <body class="bg-canvas p-3 font-sans text-navy antialiased lg:p-4">
+
+    <!-- SVG icon sprite -->
+    <svg class="hidden" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <symbol id="i-wallet" viewBox="0 0 24 24">
+          <rect x="2" y="6" width="20" height="14" rx="2" />
+          <path d="M2 10h20" />
+          <path d="M16 14h2" />
+        </symbol>
+        <symbol id="i-home" viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <path d="M9 22V12h6v10" />
+        </symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24">
+          <path d="M18 20V10M12 20V4M6 20v-6" />
+        </symbol>
+        <symbol id="i-calc" viewBox="0 0 24 24">
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <path d="M8 6h8M8 10h8M8 14h2M8 18h2M14 14h2M14 18h2" />
+        </symbol>
+        <symbol id="i-book" viewBox="0 0 24 24">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+        </symbol>
+        <symbol id="i-gear" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </symbol>
+        <symbol id="i-help" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+          <circle cx="12" cy="17" r=".5" fill="currentColor" />
+        </symbol>
+        <symbol id="i-logout" viewBox="0 0 24 24">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </symbol>
+        <symbol id="i-chevron-l" viewBox="0 0 24 24">
+          <polyline points="15 18 9 12 15 6" />
+        </symbol>
+        <symbol id="i-chevron-r" viewBox="0 0 24 24">
+          <polyline points="9 18 15 12 9 6" />
+        </symbol>
+        <symbol id="i-bell" viewBox="0 0 24 24">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+        </symbol>
+        <symbol id="i-bell-off" viewBox="0 0 24 24">
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          <path d="M17.63 17.63A9 9 0 0 1 18 15c0-7-3-9-3-9a6 6 0 0 0-9.56-4.44" />
+          <path d="M5.52 5.52A9 9 0 0 0 6 8c0 4.67-1.6 7.17-2.63 8.3" />
+          <line x1="1" y1="1" x2="23" y2="23" />
+        </symbol>
+        <symbol id="i-receipt" viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12" />
+        </symbol>
+        <symbol id="i-trash" viewBox="0 0 24 24">
+          <polyline points="3 6 5 6 21 6" />
+          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+          <path d="M10 11v6M14 11v6M9 6V4h6v2" />
+        </symbol>
+        <symbol id="i-x" viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </symbol>
+        <symbol id="i-link" viewBox="0 0 24 24">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          <polyline points="15 3 21 3 21 9" />
+          <line x1="10" y1="14" x2="21" y2="3" />
+        </symbol>
+        <symbol id="i-cal" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </symbol>
+        <symbol id="i-eye" viewBox="0 0 24 24">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+          <circle cx="12" cy="12" r="3" />
+        </symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </symbol>
+        <symbol id="i-up" viewBox="0 0 24 24">
+          <line x1="12" y1="19" x2="12" y2="5" />
+          <polyline points="5 12 12 5 19 12" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <!-- Toast -->
+    <div
+      data-toast
+      role="status"
+      aria-live="polite"
+      class="fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white shadow-lg"
+    ></div>
+
+    <!-- Modal (native dialog for focus trap and Esc handling) -->
+    <dialog
+      data-modal
+      class="m-auto w-full max-w-md rounded-[1.75rem] p-0 shadow-2xl backdrop:bg-navy/40 backdrop:backdrop-blur-sm"
+    ></dialog>
+
+    <!-- Dashboard shell: outer panel fills the viewport -->
+    <div class="flex min-h-[calc(100dvh-1.5rem)] gap-4 rounded-[2.5rem] bg-[#edf2f9] p-4 lg:min-h-[calc(100dvh-2rem)]">
+
+      <!-- Sidebar pill -->
+      <aside
+        class="flex w-14 shrink-0 flex-col items-center gap-1 rounded-[2rem] bg-navy py-5"
+        aria-label="Navigasi"
+      >
+        <a
+          href="/"
+          class="mb-3 grid size-10 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-primary/80"
+          aria-label="Dompet Cerdas – beranda"
+        >
+          <svg class="icon" aria-hidden="true"><use href="#i-wallet" /></svg>
+        </a>
+
+        <nav aria-label="Halaman utama">
+          <ul class="flex flex-col gap-1" role="list">
+            <li>
+              <a href="/pages/dashboard.html" class="nav-link" aria-label="Dashboard">
+                <svg class="icon" aria-hidden="true"><use href="#i-home" /></svg>
+              </a>
+            </li>
+            <li>
+              <a href="/pages/finances.html" class="nav-link" aria-label="Keuangan">
+                <svg class="icon" aria-hidden="true"><use href="#i-chart" /></svg>
+              </a>
+            </li>
+            <li>
+              <a href="/pages/simulator.html" class="nav-link" aria-label="Simulator">
+                <svg class="icon" aria-hidden="true"><use href="#i-calc" /></svg>
+              </a>
+            </li>
+            <li>
+              <a href="/pages/learn.html" class="nav-link" aria-label="Belajar">
+                <svg class="icon" aria-hidden="true"><use href="#i-book" /></svg>
+              </a>
+            </li>
+            <li>
+              <a href="/pages/settings.html" class="nav-link" aria-label="Pengaturan">
+                <svg class="icon" aria-hidden="true"><use href="#i-gear" /></svg>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="flex-1" aria-hidden="true"></div>
+
+        <button type="button" data-act="help" class="nav-link" aria-label="Bantuan">
+          <svg class="icon" aria-hidden="true"><use href="#i-help" /></svg>
+        </button>
+        <button type="button" data-act="logout" class="nav-link" aria-label="Keluar">
+          <svg class="icon" aria-hidden="true"><use href="#i-logout" /></svg>
+        </button>
+      </aside>
+
+      <!-- Page content -->
+      <div class="flex min-w-0 flex-1 gap-4">
+
+        <!-- Main column -->
+        <main class="flex min-w-0 flex-1 flex-col gap-4">
+
+          <!-- Banner -->
+          <section class="relative overflow-hidden rounded-[1.75rem] bg-navy px-7 py-6">
+            <!-- Aurora: two soft blobs drift slowly — gives life to the dark panel without adding visual noise -->
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+              <div class="animate-drift absolute -left-24 -top-16 size-72 rounded-full bg-primary opacity-20 blur-3xl"></div>
+              <div class="animate-drift-slow absolute -bottom-12 right-10 size-52 rounded-full bg-blue-400 opacity-10 blur-2xl"></div>
+            </div>
+
+            <div class="relative flex items-center justify-between gap-6">
+              <div>
+                <p class="text-sm font-medium text-white/50">Selamat datang kembali</p>
+                <h1 class="mt-1 text-3xl font-medium tracking-tight text-white">Dompet Cerdas</h1>
+                <p class="mt-2 max-w-xs text-sm text-white/60">Pantau keuangan Anda dan ambil langkah kecil berikutnya hari ini</p>
+              </div>
+              <!-- .btn + data-act=add-member: this is the magnet target in main.js -->
+              <button
+                type="button"
+                data-act="add-member"
+                class="btn shrink-0 bg-primary-soft text-navy hover:bg-white"
+              >
+                <svg class="icon size-4" aria-hidden="true"><use href="#i-plus" /></svg>
+                Tambah anggota
+              </button>
+            </div>
+          </section>
+
+          <!-- Row 2: Anggota · Pengeluaran · Tabungan -->
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+
+            <!-- Anggota -->
+            <section class="card">
+              <header class="flex items-center justify-between">
+                <h2 class="text-sm font-semibold text-muted">Anggota dompet</h2>
+                <!-- icon-btn so the magnet in main.js only targets the banner's .btn -->
+                <button
+                  type="button"
+                  data-act="add-member"
+                  class="icon-btn size-8"
+                  aria-label="Tambah anggota"
+                >
+                  <svg class="icon size-4" aria-hidden="true"><use href="#i-plus" /></svg>
+                </button>
+              </header>
+              <!-- renderMembers() populates this list -->
+              <ul
+                data-members
+                class="mt-4 grid grid-cols-3 gap-x-2 gap-y-3"
+                role="list"
+                aria-label="Daftar anggota"
+              ></ul>
+            </section>
+
+            <!-- Pengeluaran -->
+            <section class="card">
+              <header class="flex items-center justify-between">
+                <h2 class="text-sm font-semibold text-muted">Pengeluaran</h2>
+                <div class="flex gap-1">
+                  <button
+                    type="button"
+                    data-act="week"
+                    data-v="-7"
+                    class="icon-btn size-8"
+                    aria-label="Minggu lalu"
+                  >
+                    <svg class="icon size-4" aria-hidden="true"><use href="#i-chevron-l" /></svg>
+                  </button>
+                  <button
+                    type="button"
+                    data-act="week"
+                    data-v="7"
+                    class="icon-btn size-8"
+                    aria-label="Minggu depan"
+                  >
+                    <svg class="icon size-4" aria-hidden="true"><use href="#i-chevron-r" /></svg>
+                  </button>
+                </div>
+              </header>
+              <!-- renderSpend() populates this div -->
+              <div data-spend></div>
+              <div class="mt-4 flex flex-col gap-2">
+                <button
+                  type="button"
+                  data-act="add-tx"
+                  class="btn w-full justify-center bg-primary-tint text-navy hover:bg-primary-soft"
+                >
+                  <svg class="icon size-4" aria-hidden="true"><use href="#i-plus" /></svg>
+                  Catat transaksi
+                </button>
+                <button
+                  type="button"
+                  data-act="history"
+                  class="text-center text-xs text-muted hover:text-navy"
+                >
+                  Lihat riwayat minggu ini
+                </button>
+              </div>
+            </section>
+
+            <!-- Tabungan 3 bulan -->
+            <section class="card">
+              <h2 class="text-sm font-semibold text-muted">Tabungan 3 bulan</h2>
+              <!-- renderImpact() fills this with 3 vertical bars -->
+              <div
+                data-impact
+                class="mt-5 flex h-32 items-end gap-2 px-1"
+                aria-label="Grafik tabungan tiga bulan terakhir"
+              ></div>
+            </section>
+          </div>
+
+          <!-- Row 3: Statistik · Pengingat + Premium -->
+          <div class="flex gap-4">
+
+            <!-- Statistik -->
+            <section class="card flex-1 p-6">
+              <header class="flex flex-wrap items-center justify-between gap-3">
+                <h2 class="text-xl font-medium">Statistik tagihan</h2>
+                <div class="flex gap-1" role="group" aria-label="Pilih rentang waktu">
+                  <button
+                    type="button"
+                    data-act="range"
+                    data-v="weekly"
+                    aria-pressed="true"
+                    class="btn bg-canvas px-3 py-1.5 text-xs text-navy transition aria-pressed:bg-navy aria-pressed:text-white"
+                  >
+                    Mingguan
+                  </button>
+                  <button
+                    type="button"
+                    data-act="range"
+                    data-v="monthly"
+                    aria-pressed="false"
+                    class="btn bg-canvas px-3 py-1.5 text-xs text-navy transition aria-pressed:bg-navy aria-pressed:text-white"
+                  >
+                    Bulanan
+                  </button>
+                </div>
+              </header>
+              <!-- renderStats() updates the four data-stat-* spans via countUp() -->
+              <div class="mt-5 grid grid-cols-3 gap-3">
+                <div class="rounded-2xl bg-canvas p-4">
+                  <p class="text-xs text-muted">Selesai periode ini</p>
+                  <p class="mt-2 text-4xl font-medium tracking-tight">
+                    <span data-stat-a>0</span><span class="text-lg text-muted"> / </span><span data-stat-b>0</span>
+                  </p>
+                </div>
+                <div class="rounded-2xl bg-canvas p-4">
+                  <p class="text-xs text-muted">Total lunas</p>
+                  <p class="mt-2 text-4xl font-medium tracking-tight" data-stat-done>0</p>
+                </div>
+                <div class="rounded-2xl bg-canvas p-4">
+                  <p class="text-xs text-muted">Belum</p>
+                  <p class="mt-2 text-4xl font-medium tracking-tight" data-stat-open>0</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Pengingat + Premium stacked in a 14rem column -->
+            <div class="flex w-56 shrink-0 flex-col gap-4">
+
+              <!-- Pengingat: navy background so renderReminder()'s text-white/* classes work -->
+              <section class="flex-1 rounded-[1.75rem] bg-navy p-5">
+                <h2 class="text-sm font-semibold text-white/50">Pengingat tagihan</h2>
+                <!-- renderReminder() populates this div -->
+                <div data-reminder class="mt-4"></div>
+              </section>
+
+              <!-- Premium: flex-col so the btn inside can use mt-auto to push to bottom -->
+              <section class="card flex flex-col p-5">
+                <!-- renderUpgrade() injects h2, p, and a btn with mt-auto -->
+                <div data-upgrade class="flex flex-1 flex-col"></div>
+              </section>
+            </div>
+          </div>
+
+        </main>
+
+        <!-- Right aside – visible at xl+ (22rem) -->
+        <aside
+          class="hidden w-[22rem] shrink-0 flex-col gap-4 xl:flex"
+          aria-label="Panel samping"
+        >
+
+          <!-- Calendar -->
+          <section class="card">
+            <header class="flex items-center justify-between">
+              <!-- renderCalendar() sets this label text -->
+              <h2 class="text-sm font-semibold text-muted" data-cal-title></h2>
+              <div class="flex gap-1">
+                <button
+                  type="button"
+                  data-act="week"
+                  data-v="-7"
+                  class="icon-btn size-8"
+                  aria-label="Minggu lalu"
+                >
+                  <svg class="icon size-4" aria-hidden="true"><use href="#i-chevron-l" /></svg>
+                </button>
+                <button
+                  type="button"
+                  data-act="week"
+                  data-v="7"
+                  class="icon-btn size-8"
+                  aria-label="Minggu depan"
+                >
+                  <svg class="icon size-4" aria-hidden="true"><use href="#i-chevron-r" /></svg>
+                </button>
+              </div>
+            </header>
+            <!-- renderCalendar() populates 7 day buttons -->
+            <ul
+              data-cal-days
+              class="mt-4 grid grid-cols-7 gap-1"
+              role="list"
+              aria-label="Hari dalam minggu ini"
+            ></ul>
+          </section>
+
+          <!-- Video edukasi -->
+          <section class="card overflow-hidden">
+            <h2 class="text-sm font-semibold text-muted">Video edukasi</h2>
+            <!-- renderVideos() fills this; each item is w-40 shrink-0 snap-start -->
+            <ul
+              data-videos
+              class="mt-4 flex snap-x gap-3 overflow-x-auto scroll-smooth pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              role="list"
+              aria-label="Video edukasi keuangan"
+            ></ul>
+          </section>
+
+          <!-- Notifikasi -->
+          <section class="card flex min-h-0 flex-col overflow-hidden">
+            <header class="flex shrink-0 items-center justify-between gap-2">
+              <h2 class="text-sm font-semibold text-muted">Notifikasi</h2>
+              <div class="flex items-center gap-1">
+                <!-- data-v="off" = mute is OFF = notifications are active -->
+                <button
+                  type="button"
+                  data-act="mute"
+                  data-v="off"
+                  aria-pressed="true"
+                  class="icon-btn size-8 transition aria-pressed:bg-primary-soft aria-pressed:text-primary"
+                  aria-label="Notifikasi aktif"
+                >
+                  <svg class="icon size-4" aria-hidden="true"><use href="#i-bell" /></svg>
+                </button>
+                <!-- data-v="on" = mute is ON = notifications are muted -->
+                <button
+                  type="button"
+                  data-act="mute"
+                  data-v="on"
+                  aria-pressed="false"
+                  class="icon-btn size-8 transition aria-pressed:bg-primary-soft aria-pressed:text-primary"
+                  aria-label="Matikan notifikasi"
+                >
+                  <svg class="icon size-4" aria-hidden="true"><use href="#i-bell-off" /></svg>
+                </button>
+              </div>
+            </header>
+
+            <!-- Tabs -->
+            <div class="mt-3 flex shrink-0 flex-wrap gap-1" role="tablist" aria-label="Filter notifikasi">
+              <button
+                type="button"
+                role="tab"
+                data-act="tab"
+                data-v="all"
+                aria-selected="true"
+                class="btn bg-canvas px-3 py-1.5 text-xs text-navy transition aria-selected:bg-navy aria-selected:text-white"
+              >
+                Semua
+              </button>
+              <button
+                type="button"
+                role="tab"
+                data-act="tab"
+                data-v="shared"
+                aria-selected="false"
+                class="btn bg-canvas px-3 py-1.5 text-xs text-navy transition aria-selected:bg-navy aria-selected:text-white"
+              >
+                Undangan
+              </button>
+              <button
+                type="button"
+                role="tab"
+                data-act="tab"
+                data-v="comment"
+                aria-selected="false"
+                class="btn bg-canvas px-3 py-1.5 text-xs text-navy transition aria-selected:bg-navy aria-selected:text-white"
+              >
+                Komentar
+              </button>
+              <button
+                type="button"
+                role="tab"
+                data-act="tab"
+                data-v="view"
+                aria-selected="false"
+                class="btn bg-canvas px-3 py-1.5 text-xs text-navy transition aria-selected:bg-navy aria-selected:text-white"
+              >
+                Dilihat
+              </button>
+            </div>
+
+            <!-- Scrollable list container strictly capped in height so it never blows out the dashboard layout -->
+            <div class="mt-3 min-h-0 overflow-y-auto overflow-x-hidden pr-1.5 max-h-64 [scrollbar-width:thin]">
+              <ul data-notif-list class="flex flex-col gap-2" role="list"></ul>
+              <p data-notif-muted class="hidden py-8 text-center text-sm text-muted">
+                Notifikasi dimatikan.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              data-act="read-all"
+              class="mt-3 shrink-0 self-end text-xs text-muted hover:text-navy"
+            >
+              Tandai semua dibaca
+            </button>
+          </section>
+
+        </aside>
+      </div>
+    </div>
+
+  </body>
+</html>
