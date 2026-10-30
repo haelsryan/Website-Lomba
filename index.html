@@ -10,19 +10,15 @@
     <script type="module" src="/src/js/main.js"></script>
   </head>
   <body class="min-h-screen bg-canvas p-3 font-sans text-navy antialiased sm:p-6">
-    <!-- Icon sprite -->
     <svg class="absolute size-0" aria-hidden="true">
       <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
       <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><circle cx="16.5" cy="14" r="1"/></symbol>
       <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
-      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></symbol>
       <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/><path d="M4 17a3 3 0 0 1 3-3h12"/></symbol>
-      <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
       <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h8M20 6h0M4 12h2M14 12h6M4 18h10M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
       <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7M12 17h.01"/></symbol>
       <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
       <symbol id="i-plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
-      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
       <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
       <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
       <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
@@ -32,250 +28,148 @@
       <symbol id="i-bell-off" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0M3 3l18 18"/></symbol>
       <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></symbol>
       <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
       <symbol id="i-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 12l-4-4-4 4M12 16V8"/></symbol>
       <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
       <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
     </svg>
 
     <div class="mx-auto flex max-w-[1440px] flex-col gap-5 rounded-[2.5rem] bg-[#edf2f9] p-4 sm:p-6 lg:flex-row">
-      <!-- Sidebar -->
       <aside class="lg:w-[4.5rem] lg:shrink-0">
         <nav aria-label="Navigasi utama" class="flex items-center gap-1 rounded-full bg-navy p-3 lg:sticky lg:top-6 lg:h-[calc(100vh-6rem)] lg:min-h-[34rem] lg:flex-col lg:gap-2 lg:py-5">
           <a href="/" aria-label="Dompet Cerdas" class="mr-2 grid size-10 place-items-center rounded-2xl bg-primary text-lg font-extrabold text-white lg:mb-4 lg:mr-0">D</a>
-          <a href="/" class="nav-link" aria-current="page" aria-label="Dasbor" title="Dasbor"><svg class="icon"><use href="#i-grid"/></svg></a>
-          <a href="#dompet" class="nav-link" aria-label="Dompet" title="Dompet"><svg class="icon"><use href="#i-wallet"/></svg></a>
-          <a href="#target" class="nav-link" aria-label="Target tabungan" title="Target tabungan"><svg class="icon"><use href="#i-target"/></svg></a>
-          <a href="#laporan" class="nav-link" aria-label="Laporan" title="Laporan"><svg class="icon"><use href="#i-chart"/></svg></a>
-          <a href="#belajar" class="nav-link" aria-label="Belajar" title="Belajar"><svg class="icon"><use href="#i-book"/></svg></a>
-          <a href="#pengaturan" class="nav-link" aria-label="Pengaturan" title="Pengaturan"><svg class="icon"><use href="#i-sliders"/></svg></a>
-          <a href="#bantuan" class="nav-link" aria-label="Bantuan" title="Bantuan"><svg class="icon"><use href="#i-help"/></svg></a>
-          <a href="#keluar" class="nav-link ml-auto lg:ml-0 lg:mt-auto" aria-label="Keluar" title="Keluar"><svg class="icon"><use href="#i-logout"/></svg></a>
+          <a href="/" class="nav-link" aria-label="Dasbor" title="Dasbor"><svg class="icon"><use href="#i-grid"/></svg></a>
+          <a href="/pages/finances.html" class="nav-link" aria-label="Keuangan" title="Keuangan"><svg class="icon"><use href="#i-wallet"/></svg></a>
+          <a href="/pages/simulator.html" class="nav-link" aria-label="Simulator" title="Simulator"><svg class="icon"><use href="#i-target"/></svg></a>
+          <a href="/pages/learn.html" class="nav-link" aria-label="Belajar" title="Belajar"><svg class="icon"><use href="#i-book"/></svg></a>
+          <a href="/pages/settings.html" class="nav-link" aria-label="Pengaturan" title="Pengaturan"><svg class="icon"><use href="#i-sliders"/></svg></a>
+          <button type="button" data-act="help" class="nav-link ml-auto lg:ml-0 lg:mt-auto" aria-label="Bantuan" title="Bantuan"><svg class="icon"><use href="#i-help"/></svg></button>
+          <button type="button" data-act="logout" class="nav-link" aria-label="Keluar" title="Keluar"><svg class="icon"><use href="#i-logout"/></svg></button>
         </nav>
       </aside>
 
       <main class="grid min-w-0 flex-1 content-start gap-5 xl:grid-cols-[minmax(0,1fr)_22rem]">
-        <!-- Left column -->
         <div class="grid content-start gap-5">
-          <!-- Banner -->
           <section class="relative overflow-hidden rounded-[1.75rem] bg-primary-soft p-7">
             <div class="relative z-10 max-w-md">
               <h1 class="text-3xl font-medium tracking-tight">Keuangan kuat dimulai dari langkah kecil</h1>
               <p class="mt-4 text-sm leading-relaxed text-navy/80">Tambahkan anggota keluarga atau tim usaha agar bisa mencatat dan memantau arus kas bersama.</p>
-              <button type="button" class="btn mt-5 bg-navy text-white hover:bg-navy/90"><svg class="icon size-4"><use href="#i-plus"/></svg>Tambah anggota</button>
+              <button type="button" data-act="add-member" class="btn mt-5 bg-navy text-white hover:bg-navy/90"><svg class="icon size-4"><use href="#i-plus"/></svg>Tambah anggota</button>
             </div>
             <div class="pointer-events-none absolute -right-6 -top-10 h-56 w-72" aria-hidden="true">
-              <div class="absolute right-4 top-2 size-48 rounded-full bg-gradient-to-br from-blue-300 via-primary to-indigo-500 opacity-90 blur-[2px]"></div>
-              <div class="absolute right-24 top-16 size-40 rounded-full bg-gradient-to-tr from-white/90 to-blue-200 opacity-80"></div>
-              <div class="absolute right-0 top-28 size-32 rounded-full bg-gradient-to-br from-sky-200 to-primary/70 opacity-80"></div>
+              <div class="absolute right-4 top-2 size-48 rounded-full bg-gradient-to-br from-blue-300 via-primary to-indigo-500 opacity-90 blur-[2px] animate-drift motion-reduce:animate-none"></div>
+              <div class="absolute right-24 top-16 size-40 rounded-full bg-gradient-to-tr from-white/90 to-blue-200 opacity-80 animate-drift-slow motion-reduce:animate-none"></div>
+              <div class="absolute right-0 top-28 size-32 rounded-full bg-gradient-to-br from-sky-200 to-primary/70 opacity-80 animate-drift motion-reduce:animate-none"></div>
             </div>
           </section>
 
           <div class="grid gap-5 md:grid-cols-[1.35fr_1.1fr_.8fr]">
-            <!-- Members -->
             <section class="card" aria-labelledby="members-title">
               <header class="flex items-center justify-between">
                 <h2 id="members-title" class="text-xl font-medium">Anggota</h2>
-                <button type="button" class="grid size-8 place-items-center rounded-full hover:bg-primary-tint" aria-label="Tambah anggota"><svg class="icon size-[1.125rem]"><use href="#i-plus"/></svg></button>
+                <button type="button" data-act="add-member" class="grid size-8 place-items-center rounded-full hover:bg-primary-tint" aria-label="Tambah anggota"><svg class="icon size-[1.125rem]"><use href="#i-plus"/></svg></button>
               </header>
-              <ul class="mt-4 grid h-44 grid-cols-3 gap-x-2 gap-y-3 overflow-y-auto pr-1">
-                <li class="text-center"><span class="avatar mx-auto size-16 from-sky-300 to-blue-500 text-lg">SW</span><p class="mt-1.5 text-xs font-semibold leading-tight">Sari<br />Wulandari</p></li>
-                <li class="text-center"><span class="avatar mx-auto size-16 from-amber-300 to-orange-500 text-lg">RP</span><p class="mt-1.5 text-xs font-semibold leading-tight">Raka<br />Pratama</p></li>
-                <li class="text-center"><span class="avatar mx-auto size-16 from-slate-400 to-slate-700 text-lg">DS</span><p class="mt-1.5 text-xs font-semibold leading-tight">Dimas<br />Saputra</p></li>
-                <li class="text-center"><span class="avatar mx-auto size-16 from-teal-300 to-emerald-600 text-lg">MP</span><p class="mt-1.5 text-xs font-semibold leading-tight">Maya<br />Putri</p></li>
-                <li class="text-center"><span class="avatar mx-auto size-16 from-indigo-300 to-violet-600 text-lg">AN</span><p class="mt-1.5 text-xs font-semibold leading-tight">Andini<br />Nur</p></li>
-                <li class="text-center"><span class="avatar mx-auto size-16 from-rose-300 to-pink-600 text-lg">BH</span><p class="mt-1.5 text-xs font-semibold leading-tight">Bagas<br />Hidayat</p></li>
-              </ul>
+              <ul data-members class="mt-4 grid h-44 grid-cols-3 content-start gap-x-2 gap-y-3 overflow-y-auto pr-1"></ul>
             </section>
 
-            <!-- Spending data -->
             <section class="card" aria-labelledby="data-title">
-              <header class="flex items-center justify-between text-sm text-muted">
-                <h2 id="data-title">Pengeluaran</h2>
-                <a href="#laporan" aria-label="Lihat laporan pengeluaran" class="text-navy"><svg class="icon size-4"><use href="#i-arrow"/></svg></a>
+              <header class="flex items-center justify-between">
+                <h2 id="data-title" class="text-sm text-muted">Pengeluaran</h2>
+                <div class="flex gap-1">
+                  <button type="button" data-act="add-tx" class="grid size-8 place-items-center rounded-full hover:bg-primary-tint" aria-label="Catat transaksi"><svg class="icon size-[1.125rem]"><use href="#i-plus"/></svg></button>
+                  <button type="button" data-act="history" class="grid size-8 place-items-center rounded-full hover:bg-primary-tint" aria-label="Lihat transaksi minggu ini"><svg class="icon size-[1.125rem]"><use href="#i-receipt"/></svg></button>
+                </div>
               </header>
-              <p class="mt-4 text-4xl font-medium tracking-tight">Rp4,2jt</p>
-              <div class="mt-5 flex gap-1 text-[0.6875rem] text-muted">
-                <div class="flex-[3] border-l border-slate-300 pl-1.5">Rp2,6jt</div>
-                <div class="flex-[2] border-l border-slate-300 pl-1.5">Rp1jt</div>
-                <div class="flex-1 border-l border-slate-300 pl-1.5">Rp0,6jt</div>
-              </div>
-              <div class="mt-1 flex gap-1" role="img" aria-label="Kebutuhan 62 persen, tabungan 24 persen, hiburan 14 persen">
-                <span class="h-2.5 flex-[3] rounded-full bg-navy"></span>
-                <span class="h-2.5 flex-[2] rounded-full bg-primary-soft"></span>
-                <span class="h-2.5 flex-1 rounded-full bg-primary-tint"></span>
-              </div>
-              <ul class="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted">
-                <li class="flex items-center gap-1"><span class="size-1.5 rounded-full bg-navy"></span>+50%</li>
-                <li class="flex items-center gap-1"><span class="size-1.5 rounded-full bg-primary-soft"></span>+33%</li>
-                <li class="flex items-center gap-1"><span class="size-1.5 rounded-full bg-primary-soft"></span>+17%</li>
-              </ul>
+              <div data-spend></div>
             </section>
 
-            <!-- Impact -->
             <section class="card flex flex-col" aria-labelledby="impact-title">
-              <h2 id="impact-title" class="text-sm text-muted">Dana darurat</h2>
-              <div class="mt-3 flex flex-1 items-end gap-2" role="img" aria-label="Dana darurat naik 56 persen">
-                <span class="h-20 flex-1 rounded-xl bg-primary-tint"></span>
-                <span class="relative h-36 flex-1 rounded-xl bg-primary-soft">
-                  <span class="absolute -top-7 left-1/2 -translate-x-1/2 rounded-full bg-navy px-2 py-0.5 text-[0.6875rem] font-semibold text-white">+56%</span>
-                </span>
-                <span class="h-28 flex-1 rounded-xl bg-primary-tint"></span>
-              </div>
+              <h2 id="impact-title" class="text-sm text-muted">Tabungan 3 bulan</h2>
+              <div data-impact class="mt-4 flex min-h-40 flex-1 items-end gap-2"></div>
             </section>
           </div>
 
           <div class="grid gap-5 md:grid-cols-[1.2fr_1fr]">
-            <!-- Statistics -->
             <section class="card p-6" aria-labelledby="stats-title">
               <header class="flex items-center justify-between">
                 <h2 id="stats-title" class="text-xl font-medium">Statistik</h2>
                 <div class="flex rounded-full bg-canvas p-0.5 text-xs" role="group" aria-label="Rentang waktu">
-                  <button type="button" data-range="weekly" aria-pressed="true" class="rounded-full px-2.5 py-1 aria-pressed:bg-navy aria-pressed:text-white">Mingguan</button>
-                  <button type="button" data-range="monthly" aria-pressed="false" class="rounded-full px-2.5 py-1 aria-pressed:bg-navy aria-pressed:text-white">Bulanan</button>
+                  <button type="button" data-act="range" data-v="weekly" aria-pressed="true" class="rounded-full px-2.5 py-1 aria-pressed:bg-navy aria-pressed:text-white">Mingguan</button>
+                  <button type="button" data-act="range" data-v="monthly" aria-pressed="false" class="rounded-full px-2.5 py-1 aria-pressed:bg-navy aria-pressed:text-white">Bulanan</button>
                 </div>
               </header>
               <p class="mt-6 flex items-baseline gap-3">
-                <span data-stat-a class="text-5xl font-medium tracking-tight">12</span>
+                <span data-stat-a class="text-5xl font-medium tracking-tight">0</span>
                 <span class="h-9 w-px self-center bg-navy/30"></span>
-                <span data-stat-b class="text-5xl font-medium tracking-tight">15</span>
-                <span class="text-sm text-muted">transaksi tercatat</span>
+                <span data-stat-b class="text-5xl font-medium tracking-tight">0</span>
+                <span class="text-sm text-muted">tagihan lunas</span>
               </p>
               <div class="mt-6 grid grid-cols-2 gap-3 text-center">
                 <div class="rounded-2xl bg-canvas px-3 py-6">
-                  <svg class="icon mx-auto size-10 text-navy stroke-1"><use href="#i-receipt"/></svg>
-                  <p class="mt-3 text-2xl font-medium">23</p>
+                  <svg class="icon mx-auto size-10 stroke-1"><use href="#i-receipt"/></svg>
+                  <p data-stat-done class="mt-3 text-2xl font-medium">0</p>
                   <p class="text-sm text-muted">Tagihan lunas</p>
                 </div>
                 <div class="rounded-2xl bg-canvas px-3 py-6">
-                  <svg class="icon mx-auto size-10 text-primary stroke-1"><use href="#i-clock"/></svg>
-                  <p class="mt-3 text-2xl font-medium">16</p>
+                  <svg class="icon mx-auto size-10 stroke-1 text-primary"><use href="#i-clock"/></svg>
+                  <p data-stat-open class="mt-3 text-2xl font-medium">0</p>
                   <p class="text-sm text-muted">Tagihan berjalan</p>
                 </div>
               </div>
             </section>
 
             <div class="grid content-start gap-5">
-              <!-- Reminder -->
-              <section class="rounded-[1.75rem] bg-navy p-5" aria-label="Pengingat">
-                <div data-reminder>
-                  <div class="flex items-center gap-3 rounded-full bg-surface p-2.5 pr-3">
-                    <span class="grid size-10 place-items-center rounded-full bg-primary-soft text-primary"><svg class="icon"><use href="#i-receipt"/></svg></span>
-                    <div class="min-w-0 flex-1">
-                      <p class="truncate text-sm font-semibold">Bayar listrik rumah</p>
-                      <p class="text-xs text-muted">12.45 WIB</p>
-                    </div>
-                    <button type="button" data-dismiss-reminder class="icon-btn size-8 border border-navy/20" aria-label="Tutup pengingat"><svg class="icon size-4"><use href="#i-x"/></svg></button>
-                  </div>
-                  <div class="mx-4 -mt-3 h-6 rounded-b-3xl bg-white/50"></div>
-                  <div class="mx-8 -mt-3 h-6 rounded-b-3xl bg-white/25"></div>
-                </div>
-                <p data-reminder-empty class="hidden py-8 text-center text-sm text-white/80">Semua pengingat selesai. Kerja bagus!</p>
-              </section>
-
-              <!-- Upgrade -->
-              <section class="card flex gap-4 p-3 pr-5" aria-labelledby="upgrade-title">
+              <section data-reminder class="rounded-[1.75rem] bg-navy p-5" aria-label="Pengingat tagihan"></section>
+              <section class="card flex gap-4 p-3 pr-5" aria-label="Paket">
                 <div class="relative hidden w-[38%] shrink-0 overflow-hidden rounded-3xl bg-gradient-to-b from-primary-tint to-primary-soft sm:block" aria-hidden="true">
                   <svg viewBox="0 0 100 160" class="absolute inset-0 size-full"><path d="M20 20c50-10 60 15 10 28S-5 80 45 88s55 28 10 42" fill="none" stroke="#2563eb" stroke-opacity=".55" stroke-width="16" stroke-linecap="round"/></svg>
                 </div>
-                <div class="flex flex-1 flex-col py-2">
-                  <h2 id="upgrade-title" class="text-xl font-medium leading-snug">Naik level ke Premium</h2>
-                  <p class="mt-2 text-sm text-muted">Buka laporan arus kas lengkap dan analisis untuk usaha Anda.</p>
-                  <button type="button" class="btn mt-auto self-start bg-primary-soft text-navy hover:bg-primary hover:text-white"><svg class="icon size-4"><use href="#i-up"/></svg>Upgrade paket</button>
-                </div>
+                <div data-upgrade class="flex flex-1 flex-col py-2"></div>
               </section>
             </div>
           </div>
         </div>
 
-        <!-- Right column -->
         <div class="grid content-start gap-6">
-          <!-- Calendar -->
           <section aria-labelledby="cal-title">
             <header class="flex items-center justify-between">
               <h2 id="cal-title" data-cal-title class="text-3xl font-medium capitalize tracking-tight"></h2>
               <div class="flex gap-2">
-                <button type="button" data-cal-prev class="icon-btn" aria-label="Minggu sebelumnya"><svg class="icon size-4"><use href="#i-left"/></svg></button>
-                <button type="button" data-cal-next class="icon-btn" aria-label="Minggu berikutnya"><svg class="icon size-4"><use href="#i-right"/></svg></button>
+                <button type="button" data-act="week" data-v="-7" class="icon-btn" aria-label="Minggu sebelumnya"><svg class="icon size-4"><use href="#i-left"/></svg></button>
+                <button type="button" data-act="week" data-v="7" class="icon-btn" aria-label="Minggu berikutnya"><svg class="icon size-4"><use href="#i-right"/></svg></button>
               </div>
             </header>
-            <ol data-cal-days class="mt-5 grid grid-cols-6 gap-1 text-center"></ol>
+            <ol data-cal-days class="mt-5 grid grid-cols-7 gap-1 text-center"></ol>
           </section>
 
-          <!-- Videos -->
           <section aria-labelledby="videos-title">
-            <header class="flex items-center justify-between">
-              <h2 id="videos-title" class="text-xl font-medium">Video edukasi</h2>
-              <a href="#belajar" aria-label="Lihat semua video" class="grid size-8 place-items-center rounded-full hover:bg-white"><svg class="icon size-[1.125rem]"><use href="#i-plus"/></svg></a>
-            </header>
-            <ul class="-mr-6 mt-3 flex snap-x gap-3 overflow-x-auto pb-1 pr-6">
-              <li class="w-40 shrink-0 snap-start rounded-3xl bg-surface p-2">
-                <div class="relative h-24 rounded-2xl bg-gradient-to-br from-blue-200 via-primary-soft to-indigo-300">
-                  <span class="absolute bottom-2 right-2 rounded-full bg-navy/80 px-2 py-0.5 text-xs font-semibold text-white">4 mnt</span>
-                </div>
-                <h3 class="mt-2 text-xs font-semibold leading-snug">Menyusun anggaran bulanan dengan aturan 50/30/20</h3>
-                <p class="mt-3 flex items-center gap-2 text-xs text-muted"><svg class="icon size-3.5"><use href="#i-cal"/></svg>28 Okt<svg class="icon size-3.5"><use href="#i-eye"/></svg>3<svg class="icon size-3.5"><use href="#i-chat"/></svg>15</p>
-              </li>
-              <li class="w-40 shrink-0 snap-start rounded-3xl bg-surface p-2">
-                <div class="relative h-24 rounded-2xl bg-gradient-to-br from-sky-200 via-white to-blue-300">
-                  <span class="absolute bottom-2 right-2 rounded-full bg-navy/80 px-2 py-0.5 text-xs font-semibold text-white">8 mnt</span>
-                </div>
-                <h3 class="mt-2 text-xs font-semibold leading-snug">Mengenal OJK dan cara cek pinjol legal</h3>
-                <p class="mt-3 flex items-center gap-2 text-xs text-muted"><svg class="icon size-3.5"><use href="#i-cal"/></svg>20 Okt<svg class="icon size-3.5"><use href="#i-eye"/></svg>5<svg class="icon size-3.5"><use href="#i-chat"/></svg>12</p>
-              </li>
-              <li class="w-40 shrink-0 snap-start rounded-3xl bg-surface p-2">
-                <div class="relative h-24 rounded-2xl bg-gradient-to-br from-slate-200 via-primary-tint to-slate-300">
-                  <span class="absolute bottom-2 right-2 rounded-full bg-navy/80 px-2 py-0.5 text-xs font-semibold text-white">6 mnt</span>
-                </div>
-                <h3 class="mt-2 text-xs font-semibold leading-snug">Pisahkan uang pribadi dan uang usaha</h3>
-                <p class="mt-3 flex items-center gap-2 text-xs text-muted"><svg class="icon size-3.5"><use href="#i-cal"/></svg>12 Okt<svg class="icon size-3.5"><use href="#i-eye"/></svg>9<svg class="icon size-3.5"><use href="#i-chat"/></svg>4</p>
-              </li>
-            </ul>
+            <h2 id="videos-title" class="text-xl font-medium">Video edukasi</h2>
+            <ul data-videos class="-mr-6 mt-3 flex snap-x gap-3 overflow-x-auto pb-1 pr-6"></ul>
           </section>
 
-          <!-- Notifications -->
           <section aria-labelledby="notif-title">
             <header class="flex items-center justify-between">
               <h2 id="notif-title" class="text-xl font-medium">Notifikasi</h2>
               <div class="flex rounded-full bg-surface p-1" role="group" aria-label="Pengaturan notifikasi">
-                <button type="button" data-notif-mute="off" aria-pressed="true" aria-label="Nyalakan notifikasi" class="grid size-7 place-items-center rounded-full aria-pressed:bg-navy aria-pressed:text-white"><svg class="icon size-4"><use href="#i-bell"/></svg></button>
-                <button type="button" data-notif-mute="on" aria-pressed="false" aria-label="Matikan notifikasi" class="grid size-7 place-items-center rounded-full aria-pressed:bg-navy aria-pressed:text-white"><svg class="icon size-4"><use href="#i-bell-off"/></svg></button>
+                <button type="button" data-act="mute" data-v="off" aria-pressed="true" aria-label="Nyalakan notifikasi" class="grid size-7 place-items-center rounded-full aria-pressed:bg-navy aria-pressed:text-white"><svg class="icon size-4"><use href="#i-bell"/></svg></button>
+                <button type="button" data-act="mute" data-v="on" aria-pressed="false" aria-label="Matikan notifikasi" class="grid size-7 place-items-center rounded-full aria-pressed:bg-navy aria-pressed:text-white"><svg class="icon size-4"><use href="#i-bell-off"/></svg></button>
               </div>
             </header>
             <div role="tablist" aria-label="Jenis notifikasi" class="mt-3 flex gap-4 border-b border-slate-300/70 text-sm text-muted">
-              <button type="button" role="tab" data-tab="all" aria-selected="true" class="-mb-px border-b-2 border-transparent pb-2 aria-selected:border-primary aria-selected:font-semibold aria-selected:text-navy">Ringkasan</button>
-              <button type="button" role="tab" data-tab="shared" aria-selected="false" class="-mb-px border-b-2 border-transparent pb-2 aria-selected:border-primary aria-selected:font-semibold aria-selected:text-navy">Dibagikan</button>
-              <button type="button" role="tab" data-tab="comment" aria-selected="false" class="-mb-px border-b-2 border-transparent pb-2 aria-selected:border-primary aria-selected:font-semibold aria-selected:text-navy">Komentar</button>
+              <button type="button" role="tab" data-act="tab" data-v="all" aria-selected="true" class="-mb-px border-b-2 border-transparent pb-2 aria-selected:border-primary aria-selected:font-semibold aria-selected:text-navy">Ringkasan</button>
+              <button type="button" role="tab" data-act="tab" data-v="shared" aria-selected="false" class="-mb-px border-b-2 border-transparent pb-2 aria-selected:border-primary aria-selected:font-semibold aria-selected:text-navy">Dibagikan</button>
+              <button type="button" role="tab" data-act="tab" data-v="comment" aria-selected="false" class="-mb-px border-b-2 border-transparent pb-2 aria-selected:border-primary aria-selected:font-semibold aria-selected:text-navy">Komentar</button>
             </div>
-            <ul data-notif-list class="mt-4 grid gap-3">
-              <li data-type="shared" class="rounded-2xl bg-surface p-3">
-                <div class="flex gap-3">
-                  <span class="avatar size-10 from-rose-300 to-orange-400 text-sm">DL</span>
-                  <p class="min-w-0 flex-1 text-sm font-semibold leading-snug">Dewi Lestari mengundang Anda ke webinar “Dana Darurat untuk UMKM”</p>
-                  <a href="#webinar" class="btn h-fit bg-navy px-2.5 py-1 text-xs text-white"><svg class="icon size-3"><use href="#i-link"/></svg>Buka</a>
-                </div>
-                <p class="mt-2 flex justify-between text-xs text-muted"><span>Undangan</span><span>30 menit lalu</span></p>
-              </li>
-              <li data-type="comment" class="rounded-2xl bg-surface p-3">
-                <div class="flex gap-3">
-                  <span class="avatar size-10 from-amber-300 to-orange-500 text-sm">RP</span>
-                  <p class="min-w-0 flex-1 text-sm font-semibold leading-snug">Raka Pratama berkomentar di target Anda: “Laptop Kuliah”</p>
-                  <a href="#target" class="btn h-fit bg-navy px-2.5 py-1 text-xs text-white"><svg class="icon size-3"><use href="#i-link"/></svg>Buka</a>
-                </div>
-                <p class="mt-2 flex justify-between text-xs text-muted"><span>Komentar</span><span>1 jam lalu</span></p>
-              </li>
-              <li data-type="view" class="rounded-2xl bg-surface p-3">
-                <div class="flex gap-3">
-                  <span class="avatar size-10 from-teal-300 to-emerald-600 text-sm">MP</span>
-                  <p class="min-w-0 flex-1 text-sm font-semibold leading-snug">Maya Putri melihat laporan Anda: “Arus Kas Warung Kopi”</p>
-                  <a href="#laporan" class="btn h-fit bg-navy px-2.5 py-1 text-xs text-white"><svg class="icon size-3"><use href="#i-link"/></svg>Buka</a>
-                </div>
-                <p class="mt-2 flex justify-between text-xs text-muted"><span>Dilihat</span><span>1 hari lalu</span></p>
-              </li>
-            </ul>
+            <ul data-notif-list class="mt-4 grid gap-3"></ul>
             <p data-notif-muted class="mt-4 hidden rounded-2xl bg-surface p-4 text-center text-sm text-muted">Notifikasi dimatikan. Tekan ikon lonceng untuk menyalakannya lagi.</p>
+            <button type="button" data-act="read-all" class="mt-3 text-sm font-semibold text-primary hover:underline">Tandai semua dibaca</button>
           </section>
         </div>
       </main>
     </div>
+
+    <dialog data-modal class="m-auto w-[min(28rem,calc(100%-2rem))] rounded-[1.75rem] bg-surface p-0 text-navy shadow-xl backdrop:bg-navy/40 backdrop:backdrop-blur-sm open:animate-pop motion-reduce:animate-none"></dialog>
+    <p data-toast role="status" class="fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 rounded-full bg-navy px-5 py-2.5 text-sm font-medium text-white shadow-lg"></p>
   </body>
 </html>
