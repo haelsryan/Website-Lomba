@@ -1,16 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #2563EB;
-  --color-primary-dark: #172B4D;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #2563eb;
+  --color-primary-soft: #dbe7fe;
+  --color-primary-tint: #eef4ff;
+  --color-navy: #172b4d;
+  --color-canvas: #f7f9fc;
+  --color-surface: #ffffff;
+  --color-muted: #64748b;
+}
 
-  --color-background: #F7F9FC;
-  --color-surface: #FFFFFF;
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
 
-  --color-text-primary: #172B4D;
-  --color-text-secondary: #64748B;
-
-  --color-border: #E2E8F0;
-
-  --font-sans: "Inter", sans-serif;
+@layer components {
+  .icon {
+    @apply size-5 shrink-0 fill-none stroke-current stroke-[1.75];
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .card {
+    @apply rounded-[1.75rem] bg-surface p-5;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition;
+  }
+  .icon-btn {
+    @apply grid size-10 place-items-center rounded-full bg-surface text-navy transition hover:bg-primary-soft;
+  }
+  .nav-link {
+    @apply grid size-11 place-items-center rounded-full text-white/70 transition hover:bg-white/10 hover:text-white aria-[current=page]:bg-primary-soft aria-[current=page]:text-navy;
+  }
+  .avatar {
+    @apply grid shrink-0 place-items-center rounded-full bg-gradient-to-br font-bold text-white;
+  }
 }
