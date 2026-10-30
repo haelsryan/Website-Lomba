@@ -68,6 +68,7 @@ function intro() {
   pop("main section", { opacity: 0, transform: "translateY(16px) scale(.97)" }, (i) => ({ delay: 100 + i * 70 }));
   pop("[data-members] .avatar", { transform: "scale(0)" }, (i) => ({ delay: 500 + i * 70, easing: "cubic-bezier(.34,1.56,.64,1)" }));
   pop("[data-notif-list] > li", { opacity: 0, transform: "translateX(24px)" }, (i) => ({ delay: 600 + i * 90 }));
+  pop("[data-fin-list] li", { opacity: 0, transform: "translateY(8px)" }, (i) => ({ delay: 150 + i * 40 }));
 }
 
 const CATS = { kebutuhan: ["Kebutuhan", "bg-navy"], tabungan: ["Tabungan", "bg-primary"], hiburan: ["Hiburan", "bg-primary-soft"] };
@@ -85,14 +86,18 @@ function seed() {
   return {
     premium: false, muted: false,
     members: ["Sari Wulandari", "Raka Pratama", "Dimas Saputra", "Maya Putri", "Andini Nur", "Bagas Hidayat"].map((name, i) => ({ id: i + 1, name })),
+    // type: "out" = uang keluar, "in" = uang masuk (setoran ke tabungan)
     tx: [
-      { id: 1, date: dkey(wk), cat: "kebutuhan", amount: 850000, note: "Belanja mingguan" },
-      { id: 2, date: dkey(addDays(wk, 1)), cat: "kebutuhan", amount: 450000, note: "Transport dan makan" },
-      { id: 3, date: dkey(addDays(wk, 2)), cat: "tabungan", amount: 600000, note: "Dana darurat" },
-      { id: 4, date: dkey(addDays(wk, 3)), cat: "hiburan", amount: 200000, note: "Nonton dan kopi" },
-      { id: 5, date: m(1), cat: "tabungan", amount: 900000, note: "Dana darurat" },
-      { id: 6, date: m(2), cat: "tabungan", amount: 500000, note: "Dana darurat" },
-      { id: 7, date: m(0), cat: "tabungan", amount: 400000, note: "Dana darurat" },
+      { id: 1, date: dkey(wk), cat: "kebutuhan", type: "out", amount: 850000, note: "Belanja mingguan" },
+      { id: 2, date: dkey(addDays(wk, 1)), cat: "kebutuhan", type: "out", amount: 450000, note: "Transport dan makan" },
+      { id: 3, date: dkey(addDays(wk, 2)), cat: "tabungan", type: "in", amount: 600000, note: "Setoran dana darurat" },
+      { id: 4, date: dkey(addDays(wk, 3)), cat: "hiburan", type: "out", amount: 200000, note: "Nonton dan kopi" },
+      { id: 5, date: m(1), cat: "tabungan", type: "in", amount: 900000, note: "Setoran dana darurat" },
+      { id: 6, date: m(2), cat: "tabungan", type: "in", amount: 500000, note: "Setoran dana darurat" },
+      { id: 7, date: m(0), cat: "tabungan", type: "in", amount: 400000, note: "Setoran dana darurat" },
+      { id: 8, date: m(0), cat: "kebutuhan", type: "out", amount: 350000, note: "Listrik dan air" },
+      { id: 9, date: m(0), cat: "kebutuhan", type: "out", amount: 1200000, note: "Belanja bulanan" },
+      { id: 10, date: m(0), cat: "hiburan", type: "out", amount: 150000, note: "Kopi bersama" },
     ],
     rem: [
       { id: 1, date: dkey(today), title: "Bayar listrik rumah", time: "12:45", done: false },
@@ -113,7 +118,7 @@ let S;
 try { S = JSON.parse(localStorage.getItem(KEY)); } catch { /* ignore */ }
 S ||= seed();
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { /* ignore */ } };
-const ui = { sel: new Date(today), week: startOfWeek(today), tab: "all", range: "weekly" };
+const ui = { sel: new Date(today), week: startOfWeek(today), tab: "all", range: "weekly", finMonthOffset: 0, finFilter: "all" };
 const seen = new Set();
 const commit = () => { save(); renderAll(); };
 const notify = (n) => {
@@ -160,14 +165,17 @@ function renderMembers() {
 }
 
 const weekTx = () => { const a = dkey(ui.week), b = dkey(addDays(ui.week, 6)); return S.tx.filter((t) => t.date >= a && t.date <= b); };
+// Renderers no-op when their hook is not on the current page (finances carries no dashboard widgets).
 function renderSpend() {
-  const tx = weekTx(), total = tx.reduce((s, t) => s + t.amount, 0);
+  const el = $("[data-spend]");
+  if (!el) return;
+  const tx = weekTx().filter((t) => t.type === "out"), total = tx.reduce((s, t) => s + t.amount, 0);
   const sums = Object.keys(CATS).map((k) => [k, tx.filter((t) => t.cat === k).reduce((s, t) => s + t.amount, 0)]);
   const sig = JSON.stringify([dkey(ui.week), sums]);
   if (sig === lastSig.spend) return;
   lastSig.spend = sig;
   const range = `${fmt(ui.week, { day: "numeric", month: "short" })} – ${fmt(addDays(ui.week, 6), { day: "numeric", month: "short" })}`;
-  $("[data-spend]").innerHTML = `<p data-spend-total class="mt-3 text-4xl font-medium tracking-tight">${idr(total)}</p>
+  el.innerHTML = `<p data-spend-total class="mt-3 text-4xl font-medium tracking-tight">${idr(total)}</p>
     <p class="mt-1 text-xs text-muted">${range}</p>
     <div class="mt-5 flex gap-1">${total ? sums.filter(([, v]) => v).map(([k, v]) => `<span data-grow class="h-2.5 rounded-full ${CATS[k][1]}" style="flex:${v}"></span>`).join("") : '<span class="h-2.5 flex-1 rounded-full bg-primary-tint"></span>'}</div>
     <ul class="mt-4 grid gap-1 text-xs text-muted">${sums.map(([k, v]) => `<li class="flex items-center gap-2"><span class="size-2 rounded-full ${CATS[k][1]}"></span>${CATS[k][0]}<span class="ml-auto font-semibold text-navy">${total ? Math.round((v / total) * 100) : 0}%</span></li>`).join("")}</ul>`;
@@ -178,14 +186,16 @@ function renderSpend() {
 function renderImpact() {
   const months = [2, 1, 0].map((k) => {
     const d = new Date(today.getFullYear(), today.getMonth() - k, 1), p = `${d.getFullYear()}-${pad(d.getMonth() + 1)}`;
-    return { label: fmt(d, { month: "short" }), v: S.tx.filter((x) => x.cat === "tabungan" && x.date.startsWith(p)).reduce((s, x) => s + x.amount, 0) };
+    return { label: fmt(d, { month: "short" }), v: S.tx.filter((x) => x.cat === "tabungan" && x.type === "in" && x.date.startsWith(p)).reduce((s, x) => s + x.amount, 0) };
   });
   const max = Math.max(...months.map((m) => m.v), 1), [, prev, cur] = months;
   const sig = JSON.stringify(months);
   if (sig === lastSig.impact) return;
   lastSig.impact = sig;
   const pct = prev.v ? Math.round(((cur.v - prev.v) / prev.v) * 100) : null;
-  $("[data-impact]").innerHTML = months.map((m, i) => `<div class="flex flex-1 flex-col items-center gap-1" title="${m.label}: ${idr(m.v)}">
+  const el = $("[data-impact]");
+  if (!el) return;
+  el.innerHTML = months.map((m, i) => `<div class="flex flex-1 flex-col items-center gap-1" title="${m.label}: ${idr(m.v)}">
     <span data-grow class="relative w-full rounded-xl ${i === 2 ? "bg-primary-soft" : "bg-primary-tint"}" style="height:${Math.max((m.v / max) * 6.5, 0.4)}rem">
       ${i === 2 && pct !== null ? `<span class="absolute -top-7 left-1/2 -translate-x-1/2 rounded-full bg-navy px-2 py-0.5 text-[0.6875rem] font-semibold text-white">${pct > 0 ? "+" : ""}${pct}%</span>` : ""}</span>
     <span class="text-xs text-muted">${m.label}</span></div>`).join("");
@@ -193,20 +203,24 @@ function renderImpact() {
 }
 
 function renderStats() {
+  const a0 = $("[data-stat-a]");
+  if (!a0) return;
   const wk = startOfWeek(today), weekly = ui.range === "weekly";
   const a = dkey(weekly ? wk : new Date(today.getFullYear(), today.getMonth(), 1));
   const b = dkey(weekly ? addDays(wk, 6) : new Date(today.getFullYear(), today.getMonth() + 1, 0));
   const r = S.rem.filter((x) => x.date >= a && x.date <= b);
-  countUp($("[data-stat-a]"), "a", r.filter((x) => x.done).length);
+  countUp(a0, "a", r.filter((x) => x.done).length);
   countUp($("[data-stat-b]"), "b", r.length);
   countUp($("[data-stat-done]"), "done", S.rem.filter((x) => x.done).length);
   countUp($("[data-stat-open]"), "open", S.rem.filter((x) => !x.done).length);
 }
 
 function renderReminder() {
+  const host = $("[data-reminder]");
+  if (!host) return;
   const k = dkey(ui.sel), label = fmt(ui.sel, { day: "numeric", month: "long" });
   const open = S.rem.filter((r) => r.date === k && !r.done).sort((a, b) => a.time.localeCompare(b.time)), r = open[0];
-  $("[data-reminder]").innerHTML = (r
+  host.innerHTML = (r
     ? `<div class="flex items-center gap-3 rounded-full bg-surface p-2.5 pr-3">
         <span class="grid size-10 shrink-0 place-items-center rounded-full bg-primary-soft text-primary">${ico("receipt")}</span>
         <div class="min-w-0 flex-1"><p class="truncate text-sm font-semibold">${esc(r.title)}</p><p class="text-xs text-muted">${r.time} WIB</p></div>
@@ -218,7 +232,9 @@ function renderReminder() {
 }
 
 function renderUpgrade() {
-  $("[data-upgrade]").innerHTML = S.premium
+  const host = $("[data-upgrade]");
+  if (!host) return;
+  host.innerHTML = S.premium
     ? `<h2 class="text-xl font-medium leading-snug">Premium aktif</h2><p class="mt-2 text-sm text-muted">Laporan arus kas lengkap sudah terbuka.</p>
        <button type="button" data-act="plan" class="btn mt-auto self-start bg-primary-soft text-navy hover:bg-primary hover:text-white">Kelola paket</button>`
     : `<h2 class="text-xl font-medium leading-snug">Naik level ke Premium</h2><p class="mt-2 text-sm text-muted">Buka laporan arus kas lengkap dan analisis untuk usaha Anda.</p>
@@ -226,8 +242,10 @@ function renderUpgrade() {
 }
 
 function renderCalendar() {
-  $("[data-cal-title]").textContent = fmt(addDays(ui.week, 3), { month: "long", year: "numeric" });
-  $("[data-cal-days]").innerHTML = Array.from({ length: 7 }, (_, i) => {
+  const title = $("[data-cal-title]"), days = $("[data-cal-days]");
+  if (!title || !days) return;
+  title.textContent = fmt(addDays(ui.week, 3), { month: "long", year: "numeric" });
+  days.innerHTML = Array.from({ length: 7 }, (_, i) => {
     const d = addDays(ui.week, i), k = dkey(d), on = k === dkey(ui.sel), has = S.rem.some((r) => r.date === k && !r.done);
     return `<li><button type="button" data-act="day" data-v="${d.getTime()}" aria-pressed="${on}" aria-label="${fmt(d, { weekday: "long", day: "numeric", month: "long" })}"
       class="group w-full rounded-2xl border border-transparent px-0.5 py-2 transition hover:bg-white aria-pressed:border-navy aria-pressed:bg-navy aria-pressed:text-white">
@@ -238,7 +256,9 @@ function renderCalendar() {
 }
 
 function renderVideos() {
-  $("[data-videos]").innerHTML = VIDEOS.map((v) => {
+  const host = $("[data-videos]");
+  if (!host) return;
+  host.innerHTML = VIDEOS.map((v) => {
     const s = S.vid[v.id];
     return `<li class="w-40 shrink-0 snap-start"><button type="button" data-act="video" data-id="${v.id}" class="block w-full rounded-3xl bg-surface p-2 text-left transition hover:shadow-md">
       <span class="relative block h-24 rounded-2xl bg-gradient-to-br ${v.bg}"><span class="absolute bottom-2 right-2 rounded-full bg-navy/80 px-2 py-0.5 text-xs font-semibold text-white">${v.dur}</span></span>
@@ -265,9 +285,112 @@ function renderNotifs() {
 }
 
 function renderAll() {
-  if (!$("[data-members]")) return;
-  renderMembers(); renderSpend(); renderImpact(); renderStats(); renderReminder();
-  renderUpgrade(); renderCalendar(); renderVideos(); renderNotifs();
+  // Each renderer targets its own data-hook, so a page renders only the widgets it carries.
+  $("[data-members]") && renderMembers();
+  $("[data-spend]") && renderSpend();
+  $("[data-impact]") && renderImpact();
+  $("[data-stat-a]") && renderStats();
+  $("[data-reminder]") && renderReminder();
+  $("[data-upgrade]") && renderUpgrade();
+  $("[data-cal-days]") && renderCalendar();
+  $("[data-videos]") && renderVideos();
+  $("[data-notif-list]") && renderNotifs();
+  $("[data-fin-list]") && renderFinances();
+}
+
+/* ---------- finances page renderers ---------- */
+const finMonth = () => { const d = new Date(today.getFullYear(), today.getMonth() + ui.finMonthOffset, 1); return d; };
+const monthTx = () => { const d = finMonth(), p = `${d.getFullYear()}-${pad(d.getMonth() + 1)}`; return S.tx.filter((t) => t.date.startsWith(p)); };
+
+function renderFinSummary() {
+  const tx = monthTx();
+  const tin = tx.filter((t) => t.type === "in").reduce((s, t) => s + t.amount, 0);
+  const tout = tx.filter((t) => t.type === "out").reduce((s, t) => s + t.amount, 0);
+  const d = finMonth();
+  const label = fmt(d, { month: "long", year: "numeric" });
+  $$("[data-fin-month-label]").forEach((el) => (el.textContent = label));
+  countUp($("[data-fin-in]"), "fin-in", tin, idr);
+  countUp($("[data-fin-out]"), "fin-out", tout, idr);
+  countUp($("[data-fin-saved]"), "fin-saved", tx.filter((t) => t.cat === "tabungan" && t.type === "in").reduce((s, t) => s + t.amount, 0), idr);
+  countUp($("[data-fin-net]"), "fin-net", tin - tout, idr);
+  // Data nyata hanya sampai bulan berjalan, jadi tombol bulan berikutnya dimatikan di sana.
+  const next = $('[data-act="fin-month"][data-v="1"]');
+  if (next) next.disabled = ui.finMonthOffset === 0;
+}
+
+function renderFinList() {
+  const wrap = $("[data-fin-list]"), empty = $("[data-fin-empty]"), emptyText = $("[data-fin-empty-text]");
+  const d = finMonth(), p = `${d.getFullYear()}-${pad(d.getMonth() + 1)}`;
+  let tx = S.tx.filter((t) => t.date.startsWith(p));
+  const f = ui.finFilter;
+  if (f === "in" || f === "out") tx = tx.filter((t) => t.type === f);
+  tx.sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+  $("[data-fin-count]").textContent = `${tx.length} transaksi tercatat`;
+  if (!tx.length) {
+    wrap.classList.add("hidden");
+    empty.classList.remove("hidden");
+    emptyText.textContent = f === "all"
+      ? `Belum ada catatan di ${fmt(d, { month: "long", year: "numeric" })}. Tekan Catat transaksi untuk memulai.`
+      : `Tidak ada transaksi ${f === "in" ? "pemasukan" : "pengeluaran"} di bulan ini. Coba filter Semua.`;
+    return;
+  }
+  empty.classList.add("hidden");
+  wrap.classList.remove("hidden");
+  const groups = new Map();
+  tx.forEach((t) => {
+    const k = t.date;
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(t);
+  });
+  wrap.innerHTML = [...groups.entries()].map(([k, list]) => `
+    <div>
+      <p class="text-xs font-semibold text-muted">${fmt(new Date(k + "T00:00:00"), { weekday: "long", day: "numeric", month: "short" })}</p>
+      <ul class="mt-2 grid gap-1.5" role="list">
+        ${list.map((t) => `
+          <li class="flex items-center gap-3 rounded-2xl bg-canvas p-3">
+            <span class="grid size-9 shrink-0 place-items-center rounded-xl ${t.type === "in" ? "bg-primary-soft text-primary" : "bg-navy text-white"}">
+              <svg class="icon size-4" aria-hidden="true"><use href="#i-${t.type === "in" ? "down" : "up"}" /></svg>
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block truncate text-sm font-semibold">${esc(t.note)}</span>
+              <span class="block text-xs text-muted">${CATS[t.cat][0]}</span>
+            </span>
+            <span class="shrink-0 text-sm font-semibold ${t.type === "in" ? "text-primary" : ""}">${t.type === "in" ? "+" : "−"}${idr(t.amount)}</span>
+            <button type="button" data-act="del-tx" data-id="${t.id}" class="icon-btn size-8 bg-surface" aria-label="Hapus ${esc(t.note)}">
+              <svg class="icon size-4" aria-hidden="true"><use href="#i-trash" /></svg>
+            </button>
+          </li>`).join("")}
+      </ul>
+    </div>`).join("");
+}
+
+function renderFinChart() {
+  const wrap = $("[data-fin-chart]");
+  const tx = monthTx().filter((t) => t.type === "out");
+  const total = tx.reduce((s, t) => s + t.amount, 0);
+  if (!total) {
+    wrap.innerHTML = `<p class="text-xs text-muted">Belum ada uang keluar bulan ini, jadi belum ada pos yang terbentuk.</p>`;
+    return;
+  }
+  wrap.innerHTML = Object.keys(CATS).map((k) => {
+    const v = tx.filter((t) => t.cat === k).reduce((s, t) => s + t.amount, 0);
+    const pct = Math.round((v / total) * 100);
+    return `<div>
+      <div class="flex items-baseline justify-between text-xs">
+        <span class="font-semibold">${CATS[k][0]}</span>
+        <span class="text-muted">${idr(v)} · ${pct}%</span>
+      </div>
+      <div class="mt-1.5 h-2.5 overflow-hidden rounded-full bg-canvas">
+        <div class="h-full rounded-full ${CATS[k][1]}" style="width:${pct}%"></div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderFinances() {
+  renderFinSummary();
+  renderFinList();
+  renderFinChart();
 }
 
 /* ---------- actions ---------- */
@@ -288,9 +411,10 @@ const A = {
     }, "Hapus");
   },
   "add-tx"() {
-    const sel = `<label class="grid gap-1 text-sm font-medium">Kategori<select name="cat" class="${INPUT}">${Object.entries(CATS).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("")}</select></label>`;
-    openModal("Catat transaksi", sel + field("Jumlah (Rp)", "amount", 'type="number" min="1000" step="1000" required inputmode="numeric"') + field("Catatan", "note", 'maxlength="60"') + field("Tanggal", "date", `type="date" required value="${dkey(ui.sel)}"`), (f) => {
-      S.tx.push({ id: Date.now(), date: f.date, cat: f.cat, amount: +f.amount, note: f.note.trim() || CATS[f.cat][0] });
+    const sel = `<label class="grid gap-1 text-sm font-medium">Jenis<select name="type" class="${INPUT}"><option value="out">Pengeluaran (uang keluar)</option><option value="in">Pemasukan (setoran tabungan)</option></select></label>`;
+    const cat = `<label class="grid gap-1 text-sm font-medium">Kategori<select name="cat" class="${INPUT}">${Object.entries(CATS).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("")}</select></label>`;
+    openModal("Catat transaksi", sel + cat + field("Jumlah (Rp)", "amount", 'type="number" min="1000" step="1000" required inputmode="numeric"') + field("Catatan", "note", 'maxlength="60"') + field("Tanggal", "date", `type="date" required value="${dkey(ui.sel)}"`), (f) => {
+      S.tx.push({ id: Date.now(), date: f.date, cat: f.cat, type: f.type, amount: +f.amount, note: f.note.trim() || CATS[f.cat][0] });
       notify({ type: "view", label: "Transaksi", text: `Anda mencatat ${CATS[f.cat][0].toLowerCase()} ${idr(+f.amount)}` });
       commit(); toast("Transaksi dicatat");
     });
@@ -300,11 +424,12 @@ const A = {
     openModal("Transaksi minggu ini", tx.length
       ? `<ul class="grid gap-2">${tx.map((t) => `<li class="flex items-center gap-3 rounded-2xl bg-canvas p-3 text-sm"><span class="size-2 shrink-0 rounded-full ${CATS[t.cat][1]}"></span>
           <span class="min-w-0 flex-1"><b class="block truncate">${esc(t.note)}</b><span class="text-xs text-muted">${CATS[t.cat][0]}, ${t.date}</span></span>
-          <span class="font-semibold">${idr(t.amount)}</span>
+          <span class="font-semibold">${t.type === "in" ? "+" : "−"}${idr(t.amount)}</span>
           <button type="button" data-act="del-tx" data-id="${t.id}" class="icon-btn size-8" aria-label="Hapus transaksi">${ico("trash", "size-4")}</button></li>`).join("")}</ul>`
       : '<p class="text-sm text-muted">Belum ada transaksi minggu ini. Tekan tombol + di kartu Pengeluaran untuk mencatat.</p>');
   },
-  "del-tx"(id) { S.tx = S.tx.filter((t) => t.id !== id); commit(); A.history(); },
+  // Only refresh the history modal when it is the one open (dashboard); on the finances page the ledger re-renders via commit().
+  "del-tx"(id) { S.tx = S.tx.filter((t) => t.id !== id); commit(); if (modal.open) A.history(); },
   "add-rem"() {
     openModal("Tambah pengingat", field("Nama tagihan", "title", 'required maxlength="40"') + field("Jam", "time", 'type="time" required value="09:00"') + `<p class="text-sm text-muted">Tanggal: ${fmt(ui.sel, { dateStyle: "long" })}</p>`, (f) => {
       S.rem.push({ id: Date.now(), date: dkey(ui.sel), title: f.title.trim(), time: f.time, done: false });
@@ -345,6 +470,8 @@ const A = {
   mute(v) { S.muted = v === "on"; save(); renderNotifs(); toast(S.muted ? "Notifikasi dimatikan" : "Notifikasi dinyalakan"); },
   tab(v) { ui.tab = v; $$("[data-act=tab]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.v === v))); renderNotifs(); },
   range(v) { ui.range = v; $$("[data-act=range]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); renderStats(); },
+  "fin-filter"(v) { ui.finFilter = v; $$("[data-act=fin-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); renderFinList(); },
+  "fin-month"(v) { ui.finMonthOffset = Math.min(ui.finMonthOffset + +v, 0); renderFinances(); },
   week(v) { ui.week = addDays(ui.week, +v); ui.sel = addDays(ui.sel, +v); renderCalendar(); renderSpend(); renderReminder(); },
   day(v) { ui.sel = new Date(+v); renderCalendar(); renderReminder(); },
   help() {

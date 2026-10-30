@@ -28,6 +28,13 @@
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
+  /* R-39: every enabled control shows it can be used; disabled controls say so */
+  a[href], button, select, summary, label[for], [role="button"], [role="tab"], [role="switch"] {
+    cursor: pointer;
+  }
+  button:disabled, [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
 }
 
 @layer components {
