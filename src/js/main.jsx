@@ -1,4 +1,20 @@
-import "../css/style.css";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import '../css/style.css'
+
+export function mountPage(Component) {
+  const root = document.getElementById('root')
+  if (root) {
+    ReactDOM.createRoot(root).render(
+      <React.StrictMode>
+        <Component />
+      </React.StrictMode>
+    )
+    return
+  }
+  // No root = legacy vanilla page, run legacy init
+  legacyInit()
+}
 
 /* ---------- helpers ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -146,7 +162,9 @@ function openModal(title, body, onSubmit, submitLabel = "Simpan") {
   };
   if (!modal.open) modal.showModal();
 }
-modal.addEventListener("click", (e) => { if (e.target === modal || e.target.closest("[data-close]")) modal.close(); });
+if (modal) {
+  modal.addEventListener("click", (e) => { if (e.target === modal || e.target.closest("[data-close]")) modal.close(); });
+}
 let tt;
 const toast = (m) => {
   const el = $("[data-toast]");
@@ -536,33 +554,44 @@ function initLandingCalc() {
 }
 
 /* ---------- init ---------- */
-const here = location.pathname.replace(/index\.html$/, "");
-$$("nav a.nav-link").forEach((a) => {
-  if (a.pathname.replace(/index\.html$/, "") === here) a.setAttribute("aria-current", "page");
-});
-renderAll();
-initLandingCalc();
-blurText($("h1"));
-intro();
-if ($("[data-notif-list]")) {
-  setInterval(renderNotifs, 6e4);
+function legacyInit() {
+  const here = location.pathname.replace(/index\.html$/, "");
+  $$("nav a.nav-link").forEach((a) => {
+    if (a.pathname.replace(/index\.html$/, "") === here) a.setAttribute("aria-current", "page");
+  });
+  renderAll();
+  initLandingCalc();
+  blurText($("h1"));
+  intro();
+  if ($("[data-notif-list]")) {
+    setInterval(renderNotifs, 6e4);
+  }
+
+  // Spotlight Card: the glow follows the cursor inside any .card
+  document.addEventListener("pointermove", (e) => {
+    const c = e.target.closest?.(".card");
+    if (!c) return;
+    const r = c.getBoundingClientRect();
+    c.style.setProperty("--x", `${e.clientX - r.left}px`);
+    c.style.setProperty("--y", `${e.clientY - r.top}px`);
+  });
+
+  // Magnet: the banner button leans toward a nearby cursor
+  const mag = $(".btn[data-act=add-member]");
+  if (mag && !reduced) {
+    mag.style.transition = "transform .25s";
+    document.addEventListener("pointermove", (e) => {
+      const r = mag.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+      mag.style.transform = Math.hypot(dx, dy) < 90 ? `translate(${dx * 0.25}px, ${dy * 0.25}px)` : "";
+    });
+  }
 }
 
-// Spotlight Card: the glow follows the cursor inside any .card
-document.addEventListener("pointermove", (e) => {
-  const c = e.target.closest?.(".card");
-  if (!c) return;
-  const r = c.getBoundingClientRect();
-  c.style.setProperty("--x", `${e.clientX - r.left}px`);
-  c.style.setProperty("--y", `${e.clientY - r.top}px`);
-});
-
-// Magnet: the banner button leans toward a nearby cursor
-const mag = $(".btn[data-act=add-member]");
-if (mag && !reduced) {
-  mag.style.transition = "transform .25s";
-  document.addEventListener("pointermove", (e) => {
-    const r = mag.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
-    mag.style.transform = Math.hypot(dx, dy) < 90 ? `translate(${dx * 0.25}px, ${dy * 0.25}px)` : "";
-  });
+// Legacy pages have no React root and still need their vanilla initialization.
+if (typeof window !== 'undefined' && !document.getElementById('root')) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', legacyInit)
+  } else {
+    legacyInit()
+  }
 }

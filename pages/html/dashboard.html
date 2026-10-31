@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Keuangan – Riwayat Transaksi Dompet Bersama – Dompet Cerdas</title>
+    <title>Dashboard – Dompet Cerdas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <script type="module" src="/src/js/main.js"></script>
+    <script type="module" src="/src/js/main.jsx"></script>
   </head>
   <body class="bg-canvas p-3 font-sans text-navy antialiased lg:p-4">
 
@@ -111,10 +111,6 @@
           <line x1="12" y1="19" x2="12" y2="5" />
           <polyline points="5 12 12 5 19 12" />
         </symbol>
-        <symbol id="i-down" viewBox="0 0 24 24">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <polyline points="19 12 12 19 5 12" />
-        </symbol>
       </defs>
     </svg>
 
@@ -132,7 +128,7 @@
       class="m-auto w-full max-w-md rounded-[1.75rem] p-0 shadow-2xl backdrop:bg-navy/40 backdrop:backdrop-blur-sm"
     ></dialog>
 
-    <!-- Shell: outer panel fills the viewport -->
+    <!-- Dashboard shell: outer panel fills the viewport -->
     <div class="flex min-h-[calc(100dvh-1.5rem)] gap-4 rounded-[2.5rem] bg-[#edf2f9] p-4 lg:min-h-[calc(100dvh-2rem)]">
 
       <!-- Sidebar pill -->
@@ -194,156 +190,184 @@
         <!-- Main column -->
         <main class="flex min-w-0 flex-1 flex-col gap-4">
 
-          <!-- Page header -->
-          <header class="flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <h1 class="text-3xl font-medium tracking-tight">Keuangan</h1>
-              <p class="mt-1 text-sm text-muted">Semua transaksi dompet bersama, rapi dalam satu tempat</p>
-            </div>
-            <button
-              type="button"
-              data-act="add-tx"
-              class="btn bg-navy text-white hover:bg-navy/90"
-            >
-              <svg class="icon size-4" aria-hidden="true"><use href="#i-plus" /></svg>
-              Catat transaksi
-            </button>
-          </header>
-
-          <!-- Ringkasan: angka utama mengikuti bulan yang dipilih -->
-          <section class="card p-6" aria-labelledby="fin-summary-title">
-            <header class="flex flex-wrap items-center justify-between gap-3">
-              <h2 id="fin-summary-title" class="text-xl font-medium">Ringkasan</h2>
-              <div class="flex items-center gap-1">
-                <button
-                  type="button"
-                  data-act="fin-month"
-                  data-v="-1"
-                  class="icon-btn size-10 bg-canvas transition hover:bg-primary-soft"
-                  aria-label="Bulan sebelumnya"
-                >
-                  <svg class="icon size-4" aria-hidden="true"><use href="#i-chevron-l" /></svg>
-                </button>
-                <p class="min-w-28 text-center text-sm font-semibold" data-fin-month-label></p>
-                <button
-                  type="button"
-                  data-act="fin-month"
-                  data-v="1"
-                  class="icon-btn size-10 bg-canvas transition hover:bg-primary-soft disabled:cursor-not-allowed disabled:opacity-40"
-                  aria-label="Bulan berikutnya"
-                >
-                  <svg class="icon size-4" aria-hidden="true"><use href="#i-chevron-r" /></svg>
-                </button>
-              </div>
-            </header>
-
-            <div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <div class="rounded-2xl bg-canvas p-4">
-                <div class="flex items-center gap-2">
-                  <span class="grid size-8 place-items-center rounded-xl bg-primary-soft text-primary">
-                    <svg class="icon size-4" aria-hidden="true"><use href="#i-down" /></svg>
-                  </span>
-                  <p class="text-xs text-muted">Pemasukan</p>
-                </div>
-                <p class="mt-3 text-4xl font-medium tracking-tight text-primary" data-fin-in>Rp0</p>
-                <p class="mt-1 text-xs text-muted">Uang yang masuk</p>
-              </div>
-
-              <div class="rounded-2xl bg-canvas p-4">
-                <div class="flex items-center gap-2">
-                  <span class="grid size-8 place-items-center rounded-xl bg-navy text-white">
-                    <svg class="icon size-4" aria-hidden="true"><use href="#i-up" /></svg>
-                  </span>
-                  <p class="text-xs text-muted">Pengeluaran</p>
-                </div>
-                <p class="mt-3 text-4xl font-medium tracking-tight" data-fin-out>Rp0</p>
-                <p class="mt-1 text-xs text-muted">Uang yang terpakai</p>
-              </div>
-
-              <div class="rounded-2xl bg-canvas p-4">
-                <div class="flex items-center gap-2">
-                  <span class="grid size-8 place-items-center rounded-xl bg-primary-tint text-navy">
-                    <svg class="icon size-4" aria-hidden="true"><use href="#i-wallet" /></svg>
-                  </span>
-                  <p class="text-xs text-muted">Ditabung</p>
-                </div>
-                <p class="mt-3 text-4xl font-medium tracking-tight" data-fin-saved>Rp0</p>
-                <p class="mt-1 text-xs text-muted">Uang yang disisihkan</p>
-              </div>
+          <!-- Banner -->
+          <section class="relative overflow-hidden rounded-[1.75rem] bg-navy px-7 py-6">
+            <!-- Aurora: two soft blobs drift slowly — gives life to the dark panel without adding visual noise -->
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+              <div class="animate-drift absolute -left-24 -top-16 size-72 rounded-full bg-primary opacity-20 blur-3xl"></div>
+              <div class="animate-drift-slow absolute -bottom-12 right-10 size-52 rounded-full bg-blue-400 opacity-10 blur-2xl"></div>
             </div>
 
-            <p class="mt-4 border-t border-navy/5 pt-4 text-xs text-muted">
-              Sisa kas bulan ini: <span class="font-semibold text-navy" data-fin-net>Rp0</span>
-            </p>
+            <div class="relative flex items-center justify-between gap-6">
+              <div>
+                <p class="text-sm font-medium text-white/50">Selamat datang kembali</p>
+                <h1 class="mt-1 text-3xl font-medium tracking-tight text-white">Dompet Cerdas</h1>
+                <p class="mt-2 max-w-xs text-sm text-white/60">Pantau keuangan Anda dan ambil langkah kecil berikutnya hari ini</p>
+              </div>
+              <!-- .btn + data-act=add-member: this is the magnet target in main.js -->
+              <button
+                type="button"
+                data-act="add-member"
+                class="btn shrink-0 bg-primary-soft text-navy hover:bg-white"
+              >
+                <svg class="icon size-4" aria-hidden="true"><use href="#i-plus" /></svg>
+                Tambah anggota
+              </button>
+            </div>
           </section>
 
-          <!-- Riwayat + rincian pos -->
-          <div class="flex flex-col gap-4 lg:flex-row">
+          <!-- Row 2: Anggota · Pengeluaran · Tabungan -->
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 
-            <!-- Riwayat transaksi -->
-            <section class="card min-w-0 flex-1" aria-labelledby="fin-ledger-title">
-              <header class="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h2 id="fin-ledger-title" class="text-xl font-medium">Riwayat transaksi</h2>
-                  <p class="mt-1 text-xs text-muted" data-fin-count></p>
-                </div>
-                <div class="flex flex-wrap gap-1" role="group" aria-label="Filter transaksi">
+            <!-- Anggota -->
+            <section class="card">
+              <header class="flex items-center justify-between">
+                <h2 class="text-sm font-semibold text-muted">Anggota dompet</h2>
+                <!-- icon-btn so the magnet in main.js only targets the banner's .btn -->
+                <button
+                  type="button"
+                  data-act="add-member"
+                  class="icon-btn size-8"
+                  aria-label="Tambah anggota"
+                >
+                  <svg class="icon size-4" aria-hidden="true"><use href="#i-plus" /></svg>
+                </button>
+              </header>
+              <!-- renderMembers() populates this list -->
+              <ul
+                data-members
+                class="mt-4 grid grid-cols-3 gap-x-2 gap-y-3"
+                role="list"
+                aria-label="Daftar anggota"
+              ></ul>
+            </section>
+
+            <!-- Pengeluaran -->
+            <section class="card">
+              <header class="flex items-center justify-between">
+                <h2 class="text-sm font-semibold text-muted">Pengeluaran</h2>
+                <div class="flex gap-1">
                   <button
                     type="button"
-                    data-act="fin-filter"
-                    data-v="all"
-                    aria-pressed="true"
-                    class="btn min-h-10 bg-canvas px-3.5 text-xs text-navy transition aria-pressed:bg-navy aria-pressed:text-white"
+                    data-act="week"
+                    data-v="-7"
+                    class="icon-btn size-8"
+                    aria-label="Minggu lalu"
                   >
-                    Semua
+                    <svg class="icon size-4" aria-hidden="true"><use href="#i-chevron-l" /></svg>
                   </button>
                   <button
                     type="button"
-                    data-act="fin-filter"
-                    data-v="in"
-                    aria-pressed="false"
-                    class="btn min-h-10 bg-canvas px-3.5 text-xs text-navy transition aria-pressed:bg-navy aria-pressed:text-white"
+                    data-act="week"
+                    data-v="7"
+                    class="icon-btn size-8"
+                    aria-label="Minggu depan"
                   >
-                    Pemasukan
-                  </button>
-                  <button
-                    type="button"
-                    data-act="fin-filter"
-                    data-v="out"
-                    aria-pressed="false"
-                    class="btn min-h-10 bg-canvas px-3.5 text-xs text-navy transition aria-pressed:bg-navy aria-pressed:text-white"
-                  >
-                    Pengeluaran
+                    <svg class="icon size-4" aria-hidden="true"><use href="#i-chevron-r" /></svg>
                   </button>
                 </div>
               </header>
-
-              <!-- renderFinList() populates this container, grouped by date -->
-              <div data-fin-list class="mt-5"></div>
-
-              <!-- Empty state: renderer fills the cause and the next step -->
-              <div data-fin-empty class="hidden py-10 text-center">
-                <span class="mx-auto grid size-12 place-items-center rounded-2xl bg-primary-soft text-primary">
-                  <svg class="icon size-5" aria-hidden="true"><use href="#i-receipt" /></svg>
-                </span>
-                <p class="mt-4 text-sm font-semibold">Belum ada transaksi</p>
-                <p class="mx-auto mt-1 max-w-xs text-xs text-muted" data-fin-empty-text></p>
+              <!-- renderSpend() populates this div -->
+              <div data-spend></div>
+              <div class="mt-4 flex flex-col gap-2">
+                <button
+                  type="button"
+                  data-act="add-tx"
+                  class="btn w-full justify-center bg-primary-tint text-navy hover:bg-primary-soft"
+                >
+                  <svg class="icon size-4" aria-hidden="true"><use href="#i-plus" /></svg>
+                  Catat transaksi
+                </button>
+                <button
+                  type="button"
+                  data-act="history"
+                  class="text-center text-xs text-muted hover:text-navy"
+                >
+                  Lihat riwayat minggu ini
+                </button>
               </div>
             </section>
 
-            <!-- Pos uang keluar -->
-            <section class="card w-full shrink-0 lg:w-64" aria-labelledby="fin-chart-title">
-              <h2 id="fin-chart-title" class="text-xl font-medium">Pos uang keluar</h2>
-              <p class="mt-1 text-xs text-muted" data-fin-month-label></p>
-              <!-- renderFinChart() fills this with horizontal bars -->
-              <div data-fin-chart class="mt-5 grid gap-4"></div>
+            <!-- Tabungan 3 bulan -->
+            <section class="card">
+              <h2 class="text-sm font-semibold text-muted">Tabungan 3 bulan</h2>
+              <!-- renderImpact() fills this with 3 vertical bars -->
+              <div
+                data-impact
+                class="mt-5 flex h-32 items-end gap-2 px-1"
+                aria-label="Grafik tabungan tiga bulan terakhir"
+              ></div>
+            </section>
+          </div>
+
+          <!-- Row 3: Statistik · Pengingat + Premium -->
+          <div class="flex gap-4">
+
+            <!-- Statistik -->
+            <section class="card flex-1 p-6">
+              <header class="flex flex-wrap items-center justify-between gap-3">
+                <h2 class="text-xl font-medium">Statistik tagihan</h2>
+                <div class="flex gap-1" role="group" aria-label="Pilih rentang waktu">
+                  <button
+                    type="button"
+                    data-act="range"
+                    data-v="weekly"
+                    aria-pressed="true"
+                    class="btn bg-canvas px-3 py-1.5 text-xs text-navy transition aria-pressed:bg-navy aria-pressed:text-white"
+                  >
+                    Mingguan
+                  </button>
+                  <button
+                    type="button"
+                    data-act="range"
+                    data-v="monthly"
+                    aria-pressed="false"
+                    class="btn bg-canvas px-3 py-1.5 text-xs text-navy transition aria-pressed:bg-navy aria-pressed:text-white"
+                  >
+                    Bulanan
+                  </button>
+                </div>
+              </header>
+              <!-- renderStats() updates the four data-stat-* spans via countUp() -->
+              <div class="mt-5 grid grid-cols-3 gap-3">
+                <div class="rounded-2xl bg-canvas p-4">
+                  <p class="text-xs text-muted">Selesai periode ini</p>
+                  <p class="mt-2 text-4xl font-medium tracking-tight">
+                    <span data-stat-a>0</span><span class="text-lg text-muted"> / </span><span data-stat-b>0</span>
+                  </p>
+                </div>
+                <div class="rounded-2xl bg-canvas p-4">
+                  <p class="text-xs text-muted">Total lunas</p>
+                  <p class="mt-2 text-4xl font-medium tracking-tight" data-stat-done>0</p>
+                </div>
+                <div class="rounded-2xl bg-canvas p-4">
+                  <p class="text-xs text-muted">Belum</p>
+                  <p class="mt-2 text-4xl font-medium tracking-tight" data-stat-open>0</p>
+                </div>
+              </div>
             </section>
 
+            <!-- Pengingat + Premium stacked in a 14rem column -->
+            <div class="flex w-56 shrink-0 flex-col gap-4">
+
+              <!-- Pengingat: navy background so renderReminder()'s text-white/* classes work -->
+              <section class="flex-1 rounded-[1.75rem] bg-navy p-5">
+                <h2 class="text-sm font-semibold text-white/50">Pengingat tagihan</h2>
+                <!-- renderReminder() populates this div -->
+                <div data-reminder class="mt-4"></div>
+              </section>
+
+              <!-- Premium: flex-col so the btn inside can use mt-auto to push to bottom -->
+              <section class="card flex flex-col p-5">
+                <!-- renderUpgrade() injects h2, p, and a btn with mt-auto -->
+                <div data-upgrade class="flex flex-1 flex-col"></div>
+              </section>
+            </div>
           </div>
 
         </main>
 
-        <!-- Right aside – visible at xl+ (22rem), same shell as dashboard -->
+        <!-- Right aside – visible at xl+ (22rem) -->
         <aside
           class="hidden w-[22rem] shrink-0 flex-col gap-4 xl:flex"
           aria-label="Panel samping"
@@ -401,6 +425,7 @@
             <header class="flex shrink-0 items-center justify-between gap-2">
               <h2 class="text-sm font-semibold text-muted">Notifikasi</h2>
               <div class="flex items-center gap-1">
+                <!-- data-v="off" = mute is OFF = notifications are active -->
                 <button
                   type="button"
                   data-act="mute"
@@ -411,6 +436,7 @@
                 >
                   <svg class="icon size-4" aria-hidden="true"><use href="#i-bell" /></svg>
                 </button>
+                <!-- data-v="on" = mute is ON = notifications are muted -->
                 <button
                   type="button"
                   data-act="mute"
@@ -468,6 +494,7 @@
               </button>
             </div>
 
+            <!-- Scrollable list container strictly capped in height so it never blows out the dashboard layout -->
             <div class="mt-3 min-h-0 overflow-y-auto overflow-x-hidden pr-1.5 max-h-64 [scrollbar-width:thin]">
               <ul data-notif-list class="flex flex-col gap-2" role="list"></ul>
               <p data-notif-muted class="hidden py-8 text-center text-sm text-muted">
