@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
+import { Fragment, useState } from 'react'
 import { mountPage } from '../../src/js/main.jsx'
 
 function LandingPage() {
   const [income, setIncome] = useState(5000000)
+  const title = 'Keuangan kuat dimulai dari langkah kecil yang konsisten'
+  const titleWords = title.split(' ')
 
   const needs = Math.round(income * 0.5)
   const wants = Math.round(income * 0.3)
@@ -69,40 +71,62 @@ function LandingPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
               <div className="max-w-2xl">
-                <h1 className="text-4xl font-medium tracking-tight text-navy sm:text-5xl lg:text-6xl">
-                  Keuangan kuat dimulai dari langkah kecil yang konsisten
+                <h1
+                  aria-label={title}
+                  className="text-4xl font-medium tracking-tight text-navy sm:text-5xl lg:text-6xl"
+                >
+                  {titleWords.map((word, index) => (
+                    <Fragment key={`${word}-${index}`}>
+                      <span
+                        aria-hidden="true"
+                        className="motion-safe:animate-blur-highlight inline-block"
+                        style={{ animationDelay: `${index * 35}ms` }}
+                      >
+                        {word}
+                      </span>
+                      {index < titleWords.length - 1 ? ' ' : null}
+                    </Fragment>
+                  ))}
                 </h1>
-                <p className="mt-6 text-base leading-relaxed text-muted sm:text-lg">
-                  Platform pencatatan arus kas bersama, kalender tagihan bebas denda, dan modul edukasi praktis yang dirancang khusus untuk mahasiswa, keluarga, serta pelaku UMKM Indonesia.
-                </p>
-                
-                <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-                  <a href="/pages/html/dashboard.html" className="btn bg-primary px-6 py-3 text-base text-white hover:bg-primary/90">
-                    Buka Dasbor Aplikasi
-                  </a>
-                  <a href="#simulasi" className="btn bg-primary-soft px-6 py-3 text-base text-navy hover:bg-primary hover:text-white">
-                    Hitung Simulasi 50/30/20
-                  </a>
-                </div>
+                <div
+                  className="motion-safe:animate-fade-rise"
+                  style={{ animationDelay: '240ms' }}
+                >
+                  <p className="mt-6 text-base leading-relaxed text-muted sm:text-lg">
+                    Platform pencatatan arus kas bersama, kalender tagihan bebas denda, dan modul edukasi praktis yang dirancang khusus untuk mahasiswa, keluarga, serta pelaku UMKM Indonesia.
+                  </p>
 
-                <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-navy/10 pt-6 text-xs text-muted">
-                  <div className="flex items-center gap-2">
-                    <svg className="icon size-4 text-primary" aria-hidden="true"><use href="#i-shield" /></svg>
-                    <span>Data tersimpan lokal di peramban</span>
+                  <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+                    <a href="/pages/html/dashboard.html" className="btn bg-primary px-6 py-3 text-base text-white hover:bg-primary/90">
+                      Buka Dasbor Aplikasi
+                    </a>
+                    <a href="#simulasi" className="btn bg-primary-soft px-6 py-3 text-base text-navy hover:bg-primary hover:text-white">
+                      Hitung Simulasi 50/30/20
+                    </a>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <svg className="icon size-4 text-primary" aria-hidden="true"><use href="#i-check" /></svg>
-                    <span>Pedoman literasi keuangan OJK</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <svg className="icon size-4 text-primary" aria-hidden="true"><use href="#i-users" /></svg>
-                    <span>Dukungan kolaborasi keluarga &amp; tim</span>
+
+                  <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-navy/10 pt-6 text-xs text-muted">
+                    <div className="flex items-center gap-2">
+                      <svg className="icon size-4 text-primary" aria-hidden="true"><use href="#i-shield" /></svg>
+                      <span>Data tersimpan lokal di peramban</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className="icon size-4 text-primary" aria-hidden="true"><use href="#i-check" /></svg>
+                      <span>Pedoman literasi keuangan OJK</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className="icon size-4 text-primary" aria-hidden="true"><use href="#i-users" /></svg>
+                      <span>Dukungan kolaborasi keluarga &amp; tim</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Preview */}
-              <div className="relative">
+              <div
+                className="relative motion-safe:animate-blur-highlight"
+                style={{ animationDelay: '180ms' }}
+              >
                 <div className="rounded-[2.5rem] bg-[#edf2f9] p-5 sm:p-7 shadow-sm">
                   <div className="rounded-3xl bg-primary-soft p-5 text-navy">
                     <div className="flex items-start justify-between">

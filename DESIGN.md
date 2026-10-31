@@ -128,6 +128,7 @@ Dashboard grid:
 ```
 
 - Sidebar: dark pill, icons only, logo on top, help and logout at the bottom.
+- Keep the sidebar content-sized and sticky while scrolling so longer pages do not stretch it.
 - Main grid: flexible left content plus a 22rem right column. Below `xl` the right column stacks under the content. Below `lg` the sidebar becomes a horizontal bar.
 - Other pages reuse the same shell (panel + sidebar) and change only the main area.
 - Breakpoints to test: 375, 768, 1280 and 1440px.

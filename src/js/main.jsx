@@ -2,18 +2,73 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '../css/style.css'
 
-export function mountPage(Component) {
+const REACT_ROOT = Symbol.for('dompet-cerdas.react-root')
+
+export function mountPage(Component, { effects = false } = {}) {
   const root = document.getElementById('root')
   if (root) {
-    ReactDOM.createRoot(root).render(
+    const reactRoot = root[REACT_ROOT] || ReactDOM.createRoot(root)
+    root[REACT_ROOT] = reactRoot
+    reactRoot.render(
       <React.StrictMode>
-        <Component />
+        {effects ? <PageEffects Component={Component} /> : <Component />}
       </React.StrictMode>
     )
     return
   }
   // No root = legacy vanilla page, run legacy init
   legacyInit()
+}
+
+function PageEffects({ Component }) {
+  React.useEffect(() => {
+    const root = document.getElementById('root')
+    if (!root) return
+
+    const animations = []
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (!reducedMotion) {
+      const heading = root.querySelector('main h1')
+      if (heading) {
+        animations.push(heading.animate(
+          [
+            { opacity: 0, filter: 'blur(10px)', transform: 'translateY(.6rem)' },
+            { opacity: 1, filter: 'blur(0)', transform: 'none' },
+          ],
+          { duration: 700, delay: 150, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' }
+        ))
+      }
+
+      root.querySelectorAll('main section.card').forEach((section, index) => {
+        animations.push(section.animate(
+          [
+            { opacity: 0, transform: 'translateY(16px) scale(.97)' },
+            { opacity: 1, transform: 'none' },
+          ],
+          { duration: 600, delay: 100 + index * 70, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' }
+        ))
+      })
+    }
+
+    function updateSpotlight(event) {
+      if (!(event.target instanceof Element)) return
+      const card = event.target.closest('.card')
+      if (!card || !root.contains(card)) return
+      const bounds = card.getBoundingClientRect()
+      card.style.setProperty('--x', `${event.clientX - bounds.left}px`)
+      card.style.setProperty('--y', `${event.clientY - bounds.top}px`)
+    }
+
+    if (!reducedMotion) root.addEventListener('pointermove', updateSpotlight)
+
+    return () => {
+      root.removeEventListener('pointermove', updateSpotlight)
+      animations.forEach((animation) => animation.cancel())
+    }
+  }, [])
+
+  return <Component />
 }
 
 /* ---------- helpers ---------- */
@@ -365,7 +420,7 @@ function renderFinList() {
       <p class="text-xs font-semibold text-muted">${fmt(new Date(k + "T00:00:00"), { weekday: "long", day: "numeric", month: "short" })}</p>
       <ul class="mt-2 grid gap-1.5" role="list">
         ${list.map((t) => `
-          <li class="flex items-center gap-3 rounded-2xl bg-canvas p-3">
+          <li class="flex min-w-0 items-center gap-3 rounded-2xl bg-canvas p-3">
             <span class="grid size-9 shrink-0 place-items-center rounded-xl ${t.type === "in" ? "bg-primary-soft text-primary" : "bg-navy text-white"}">
               <svg class="icon size-4" aria-hidden="true"><use href="#i-${t.type === "in" ? "down" : "up"}" /></svg>
             </span>

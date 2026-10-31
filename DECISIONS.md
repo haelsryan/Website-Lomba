@@ -47,3 +47,33 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 - **Context:** AI tools need to know what to build and when it is done.
 - **Decision:** `docs/PAGES.md` describes each page. `docs/TASKS.md` is an ordered task list with acceptance criteria. Tools take the first unchecked task when told to continue.
 - **Consequences:** Keep both files current. Tick a task only when its acceptance criteria are met.
+
+## 010. Landing page motion
+- **Context:** The landing page needs a more polished entrance without distracting from its financial information.
+- **Decision:** Use a short word-by-word blur reveal for the headline and subtle entrance motion for the supporting copy and product preview, using CSS keyframes through Tailwind's motion-safe variant.
+- **Consequences:** Motion respects `prefers-reduced-motion` and stays limited to opacity, blur, and small vertical movement without adding runtime animation code.
+
+## 011. Settings page preferences
+- **Context:** The settings page needs to control the shared demo's theme, notification visibility and sample data.
+- **Decision:** Keep the page in the documented React entry structure, persist theme choice under `dompet-cerdas-theme`, and update the dashboard's existing `muted` flag in `dompet-cerdas-v1`.
+- **Consequences:** Theme preferences are retained when demo data is reset. Dashboard and finances shells read the same theme preference before rendering.
+
+## 012. Sidebar destinations
+- **Context:** Sidebar navigation must not point to missing or empty pages.
+- **Decision:** Link the sidebar only to implemented pages and use the current `/pages/html/` routes.
+- **Consequences:** Navigation opens working screens instead of blank or missing pages. The sidebar links to Dashboard, Keuangan, Simulator and Pengaturan; add Belajar when it is implemented.
+
+## 013. Simulator estimates
+- **Context:** The simulator needs useful estimates without implying guaranteed financial outcomes.
+- **Decision:** Keep the savings-goal and emergency-fund calculations in the page, use only user-entered values, and assume zero interest or returns.
+- **Consequences:** Results are labeled as estimates with their assumptions, and no demo financial values are presented as user data.
+
+## 014. Shared app-page motion
+- **Context:** Settings and Simulator use the same app shell as Dashboard and Keuangan but are mounted through React.
+- **Decision:** Apply the existing one-time heading/card entrance and pointer-following card highlight to those React pages, while respecting reduced-motion preferences.
+- **Consequences:** Shared motion stays consistent across app pages without adding continuous background animation.
+
+## 015. Content-sized sticky sidebar
+- **Context:** The sidebar stretched to the height of the page content because the app shell uses flex layout.
+- **Decision:** Keep the sidebar at its content height and sticky near the top while scrolling; switch to a horizontal rail below `lg`.
+- **Consequences:** Long pages no longer make the navigation rail grow, and the navigation fits the mobile layout without reducing content width.

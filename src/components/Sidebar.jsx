@@ -109,22 +109,22 @@ export function Sidebar({ page }) {
 
       {/* Sidebar */}
       <aside
-        className="flex w-14 shrink-0 flex-col items-center gap-1 rounded-[2rem] bg-navy py-5"
+        className="app-sidebar flex w-full shrink-0 flex-row items-center justify-between gap-0 rounded-[2rem] bg-navy p-1 lg:w-14 lg:flex-col lg:items-center lg:justify-start lg:gap-1 lg:px-0 lg:py-5"
         aria-label="Navigasi"
       >
         <a
           href="/"
-          className="mb-3 grid size-10 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-primary/80"
+          className="mb-0 grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-primary/80 lg:mb-3 lg:size-10"
           aria-label="Dompet Cerdas – beranda"
         >
           <svg className="icon" aria-hidden="true"><use href="#i-wallet" /></svg>
         </a>
 
         <nav aria-label="Halaman utama">
-          <ul className="flex flex-col gap-1" role="list">
+          <ul className="flex flex-row gap-0 lg:flex-col lg:gap-1" role="list">
             <li>
               <a 
-                href="/pages/dashboard.html" 
+                href="/pages/html/dashboard.html"
                 className="nav-link" 
                 aria-label="Dashboard"
                 aria-current={page === 'dashboard' ? 'page' : undefined}
@@ -134,7 +134,7 @@ export function Sidebar({ page }) {
             </li>
             <li>
               <a 
-                href="/pages/finances.html" 
+                href="/pages/html/finances.html"
                 className="nav-link" 
                 aria-label="Keuangan"
                 aria-current={page === 'finances' ? 'page' : undefined}
@@ -143,17 +143,22 @@ export function Sidebar({ page }) {
               </a>
             </li>
             <li>
-              <a href="/pages/simulator.html" className="nav-link" aria-label="Simulator">
+              <a
+                href="/pages/html/simulator.html"
+                className="nav-link"
+                aria-label="Simulator"
+                aria-current={page === 'simulator' ? 'page' : undefined}
+              >
                 <svg className="icon" aria-hidden="true"><use href="#i-calc" /></svg>
               </a>
             </li>
             <li>
-              <a href="/pages/learn.html" className="nav-link" aria-label="Belajar">
-                <svg className="icon" aria-hidden="true"><use href="#i-book" /></svg>
-              </a>
-            </li>
-            <li>
-              <a href="/pages/settings.html" className="nav-link" aria-label="Pengaturan">
+              <a
+                href="/pages/html/settings.html"
+                className="nav-link"
+                aria-label="Pengaturan"
+                aria-current={page === 'settings' ? 'page' : undefined}
+              >
                 <svg className="icon" aria-hidden="true"><use href="#i-gear" /></svg>
               </a>
             </li>

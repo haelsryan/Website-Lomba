@@ -38,7 +38,7 @@ export function Modal({ isOpen, onClose, title, children, onSubmit, submitLabel 
   return (
     <dialog
       ref={dialogRef}
-      className="m-auto w-full max-w-md rounded-[1.75rem] p-0 shadow-2xl backdrop:bg-navy/40 backdrop:backdrop-blur-sm"
+      className="m-auto w-full max-w-md rounded-[1.75rem] border border-line bg-surface p-0 text-ink shadow-2xl backdrop:bg-navy/40 backdrop:backdrop-blur-sm"
     >
       <form method="dialog" className="grid gap-4 p-6" onSubmit={handleSubmit}>
         <header className="flex items-center justify-between gap-4">

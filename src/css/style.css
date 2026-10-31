@@ -3,16 +3,13 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --color-primary: #2563eb;
-  --color-primary-soft: #dbe7fe;
-  --color-primary-tint: #eef4ff;
   --color-navy: #172b4d;
-  --color-canvas: #f7f9fc;
-  --color-surface: #ffffff;
-  --color-muted: #64748b;
 
   --animate-drift: drift 9s ease-in-out infinite alternate;
   --animate-drift-slow: drift 14s ease-in-out infinite alternate-reverse;
   --animate-pop: pop 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-blur-highlight: blur-highlight 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-fade-rise: fade-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 
   @keyframes drift {
     0% { transform: translate3d(0, 0, 0) scale(1); }
@@ -21,6 +18,70 @@
   @keyframes pop {
     from { opacity: 0; transform: translateY(14px) scale(0.96); }
   }
+  @keyframes blur-highlight {
+    from { opacity: 0; filter: blur(7px); transform: translateY(8px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+  @keyframes fade-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+:root {
+  color-scheme: light;
+  --app-canvas: #f7f9fc;
+  --app-panel: #edf2f9;
+  --app-surface: #ffffff;
+  --app-ink: #172b4d;
+  --app-muted: #64748b;
+  --app-line: #e2e8f0;
+  --app-primary-soft: #dbe7fe;
+  --app-primary-tint: #eef4ff;
+  --app-primary-text: #2563eb;
+  --app-accent: #172b4d;
+  --app-sidebar: #172b4d;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --app-canvas: #0b1220;
+  --app-panel: #111a2e;
+  --app-surface: #1a2438;
+  --app-ink: #e6ecf5;
+  --app-muted: #94a3b8;
+  --app-line: #2a3650;
+  --app-primary-soft: #1e3470;
+  --app-primary-tint: #16264a;
+  --app-primary-text: #60a5fa;
+  --app-accent: #2563eb;
+  --app-sidebar: #0a101c;
+}
+
+@theme inline {
+  --color-canvas: var(--app-canvas);
+  --color-panel: var(--app-panel);
+  --color-surface: var(--app-surface);
+  --color-ink: var(--app-ink);
+  --color-muted: var(--app-muted);
+  --color-line: var(--app-line);
+  --color-primary-soft: var(--app-primary-soft);
+  --color-primary-tint: var(--app-primary-tint);
+  --color-primary-text: var(--app-primary-text);
+  --color-accent: var(--app-accent);
+  --color-sidebar: var(--app-sidebar);
+}
+
+.text-navy {
+  color: var(--app-ink);
+}
+
+.text-primary {
+  color: var(--app-primary-text);
+}
+
+.bg-white {
+  background-color: var(--app-surface);
 }
 
 @layer base {
@@ -61,11 +122,19 @@
   .card:hover::before {
     opacity: 1;
   }
+  @media (prefers-reduced-motion: reduce) {
+    .card::before {
+      transition: none;
+    }
+  }
   .btn {
     @apply inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition;
   }
   .icon-btn {
     @apply grid size-10 place-items-center rounded-full bg-surface text-navy transition hover:bg-primary-soft;
+  }
+  .app-sidebar {
+    @apply sticky top-4 h-fit self-start;
   }
   .nav-link {
     @apply grid size-11 place-items-center rounded-full text-white/70 transition hover:bg-white/10 hover:text-white aria-[current=page]:bg-primary-soft aria-[current=page]:text-navy;

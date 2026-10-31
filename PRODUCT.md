@@ -32,9 +32,9 @@ A calm, friendly money companion that shows your situation at a glance, nudges y
 |---|---|---|
 | **Dashboard** | Overview: shared wallet members, weekly spending split (kebutuhan, tabungan, hiburan), 3-month savings bars, bill statistics, bill reminders for the selected date, week calendar, education videos, notifications, Premium card | Built (demo data in `localStorage`) |
 | **Keuangan (finances)** | Detailed transactions, budgets and cash flow | Intended. Update when built |
-| **Simulator** | Try "what if" scenarios (saving goal, emergency fund). Must show assumptions and say results are estimates | Intended. Update when built |
+| **Simulator** | Try "what if" scenarios (saving goal, emergency fund). Must show assumptions and say results are estimates | Built |
 | **Belajar (learn)** | Short lessons and videos on budgeting, pinjol safety (OJK), separating personal and business money | Intended. Update when built |
-| **Pengaturan (settings)** | Preferences including the theme toggle (Terang, Gelap, Ikuti sistem) | Theme toggle planned. See `DESIGN.md` section 4 |
+| **Pengaturan (settings)** | Preferences including the theme toggle (Terang, Gelap, Ikuti sistem), notification controls and demo reset | Built |
 
 Update the Status column whenever a page changes. Detailed per-page specs live in `docs/PAGES.md`.
 

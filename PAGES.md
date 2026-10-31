@@ -3,6 +3,7 @@
 One section per page: what it is for, what is on it, how it behaves and when it is done.
 Files for a page `<page>`: `pages/html/<page>.html`, `pages/jsx/<page>.jsx`, `pages/jsx/<page>/`.
 Every page uses `AppShell` (panel plus sidebar), works in light and dark theme, and at 375px wide.
+The sidebar links to built pages only; Simulator and Belajar will appear when their pages are implemented.
 
 Pages marked **Draft** were sketched from the product goals. Confirm them with the team before building and remove the word "Draft" once agreed.
 
@@ -48,14 +49,16 @@ Sections, with behavior:
 
 ---
 
-## Simulator  *Draft*
+## Simulator
 - **Files:** `pages/html/simulator.html`, `pages/jsx/simulator.jsx`, `pages/jsx/simulator/`
 - **Purpose:** let someone try "what if" plans without risk.
 - **Content:**
-  - **Target tabungan:** inputs for goal amount, deadline (months) and current savings. Output: needed saving per month and a simple progress chart.
-  - **Dana darurat:** input monthly needs. Output: a target of 3 to 6 months of needs and how long it takes at the chosen saving rate.
+  - **Target tabungan:** inputs for goal amount, deadline (months) and current savings. Output: needed saving per month and a progress indicator.
+  - **Dana darurat:** inputs for monthly needs, current emergency savings and a monthly saving amount. Output: a target of 3 to 6 months of needs and how long it may take to reach each.
 - **Rules:** show the assumptions next to every result and label it "Estimasi". Interest or return defaults to 0% and is optional. Never promise returns.
 - **States:** validation messages next to fields, results hidden until inputs are valid.
+- **Navigation:** uses the same left icon rail as Dashboard, Keuangan and Pengaturan.
+- **Status:** Built. Results are calculated locally from the values entered and are not saved.
 - **Done when:** both calculators work, handle zero and large numbers, and results are readable by screen readers.
 
 ---
@@ -73,7 +76,7 @@ Sections, with behavior:
 
 ---
 
-## Pengaturan (settings)  *Draft except the theme section*
+## Pengaturan (settings)
 - **Files:** `pages/html/settings.html`, `pages/jsx/settings.jsx`, `pages/jsx/settings/`
 - **Purpose:** preferences and demo controls.
 - **Content:**
@@ -81,4 +84,6 @@ Sections, with behavior:
   - **Notifikasi:** turn notifications on or off (the same flag as the dashboard mute).
   - **Data demo:** button to reset demo data to the starting set, with a confirmation dialog.
   - **Tentang:** short note that this is an educational demo and no real money or personal data is used.
-- **Done when:** the theme switches instantly with no flash on reload, and the other settings affect the dashboard.
+- **Status:** Built. Preferences persist in the browser; theme changes are applied to the settings page, dashboard and finances page.
+- **Navigation:** Uses the same left icon rail and working page links as Dashboard and Keuangan.
+- **Done when:** the theme switches instantly with no flash on reload, system mode follows OS changes, notifications stay in sync with the dashboard, and reset restores seeded demo data without changing the theme.

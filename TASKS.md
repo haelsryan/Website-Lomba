@@ -48,20 +48,21 @@ Legend: `- [ ]` open, `- [x]` done.
   - Looks finished in both themes at 375, 768 and 1280px.
   - Only one continuous background effect is active. Animations stop under `prefers-reduced-motion`.
 ## T5. Settings page with the theme toggle
-- [ ] **Read:** `docs/PAGES.md` (Pengaturan), `DESIGN.md` section 4
-- Build `pages/jsx/settings.jsx` and `pages/jsx/settings/ThemeToggle.jsx` (a real radio group with visible labels).
-- Add the notification switch and the "reset demo data" action with a confirmation dialog.
-- **Accept:**
-  - Choosing Terang, Gelap or Ikuti sistem changes the theme at once and persists.
-  - "Ikuti sistem" reacts when the OS theme changes.
-  - The notification switch matches the dashboard mute. Reset restores the seed data.
-  - The toggle works with keyboard only.
+- [x] **Read:** `PAGES.md` (Pengaturan), `DESIGN.md` section 4
+- [x] Build `pages/jsx/settings.jsx` and `pages/jsx/settings/ThemeToggle.jsx` (a real radio group with visible labels).
+- [x] Add the notification switch and the "reset demo data" action with a confirmation dialog.
+- [x] **Accept:**
+  - [x] Choosing Terang, Gelap or Ikuti sistem changes the theme at once and persists.
+  - [x] "Ikuti sistem" reacts when the OS theme changes.
+  - [x] The notification switch matches the dashboard mute. Reset restores the seed data.
+  - [x] The toggle works with keyboard only.
 ## T6. Finances page
 - [ ] **Read:** `docs/PAGES.md` (Keuangan)
 - **Accept:** CRUD, filters and budget progress work; a change appears on the dashboard after navigation; empty and no-result states exist.
 ## T7. Simulator page
-- [ ] **Read:** `docs/PAGES.md` (Simulator), `AGENTS.md` (Finance and safety rules)
-- **Accept:** both calculators work for edge values; assumptions and the word "Estimasi" appear next to results; no promise of returns anywhere.
+- [x] **Read:** `PAGES.md` (Simulator), `AGENTS.md` (Finance and safety rules)
+- [x] Build both calculators, with visible assumptions and estimates for valid inputs.
+- [x] **Accept:** both calculators work for edge values; assumptions and the word "Estimasi" appear next to results; no promise of returns anywhere.
 ## T8. Learn page
 - [ ] **Read:** `docs/PAGES.md` (Belajar)
 - **Accept:** lessons open, progress persists, the pinjol checklist links to OJK as the source, and the layout works at 375px.
