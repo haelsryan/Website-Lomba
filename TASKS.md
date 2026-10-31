@@ -9,7 +9,7 @@ Legend: `- [ ]` open, `- [x]` done.
 ---
  
 ## T1. Multi-page foundation
-- [ ] **Read:** `docs/ARCHITECTURE.md`
+- [ ] **Read:** `ARCHITECTURE.md`
 - Set up `vite.config.js` (React plugin, Tailwind plugin, `@` alias, all pages as inputs).
 - Create `src/js/main.jsx` with `mountPage()`.
 - Create the five HTML shells in `pages/html/` (with the theme script) and a placeholder `pages/jsx/<page>.jsx` for each.
@@ -30,7 +30,7 @@ Legend: `- [ ]` open, `- [x]` done.
   - Reload with a stored theme shows no flash of the wrong theme.
   - Body text contrast is at least 4.5:1 in both themes.
 ## T3. Shared components and hooks
-- [ ] **Read:** `docs/COMPONENTS.md`, `DESIGN.md` sections 7 and 9
+- [ ] **Read:** `DESIGN.md` sections 7 and 9; reuse components from `src/components/`
 - Build in `src/components/`: `AppShell`, `Sidebar`, `Card`, `Button`, `IconButton`, `Icon`, `Avatar`, `Field`, `Modal`, `Toast`.
 - Build in `src/hooks/`: `useLocalStorage`, `useDemoData` (with the seed from `src/lib/seed.js`), `useToast`.
 - Build in `src/lib/`: `money.js`, `dates.js`, `seed.js`.
@@ -40,9 +40,9 @@ Legend: `- [ ]` open, `- [x]` done.
   - Every icon-only button has an `aria-label`.
   - Storage failures fall back to defaults without crashing.
 ## T4. Dashboard page
-- [ ] **Read:** `docs/PAGES.md` (Dashboard), `DESIGN.md` section 8
+- [ ] **Read:** `PAGES.md` (Dashboard), `DESIGN.md` section 8
 - Build `pages/jsx/dashboard.jsx` and the components in `pages/jsx/dashboard/`.
-- Add React Bits effects as listed in `docs/COMPONENTS.md` (BlurText, CountUp, SpotlightCard, Magnet). Ask before installing a new package.
+- Reuse available React Bits effects in `src/components/reactbits/`. Ask before installing a new package.
 - **Accept:**
   - Every behavior in the Dashboard table works with demo data and survives a refresh.
   - Looks finished in both themes at 375, 768 and 1280px.
@@ -57,22 +57,22 @@ Legend: `- [ ]` open, `- [x]` done.
   - [x] The notification switch matches the dashboard mute. Reset restores the seed data.
   - [x] The toggle works with keyboard only.
 ## T6. Finances page
-- [ ] **Read:** `docs/PAGES.md` (Keuangan)
+- [ ] **Read:** `PAGES.md` (Keuangan)
 - **Accept:** CRUD, filters and budget progress work; a change appears on the dashboard after navigation; empty and no-result states exist.
 ## T7. Simulator page
 - [x] **Read:** `PAGES.md` (Simulator), `AGENTS.md` (Finance and safety rules)
 - [x] Build both calculators, with visible assumptions and estimates for valid inputs.
 - [x] **Accept:** both calculators work for edge values; assumptions and the word "Estimasi" appear next to results; no promise of returns anywhere.
 ## T8. Learn page
-- [ ] **Read:** `docs/PAGES.md` (Belajar)
+- [ ] **Read:** `PAGES.md` (Belajar)
 - **Accept:** lessons open, progress persists, the pinjol checklist links to OJK as the source, and the layout works at 375px.
 ## T9. Quality pass
 - [ ] **Read:** `AGENTS.md` (Definition of done)
 - Check every page in both themes at 375, 768 and 1280px, with keyboard only, with a screen reader spot check, and with reduced motion on.
 - Run an accessibility audit (for example Lighthouse) on each page.
-- **Accept:** Lighthouse accessibility is at least 90 on all pages, no console errors, `npm run build` passes, and `docs/` matches the code.
+- **Accept:** Lighthouse accessibility is at least 90 on all pages, no console errors, `npm run build` passes, and the root-level project docs match the code.
 ## T10. Competition polish
-- [ ] **Read:** `docs/PRODUCT.md` (Competition context)
+- [ ] **Read:** `PRODUCT.md` (Competition context)
 - Write a `README.md` (what it is, how to run it, the theme fit, screenshots in both themes).
 - Prepare a 60-second demo path across the five pages and note it in `README.md`.
 - **Accept:** a new person can run the project and follow the demo path without help.

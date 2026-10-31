@@ -45,7 +45,7 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 
 ## 009. Specs and tasks live in the repo
 - **Context:** AI tools need to know what to build and when it is done.
-- **Decision:** `docs/PAGES.md` describes each page. `docs/TASKS.md` is an ordered task list with acceptance criteria. Tools take the first unchecked task when told to continue.
+- **Decision:** `PAGES.md` describes each page. `TASKS.md` is an ordered task list with acceptance criteria. Tools take the first unchecked task when told to continue.
 - **Consequences:** Keep both files current. Tick a task only when its acceptance criteria are met.
 
 ## 010. Landing page motion
@@ -77,3 +77,18 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 - **Context:** The sidebar stretched to the height of the page content because the app shell uses flex layout.
 - **Decision:** Keep the sidebar at its content height and sticky near the top while scrolling; switch to a horizontal rail below `lg`.
 - **Consequences:** Long pages no longer make the navigation rail grow, and the navigation fits the mobile layout without reducing content width.
+
+## 016. Framed landing hero and wordmark footer
+- **Context:** The landing page should reflect the supplied rounded hero and large closing typography reference without using its embedded screenshot as product artwork.
+- **Decision:** Center the existing message and product preview in a rounded frame, then close with working page links and the requested "do it better" wordmark using the established color tokens.
+- **Consequences:** The landing page borrows the reference's composition while keeping Dompet Cerdas branding and theme support intact.
+
+## 017. Floating landing preview
+- **Context:** The new WEBP reference uses a compact header and a large product interface layered over a spacious hero.
+- **Decision:** Move the landing message onto a light token background and enlarge the existing dashboard preview so it overlaps the hero boundary; keep the supplied image as reference only.
+- **Consequences:** Visitors see the real demo UI as the landing page focal point without importing another brand, fabricated metrics, or extra image assets.
+
+## 018. Landing feature hierarchy
+- **Context:** The landing page's two core capabilities need distinct visual weight without hiding either from visitors.
+- **Decision:** Give shared cash-flow tracking the wider feature panel because it is the product's most distinctive capability, and keep bill reminders as a supporting panel.
+- **Consequences:** The asymmetric feature layout communicates priority while preserving both examples and their explanations.

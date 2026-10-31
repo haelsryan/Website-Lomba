@@ -47,7 +47,7 @@ App.jsx                     Vite template leftover. Not used by pages. Delete on
 ## Rules for the structure
 
 1. A page file imports from `src/` and from its own folder only. **Pages never import from each other.**
-2. Page-only components live in `pages/jsx/<page>/`. When a second page needs one, move it to `src/components/` and update `docs/COMPONENTS.md`.
+2. Page-only components live in `pages/jsx/<page>/`. When a second page needs one, move it to `src/components/`.
 3. Page-to-page navigation uses plain `<a href>` (a full page load). Build the list once in `src/lib/nav.js`, and let `AppShell` render it.
 4. Because each page is a new document, React state is lost on navigation. Anything that must survive goes through the `localStorage` hooks.
 5. Do not put business logic in JSX files. Put pure functions in `src/lib/` and stateful logic in `src/hooks/`.
@@ -173,7 +173,7 @@ Optional: add a `jsconfig.json` with `"paths": { "@/*": ["src/*"] }` so the edit
 2. Create `pages/jsx/<page>.jsx` (and `pages/jsx/<page>/` if it needs its own components) using the page template.
 3. Add the page name to the `pages` array in `vite.config.js`.
 4. Add an entry to `src/lib/nav.js`.
-5. Add a section to `docs/PAGES.md` and a row to the pages table in `docs/PRODUCT.md`.
+5. Add a section to `PAGES.md` and a row to the pages table in `PRODUCT.md`.
 6. Run `npm run build` and check the page in both themes.
 
 ## State and storage

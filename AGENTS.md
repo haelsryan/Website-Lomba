@@ -18,19 +18,19 @@ Read this file fully before changing anything.
 Dompet Cerdas ("Smart Wallet") is a modern minimalist fintech web app: **Financial Resilience for Everyone**.
 It helps young people, students and small business owners (UMKM) in Indonesia track money, pay bills on time, save and learn.
 It is a design-focused competition entry, so visual quality, accessibility and a clear story matter as much as features.
-Product background: `docs/PRODUCT.md`.
+Product background: `PRODUCT.md`.
 
 ## Read before you work
 
 | Task | Read first |
 |---|---|
 | Any UI work | `DESIGN.md` |
-| New or changed component | `docs/COMPONENTS.md` |
-| New page, routing, state, data | `docs/ARCHITECTURE.md` |
-| Working on one page (what it contains, how it behaves) | that page's section in `docs/PAGES.md` |
-| "Do the next task", planning, or a big request | `docs/TASKS.md` |
-| Copy, features, user flows | `docs/PRODUCT.md` |
-| Why something is the way it is | `docs/DECISIONS.md` |
+| New or changed component | `src/components/` and the relevant page file |
+| New page, routing, state, data | `ARCHITECTURE.md` |
+| Working on one page (what it contains, how it behaves) | that page's section in `PAGES.md` |
+| "Do the next task", planning, or a big request | `TASKS.md` |
+| Copy, features, user flows | `PRODUCT.md` |
+| Why something is the way it is | `DECISIONS.md` |
 
 If a doc and the code disagree, tell the user and ask which is right. Do not silently pick one.
 
@@ -38,7 +38,7 @@ If a doc and the code disagree, tell the user and ask which is right. Do not sil
 
 - Vite, React (function components and hooks), Tailwind CSS v4 (`@tailwindcss/vite`).
 - **Multi-page app:** every page has its own HTML shell and its own JSX file. Pages are separate documents joined by plain links, not a client-side router.
-- Components from React Bits (reactbits.dev) are allowed. Follow `docs/COMPONENTS.md`.
+- Components from React Bits (reactbits.dev) are allowed. Follow existing patterns in `src/components/`.
 - Font: Plus Jakarta Sans. Language of the UI: Indonesian. Language of code, comments and commit messages: English.
 
 ## Commands
@@ -55,11 +55,12 @@ npm run preview   # serve the production build
 ## Project layout
 
 ```
-index.html                  "/" entry, redirects to the dashboard
+index.html                  "/" landing page shell
 pages/
 ├─ html/<page>.html         HTML shell per page: theme script, #root, loads its own JSX
 └─ jsx/
-   ├─ <page>.jsx            the page: its component plus a mountPage(...) call
+   ├─ <page>.jsx            app page: component plus a mountPage(...) call
+   ├─ index.jsx              landing page
    └─ <page>/               components used only by that page
 src/
 ├─ components/              shared components (AppShell, Modal, Toast, ...)
@@ -71,11 +72,11 @@ src/
 └─ assets/                  images and static assets
 App.jsx                     Vite template leftover, not used by pages
 .agents/, skills-lock.json  installed agent skills. Do not edit by hand.
-DESIGN.md, AGENTS.md, CLAUDE.md, docs/   project knowledge (keep updated)
+DESIGN.md, AGENTS.md, CLAUDE.md, root-level project docs (keep updated)
 ```
 
 Pages: `dashboard`, `finances`, `simulator`, `learn`, `settings`.
-See `docs/ARCHITECTURE.md` for how the pieces connect and the steps to add a page.
+See `ARCHITECTURE.md` for how the pieces connect and the steps to add a page.
 
 ## Hard rules
 
@@ -85,11 +86,11 @@ See `docs/ARCHITECTURE.md` for how the pieces connect and the steps to add a pag
 4. **Write complete class names.** Never build Tailwind classes by string concatenation (`"bg-" + color`). Use a lookup object with full class strings.
 5. **Accessibility is required.** Semantic HTML, a visible label on every input, `aria-label` on icon-only buttons, visible focus rings, keyboard access, `prefers-reduced-motion` respected.
 6. **No new dependencies without asking.** This includes animation libraries that a React Bits component needs (`motion`, `gsap`, `ogl`, `three`). Name the package and the reason, then wait.
-7. **Reuse before creating.** Look in `docs/COMPONENTS.md` and `src/` for an existing component first.
+7. **Reuse before creating.** Look in `src/` for an existing component first.
 8. **Do not touch** `node_modules/`, `.agents/`, `skills-lock.json` or lock files unless the task is about dependencies.
 9. **Do not invent features, data or claims.** If a page's content is unclear, ask or leave a clearly marked placeholder.
 10. **Match existing patterns.** Follow the naming, folder and code style already in the repo.
-11. **One page, one JSX file.** Page code lives in `pages/jsx/<page>.jsx`. Components used only by that page live in `pages/jsx/<page>/`. Pages never import from each other. Anything a second page needs moves to `src/components/` (and into the inventory in `docs/COMPONENTS.md`).
+11. **One page, one JSX file.** Page code lives in `pages/jsx/<page>.jsx`. Components used only by that page live in `pages/jsx/<page>/`. Pages never import from each other. Anything a second page needs moves to `src/components/`.
 12. **Pages are separate documents.** React state is lost on navigation. Share data between pages only through the `localStorage` hooks in `src/hooks/`. Links between pages are plain `<a href>` using the list in `src/lib/nav.js`.
 
 ## Finance and safety rules
@@ -105,9 +106,9 @@ See `docs/ARCHITECTURE.md` for how the pieces connect and the steps to add a pag
 - Make the smallest change that solves the task. Do not rewrite unrelated files or reformat whole files.
 - Explain what you changed and why, in plain language, at the end.
 - When a request is ambiguous, ask one focused question instead of guessing.
-- When told to "do the next task", open `docs/TASKS.md`, take the first unchecked task, follow its acceptance criteria, and tick it when done. Do not start a later task early.
+- When told to "do the next task", open `TASKS.md`, take the first unchecked task, follow its acceptance criteria, and tick it when done. Do not start a later task early.
 - If you notice a bug, a doc mismatch or an accessibility problem outside the task, mention it. Do not silently fix it.
-- When you make a design or architecture decision, add a short entry to `docs/DECISIONS.md`.
+- When you make a design or architecture decision, add a short entry to `DECISIONS.md`.
 - When you add or rename a component, page, token or storage key, update the matching doc in the same change.
 
 ## Definition of done
@@ -119,5 +120,5 @@ See `docs/ARCHITECTURE.md` for how the pieces connect and the steps to add a pag
 - [ ] Animations stop or simplify under `prefers-reduced-motion`.
 - [ ] No hard-coded colors, no console errors or warnings.
 - [ ] UI text is correct, natural Indonesian.
-- [ ] If a page was added or changed: HTML shell, JSX file, `vite.config.js` input, `src/lib/nav.js` and `docs/PAGES.md` are all consistent.
+- [ ] If a page was added or changed: HTML shell, JSX file, `vite.config.js` input, `src/lib/nav.js` and `PAGES.md` are all consistent.
 - [ ] Docs updated if tokens, components, pages or decisions changed.

@@ -2,7 +2,7 @@
 
 Financial Resilience for Everyone.
 Read this before building or changing any UI. Update it when a design decision changes.
-Related docs: `AGENTS.md` (rules), `docs/PRODUCT.md` (who and why), `docs/COMPONENTS.md` (building blocks), `docs/ARCHITECTURE.md` (code structure).
+Related docs: `AGENTS.md` (rules), `PRODUCT.md` (who and why), `ARCHITECTURE.md` (code structure).
 
 ## 1. Design intent
 
@@ -11,7 +11,7 @@ Related docs: `AGENTS.md` (rules), `docs/PRODUCT.md` (who and why), `docs/COMPON
 - **Audience:** young people, students and small business owners (UMKM) in Indonesia. Many use mid-range phones, so keep it light and readable.
 - **Priority:** desktop-first, but every page must work at 375px wide.
 - **Themes:** light and dark, switchable in Settings (section 4). Every screen must look finished in both.
-- **Reference:** the dashboard layout was adapted from a bento-style reference (dark sidebar pill, rounded cards on a tinted panel). Borrow structure and mood only, never branding. See `docs/references/README.md`.
+- **Reference:** the dashboard layout was adapted from a bento-style reference (dark sidebar pill, rounded cards on a tinted panel). Borrow structure and mood only, never branding.
 
 ## 2. Principles
 
@@ -135,7 +135,7 @@ Dashboard grid:
 
 ## 7. Components and buttons
 
-Component inventory and file locations live in `docs/COMPONENTS.md`. Visual rules:
+Shared components live in `src/components/`; page-specific components stay with their page. Visual rules:
 
 - Primary action: `bg-accent text-white` (or `bg-primary text-white` in dialogs). Secondary action: `bg-primary-soft text-ink`.
 - Button labels start with a verb: "Tambah anggota", "Catat transaksi", "Aktifkan Premium". Never "OK" or "Submit".
@@ -145,7 +145,7 @@ Component inventory and file locations live in `docs/COMPONENTS.md`. Visual rule
 
 ## 8. Motion and React Bits
 
-The project now uses React, so effects from React Bits (reactbits.dev) are allowed. Install and wrap them as described in `docs/COMPONENTS.md`.
+The project now uses React, so effects from React Bits (reactbits.dev) are allowed. Reuse implementations in `src/components/reactbits/`.
 
 Rules:
 - Spend motion on a few moments: one entrance on load, count-up on key numbers, a hover glow on cards, one hero effect.
@@ -182,3 +182,12 @@ Currently used effects: BlurText (headline), CountUp (numbers), SpotlightCard (c
 - Don't add colors outside the token table.
 - Don't decorate with gradients, shadows or emoji that carry no meaning.
 - Don't write placeholder text like "Lorem ipsum". Write realistic Indonesian content.
+
+## 12. Landing page
+
+- **Dials:** ENERGY 2 / RHYTHM 2 / MOTION 1.
+- The compact floating navigation sits above a pale token-colored hero, with the brand at left and the dashboard action at right. Section links sit in the bar on desktop and in a tap-friendly row below it on mobile.
+- Center the message and actions above an enlarged dashboard preview that overlaps the hero's lower edge. The overlap makes the working product, not decorative artwork, the focal point and acts as the page's repeated rounded-panel motif.
+- Keep the navy and blue identity in both themes. The supplied WEBP is a composition reference, not page artwork; do not reproduce its other brand, landscape collage, or sample metrics.
+- Keep motion to hover and focus transitions on the landing page.
+- The footer closes the page with working section links and an oversized "do it better" wordmark.

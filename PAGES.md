@@ -1,13 +1,21 @@
 # Pages
 
 One section per page: what it is for, what is on it, how it behaves and when it is done.
-Files for a page `<page>`: `pages/html/<page>.html`, `pages/jsx/<page>.jsx`, `pages/jsx/<page>/`.
-Every page uses `AppShell` (panel plus sidebar), works in light and dark theme, and at 375px wide.
+Files for an app page `<page>`: `pages/html/<page>.html`, `pages/jsx/<page>.jsx`, `pages/jsx/<page>/`.
+App pages use `AppShell` (panel plus sidebar); the landing page has its own responsive shell. All pages work in light and dark theme, and at 375px wide.
 The sidebar links to built pages only; Simulator and Belajar will appear when their pages are implemented.
 
 Pages marked **Draft** were sketched from the product goals. Confirm them with the team before building and remove the word "Draft" once agreed.
 
 ---
+
+## Landing page
+- **Files:** `index.html`, `pages/jsx/index.jsx`
+- **Purpose:** introduce Dompet Cerdas and let visitors open the demo or try the budget simulator.
+- **Layout:** floating compact navigation, centered hero copy, and a large sample dashboard preview overlapping the tinted hero panel. The footer has working section links and the "do it better" wordmark.
+- **Behavior:** navigation links scroll to existing sections; dashboard links open the demo; the 50/30/20 simulator updates from the entered monthly income.
+- **States:** the dashboard preview is labeled as example data.
+- **Done when:** section and dashboard links work, the simulator updates, and the page holds up in both themes at 375, 768 and 1280px.
 
 ## Dashboard
 - **Files:** `pages/html/dashboard.html`, `pages/jsx/dashboard.jsx`, `pages/jsx/dashboard/`

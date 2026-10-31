@@ -1,11 +1,9 @@
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import { mountPage } from '../../src/js/main.jsx'
 
 function LandingPage() {
   const [income, setIncome] = useState(5000000)
   const title = 'Keuangan kuat dimulai dari langkah kecil yang konsisten'
-  const titleWords = title.split(' ')
-
   const needs = Math.round(income * 0.5)
   const wants = Math.round(income * 0.3)
   const savings = Math.round(income * 0.2)
@@ -38,107 +36,93 @@ function LandingPage() {
       </svg>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-navy/5 bg-canvas/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="/" className="flex items-center gap-3" aria-label="Dompet Cerdas Beranda">
-            <span className="grid size-10 place-items-center rounded-2xl bg-primary text-white shadow-sm">
-              <svg className="icon size-5 text-white" aria-hidden="true"><use href="#i-wallet" /></svg>
-            </span>
-            <div className="leading-none">
-              <span className="text-lg font-bold tracking-tight text-navy">Dompet Cerdas</span>
-              <span className="block text-[0.6875rem] font-medium text-muted">Inklusi &amp; Ketahanan Finansial</span>
-            </div>
-          </a>
-
-          <nav aria-label="Navigasi situs" className="hidden items-center gap-7 md:flex">
-            <a href="#masalah" className="text-sm font-medium text-navy/80 transition hover:text-primary">Tantangan</a>
-            <a href="#fitur" className="text-sm font-medium text-navy/80 transition hover:text-primary">Fitur Utama</a>
-            <a href="#simulasi" className="text-sm font-medium text-navy/80 transition hover:text-primary">Simulasi Anggaran</a>
-            <a href="#edukasi" className="text-sm font-medium text-navy/80 transition hover:text-primary">Edukasi &amp; Privasi</a>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <a href="/pages/html/dashboard.html" className="btn bg-navy text-white hover:bg-navy/90">
-              Masuk ke Dasbor
+      <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur-md">
+        <div className="mx-auto max-w-7xl px-3 pt-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between rounded-full border border-line bg-surface px-4 py-3 sm:px-5">
+            <a href="/" className="flex items-center gap-3 hover:underline active:underline" aria-label="Dompet Cerdas Beranda">
+              <span className="grid size-10 place-items-center rounded-2xl bg-primary text-white">
+                <svg className="icon size-5 text-white" aria-hidden="true"><use href="#i-wallet" /></svg>
+              </span>
+              <div className="leading-none">
+                <span className="text-base font-bold tracking-tight text-ink sm:text-lg">Dompet Cerdas</span>
+                <span className="hidden text-[0.6875rem] font-medium text-muted sm:block">Inklusi &amp; Ketahanan Finansial</span>
+              </div>
             </a>
+
+            <nav aria-label="Navigasi situs" className="hidden items-center gap-5 lg:flex">
+              <a href="#masalah" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Tantangan</a>
+              <a href="#fitur" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Fitur Utama</a>
+              <a href="#simulasi" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Simulasi Anggaran</a>
+              <a href="#edukasi" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Edukasi</a>
+            </nav>
+
+            <div className="flex items-center gap-3">
+              <a href="/pages/html/dashboard.html" className="btn min-h-11 bg-accent text-white hover:bg-accent/90 active:translate-y-px">
+                <span className="sm:hidden">Masuk</span>
+                <span className="hidden sm:inline">Masuk ke Dasbor</span>
+              </a>
+            </div>
           </div>
+          <nav aria-label="Navigasi situs seluler" className="flex items-center justify-center gap-1 py-2 lg:hidden">
+            <a href="#masalah" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Tantangan</a>
+            <a href="#fitur" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Fitur</a>
+            <a href="#simulasi" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Simulasi</a>
+            <a href="#edukasi" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Edukasi</a>
+          </nav>
         </div>
       </header>
 
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden py-12 sm:py-20 lg:py-24">
+        <section className="relative overflow-hidden bg-primary-tint pb-16 pt-12 sm:pb-24 sm:pt-16 lg:pb-32 lg:pt-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-              <div className="max-w-2xl">
-                <h1
-                  aria-label={title}
-                  className="text-4xl font-medium tracking-tight text-navy sm:text-5xl lg:text-6xl"
-                >
-                  {titleWords.map((word, index) => (
-                    <Fragment key={`${word}-${index}`}>
-                      <span
-                        aria-hidden="true"
-                        className="motion-safe:animate-blur-highlight inline-block"
-                        style={{ animationDelay: `${index * 35}ms` }}
-                      >
-                        {word}
-                      </span>
-                      {index < titleWords.length - 1 ? ' ' : null}
-                    </Fragment>
-                  ))}
-                </h1>
-                <div
-                  className="motion-safe:animate-fade-rise"
-                  style={{ animationDelay: '240ms' }}
-                >
-                  <p className="mt-6 text-base leading-relaxed text-muted sm:text-lg">
-                    Platform pencatatan arus kas bersama, kalender tagihan bebas denda, dan modul edukasi praktis yang dirancang khusus untuk mahasiswa, keluarga, serta pelaku UMKM Indonesia.
-                  </p>
+            <div className="mx-auto max-w-4xl text-center">
+              <h1 className="mx-auto text-4xl font-medium tracking-tight text-ink sm:text-5xl lg:text-6xl">
+                {title}
+              </h1>
+              <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-ink sm:text-lg">
+                Platform pencatatan arus kas bersama, pengingat tenggat tagihan, dan edukasi praktis untuk mahasiswa, keluarga, serta pelaku UMKM Indonesia.
+              </p>
 
-                  <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-                    <a href="/pages/html/dashboard.html" className="btn bg-primary px-6 py-3 text-base text-white hover:bg-primary/90">
-                      Buka Dasbor Aplikasi
-                    </a>
-                    <a href="#simulasi" className="btn bg-primary-soft px-6 py-3 text-base text-navy hover:bg-primary hover:text-white">
-                      Hitung Simulasi 50/30/20
-                    </a>
-                  </div>
-
-                  <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-navy/10 pt-6 text-xs text-muted">
-                    <div className="flex items-center gap-2">
-                      <svg className="icon size-4 text-primary" aria-hidden="true"><use href="#i-shield" /></svg>
-                      <span>Data tersimpan lokal di peramban</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg className="icon size-4 text-primary" aria-hidden="true"><use href="#i-check" /></svg>
-                      <span>Pedoman literasi keuangan OJK</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg className="icon size-4 text-primary" aria-hidden="true"><use href="#i-users" /></svg>
-                      <span>Dukungan kolaborasi keluarga &amp; tim</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                <a href="/pages/html/dashboard.html" className="btn min-h-11 bg-primary px-6 py-3 text-base text-white hover:bg-primary/90 active:translate-y-px">
+                  Buka Dasbor Aplikasi
+                </a>
+                <a href="#simulasi" className="btn min-h-11 border border-line bg-surface px-6 py-3 text-base text-ink hover:border-primary-text hover:text-primary-text active:translate-y-px">
+                  Hitung Simulasi 50/30/20
+                </a>
               </div>
 
-              {/* Preview */}
-              <div
-                className="relative motion-safe:animate-blur-highlight"
-                style={{ animationDelay: '180ms' }}
-              >
-                <div className="rounded-[2.5rem] bg-[#edf2f9] p-5 sm:p-7 shadow-sm">
-                  <div className="rounded-3xl bg-primary-soft p-5 text-navy">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-ink">
+                <div className="flex items-center gap-2">
+                  <svg className="icon size-4 text-primary-text" aria-hidden="true"><use href="#i-shield" /></svg>
+                  <span>Data tersimpan lokal di peramban</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="icon size-4 text-primary-text" aria-hidden="true"><use href="#i-check" /></svg>
+                  <span>Pedoman literasi keuangan OJK</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="icon size-4 text-primary-text" aria-hidden="true"><use href="#i-users" /></svg>
+                  <span>Dukungan kolaborasi keluarga &amp; tim</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative z-10 mx-auto -mb-24 mt-12 max-w-6xl sm:-mb-32 sm:mt-16">
+              <div className="rounded-[2.5rem] border border-line bg-surface p-2 shadow-xl sm:p-4">
+                <div className="rounded-[2rem] bg-canvas p-4 sm:p-6 lg:p-8">
+                  <div className="rounded-3xl bg-primary-soft p-5 text-ink sm:p-6">
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-primary">Pratinjau Arus Kas</p>
-                        <h2 className="mt-1 text-xl font-medium">Usaha Katering &amp; Rumah Tangga</h2>
+                        <p className="text-xs font-semibold text-ink">Contoh tampilan aplikasi</p>
+                        <h2 className="mt-1 text-xl font-medium">Dompet Bersama</h2>
                       </div>
-                      <span className="rounded-full bg-navy px-3 py-1 text-xs font-semibold text-white">Minggu Ini</span>
+                      <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">Minggu Ini</span>
                     </div>
-                    <div className="mt-4 flex items-center justify-between text-xs text-navy/80">
-                      <span>Anggota aktif: 6 orang</span>
-                      <a href="/pages/html/dashboard.html" className="font-semibold text-primary hover:underline">Kelola &rarr;</a>
+                    <div className="mt-4 flex items-center justify-between text-xs text-ink">
+                      <span>Contoh anggota: 6 orang</span>
+                      <a href="/pages/html/dashboard.html" className="font-semibold text-ink hover:underline active:underline">Kelola &rarr;</a>
                     </div>
                   </div>
 
@@ -147,7 +131,7 @@ function LandingPage() {
                       <p className="text-xs font-medium text-muted">Pengeluaran Mingguan</p>
                       <p className="mt-2 text-2xl font-medium text-navy">Rp 1.450.000</p>
                       <div className="mt-3 flex h-2 gap-1 overflow-hidden rounded-full bg-canvas">
-                        <span className="w-[55%] rounded-full bg-navy" title="Kebutuhan 55%"></span>
+                        <span className="w-[55%] rounded-full bg-accent" title="Kebutuhan 55%"></span>
                         <span className="w-[30%] rounded-full bg-primary" title="Tabungan 30%"></span>
                         <span className="w-[15%] rounded-full bg-primary-soft" title="Lainnya 15%"></span>
                       </div>
@@ -167,21 +151,21 @@ function LandingPage() {
                           <p className="truncate text-xs font-semibold text-navy">Listrik Rumah &amp; Usaha</p>
                           <p className="text-[0.6875rem] text-muted">Hari ini, 12:45 WIB</p>
                         </div>
-                        <span className="rounded-full bg-primary-soft px-2 py-0.5 text-[0.6875rem] font-semibold text-primary">Siap Bayar</span>
+                        <span className="rounded-full bg-primary-soft px-2 py-0.5 text-[0.6875rem] font-semibold text-ink">Siap Bayar</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between rounded-2xl bg-surface px-4 py-3">
+                  <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-surface px-4 py-3">
                     <div className="flex items-center gap-3">
                       <div className="flex -space-x-2">
-                        <span className="avatar size-7 bg-gradient-to-br from-sky-400 to-blue-600 text-xs">SW</span>
-                        <span className="avatar size-7 bg-gradient-to-br from-amber-400 to-orange-600 text-xs">RP</span>
-                        <span className="avatar size-7 bg-gradient-to-br from-teal-400 to-emerald-600 text-xs">DS</span>
+                        <span className="avatar size-7 bg-accent text-xs">SW</span>
+                        <span className="avatar size-7 bg-primary text-xs">RP</span>
+                        <span className="avatar size-7 bg-primary-soft text-xs text-ink">DS</span>
                       </div>
-                      <span className="text-xs font-medium text-muted">Sinkronisasi data otomatis di perangkat Anda</span>
+                      <span className="text-xs font-medium text-muted">Contoh aktivitas dompet bersama</span>
                     </div>
-                    <a href="/pages/html/dashboard.html" className="text-xs font-semibold text-primary hover:underline">Buka &rarr;</a>
+                    <a href="/pages/html/dashboard.html" className="min-h-11 shrink-0 text-xs font-semibold text-primary-text hover:underline active:underline">Buka &rarr;</a>
                   </div>
                 </div>
               </div>
@@ -190,7 +174,7 @@ function LandingPage() {
         </section>
 
         {/* Problems */}
-        <section id="masalah" className="border-t border-navy/5 bg-white py-16 sm:py-24">
+        <section id="masalah" className="relative border-t border-line bg-surface pb-16 pt-36 sm:pb-24 sm:pt-44">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-medium tracking-tight text-navy sm:text-4xl">
@@ -256,7 +240,7 @@ function LandingPage() {
               </p>
             </div>
 
-            <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            <div className="mt-12 grid gap-8 lg:grid-cols-[1.35fr_0.85fr]">
               <div className="card flex flex-col justify-between p-6 sm:p-8">
                 <div>
                   <div className="flex items-center gap-3">
@@ -277,19 +261,19 @@ function LandingPage() {
                   <p className="text-xs font-medium text-muted">Daftar Anggota Usaha Contoh:</p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-medium text-navy shadow-xs">
-                      <span className="size-2 rounded-full bg-emerald-500"></span> Sari Wulandari (Kasir)
+                      Sari Wulandari (Kasir)
                     </span>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-medium text-navy shadow-xs">
-                      <span className="size-2 rounded-full bg-blue-500"></span> Raka Pratama (Operasional)
+                      Raka Pratama (Operasional)
                     </span>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-medium text-navy shadow-xs">
-                      <span className="size-2 rounded-full bg-amber-500"></span> Dimas Saputra (Belanja)
+                      Dimas Saputra (Belanja)
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="card flex flex-col justify-between p-6 sm:p-8">
+              <div className="card flex flex-col justify-between p-5 sm:p-6">
                 <div>
                   <div className="flex items-center gap-3">
                     <span className="grid size-11 place-items-center rounded-2xl bg-primary text-white">
@@ -331,19 +315,19 @@ function LandingPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
               <div>
-                <span className="rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-primary">
+                <span className="rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-ink">
                   Simulasi Interaktif
                 </span>
                 <h2 className="mt-4 text-3xl font-medium tracking-tight text-navy sm:text-4xl">
                   Alokasi Anggaran 50 / 30 / 20
                 </h2>
                 <p className="mt-4 text-base leading-relaxed text-muted">
-                  Metode pembagian keuangan teruji yang disarankan para perencana keuangan untuk menjaga stabilitas kas pribadi maupun usaha kecil:
+                  Contoh pembagian anggaran 50/30/20 untuk melihat alokasi pemasukan pribadi maupun usaha kecil:
                 </p>
 
                 <div className="mt-6 space-y-4 text-sm">
                   <div className="flex items-start gap-3">
-                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-navy text-xs font-bold text-white">50</span>
+                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-accent text-xs font-bold text-white">50</span>
                     <div>
                       <b className="text-navy">Kebutuhan Pokok &amp; Operasional:</b>
                       <p className="text-xs text-muted">Sewa tempat, belanja bahan, makan, listrik, air, dan transportasi harian.</p>
@@ -377,7 +361,7 @@ function LandingPage() {
                     step="500000"
                     value={income}
                     onChange={(e) => setIncome(Number(e.target.value) || 0)}
-                    className="mt-2 w-full rounded-2xl border border-navy/15 bg-white px-4 py-3 text-lg font-semibold text-navy shadow-xs focus:border-primary focus:outline-none"
+                    className="mt-2 w-full rounded-2xl border border-navy/15 bg-white px-4 py-3 text-lg font-semibold text-navy shadow-xs hover:border-primary-text focus:border-primary focus:outline-none active:border-primary"
                     placeholder="Contoh: 5000000"
                   />
                 </label>
@@ -390,10 +374,10 @@ function LandingPage() {
                       type="button"
                       onClick={() => setIncome(p)}
                       className={`btn px-3 py-1 text-xs shadow-xs ${
-                        income === p 
-                          ? 'bg-navy text-white' 
+                        income === p
+                          ? 'bg-accent text-white'
                           : 'bg-surface text-navy hover:bg-primary-soft'
-                      }`}
+                      } active:translate-y-px`}
                     >
                       Rp{p / 1000000} Jt
                     </button>
@@ -424,7 +408,7 @@ function LandingPage() {
                   <p className="text-xs text-navy/80">
                     Ingin mencatat pos-pos ini secara harian di dasbor?
                   </p>
-                  <a href="/pages/html/dashboard.html" className="btn bg-navy px-4 py-2 text-xs text-white hover:bg-navy/90">
+                  <a href="/pages/html/dashboard.html" className="btn bg-accent px-4 py-2 text-xs text-white hover:bg-accent/90 active:translate-y-px">
                     Buka Dasbor
                   </a>
                 </div>
@@ -438,10 +422,10 @@ function LandingPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-medium tracking-tight text-navy sm:text-4xl">
-                Komitmen literasi dan privasi tanpa kompromi
+                Edukasi keuangan dengan data demo lokal
               </h2>
               <p className="mt-3 text-base text-muted">
-                Dompet Cerdas dibangun dengan prinsip non-eksploitatif untuk melindungi masyarakat dari jeratan finansial buruk.
+                Dompet Cerdas adalah demo edukasi. Data di layar ini hanya contoh dan tidak mewakili rekening nyata.
               </p>
             </div>
 
@@ -450,9 +434,9 @@ function LandingPage() {
                 <span className="grid size-10 place-items-center rounded-xl bg-primary-soft text-primary">
                   <svg className="icon size-5" aria-hidden="true"><use href="#i-shield" /></svg>
                 </span>
-                <h3 className="mt-4 text-lg font-semibold text-navy">Privasi 100% di Peramban</h3>
+                <h3 className="mt-4 text-lg font-semibold text-navy">Data demo disimpan di peramban</h3>
                 <p className="mt-2 text-xs leading-relaxed text-muted">
-                  Seluruh catatan keuangan, tagihan, dan nama anggota tersimpan di memori lokal browser Anda (LocalStorage). Tidak ada pengunggahan data rekening ke pihak ketiga.
+                  Data contoh dan preferensi tema tersimpan di penyimpanan lokal peramban. Aplikasi ini tidak terhubung ke rekening bank.
                 </p>
               </div>
 
@@ -470,9 +454,9 @@ function LandingPage() {
                 <span className="grid size-10 place-items-center rounded-xl bg-primary-soft text-primary">
                   <svg className="icon size-5" aria-hidden="true"><use href="#i-target" /></svg>
                 </span>
-                <h3 className="mt-4 text-lg font-semibold text-navy">Akses Terbuka &amp; Gratis</h3>
+                <h3 className="mt-4 text-lg font-semibold text-navy">Demo tanpa pembayaran</h3>
                 <p className="mt-2 text-xs leading-relaxed text-muted">
-                  Dirancang sebagai solusi inklusi sosial untuk kompetisi inovasi digital, dapat diakses bebas tanpa biaya langganan untuk membantu masyarakat Indonesia bangkit secara ekonomi.
+                  Coba fitur pencatatan, pengingat, dan simulasi tanpa akun atau langganan. Demo ini tidak memindahkan uang.
                 </p>
               </div>
             </div>
@@ -482,15 +466,15 @@ function LandingPage() {
         {/* CTA */}
         <section className="pb-16 sm:pb-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="relative overflow-hidden rounded-[2.5rem] bg-navy px-6 py-12 text-center text-white sm:px-12 sm:py-16">
+            <div className="relative overflow-hidden rounded-[2.5rem] bg-sidebar px-6 py-12 text-center text-white sm:px-12 sm:py-16">
               <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
                 Mulai rapikan arus kas Anda hari ini
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
-                Tidak perlu menunggu modal besar untuk disiplin finansial. Masuk ke dasbor, catat transaksi pertama Anda, dan rasakan ketenangan arus kas yang terkendali.
+                Buka dasbor untuk melihat contoh pencatatan transaksi, pengingat tagihan, dan ringkasan arus kas.
               </p>
               <div className="mt-8 flex justify-center gap-4">
-                <a href="/pages/html/dashboard.html" className="btn bg-primary px-7 py-3.5 text-base font-semibold text-white hover:bg-primary/90 shadow-md">
+                <a href="/pages/html/dashboard.html" className="btn bg-primary px-7 py-3.5 text-base font-semibold text-white hover:bg-primary/90 shadow-md active:translate-y-px">
                   Buka Dasbor Dompet Cerdas
                 </a>
               </div>
@@ -500,26 +484,27 @@ function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-navy/10 bg-canvas py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
-            <div className="flex items-center gap-3">
-              <span className="grid size-9 place-items-center rounded-xl bg-primary text-white">
-                <svg className="icon size-4 text-white" aria-hidden="true"><use href="#i-wallet" /></svg>
-              </span>
-              <div>
-                <p className="text-sm font-bold text-navy">Dompet Cerdas</p>
-                <p className="text-xs text-muted">Ketahanan Finansial untuk Keluarga dan UMKM Indonesia</p>
-              </div>
+      <footer className="px-3 pb-3 sm:px-6 sm:pb-6 lg:px-8 lg:pb-8">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-sidebar text-white">
+          <div className="p-5 sm:p-8">
+            <div className="flex flex-col gap-3 text-xs text-white/80 sm:flex-row sm:items-center">
+              <p className="shrink-0">&copy; {new Date().getFullYear()} Dompet Cerdas</p>
+              <span className="hidden h-px flex-1 bg-white/25 sm:block" aria-hidden="true"></span>
+              <p className="shrink-0">Ketahanan finansial untuk semua</p>
             </div>
 
-            <nav aria-label="Tautan utama" className="flex flex-wrap gap-5 text-xs font-semibold text-navy/80">
-              <a href="/pages/html/dashboard.html" className="hover:text-primary">Dasbor</a>
+            <nav aria-label="Tautan utama" className="mt-4 flex flex-wrap justify-between gap-x-4 text-xs font-semibold text-white/90">
+              <a href="/" className="inline-flex min-h-11 items-center hover:text-white active:underline">Beranda</a>
+              <a href="#masalah" className="inline-flex min-h-11 items-center hover:text-white active:underline">Tantangan</a>
+              <a href="#fitur" className="inline-flex min-h-11 items-center hover:text-white active:underline">Fitur</a>
+              <a href="#simulasi" className="inline-flex min-h-11 items-center hover:text-white active:underline">Simulasi</a>
+              <a href="#edukasi" className="inline-flex min-h-11 items-center hover:text-white active:underline">Edukasi</a>
+              <a href="/pages/html/dashboard.html" className="inline-flex min-h-11 items-center hover:text-white active:underline">Dasbor</a>
             </nav>
-          </div>
 
-          <div className="mt-8 border-t border-navy/5 pt-6 text-xs text-muted">
-            <p>&copy; 2026 Dompet Cerdas. Hak Cipta Dilindungi. Dikembangkan untuk Inovasi Layanan Finansial Publik.</p>
+            <p className="mt-5 whitespace-nowrap text-[clamp(2.5rem,14vw,12rem)] font-semibold leading-[0.86] tracking-[-0.06em]">
+              do it better
+            </p>
           </div>
         </div>
       </footer>
