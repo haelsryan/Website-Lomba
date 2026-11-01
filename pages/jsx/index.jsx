@@ -483,33 +483,46 @@ function LandingPage() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="px-3 pb-3 sm:px-6 sm:pb-6 lg:px-8 lg:pb-8">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-sidebar text-white">
-          <div className="p-5 sm:p-8">
-            <div className="flex flex-col gap-3 text-xs text-white/80 sm:flex-row sm:items-center">
-              <p className="shrink-0">&copy; {new Date().getFullYear()} Dompet Cerdas</p>
-              <span className="hidden h-px flex-1 bg-white/25 sm:block" aria-hidden="true"></span>
-              <p className="shrink-0">Ketahanan finansial untuk semua</p>
+      
+        
+        {/* FOOTER */}
+          <footer className="dc-footer">
+
+            <div className="dc-footer-container">
+
+              {/* TOP SECTION */}
+              <div className="dc-footer-top">
+                <p className="dc-copyright">
+                  &copy; {new Date().getFullYear()} Dompet Cerdas
+                </p>
+
+                <span className="dc-footer-divider"></span>
+
+                <p className="dc-footer-tagline">
+                  Ketahanan finansial untuk semua
+                </p>
+              </div>
+
+              {/* NAVIGATION */}
+              <nav className="dc-footer-nav" aria-label="Footer navigation">
+                <a href="/">Beranda</a>
+                <a href="#masalah">Tantangan</a>
+                <a href="#fitur">Fitur</a>
+                <a href="#simulasi">Simulasi</a>
+                <a href="#edukasi">Edukasi</a>
+                <a href="/pages/html/dashboard.html">Dasbor</a>
+              </nav>
+
+              {/* BRAND */}
+              <div className="dc-footer-brand">
+                <p>do it better</p>
+              </div>
+
             </div>
 
-            <nav aria-label="Tautan utama" className="mt-4 flex flex-wrap justify-between gap-x-4 text-xs font-semibold text-white/90">
-              <a href="/" className="inline-flex min-h-11 items-center hover:text-white active:underline">Beranda</a>
-              <a href="#masalah" className="inline-flex min-h-11 items-center hover:text-white active:underline">Tantangan</a>
-              <a href="#fitur" className="inline-flex min-h-11 items-center hover:text-white active:underline">Fitur</a>
-              <a href="#simulasi" className="inline-flex min-h-11 items-center hover:text-white active:underline">Simulasi</a>
-              <a href="#edukasi" className="inline-flex min-h-11 items-center hover:text-white active:underline">Edukasi</a>
-              <a href="/pages/html/dashboard.html" className="inline-flex min-h-11 items-center hover:text-white active:underline">Dasbor</a>
-            </nav>
+          </footer>
+        </>
+          )
+        }
 
-            <p className="mt-5 whitespace-nowrap text-[clamp(2.5rem,14vw,12rem)] font-semibold leading-[0.86] tracking-[-0.06em]">
-              do it better
-            </p>
-          </div>
-        </div>
-      </footer>
-    </>
-  )
-}
-
-mountPage(LandingPage)
+        mountPage(LandingPage)
