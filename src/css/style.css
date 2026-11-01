@@ -33,34 +33,50 @@
   }
 }
 
+/* =====================================
+   SWISS GRID — LIGHT MODE
+===================================== */
+
 :root {
   color-scheme: light;
-  --app-canvas: #f7f9fc;
-  --app-panel: #edf2f9;
+
+  --app-canvas: #f8f9fa;
+  --app-panel: #f0f2f4;
   --app-surface: #ffffff;
-  --app-ink: #172b4d;
-  --app-muted: #64748b;
-  --app-line: #e2e8f0;
-  --app-primary-soft: #dbe7fe;
-  --app-primary-tint: #eef4ff;
-  --app-primary-text: #2563eb;
-  --app-accent: #172b4d;
-  --app-sidebar: #172b4d;
+
+  --app-ink: #171717;
+  --app-muted: #73777d;
+  --app-line: #e3e5e8;
+
+  --app-primary-soft: #e7edff;
+  --app-primary-tint: #f0f3ff;
+  --app-primary-text: #315bea;
+
+  --app-accent: #315bea;
+  --app-sidebar: #171717;
 }
+
+/* =====================================
+   SWISS GRID — DARK MODE
+===================================== */
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --app-canvas: #0b1220;
-  --app-panel: #111a2e;
-  --app-surface: #1a2438;
-  --app-ink: #e6ecf5;
-  --app-muted: #94a3b8;
-  --app-line: #2a3650;
-  --app-primary-soft: #1e3470;
-  --app-primary-tint: #16264a;
-  --app-primary-text: #60a5fa;
-  --app-accent: #2563eb;
-  --app-sidebar: #0a101c;
+
+  --app-canvas: #111315;
+  --app-panel: #1b1f24;
+  --app-surface: #20252b;
+
+  --app-ink: #f4f4f4;
+  --app-muted: #a0a6ad;
+  --app-line: #343a42;
+
+  --app-primary-soft: #26375f;
+  --app-primary-tint: #1b2742;
+  --app-primary-text: #7194ff;
+
+  --app-accent: #315bea;
+  --app-sidebar: #0d1013;
 }
 
 @theme inline {
@@ -601,5 +617,701 @@
 @media (prefers-reduced-motion: reduce) {
   .dc-footer-nav a {
     transition: none;
+  }
+}
+
+/* =====================================
+   SWISS GRID — GLOBAL THEME
+===================================== */
+
+html {
+  background: var(--app-canvas);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--app-canvas);
+  color: var(--app-ink);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.dc-header,
+.dc-hero,
+#masalah,
+#fitur,
+#simulasi,
+#edukasi {
+  background-color: var(--app-canvas);
+  color: var(--app-ink);
+}
+
+#masalah,
+#fitur,
+#simulasi,
+#edukasi {
+  border-color: var(--app-line);
+}
+
+.card {
+  border: 1px solid var(--app-line);
+  border-radius: 18px;
+  background: var(--app-surface);
+  box-shadow: none;
+}
+
+.text-navy {
+  color: var(--app-ink);
+}
+
+.text-muted {
+  color: var(--app-muted);
+}
+
+.bg-canvas {
+  background-color: var(--app-canvas);
+}
+
+.bg-surface {
+  background-color: var(--app-surface);
+}
+
+.border-line {
+  border-color: var(--app-line);
+}
+
+input {
+  color: var(--app-ink);
+  background-color: var(--app-surface);
+  border-color: var(--app-line);
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: var(--app-surface);
+}
+
+[data-theme="dark"] .dc-header,
+[data-theme="dark"] .dc-hero,
+[data-theme="dark"] #masalah,
+[data-theme="dark"] #fitur,
+[data-theme="dark"] #simulasi,
+[data-theme="dark"] #edukasi {
+  background-color: var(--app-canvas);
+}
+
+/* =====================================
+   SWISS GRID — HEADER
+===================================== */
+
+.dc-header {
+  background: var(--app-canvas);
+  border-bottom: 1px solid var(--app-line);
+  transition: background 0.25s ease;
+}
+
+.dc-header-inner {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.dc-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--app-ink);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.dc-logo-mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: var(--app-accent);
+  color: white;
+}
+
+.dc-logo-dot {
+  color: var(--app-primary-text);
+}
+
+.dc-nav {
+  align-items: center;
+  gap: 32px;
+}
+
+.dc-nav a,
+.dc-mobile-nav a {
+  color: var(--app-muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.dc-nav a:hover,
+.dc-mobile-nav a:hover {
+  color: var(--app-primary-text);
+}
+
+.dc-theme-toggle {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--app-line);
+  background: var(--app-surface);
+  color: var(--app-ink);
+  transition: 0.2s ease;
+}
+
+.dc-theme-toggle:hover {
+  border-color: var(--app-primary-text);
+  color: var(--app-primary-text);
+}
+
+.dc-header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: var(--app-accent);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.dc-header-cta:hover,
+.dc-primary-button:hover {
+  opacity: 0.85;
+}
+
+.dc-mobile-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--app-line);
+}
+
+/* =====================================
+   SWISS GRID — HERO
+===================================== */
+
+.dc-hero {
+  padding: 28px 0 0;
+  overflow: hidden;
+}
+
+.dc-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--app-line);
+  color: var(--app-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.dc-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.95fr;
+  gap: clamp(40px, 7vw, 100px);
+  align-items: center;
+  padding: 100px 0 90px;
+}
+
+.dc-hero-content {
+  max-width: 620px;
+}
+
+.dc-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  color: var(--app-primary-text);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.dc-eyebrow-line {
+  width: 28px;
+  height: 2px;
+  background: var(--app-primary-text);
+}
+
+.dc-hero-content h1 {
+  margin: 0;
+  color: var(--app-ink);
+  font-size: clamp(48px, 6.2vw, 88px);
+  font-weight: 800;
+  line-height: 0.99;
+  letter-spacing: -0.075em;
+}
+
+.dc-hero-content h1 span {
+  color: var(--app-primary-text);
+}
+
+.dc-hero-description {
+  max-width: 430px;
+  margin-top: 28px;
+  color: var(--app-muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.dc-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+  margin-top: 34px;
+}
+
+.dc-primary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding: 15px 20px;
+  background: var(--app-accent);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.dc-primary-button span {
+  font-size: 17px;
+}
+
+.dc-text-link {
+  color: var(--app-ink);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.dc-text-link span {
+  margin-left: 6px;
+  color: var(--app-primary-text);
+}
+
+.dc-hero-note {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 48px;
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.dc-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #36a879;
+}
+
+/* =====================================
+   DASHBOARD PREVIEW
+===================================== */
+
+.dc-hero-visual {
+  min-width: 0;
+}
+
+.dc-preview-heading,
+.dc-preview-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--app-muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.dc-preview-heading {
+  margin-bottom: 14px;
+}
+
+.dc-preview-card {
+  padding: clamp(20px, 3vw, 34px);
+  border: 1px solid var(--app-line);
+  background: var(--app-surface);
+}
+
+.dc-preview-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dc-preview-label {
+  display: block;
+  color: var(--app-muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.dc-preview-top h2 {
+  margin-top: 10px;
+  color: var(--app-ink);
+  font-size: clamp(25px, 3vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+
+.dc-preview-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: var(--app-primary-tint);
+  color: var(--app-primary-text);
+  font-size: 20px;
+}
+
+.dc-preview-chart {
+  margin-top: 42px;
+}
+
+.dc-chart-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.dc-chart-labels span:last-child {
+  color: #36a879;
+  font-weight: 700;
+}
+
+.dc-chart-bars {
+  height: 145px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+  border-bottom: 1px solid var(--app-line);
+}
+
+.dc-chart-bars span {
+  flex: 1;
+  min-width: 0;
+  background: var(--app-primary-soft);
+  transition: background 0.2s ease;
+}
+
+.dc-chart-bars span:nth-child(4),
+.dc-chart-bars span:nth-child(6) {
+  background: var(--app-primary-text);
+}
+
+.dc-chart-days {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.dc-preview-divider {
+  height: 1px;
+  margin: 28px 0 20px;
+  background: var(--app-line);
+}
+
+.dc-preview-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dc-preview-bottom strong {
+  display: block;
+  margin-top: 7px;
+  color: var(--app-ink);
+  font-size: 13px;
+}
+
+.dc-preview-avatars {
+  display: flex;
+}
+
+.dc-preview-avatars span {
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  margin-left: -5px;
+  border: 2px solid var(--app-surface);
+  border-radius: 50%;
+  background: var(--app-primary-soft);
+  color: var(--app-ink);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.dc-preview-avatars span:nth-child(2) {
+  background: var(--app-accent);
+  color: white;
+}
+
+.dc-preview-caption {
+  margin-top: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* =====================================
+   HERO BOTTOM METRICS
+===================================== */
+
+.dc-hero-bottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--app-line);
+  border-bottom: 1px solid var(--app-line);
+}
+
+.dc-hero-bottom > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px 20px;
+  border-right: 1px solid var(--app-line);
+}
+
+.dc-hero-bottom > div:first-child {
+  padding-left: 0;
+}
+
+.dc-hero-bottom > div:last-child {
+  border-right: 0;
+}
+
+.dc-hero-bottom strong {
+  color: var(--app-ink);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.dc-hero-bottom span {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1023px) {
+  .dc-hero-grid {
+    grid-template-columns: 1fr 0.9fr;
+    gap: 35px;
+    padding: 75px 0;
+  }
+
+  .dc-hero-content h1 {
+    font-size: clamp(44px, 6vw, 65px);
+  }
+}
+
+@media (max-width: 767px) {
+  .dc-header-inner {
+    min-height: 68px;
+    gap: 12px;
+  }
+
+  .dc-logo {
+    font-size: 12px;
+  }
+
+  .dc-header-cta {
+    padding: 11px 12px;
+    font-size: 10px;
+  }
+
+  .dc-hero {
+    padding-top: 10px;
+  }
+
+  .dc-hero-top {
+    font-size: 8px;
+  }
+
+  .dc-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 55px;
+    padding: 60px 0;
+  }
+
+  .dc-hero-content h1 {
+    font-size: clamp(48px, 12vw, 76px);
+  }
+
+  .dc-hero-description {
+    font-size: 14px;
+  }
+
+  .dc-hero-note {
+    margin-top: 32px;
+  }
+
+  .dc-preview-card {
+    padding: 22px;
+  }
+
+  .dc-hero-bottom > div {
+    padding: 18px 10px;
+  }
+
+  .dc-hero-bottom strong {
+    font-size: 15px;
+  }
+
+  .dc-hero-bottom span {
+    font-size: 9px;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 420px) {
+  .dc-logo-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dc-header-cta {
+    gap: 5px;
+  }
+
+  .dc-mobile-nav a {
+    font-size: 10px;
+  }
+
+  .dc-hero-actions {
+    gap: 18px;
+  }
+
+  .dc-preview-caption {
+    font-size: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dc-header,
+  .dc-nav a,
+  .dc-theme-toggle,
+  .dc-primary-button,
+  .dc-chart-bars span {
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* =====================================
+   SECTION HEADINGS
+===================================== */
+
+#masalah > div > div:first-child,
+#fitur > div > div:first-child,
+#edukasi > div > div:first-child {
+  max-width: 680px;
+}
+
+#masalah h2,
+#fitur h2,
+#simulasi h2,
+#edukasi h2 {
+  color: var(--app-ink);
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.065em;
+  line-height: 1.08;
+}
+
+#masalah article,
+#fitur .card,
+#edukasi .card {
+  border: 1px solid var(--app-line);
+  border-radius: 14px;
+  background: var(--app-surface);
+  box-shadow: none;
+}
+
+#masalah article h3,
+#fitur h3,
+#edukasi h3 {
+  color: var(--app-ink);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+/* SIMULATOR */
+#simulasi {
+  background: var(--app-panel) !important;
+}
+
+#simulasi .rounded-\[2\.5rem\] {
+  border: 1px solid var(--app-line);
+  border-radius: 14px;
+  background: var(--app-surface);
+}
+
+#simulasi input {
+  color: var(--app-ink);
+  background: var(--app-canvas);
+  border: 1px solid var(--app-line);
+}
+
+/* CTA */
+.dc-cta {
+  background: var(--app-accent);
+  color: #ffffff;
+  padding: 60px 24px;
+}
+
+.dc-footer-top,
+.dc-footer-nav a,
+.dc-footer-brand p {
+  color: var(--app-ink);
+  text-shadow: none;
+}
+
+.dc-footer-divider {
+  background: var(--app-line);
+}
+
+.dc-footer-brand p {
+  font-size: clamp(48px, 10vw, 150px);
+}
+
+@media (max-width: 600px) {
+  .dc-footer-container {
+    padding: 24px 18px;
   }
 }

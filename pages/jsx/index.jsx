@@ -1,8 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { mountPage } from '../../src/js/main.jsx'
 
 function LandingPage() {
   const [income, setIncome] = useState(5000000)
+  const [theme, setTheme] = useState(() => {
+      return localStorage.getItem('dc-theme') || 'light'
+    })
+
+    useEffect(() => {
+      document.documentElement.setAttribute('data-theme', theme)
+      localStorage.setItem('dc-theme', theme)
+    }, [theme])
+
+  const toggleTheme = () => {
+      setTheme((current) => current === 'light' ? 'dark' : 'light')
+    }
   const title = 'Keuangan kuat dimulai dari langkah kecil yang konsisten'
   const needs = Math.round(income * 0.5)
   const wants = Math.round(income * 0.3)
@@ -35,141 +47,221 @@ function LandingPage() {
         <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
       </svg>
 
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur-md">
-        <div className="mx-auto max-w-7xl px-3 pt-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between rounded-full border border-line bg-surface px-4 py-3 sm:px-5">
-            <a href="/" className="flex items-center gap-3 hover:underline active:underline" aria-label="Dompet Cerdas Beranda">
-              <span className="grid size-10 place-items-center rounded-2xl bg-primary text-white">
-                <svg className="icon size-5 text-white" aria-hidden="true"><use href="#i-wallet" /></svg>
+      {/* HEADER — SWISS GRID */}
+      <header className="dc-header sticky top-0 z-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="dc-header-inner">
+
+            <a href="/" className="dc-logo" aria-label="Dompet Cerdas">
+              <span className="dc-logo-mark">
+                <svg className="icon size-5" aria-hidden="true">
+                  <use href="#i-wallet" />
+                </svg>
               </span>
-              <div className="leading-none">
-                <span className="text-base font-bold tracking-tight text-ink sm:text-lg">Dompet Cerdas</span>
-                <span className="hidden text-[0.6875rem] font-medium text-muted sm:block">Inklusi &amp; Ketahanan Finansial</span>
-              </div>
+              <span>DOMPET CERDAS<span className="dc-logo-dot">.</span></span>
             </a>
 
-            <nav aria-label="Navigasi situs" className="hidden items-center gap-5 lg:flex">
-              <a href="#masalah" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Tantangan</a>
-              <a href="#fitur" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Fitur Utama</a>
-              <a href="#simulasi" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Simulasi Anggaran</a>
-              <a href="#edukasi" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Edukasi</a>
+            <nav className="dc-nav hidden lg:flex"
+              aria-label="Navigasi utama">
+              <a href="#masalah">Tantangan</a>
+              <a href="#fitur">Fitur</a>
+              <a href="#simulasi">Simulasi</a>
+              <a href="#edukasi">Edukasi</a>
             </nav>
 
             <div className="flex items-center gap-3">
-              <a href="/pages/html/dashboard.html" className="btn min-h-11 bg-accent text-white hover:bg-accent/90 active:translate-y-px">
-                <span className="sm:hidden">Masuk</span>
-                <span className="hidden sm:inline">Masuk ke Dasbor</span>
+
+              {/* THEME TOGGLE */}
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="dc-theme-toggle"
+                aria-label={
+                  theme === 'light'
+                    ? 'Aktifkan dark mode'
+                    : 'Aktifkan light mode'
+                }
+                title="Ganti tema"
+              >
+                {theme === 'light' ? (
+                  <svg className="icon size-5" viewBox="0 0 24 24"
+                    aria-hidden="true">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" />
+                  </svg>
+                ) : (
+                  <svg className="icon size-5" viewBox="0 0 24 24"
+                    aria-hidden="true">
+                    <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" />
+                  </svg>
+                )}
+              </button>
+
+              <a
+                href="/pages/html/dashboard.html"
+                className="dc-header-cta"
+              >
+                Masuk ke Dasbor
+                <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
-          <nav aria-label="Navigasi situs seluler" className="flex items-center justify-center gap-1 py-2 lg:hidden">
-            <a href="#masalah" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Tantangan</a>
-            <a href="#fitur" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Fitur</a>
-            <a href="#simulasi" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Simulasi</a>
-            <a href="#edukasi" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Edukasi</a>
+
+          {/* MOBILE NAVIGATION */}
+          <nav className="dc-mobile-nav lg:hidden"
+            aria-label="Navigasi seluler">
+            <a href="#masalah">Tantangan</a>
+            <a href="#fitur">Fitur</a>
+            <a href="#simulasi">Simulasi</a>
+            <a href="#edukasi">Edukasi</a>
           </nav>
         </div>
       </header>
 
       <main>
-        {/* Hero */}
-        <section className="relative overflow-hidden bg-primary-tint pb-16 pt-12 sm:pb-24 sm:pt-16 lg:pb-32 lg:pt-20">
+        {/* HERO — SWISS GRID */}
+        <section className="dc-hero">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-4xl text-center">
-              <h1 className="mx-auto text-4xl font-medium tracking-tight text-ink sm:text-5xl lg:text-6xl">
-                {title}
-              </h1>
-              <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-ink sm:text-lg">
-                Platform pencatatan arus kas bersama, pengingat tenggat tagihan, dan edukasi praktis untuk mahasiswa, keluarga, serta pelaku UMKM Indonesia.
-              </p>
 
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-                <a href="/pages/html/dashboard.html" className="btn min-h-11 bg-primary px-6 py-3 text-base text-white hover:bg-primary/90 active:translate-y-px">
-                  Buka Dasbor Aplikasi
-                </a>
-                <a href="#simulasi" className="btn min-h-11 border border-line bg-surface px-6 py-3 text-base text-ink hover:border-primary-text hover:text-primary-text active:translate-y-px">
-                  Hitung Simulasi 50/30/20
-                </a>
+            {/* HERO TOP LABEL */}
+            <div className="dc-hero-top">
+              <span>PERSONAL FINANCE PLATFORM</span>
+              <span>INDONESIA · 2026</span>
+            </div>
+
+            {/* HERO GRID */}
+            <div className="dc-hero-grid">
+
+              {/* LEFT CONTENT */}
+              <div className="dc-hero-content">
+
+                <p className="dc-eyebrow">
+                  <span className="dc-eyebrow-line"></span>
+                  FINANCIAL WELLNESS, SIMPLIFIED
+                </p>
+
+                <h1>
+                  Atur uang.
+                  <br />
+                  <span>Rencanakan</span>
+                  <br />
+                  masa depan.
+                </h1>
+
+                <p className="dc-hero-description">
+                  Kelola arus kas, pantau tagihan, dan bangun
+                  kebiasaan finansial yang lebih baik dalam
+                  satu tempat.
+                </p>
+
+                <div className="dc-hero-actions">
+                  <a
+                    href="/pages/html/dashboard.html"
+                    className="dc-primary-button"
+                  >
+                    Buka Dasbor
+                    <span aria-hidden="true">↗</span>
+                  </a>
+
+                  <a href="#fitur" className="dc-text-link">
+                    Jelajahi fitur <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+
+                <div className="dc-hero-note">
+                  <span className="dc-status-dot"></span>
+                  Demo edukasi · Tidak terhubung ke rekening bank
+                </div>
               </div>
 
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-ink">
-                <div className="flex items-center gap-2">
-                  <svg className="icon size-4 text-primary-text" aria-hidden="true"><use href="#i-shield" /></svg>
-                  <span>Data tersimpan lokal di peramban</span>
+              {/* RIGHT DASHBOARD PREVIEW */}
+              <div className="dc-hero-visual">
+
+                <div className="dc-preview-heading">
+                  <span>01 / DASHBOARD PREVIEW</span>
+                  <span>LIVE DEMO</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <svg className="icon size-4 text-primary-text" aria-hidden="true"><use href="#i-check" /></svg>
-                  <span>Pedoman literasi keuangan OJK</span>
+
+                <div className="dc-preview-card">
+
+                  <div className="dc-preview-top">
+                    <div>
+                      <span className="dc-preview-label">
+                        TOTAL PENGELUARAN
+                      </span>
+                      <h2>Rp 1.450.000</h2>
+                    </div>
+
+                    <span className="dc-preview-icon">
+                      ↗
+                    </span>
+                  </div>
+
+                  <div className="dc-preview-chart">
+                    <div className="dc-chart-labels">
+                      <span>Pengeluaran mingguan</span>
+                      <span>+12.5%</span>
+                    </div>
+
+                    <div className="dc-chart-bars">
+                      <span style={{ height: '35%' }}></span>
+                      <span style={{ height: '52%' }}></span>
+                      <span style={{ height: '42%' }}></span>
+                      <span style={{ height: '75%' }}></span>
+                      <span style={{ height: '60%' }}></span>
+                      <span style={{ height: '90%' }}></span>
+                      <span style={{ height: '68%' }}></span>
+                    </div>
+
+                    <div className="dc-chart-days">
+                      <span>Sen</span>
+                      <span>Sel</span>
+                      <span>Rab</span>
+                      <span>Kam</span>
+                      <span>Jum</span>
+                      <span>Sab</span>
+                      <span>Min</span>
+                    </div>
+                  </div>
+
+                  <div className="dc-preview-divider"></div>
+
+                  <div className="dc-preview-bottom">
+                    <div>
+                      <span className="dc-preview-label">DOMPET BERSAMA</span>
+                      <strong>6 anggota</strong>
+                    </div>
+                    <div className="dc-preview-avatars">
+                      <span>SW</span>
+                      <span>RP</span>
+                      <span>DS</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <svg className="icon size-4 text-primary-text" aria-hidden="true"><use href="#i-users" /></svg>
-                  <span>Dukungan kolaborasi keluarga &amp; tim</span>
+
+                <div className="dc-preview-caption">
+                  <span>FIG. 01</span>
+                  <span>Contoh tampilan aplikasi Dompet Cerdas</span>
                 </div>
               </div>
             </div>
 
-            <div className="relative z-10 mx-auto -mb-24 mt-12 max-w-6xl sm:-mb-32 sm:mt-16">
-              <div className="rounded-[2.5rem] border border-line bg-surface p-2 shadow-xl sm:p-4">
-                <div className="rounded-[2rem] bg-canvas p-4 sm:p-6 lg:p-8">
-                  <div className="rounded-3xl bg-primary-soft p-5 text-ink sm:p-6">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-xs font-semibold text-ink">Contoh tampilan aplikasi</p>
-                        <h2 className="mt-1 text-xl font-medium">Dompet Bersama</h2>
-                      </div>
-                      <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">Minggu Ini</span>
-                    </div>
-                    <div className="mt-4 flex items-center justify-between text-xs text-ink">
-                      <span>Contoh anggota: 6 orang</span>
-                      <a href="/pages/html/dashboard.html" className="font-semibold text-ink hover:underline active:underline">Kelola &rarr;</a>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                    <div className="card p-4">
-                      <p className="text-xs font-medium text-muted">Pengeluaran Mingguan</p>
-                      <p className="mt-2 text-2xl font-medium text-navy">Rp 1.450.000</p>
-                      <div className="mt-3 flex h-2 gap-1 overflow-hidden rounded-full bg-canvas">
-                        <span className="w-[55%] rounded-full bg-accent" title="Kebutuhan 55%"></span>
-                        <span className="w-[30%] rounded-full bg-primary" title="Tabungan 30%"></span>
-                        <span className="w-[15%] rounded-full bg-primary-soft" title="Lainnya 15%"></span>
-                      </div>
-                      <div className="mt-2 flex justify-between text-[0.6875rem] text-muted">
-                        <span>Kebutuhan: 55%</span>
-                        <span>Tabungan: 30%</span>
-                      </div>
-                    </div>
-
-                    <div className="card p-4">
-                      <p className="text-xs font-medium text-muted">Jadwal Tagihan Terdekat</p>
-                      <div className="mt-2 flex items-center gap-2.5 rounded-2xl bg-canvas p-2.5">
-                        <span className="grid size-8 place-items-center rounded-xl bg-primary-soft text-primary">
-                          <svg className="icon size-4" aria-hidden="true"><use href="#i-receipt" /></svg>
-                        </span>
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-xs font-semibold text-navy">Listrik Rumah &amp; Usaha</p>
-                          <p className="text-[0.6875rem] text-muted">Hari ini, 12:45 WIB</p>
-                        </div>
-                        <span className="rounded-full bg-primary-soft px-2 py-0.5 text-[0.6875rem] font-semibold text-ink">Siap Bayar</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-surface px-4 py-3">
-                    <div className="flex items-center gap-3">
-                      <div className="flex -space-x-2">
-                        <span className="avatar size-7 bg-accent text-xs">SW</span>
-                        <span className="avatar size-7 bg-primary text-xs">RP</span>
-                        <span className="avatar size-7 bg-primary-soft text-xs text-ink">DS</span>
-                      </div>
-                      <span className="text-xs font-medium text-muted">Contoh aktivitas dompet bersama</span>
-                    </div>
-                    <a href="/pages/html/dashboard.html" className="min-h-11 shrink-0 text-xs font-semibold text-primary-text hover:underline active:underline">Buka &rarr;</a>
-                  </div>
-                </div>
+            {/* BOTTOM METRICS */}
+            <div className="dc-hero-bottom">
+              <div>
+                <strong>50 / 30 / 20</strong>
+                <span>Metode alokasi anggaran</span>
+              </div>
+              <div>
+                <strong>01</strong>
+                <span>Satu tempat untuk mengelola</span>
+              </div>
+              <div>
+                <strong>100%</strong>
+                <span>Demo edukasi gratis</span>
               </div>
             </div>
+
           </div>
         </section>
 
