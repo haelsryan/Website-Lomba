@@ -1,21 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { mountPage } from '../../src/js/main.jsx'
+import Footer from '../../src/components/Footer.jsx'
+import DotBackground from './index/DotBackground.jsx'
+import Hero from './index/Hero.jsx'
+import Navbar from './index/Navbar.jsx'
 
 function LandingPage() {
   const [income, setIncome] = useState(5000000)
-  const [theme, setTheme] = useState(() => {
-      return localStorage.getItem('dc-theme') || 'light'
-    })
-
-    useEffect(() => {
-      document.documentElement.setAttribute('data-theme', theme)
-      localStorage.setItem('dc-theme', theme)
-    }, [theme])
-
-  const toggleTheme = () => {
-      setTheme((current) => current === 'light' ? 'dark' : 'light')
-    }
-  const title = 'Keuangan kuat dimulai dari langkah kecil yang konsisten'
   const needs = Math.round(income * 0.5)
   const wants = Math.round(income * 0.3)
   const savings = Math.round(income * 0.2)
@@ -35,235 +26,18 @@ function LandingPage() {
         <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><circle cx="16.5" cy="14" r="1"/></symbol>
         <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
         <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/><path d="M4 17a3 3 0 0 1 3-3h12"/></symbol>
-        <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h8M20 6h0M4 12h2M14 12h6M4 18h10M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
-        <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
         <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
         <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
-        <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
-        <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></symbol>
-        <symbol id="i-plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
         <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
-        <symbol id="i-chart" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></symbol>
         <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
       </svg>
 
-      {/* HEADER — SWISS GRID */}
-      <header className="dc-header sticky top-0 z-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="dc-header-inner">
-
-            <a href="/" className="dc-logo" aria-label="Dompet Cerdas">
-              <span className="dc-logo-mark">
-                <svg className="icon size-5" aria-hidden="true">
-                  <use href="#i-wallet" />
-                </svg>
-              </span>
-              <span>DOMPET CERDAS<span className="dc-logo-dot">.</span></span>
-            </a>
-
-            <nav className="dc-nav hidden lg:flex"
-              aria-label="Navigasi utama">
-              <a href="#masalah">Tantangan</a>
-              <a href="#fitur">Fitur</a>
-              <a href="#simulasi">Simulasi</a>
-              <a href="#edukasi">Edukasi</a>
-            </nav>
-
-            <div className="flex items-center gap-3">
-
-              {/* THEME TOGGLE */}
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className="dc-theme-toggle"
-                aria-label={
-                  theme === 'light'
-                    ? 'Aktifkan dark mode'
-                    : 'Aktifkan light mode'
-                }
-                title="Ganti tema"
-              >
-                {theme === 'light' ? (
-                  <svg className="icon size-5" viewBox="0 0 24 24"
-                    aria-hidden="true">
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" />
-                  </svg>
-                ) : (
-                  <svg className="icon size-5" viewBox="0 0 24 24"
-                    aria-hidden="true">
-                    <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" />
-                  </svg>
-                )}
-              </button>
-
-              <a
-                href="/pages/html/dashboard.html"
-                className="dc-header-cta"
-              >
-                Masuk ke Dasbor
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
-
-          {/* MOBILE NAVIGATION */}
-          <nav className="dc-mobile-nav lg:hidden"
-            aria-label="Navigasi seluler">
-            <a href="#masalah">Tantangan</a>
-            <a href="#fitur">Fitur</a>
-            <a href="#simulasi">Simulasi</a>
-            <a href="#edukasi">Edukasi</a>
-          </nav>
-        </div>
-      </header>
-
       <main>
-        {/* HERO — SWISS GRID */}
-        <section className="dc-hero">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-            {/* HERO TOP LABEL */}
-            <div className="dc-hero-top">
-              <span>PERSONAL FINANCE PLATFORM</span>
-              <span>INDONESIA · 2026</span>
-            </div>
-
-            {/* HERO GRID */}
-            <div className="dc-hero-grid">
-
-              {/* LEFT CONTENT */}
-              <div className="dc-hero-content">
-
-                <p className="dc-eyebrow">
-                  <span className="dc-eyebrow-line"></span>
-                  FINANCIAL WELLNESS, SIMPLIFIED
-                </p>
-
-                <h1>
-                  Atur uang.
-                  <br />
-                  <span>Rencanakan</span>
-                  <br />
-                  masa depan.
-                </h1>
-
-                <p className="dc-hero-description">
-                  Kelola arus kas, pantau tagihan, dan bangun
-                  kebiasaan finansial yang lebih baik dalam
-                  satu tempat.
-                </p>
-
-                <div className="dc-hero-actions">
-                  <a
-                    href="/pages/html/dashboard.html"
-                    className="dc-primary-button"
-                  >
-                    Buka Dasbor
-                    <span aria-hidden="true">↗</span>
-                  </a>
-
-                  <a href="#fitur" className="dc-text-link">
-                    Jelajahi fitur <span aria-hidden="true">→</span>
-                  </a>
-                </div>
-
-                <div className="dc-hero-note">
-                  <span className="dc-status-dot"></span>
-                  Demo edukasi · Tidak terhubung ke rekening bank
-                </div>
-              </div>
-
-              {/* RIGHT DASHBOARD PREVIEW */}
-              <div className="dc-hero-visual">
-
-                <div className="dc-preview-heading">
-                  <span>01 / DASHBOARD PREVIEW</span>
-                  <span>LIVE DEMO</span>
-                </div>
-
-                <div className="dc-preview-card">
-
-                  <div className="dc-preview-top">
-                    <div>
-                      <span className="dc-preview-label">
-                        TOTAL PENGELUARAN
-                      </span>
-                      <h2>Rp 1.450.000</h2>
-                    </div>
-
-                    <span className="dc-preview-icon">
-                      ↗
-                    </span>
-                  </div>
-
-                  <div className="dc-preview-chart">
-                    <div className="dc-chart-labels">
-                      <span>Pengeluaran mingguan</span>
-                      <span>+12.5%</span>
-                    </div>
-
-                    <div className="dc-chart-bars">
-                      <span style={{ height: '35%' }}></span>
-                      <span style={{ height: '52%' }}></span>
-                      <span style={{ height: '42%' }}></span>
-                      <span style={{ height: '75%' }}></span>
-                      <span style={{ height: '60%' }}></span>
-                      <span style={{ height: '90%' }}></span>
-                      <span style={{ height: '68%' }}></span>
-                    </div>
-
-                    <div className="dc-chart-days">
-                      <span>Sen</span>
-                      <span>Sel</span>
-                      <span>Rab</span>
-                      <span>Kam</span>
-                      <span>Jum</span>
-                      <span>Sab</span>
-                      <span>Min</span>
-                    </div>
-                  </div>
-
-                  <div className="dc-preview-divider"></div>
-
-                  <div className="dc-preview-bottom">
-                    <div>
-                      <span className="dc-preview-label">DOMPET BERSAMA</span>
-                      <strong>6 anggota</strong>
-                    </div>
-                    <div className="dc-preview-avatars">
-                      <span>SW</span>
-                      <span>RP</span>
-                      <span>DS</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="dc-preview-caption">
-                  <span>FIG. 01</span>
-                  <span>Contoh tampilan aplikasi Dompet Cerdas</span>
-                </div>
-              </div>
-            </div>
-
-            {/* BOTTOM METRICS */}
-            <div className="dc-hero-bottom">
-              <div>
-                <strong>50 / 30 / 20</strong>
-                <span>Metode alokasi anggaran</span>
-              </div>
-              <div>
-                <strong>01</strong>
-                <span>Satu tempat untuk mengelola</span>
-              </div>
-              <div>
-                <strong>100%</strong>
-                <span>Demo edukasi gratis</span>
-              </div>
-            </div>
-
-          </div>
-        </section>
+        <div className="flex min-h-svh flex-col overflow-hidden bg-hero-bg text-hero-foreground">
+          <DotBackground />
+          <Navbar />
+          <Hero />
+        </div>
 
         {/* Problems */}
         <section id="masalah" className="relative border-t border-line bg-surface pb-16 pt-36 sm:pb-24 sm:pt-44">
@@ -398,6 +172,22 @@ function LandingPage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="border-y border-line bg-panel py-16 sm:py-24">
+          <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:px-8">
+            <h2 className="text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+              Tentang Dompet Cerdas
+            </h2>
+            <div className="max-w-2xl">
+              <p className="text-lg leading-relaxed text-ink">
+                Pendamping keuangan praktis untuk anak muda, keluarga, dan pelaku UMKM di Indonesia.
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-muted">
+                Jelajahi pencatatan arus kas bersama, pengingat tagihan, dan perencanaan anggaran melalui demo edukasi ini. Semua angka adalah contoh; aplikasi tidak terhubung ke rekening bank dan tidak memindahkan uang.
+              </p>
             </div>
           </div>
         </section>
@@ -575,46 +365,9 @@ function LandingPage() {
         </section>
       </main>
 
-      
-        
-        {/* FOOTER */}
-          <footer className="dc-footer">
+      <Footer />
+    </>
+  )
+}
 
-            <div className="dc-footer-container">
-
-              {/* TOP SECTION */}
-              <div className="dc-footer-top">
-                <p className="dc-copyright">
-                  &copy; {new Date().getFullYear()} Dompet Cerdas
-                </p>
-
-                <span className="dc-footer-divider"></span>
-
-                <p className="dc-footer-tagline">
-                  Ketahanan finansial untuk semua
-                </p>
-              </div>
-
-              {/* NAVIGATION */}
-              <nav className="dc-footer-nav" aria-label="Footer navigation">
-                <a href="/">Beranda</a>
-                <a href="#masalah">Tantangan</a>
-                <a href="#fitur">Fitur</a>
-                <a href="#simulasi">Simulasi</a>
-                <a href="#edukasi">Edukasi</a>
-                <a href="/pages/html/dashboard.html">Dasbor</a>
-              </nav>
-
-              {/* BRAND */}
-              <div className="dc-footer-brand">
-                <p>do it better</p>
-              </div>
-
-            </div>
-
-          </footer>
-        </>
-          )
-        }
-
-        mountPage(LandingPage)
+mountPage(LandingPage)
