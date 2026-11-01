@@ -50,6 +50,8 @@ All colors are semantic tokens defined in `src/css/style.css`. **Never hard-code
 | `primary-tint` | `#EEF4FF` | `#16264A` | Hover fills, quiet bars |
 | `accent` | `#172B4D` | `#2563EB` | Strong fills: selected day, dark buttons |
 | `sidebar` | `#172B4D` | `#0A101C` | Sidebar pill background |
+| `hero-bg` | `#0B1220` | `#0B1220` | Fixed dark landing hero background |
+| `hero-foreground` | `#F8FAFC` | `#F8FAFC` | Landing hero headline and primary controls |
 
 Rules:
 - Text on `accent`, `sidebar` and `primary` is always white.
@@ -189,10 +191,10 @@ Currently used effects: BlurText (headline), CountUp (numbers), SpotlightCard (c
 - Don't write placeholder text like "Lorem ipsum". Write realistic Indonesian content.
 
 ## 12. Landing page
-
-- **Dials:** ENERGY 2 / RHYTHM 2 / MOTION 1.
-- The compact floating navigation sits above a pale token-colored hero, with the brand at left and the dashboard action at right. Section links sit in the bar on desktop and in a tap-friendly row below it on mobile.
-- Center the message and actions above an enlarged dashboard preview that overlaps the hero's lower edge. The overlap makes the working product, not decorative artwork, the focal point and acts as the page's repeated rounded-panel motif.
-- Keep the navy and blue identity in both themes. The supplied WEBP is a composition reference, not page artwork; do not reproduce its other brand, landscape collage, or sample metrics.
-- Keep motion to hover and focus transitions on the landing page.
-- The footer closes the page with working section links and an oversized "do it better" wordmark.
+- **Design read:** A landing page for young people and UMKM in Indonesia, using a spacious, restrained fintech style. ENERGY 2 / RHYTHM 2 / MOTION 2.
+- Use a full-viewport dark hero with the brand at top left, section navigation, and one dashboard action. Navigation links target the existing features, About, simulator, and education sections; keep them on one row on desktop and a separate tap-friendly row on mobile. Place the single-line desktop headline and two actions at the lower left; stack the actions and allow the headline to wrap on mobile.
+- The About section explains the demo and its audience using product facts, with no fabricated results or service claims.
+- Use a low-contrast DotGrid as a subtle focus texture, not content. It stays subdued at rest and brightens with a stronger swell under the pointer. It is lazy-loaded and omitted when reduced motion is requested. Its presence is an explicit exception to the usual rule against dot-pattern backgrounds, confirmed for this reference.
+- Type the headline once on load and fade the supporting copy and actions in; reduced motion shows the complete headline without typing.
+- The hero headline is "Uangmu, masa depanmu." and types once on load; its full accessible name is announced as one sentence. Under reduced motion, show the full headline immediately. Keep the existing Indonesian subtitle and destination-specific actions.
+- The footer uses a two-part desktop layout with the brand beside three groups of working page links; on mobile, the brand stacks above a two-column link grid. Its large, subdued "Dompet Cerdas" wordmark sits behind the content, and the bottom bar contains only copyright and a reduced-motion-aware return-to-top control.

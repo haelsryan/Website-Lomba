@@ -4,7 +4,11 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
 export default defineConfig({
-  root: import.meta.dirname,
+  resolve: {
+    alias: {
+      '@': resolve(import.meta.dirname, 'src'),
+    },
+  },
   plugins: [
     react(),
     tailwindcss(),
