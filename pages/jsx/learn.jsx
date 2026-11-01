@@ -23,7 +23,7 @@ function LearnPage() {
         </p>
         <ul className="mt-8 grid gap-3 sm:grid-cols-3">
           {topics.map((topic) => (
-            <li key={topic} className="rounded-2xl border border-line bg-surface p-5 text-sm font-semibold text-ink">
+            <li key={topic} className="glass-surface rounded-2xl p-5 text-sm font-semibold text-ink">
               {topic}
               <span className="mt-3 block text-xs font-medium text-muted">Segera hadir</span>
             </li>

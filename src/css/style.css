@@ -44,6 +44,7 @@
   --app-primary-soft: #dbe7fe;
   --app-primary-tint: #eef4ff;
   --app-primary-text: #2563eb;
+  --app-primary-foreground: #ffffff;
   --app-accent: #172b4d;
   --app-sidebar: #172b4d;
 }
@@ -98,16 +99,6 @@ html[data-reduced-motion="true"] *::after {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
-}
-
-body[data-page="dashboard"],
-body[data-page="settings"] {
-  background-color: var(--app-canvas);
-  background-image:
-    radial-gradient(ellipse at 12% 8%, rgb(34 197 94 / 0.13), transparent 34rem),
-    radial-gradient(ellipse at 88% 18%, rgb(37 99 235 / 0.16), transparent 38rem),
-    radial-gradient(ellipse at 62% 92%, rgb(14 165 233 / 0.1), transparent 36rem);
-  background-attachment: fixed;
 }
 
 body[data-page="dashboard"] > div.flex,
@@ -244,6 +235,21 @@ body[data-page="settings"] .bg-canvas {
   }
 }
 
+body {
+  background-color: var(--app-canvas);
+  background-image: url("../../images/awan67.jpg");
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+[data-theme="dark"] body {
+  background-image:
+    linear-gradient(rgb(11 18 32 / 0.48), rgb(11 18 32 / 0.48)),
+    url("../../images/awan67.jpg");
+}
+
 body[data-page="settings"] .settings-nav-link {
   display: inline-flex;
   min-height: 2.75rem;
@@ -272,71 +278,6 @@ body[data-page="settings"] .settings-nav-link:hover {
 [data-theme="dark"] body[data-page="settings"] .settings-nav-link {
   border-color: rgb(255 255 255 / 0.12);
   background: rgb(26 36 56 / 0.64);
-}
-
-body[data-page="settings"] .settings-profile-banner {
-  background:
-    radial-gradient(ellipse at 86% 16%, rgb(34 197 94 / 0.18), transparent 22rem),
-    linear-gradient(115deg, rgb(219 231 254 / 0.88), rgb(255 255 255 / 0.52));
-  border-bottom: 1px solid rgb(255 255 255 / 0.7);
-}
-
-[data-theme="dark"] body[data-page="settings"] .settings-profile-banner {
-  background:
-    radial-gradient(ellipse at 86% 16%, rgb(34 197 94 / 0.12), transparent 22rem),
-    linear-gradient(115deg, rgb(30 52 112 / 0.62), rgb(26 36 56 / 0.48));
-  border-bottom-color: rgb(255 255 255 / 0.1);
-}
-
-body[data-page="settings"] .settings-avatar-wrap {
-  position: relative;
-  width: 4.5rem;
-  height: 4.5rem;
-  flex: 0 0 auto;
-}
-
-body[data-page="settings"] .settings-avatar {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  place-items: center;
-  border: 2px solid rgb(255 255 255 / 0.85);
-  border-radius: 1.25rem;
-  object-fit: cover;
-  background: linear-gradient(145deg, #2563eb, #60a5fa);
-  color: #fff;
-  font-size: 1.25rem;
-  font-weight: 800;
-  box-shadow: 0 8px 20px rgb(23 43 77 / 0.18);
-}
-
-body[data-page="settings"] .settings-avatar-upload {
-  position: absolute;
-  right: -0.35rem;
-  bottom: -0.35rem;
-  display: grid;
-  width: 2rem;
-  height: 2rem;
-  place-items: center;
-  border: 1px solid rgb(255 255 255 / 0.9);
-  border-radius: 9999px;
-  background: var(--app-surface);
-  color: var(--app-primary-text);
-  box-shadow: 0 4px 12px rgb(23 43 77 / 0.16);
-  cursor: pointer;
-}
-
-body[data-page="settings"] .settings-demo-badge {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  border: 1px solid rgb(37 99 235 / 0.15);
-  border-radius: 9999px;
-  padding: 0.45rem 0.75rem;
-  background: rgb(255 255 255 / 0.56);
-  color: var(--app-primary-text);
-  font-size: 0.75rem;
-  font-weight: 700;
 }
 
 body[data-page="settings"] .settings-field {
@@ -370,12 +311,6 @@ body[data-page="settings"] .settings-field textarea {
 [data-theme="dark"] body[data-page="settings"] .settings-field select,
 [data-theme="dark"] body[data-page="settings"] .settings-field textarea {
   background: rgb(11 18 32 / 0.52);
-}
-
-body[data-page="settings"] .settings-field-hint {
-  color: var(--app-muted);
-  font-size: 0.75rem;
-  font-weight: 400;
 }
 
 body[data-page="settings"] .settings-divider {
@@ -933,4 +868,839 @@ html[data-theme="dark"][data-high-contrast="true"] body[data-page="settings"] .s
   .dc-footer-nav a {
     transition: none;
   }
+}
+
+:root {
+  --glass-fill: var(--app-surface);
+  --glass-border: var(--app-line);
+  --glass-highlight: var(--app-surface);
+  --glass-shadow: rgb(23 43 77 / 0.08);
+  --glass-sidebar: var(--app-sidebar);
+  --glass-sidebar-border: var(--app-line);
+}
+
+[data-theme="dark"] {
+  --glass-shadow: rgb(0 0 0 / 0.2);
+}
+
+@supports (background: color-mix(in srgb, white 50%, transparent)) and (backdrop-filter: blur(1px)) {
+  :root {
+    --glass-fill: color-mix(in srgb, var(--app-surface) 56%, transparent);
+    --glass-border: color-mix(in srgb, var(--app-surface) 72%, var(--app-line));
+    --glass-highlight: color-mix(in srgb, var(--app-surface) 82%, transparent);
+    --glass-sidebar: color-mix(in srgb, var(--app-sidebar) 82%, transparent);
+    --glass-sidebar-border: color-mix(in srgb, var(--app-surface) 24%, transparent);
+  }
+
+  [data-theme="dark"] {
+    --glass-fill: color-mix(in srgb, var(--app-surface) 66%, transparent);
+    --glass-border: color-mix(in srgb, var(--app-surface) 76%, var(--app-line));
+    --glass-highlight: color-mix(in srgb, var(--app-surface) 90%, transparent);
+    --glass-sidebar: color-mix(in srgb, var(--app-sidebar) 84%, transparent);
+    --glass-sidebar-border: color-mix(in srgb, var(--app-surface) 18%, transparent);
+  }
+}
+
+.glass-surface {
+  border: 1px solid var(--app-line);
+  background: var(--app-surface);
+  box-shadow: inset 0 1px 0 var(--app-surface);
+}
+
+.glass-surface--blur {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+@supports (background: color-mix(in srgb, white 50%, transparent)) {
+  .glass-surface,
+  .card,
+  body[data-page="dashboard"] .card,
+  body[data-page="settings"] .settings-card {
+    border-color: var(--glass-border);
+    background: var(--glass-fill);
+    box-shadow: 0 8px 24px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  }
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .glass-surface--blur {
+    backdrop-filter: blur(14px) saturate(115%);
+    -webkit-backdrop-filter: blur(14px) saturate(115%);
+  }
+}
+
+.card,
+body[data-page="dashboard"] .card,
+body[data-page="settings"] .settings-card {
+  border: 1px solid var(--app-line);
+  background: var(--app-surface);
+  box-shadow: inset 0 1px 0 var(--app-surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms cubic-bezier(.2,.8,.2,1), background-color 220ms ease;
+}
+
+@supports (background: color-mix(in srgb, white 50%, transparent)) {
+  .card,
+  body[data-page="dashboard"] .card,
+  body[data-page="settings"] .settings-card {
+    border-color: var(--glass-border);
+    background: var(--glass-fill);
+    box-shadow: 0 8px 24px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  }
+}
+
+body[data-page="dashboard"] .card:hover,
+body[data-page="settings"] .settings-card:hover,
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+}
+
+body[data-page="dashboard"] .dashboard-banner {
+  border-color: var(--glass-border);
+  background: var(--glass-fill);
+  box-shadow: 0 12px 32px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body[data-page="dashboard"] .dashboard-reminders {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body[data-page="dashboard"] > div.flex,
+body[data-page="settings"] #root > div.flex,
+body.page-transition #root > div.flex {
+  border-color: var(--glass-border);
+  background: var(--glass-fill);
+  box-shadow: 0 18px 48px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-theme="dark"] body[data-page="dashboard"] > div.flex,
+[data-theme="dark"] body[data-page="settings"] #root > div.flex {
+  border-color: var(--glass-border);
+  background: var(--glass-fill);
+}
+
+.app-sidebar {
+  position: fixed;
+  z-index: 40;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  color: var(--app-primary-foreground);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: width 240ms cubic-bezier(.2,.8,.2,1);
+}
+
+.sidebar-main-bubble,
+.sidebar-utility-bubble {
+  border: 1px solid var(--glass-sidebar-border);
+  border-radius: 1.75rem;
+  background: var(--glass-sidebar);
+  color: var(--app-primary-foreground);
+  box-shadow: 0 16px 36px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  -webkit-backdrop-filter: blur(16px) saturate(115%);
+  backdrop-filter: blur(16px) saturate(115%);
+}
+
+.sidebar-main-bubble {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.25rem;
+  padding: 0.75rem 0.375rem;
+}
+
+.sidebar-utility-bubble {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: auto;
+  padding: 0.375rem;
+}
+
+body[data-page="dashboard"] .app-sidebar,
+body[data-page="settings"] .app-sidebar {
+  color: var(--app-ink);
+}
+
+body[data-page="dashboard"] .sidebar-main-bubble,
+body[data-page="dashboard"] .sidebar-utility-bubble,
+body[data-page="settings"] .sidebar-main-bubble,
+body[data-page="settings"] .sidebar-utility-bubble {
+  border-color: var(--glass-border);
+  background: var(--glass-fill);
+  color: var(--app-ink);
+  box-shadow: 0 16px 36px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+}
+
+.app-sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -1rem;
+  width: 1rem;
+}
+
+.app-sidebar::after {
+  content: "";
+  position: absolute;
+  inset: 0 -1rem 0 auto;
+  width: 1rem;
+}
+
+.app-sidebar .sidebar-main-bubble > a[aria-label*="beranda"],
+.app-sidebar .sidebar-main-bubble > a[aria-label*="Beranda"] {
+  display: flex;
+  align-items: center;
+}
+
+.app-sidebar .nav-link {
+  display: flex;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  overflow: hidden;
+  padding: 0.5rem;
+  color: var(--app-primary-foreground);
+  white-space: nowrap;
+}
+
+body[data-page="dashboard"] .app-sidebar .nav-link,
+body[data-page="settings"] .app-sidebar .nav-link {
+  color: var(--app-muted);
+}
+
+.app-sidebar .nav-link::after {
+  content: attr(aria-label);
+  flex: 0 0 auto;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  text-align: left;
+  transition: max-width 220ms cubic-bezier(.2,.8,.2,1), opacity 160ms ease;
+}
+
+.app-sidebar .nav-link[aria-current="page"] {
+  background: var(--app-primary-soft);
+  color: var(--app-ink);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+}
+
+body[data-page="dashboard"] .app-sidebar .nav-link[aria-current="page"],
+body[data-page="settings"] .app-sidebar .nav-link[aria-current="page"] {
+  background: var(--app-primary-soft);
+  color: var(--app-ink);
+}
+
+.app-sidebar .nav-link:hover {
+  background: var(--app-sidebar);
+  color: var(--app-primary-foreground);
+  box-shadow: inset 0 0 0 1px var(--glass-sidebar-border);
+}
+
+.app-sidebar .nav-link[aria-current="page"]:hover {
+  background: var(--app-primary-soft);
+  color: var(--app-ink);
+}
+
+body[data-page="dashboard"] .app-sidebar .nav-link:hover,
+body[data-page="settings"] .app-sidebar .nav-link:hover {
+  color: var(--app-primary-text);
+}
+
+body[data-page="dashboard"] .app-sidebar .nav-link[aria-current="page"]:hover,
+body[data-page="settings"] .app-sidebar .nav-link[aria-current="page"]:hover {
+  color: var(--app-ink);
+}
+
+@supports (background: color-mix(in srgb, white 50%, transparent)) {
+  .app-sidebar .nav-link[aria-current="page"] {
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-primary) 22%, transparent);
+  }
+
+  .app-sidebar .nav-link:hover {
+    background: color-mix(in srgb, var(--app-surface) 14%, transparent);
+  }
+
+  .app-sidebar .nav-link:hover {
+    box-shadow: inset 0 0 0 1px var(--glass-sidebar-border);
+  }
+}
+
+.app-sidebar .sidebar-main-bubble > a[aria-label*="beranda"]::after,
+.app-sidebar .sidebar-main-bubble > a[aria-label*="Beranda"]::after {
+  content: "Dompet Cerdas";
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  transition: max-width 220ms cubic-bezier(.2,.8,.2,1), opacity 160ms ease;
+}
+
+.sidebar-toggle {
+  display: none;
+}
+
+.premium-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 2.75rem;
+  border: 1px solid var(--app-primary-soft);
+  background: var(--color-primary);
+  color: var(--app-primary-foreground);
+  box-shadow: 0 10px 24px rgb(23 43 77 / 0.16), inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: transform 200ms cubic-bezier(.2,.8,.2,1), box-shadow 200ms ease, border-color 200ms ease, background-color 200ms ease;
+}
+
+.premium-cta::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, var(--glass-highlight), transparent 46%);
+  opacity: 0.2;
+}
+
+.premium-cta:hover {
+  transform: translateY(-2px);
+  border-color: var(--app-primary-soft);
+  background: var(--color-primary);
+  box-shadow: 0 14px 28px rgb(23 43 77 / 0.22), inset 0 1px 0 var(--glass-highlight);
+}
+
+.premium-cta:focus-visible {
+  outline: 2px solid var(--app-ink);
+  outline-offset: 3px;
+}
+
+@supports (background: color-mix(in srgb, white 50%, transparent)) {
+  .premium-cta {
+    border-color: color-mix(in srgb, var(--app-surface) 42%, var(--color-primary));
+    background: color-mix(in srgb, var(--color-primary) 92%, transparent);
+    box-shadow: 0 10px 24px color-mix(in srgb, var(--color-primary) 22%, transparent), inset 0 1px 0 var(--glass-highlight);
+  }
+
+  .premium-cta:hover {
+    border-color: color-mix(in srgb, var(--app-surface) 76%, var(--color-primary));
+    background: color-mix(in srgb, var(--color-primary) 96%, transparent);
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--color-primary) 28%, transparent), inset 0 1px 0 var(--glass-highlight);
+  }
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .premium-cta {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+}
+
+.premium-cta:active {
+  transform: translateY(0) scale(0.99);
+}
+
+dialog {
+  border: 1px solid var(--glass-border);
+  background: var(--app-surface);
+  color: var(--app-ink);
+  box-shadow: 0 24px 64px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@supports (background: color-mix(in srgb, white 50%, transparent)) {
+  dialog {
+    background: var(--glass-fill);
+  }
+}
+
+dialog::backdrop {
+  background: rgb(23 43 77 / 0.38);
+}
+
+body[data-page="settings"] .settings-nav-link {
+  border-color: var(--glass-border);
+  background: var(--app-surface);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+@supports (background: color-mix(in srgb, white 50%, transparent)) {
+  body[data-page="settings"] .settings-nav-link {
+    background: var(--glass-fill);
+  }
+}
+
+@media (min-width: 64rem) {
+  .app-sidebar {
+    inset: 1rem auto 1rem 1rem;
+    width: 3.5rem;
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0;
+  }
+
+  .sidebar-main-bubble,
+  .sidebar-utility-bubble {
+    width: 3.5rem;
+  }
+
+  .sidebar-main-bubble {
+    transition: width 220ms cubic-bezier(.2,.8,.2,1);
+  }
+
+  .sidebar-utility-bubble {
+    transition: width 280ms cubic-bezier(.2,.8,.2,1);
+  }
+
+  .sidebar-main-bubble:is(:hover, :focus-within),
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble {
+    width: 14rem;
+  }
+
+  .sidebar-utility-bubble:is(:hover, :focus-within) {
+    width: 14rem;
+  }
+
+  .app-sidebar + * {
+    margin-left: 4.5rem;
+    transition: none;
+  }
+
+  .app-sidebar .sidebar-main-bubble > a[aria-label*="beranda"],
+  .app-sidebar .sidebar-main-bubble > a[aria-label*="Beranda"] {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    border-radius: 1rem;
+    padding-inline: 0.75rem;
+  }
+
+  .app-sidebar nav,
+  .app-sidebar nav ul {
+    width: 100%;
+  }
+
+  .app-sidebar nav ul {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .app-sidebar .nav-link {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 0.875rem;
+    padding-inline: 0.75rem;
+  }
+
+  .sidebar-main-bubble:is(:hover, :focus-within) .nav-link::after,
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble .nav-link::after,
+  .sidebar-utility-bubble:is(:hover, :focus-within) .nav-link::after {
+    max-width: 10rem;
+    opacity: 1;
+  }
+
+  .sidebar-main-bubble:is(:hover, :focus-within) > a[aria-label*="beranda"]::after,
+  .sidebar-main-bubble:is(:hover, :focus-within) > a[aria-label*="Beranda"]::after,
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble > a[aria-label*="beranda"]::after,
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble > a[aria-label*="Beranda"]::after {
+    max-width: 10rem;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .app-sidebar {
+    inset: auto 0.5rem 0.75rem;
+    width: auto;
+    height: 3.5rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border-radius: 2rem;
+  }
+
+  .app-sidebar::before {
+    display: none;
+  }
+
+  .app-sidebar::after {
+    display: none;
+  }
+
+  .sidebar-main-bubble {
+    width: auto;
+    flex: 0 1 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0.25rem;
+    border-radius: 2rem;
+  }
+
+  .sidebar-utility-bubble {
+    display: none;
+  }
+
+  .app-sidebar nav,
+  .app-sidebar nav ul {
+    width: auto;
+  }
+
+  .app-sidebar nav ul {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .sidebar-main-bubble > a[aria-label*="beranda"],
+  .sidebar-main-bubble > a[aria-label*="Beranda"] {
+    width: 2.75rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .app-sidebar .nav-link {
+    width: 2.75rem;
+    min-width: 2.75rem;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 0.5rem;
+  }
+
+  .app-sidebar .nav-link::after,
+  .sidebar-main-bubble > a[aria-label*="beranda"]::after,
+  .sidebar-main-bubble > a[aria-label*="Beranda"]::after {
+    display: none;
+  }
+
+  .sidebar-toggle {
+    display: inline-flex;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border: 1px solid var(--glass-sidebar-border);
+    border-radius: 1rem;
+    padding: 0.5rem 0.65rem;
+    background: var(--app-sidebar);
+    color: var(--app-primary-foreground);
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .app-sidebar[data-expanded="true"] {
+    inset: auto auto 0.75rem 0.75rem;
+    width: min(17rem, calc(100vw - 1.5rem));
+    max-width: calc(100vw - 1.5rem);
+    height: auto;
+    max-height: calc(100dvh - 1.5rem);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    overflow-y: auto;
+    border-radius: 1.75rem;
+    padding: 0;
+  }
+
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .app-sidebar[data-expanded="true"] .sidebar-utility-bubble {
+    display: flex;
+    flex-direction: column;
+    padding: 0.375rem;
+    border-radius: 1.5rem;
+  }
+
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble > a[aria-label*="beranda"],
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble > a[aria-label*="Beranda"] {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 1rem;
+    padding-inline: 0.75rem;
+  }
+
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble nav,
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble nav ul {
+    width: 100%;
+  }
+
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble nav ul {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .app-sidebar[data-expanded="true"] .nav-link {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 0.875rem;
+    padding-inline: 0.75rem;
+  }
+
+  .app-sidebar[data-expanded="true"] .nav-link::after {
+    display: block;
+    max-width: 10rem;
+    opacity: 1;
+  }
+
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble > a[aria-label*="beranda"]::after,
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble > a[aria-label*="Beranda"]::after {
+    display: block;
+    max-width: 10rem;
+    opacity: 1;
+  }
+
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble .sidebar-toggle {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  @supports (background: color-mix(in srgb, white 50%, transparent)) and (backdrop-filter: blur(1px)) {
+    .sidebar-toggle {
+      background: color-mix(in srgb, var(--app-surface) 12%, var(--app-sidebar));
+    }
+  }
+}
+
+@media (min-width: 64rem) and (hover: none), (min-width: 64rem) and (pointer: coarse) {
+  .sidebar-toggle {
+    display: inline-flex;
+    width: 2.75rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--glass-sidebar-border);
+    border-radius: 0.875rem;
+    padding: 0.5rem;
+    background: var(--app-sidebar);
+    color: var(--app-primary-foreground);
+  }
+
+  .sidebar-toggle > span {
+    display: none;
+  }
+
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble .sidebar-toggle {
+    width: 100%;
+    justify-content: flex-start;
+    padding-inline: 0.75rem;
+  }
+
+  .app-sidebar[data-expanded="true"] .sidebar-main-bubble .sidebar-toggle > span {
+    display: inline;
+  }
+
+  @supports (background: color-mix(in srgb, white 50%, transparent)) and (backdrop-filter: blur(1px)) {
+    .sidebar-toggle {
+      background: color-mix(in srgb, var(--app-surface) 12%, var(--app-sidebar));
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar,
+  .sidebar-main-bubble,
+  .sidebar-utility-bubble,
+  .app-sidebar .nav-link::after,
+  .sidebar-main-bubble > a[aria-label*="beranda"]::after,
+  .sidebar-main-bubble > a[aria-label*="Beranda"]::after,
+  .card,
+  .premium-cta {
+    transition: none;
+  }
+
+  .card:hover,
+  .premium-cta:hover,
+  .premium-cta:active {
+    transform: none;
+  }
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.app-sidebar,
+body[data-page="dashboard"] .app-sidebar,
+body[data-page="settings"] .app-sidebar {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--app-primary-foreground);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.sidebar-main-bubble,
+.sidebar-utility-bubble {
+  border-color: var(--glass-sidebar-border);
+  background: var(--app-sidebar);
+  color: var(--app-primary-foreground);
+  box-shadow: 0 16px 36px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+body[data-page="dashboard"] .sidebar-main-bubble,
+body[data-page="dashboard"] .sidebar-utility-bubble,
+body[data-page="settings"] .sidebar-main-bubble,
+body[data-page="settings"] .sidebar-utility-bubble {
+  border-color: var(--app-line);
+  background: var(--app-surface);
+  color: var(--app-ink);
+}
+
+body[data-page="dashboard"] .sidebar-toggle,
+body[data-page="settings"] .sidebar-toggle {
+  border-color: var(--glass-border);
+  background: var(--glass-fill);
+  color: var(--app-ink);
+}
+
+.glass-surface,
+.card,
+.bg-surface,
+.bg-panel,
+.bg-canvas:not(body),
+.bg-white,
+.dc-footer-container,
+body[data-page="dashboard"] .card,
+body[data-page="settings"] .settings-card,
+body[data-page="settings"] .settings-nav-link,
+body[data-page="dashboard"] .bg-canvas,
+body[data-page="settings"] .bg-canvas,
+body[data-page="dashboard"] .dashboard-banner {
+  border-color: var(--glass-border);
+  background-color: var(--glass-fill);
+  box-shadow: 0 8px 24px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+}
+
+.bg-panel,
+body[data-page="dashboard"] > div.flex,
+body[data-page="settings"] #root > div.flex {
+  border-color: var(--glass-border);
+  background-color: var(--glass-fill);
+  box-shadow: 0 18px 48px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+body[data-page="dashboard"] .dashboard-banner {
+  background-image: none;
+}
+
+body[data-page="dashboard"] .dashboard-reminders {
+  border-color: var(--glass-sidebar-border);
+  background: var(--glass-sidebar);
+  box-shadow: 0 12px 30px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  color: var(--app-primary-foreground);
+}
+
+dialog {
+  border-color: var(--glass-border);
+  background: var(--glass-fill);
+  box-shadow: 0 24px 64px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+}
+
+@supports (background: color-mix(in srgb, white 50%, transparent)) and (backdrop-filter: blur(1px)) {
+  .sidebar-main-bubble,
+  .sidebar-utility-bubble {
+    border-color: var(--glass-sidebar-border);
+    background: var(--glass-sidebar);
+    -webkit-backdrop-filter: blur(16px) saturate(115%);
+    backdrop-filter: blur(16px) saturate(115%);
+  }
+
+  body[data-page="dashboard"] .sidebar-main-bubble,
+  body[data-page="dashboard"] .sidebar-utility-bubble,
+  body[data-page="settings"] .sidebar-main-bubble,
+  body[data-page="settings"] .sidebar-utility-bubble {
+    border-color: var(--glass-border);
+    background: var(--glass-fill);
+  }
+
+  .glass-surface,
+  .card,
+  .bg-surface,
+  .bg-canvas:not(body),
+  .bg-white,
+  .dc-footer-container,
+  body[data-page="dashboard"] .card,
+  body[data-page="settings"] .settings-card,
+  body[data-page="settings"] .settings-nav-link,
+  body[data-page="dashboard"] .bg-canvas,
+  body[data-page="settings"] .bg-canvas,
+  body[data-page="dashboard"] .dashboard-banner,
+  body[data-page="dashboard"] .dashboard-reminders,
+  dialog {
+    -webkit-backdrop-filter: blur(14px) saturate(115%);
+    backdrop-filter: blur(14px) saturate(115%);
+  }
+
+  body[data-page="dashboard"] .dashboard-reminders {
+    background: color-mix(in srgb, var(--app-sidebar) 76%, transparent);
+  }
+}
+
+html[data-high-contrast="true"] .glass-surface,
+html[data-high-contrast="true"] .card,
+html[data-high-contrast="true"] .settings-card,
+html[data-high-contrast="true"] .settings-nav-link,
+html[data-high-contrast="true"] .sidebar-main-bubble,
+html[data-high-contrast="true"] .sidebar-utility-bubble,
+html[data-high-contrast="true"] .bg-surface,
+html[data-high-contrast="true"] .bg-panel,
+html[data-high-contrast="true"] .bg-canvas:not(body),
+html[data-high-contrast="true"] .bg-white,
+html[data-high-contrast="true"] dialog {
+  background: var(--app-surface);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+html[data-high-contrast="true"] .sidebar-main-bubble,
+html[data-high-contrast="true"] .sidebar-utility-bubble {
+  border-color: var(--app-line);
+  color: var(--app-ink);
 }

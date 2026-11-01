@@ -44,6 +44,7 @@ All colors are semantic tokens defined in `src/css/style.css`. **Never hard-code
 | `muted` | `#64748B` | `#94A3B8` | Secondary text |
 | `line` | `#E2E8F0` | `#2A3650` | Borders, dividers |
 | `primary` | `#2563EB` | `#2563EB` | Fills for main actions (white text on top) |
+| `primary-foreground` | `#FFFFFF` | `#FFFFFF` | Text on primary fills |
 | `primary-text` | `#2563EB` | `#60A5FA` | Blue text and links |
 | `primary-soft` | `#DBE7FE` | `#1E3470` | Banner, secondary buttons, active nav |
 | `primary-tint` | `#EEF4FF` | `#16264A` | Hover fills, quiet bars |
@@ -117,6 +118,8 @@ Behavior (Settings page, section "Tampilan"):
 - Gap between cards: `gap-5`. Card padding: `p-5` (`p-6` for large cards).
 - Light mode: white cards on the tinted panel, almost no shadow. Dialogs and hovered media cards may use a soft shadow.
 - Icons: 1.75px stroke, rounded caps, 20px default, 16px inside small buttons.
+- Glass treatment: token-derived translucent fills, soft borders and modest blur cover existing panels, cards, menus and dialogs so the owner-provided `images/awan67.jpg` wallpaper remains visible. A dark overlay preserves readability in dark mode. This deliberately follows the owner's broad glass direction instead of the usual 1-2 blurred-surface limit. Keep body text readable, preserve solid brand-action contrast, and fall back to opaque token surfaces when blur or transparency blending is unsupported.
+- Scrollbars are visually hidden to keep the canvas clean, while native scrolling remains available.
 
 ## 6. Layout
 
@@ -128,8 +131,8 @@ Dashboard grid:
             [ Statistik ........ ][ Pengingat / Premium ] [ Notifikasi      ]
 ```
 
-- Sidebar: dark pill, icons only, logo on top, help and logout at the bottom.
-- Keep the navigation fixed to the viewport: a vertical rail on desktop and a bottom bar below `lg`. Reserve space so it never covers page content.
+- Sidebar: fixed glass rail with icons only while minimized; on desktop, hovering or focusing the navigation bubble reveals only its labels, and hovering or focusing the account/help bubble reveals only its labels. Expansion overlays the page without shifting content. On touch layouts, the Menu control opens the labeled navigation and account/help actions.
+- Keep the navigation fixed to the viewport: a vertical rail on desktop and a bottom bar below `lg`. Main content keeps its normal rail gap; the expanded rail overlays the page.
 - Main grid: flexible left content plus a 22rem right column. Below `xl` the right column stacks under the content. Below `lg` the sidebar becomes a horizontal bar.
 - Other pages reuse the same shell (panel + sidebar) and change only the main area.
 - Breakpoints to test: 375, 768, 1280 and 1440px.

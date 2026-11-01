@@ -98,3 +98,18 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 - **Context:** App pages use full-page links, and their different shells made the navigation shift between screens.
 - **Decision:** Pin the desktop rail to the viewport and place the mobile navigation at the bottom; use a brief page-entry fade that respects reduced-motion preferences.
 - **Consequences:** App content reserves space for the fixed navigation, while links remain native full-page navigation without adding a router.
+
+## 020. Glass surfaces and hover-reveal navigation
+- **Context:** The requested visual refinement spans existing pages, while the current sidebar styles disagree with the documented dark-navy identity.
+- **Decision:** Use dark token-based glass for the fixed sidebar, translucent token surfaces and subtle highlights across existing cards, and focused blur on the sidebar and premium/floating surfaces. Expand the desktop rail on hover or keyboard focus, and provide a tap toggle on mobile.
+- **Consequences:** Existing layouts and destinations remain unchanged; the sidebar's original expansion spacing was later replaced by decision 021.
+
+## 021. Overlay sidebar and full-glass surfaces
+- **Context:** The owner wants a background image visible through the existing UI and the expanded navigation to stay anchored over page content.
+- **Decision:** Apply translucent glass surfaces and moderate blur across existing page surfaces, with opaque fallbacks for unsupported effects and a separate brand fill for primary actions. Keep the desktop sidebar fixed in place as it expands over content, and split page navigation from Help and Logout into separate bubbles.
+- **Consequences:** The page layout does not shift when the rail opens; mobile keeps its bottom rail and tap-to-open behavior. The broad glass treatment is an intentional exception to the usual blur limit.
+
+## 022. Sky wallpaper and independent sidebar bubbles
+- **Context:** The owner wants a cleaner canvas, a real wallpaper to judge glass transparency, independent upper/lower sidebar hover, and no local profile form.
+- **Decision:** Use `images/awan67.jpg` behind the existing glass surfaces, hide scrollbar visuals without disabling scrolling, expand each desktop sidebar bubble only on its own hover or keyboard focus, use a quicker transition for page navigation than account utilities, and remove local profile fields from Settings.
+- **Consequences:** The supplied sky image remains visible through the existing layout, dark mode adds a readability overlay, and no account destinations or settings preferences are changed.

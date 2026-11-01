@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 export function Sidebar({ page }) {
   return (
     <>
@@ -112,67 +110,81 @@ export function Sidebar({ page }) {
         className="app-sidebar"
         aria-label="Navigasi"
       >
-        <a
-          href="/"
-          className="mb-0 grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-primary/80 lg:mb-3 lg:size-10"
-          aria-label="Dompet Cerdas – beranda"
-        >
-          <svg className="icon" aria-hidden="true"><use href="#i-wallet" /></svg>
-        </a>
+        <div className="sidebar-main-bubble">
+          <a
+            href="/"
+            className="mb-0 grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-primary/80 lg:mb-3 lg:size-10"
+            aria-label="Dompet Cerdas – beranda"
+          >
+            <svg className="icon" aria-hidden="true"><use href="#i-wallet" /></svg>
+          </a>
 
-        <nav aria-label="Halaman utama">
-          <ul className="flex flex-row gap-0 lg:flex-col lg:gap-1" role="list">
-            <li>
-              <a 
-                href="/pages/html/dashboard.html"
-                className="nav-link" 
-                aria-label="Dashboard"
-                aria-current={page === 'dashboard' ? 'page' : undefined}
-              >
-                <svg className="icon" aria-hidden="true"><use href="#i-home" /></svg>
-              </a>
-            </li>
-            <li>
-              <a 
-                href="/pages/html/finances.html"
-                className="nav-link" 
-                aria-label="Keuangan"
-                aria-current={page === 'finances' ? 'page' : undefined}
-              >
-                <svg className="icon" aria-hidden="true"><use href="#i-chart" /></svg>
-              </a>
-            </li>
-            <li>
-              <a
-                href="/pages/html/simulator.html"
-                className="nav-link"
-                aria-label="Simulator"
-                aria-current={page === 'simulator' ? 'page' : undefined}
-              >
-                <svg className="icon" aria-hidden="true"><use href="#i-calc" /></svg>
-              </a>
-            </li>
-            <li>
-              <a
-                href="/pages/html/settings.html"
-                className="nav-link"
-                aria-label="Pengaturan"
-                aria-current={page === 'settings' ? 'page' : undefined}
-              >
-                <svg className="icon" aria-hidden="true"><use href="#i-gear" /></svg>
-              </a>
-            </li>
-          </ul>
-        </nav>
+          <button
+            type="button"
+            className="sidebar-toggle"
+            data-sidebar-toggle
+            aria-controls="sidebar-navigation"
+            aria-expanded="false"
+            aria-label="Buka navigasi"
+          >
+            <svg className="icon size-4" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <span data-sidebar-toggle-label>Menu</span>
+          </button>
 
-        <div className="flex-1" aria-hidden="true"></div>
+          <nav id="sidebar-navigation" aria-label="Halaman utama">
+            <ul className="flex flex-row gap-0 lg:flex-col lg:gap-1" role="list">
+              <li>
+                <a
+                  href="/pages/html/dashboard.html"
+                  className="nav-link"
+                  aria-label="Dashboard"
+                  aria-current={page === 'dashboard' ? 'page' : undefined}
+                >
+                  <svg className="icon" aria-hidden="true"><use href="#i-home" /></svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/pages/html/finances.html"
+                  className="nav-link"
+                  aria-label="Keuangan"
+                  aria-current={page === 'finances' ? 'page' : undefined}
+                >
+                  <svg className="icon" aria-hidden="true"><use href="#i-chart" /></svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/pages/html/simulator.html"
+                  className="nav-link"
+                  aria-label="Simulator"
+                  aria-current={page === 'simulator' ? 'page' : undefined}
+                >
+                  <svg className="icon" aria-hidden="true"><use href="#i-calc" /></svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/pages/html/settings.html"
+                  className="nav-link"
+                  aria-label="Pengaturan"
+                  aria-current={page === 'settings' ? 'page' : undefined}
+                >
+                  <svg className="icon" aria-hidden="true"><use href="#i-gear" /></svg>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
 
-        <button type="button" data-act="help" className="nav-link" aria-label="Bantuan">
-          <svg className="icon" aria-hidden="true"><use href="#i-help" /></svg>
-        </button>
-        <button type="button" data-act="logout" className="nav-link" aria-label="Keluar">
-          <svg className="icon" aria-hidden="true"><use href="#i-logout" /></svg>
-        </button>
+        <div className="sidebar-utility-bubble" role="group" aria-label="Bantuan dan akun">
+          <button type="button" data-act="help" className="nav-link" aria-label="Bantuan">
+            <svg className="icon" aria-hidden="true"><use href="#i-help" /></svg>
+          </button>
+          <button type="button" data-act="logout" className="nav-link" aria-label="Keluar">
+            <svg className="icon" aria-hidden="true"><use href="#i-logout" /></svg>
+          </button>
+        </div>
       </aside>
     </>
   )

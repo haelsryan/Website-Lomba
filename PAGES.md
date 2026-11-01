@@ -88,10 +88,13 @@ Sections, with behavior:
 - **Files:** `pages/html/settings.html`, `pages/jsx/settings.jsx`, `pages/jsx/settings/`
 - **Purpose:** preferences and demo controls.
 - **Content:**
-  - **Tampilan:** theme radio group with Terang, Gelap and Ikuti sistem. Spec in `DESIGN.md` section 4. Changes apply at once, persist, and follow the system when "Ikuti sistem" is chosen.
+  - **Tampilan & aksesibilitas:** theme radio group with Terang, Gelap and Ikuti sistem, plus text size, contrast and motion preferences. Spec in `DESIGN.md` section 4. Changes apply at once, persist, and follow the system when "Ikuti sistem" is chosen.
   - **Notifikasi:** turn notifications on or off (the same flag as the dashboard mute).
+  - **Privasi & keamanan:** explain local demo storage and the lack of account authentication or server sync.
+  - **Bahasa:** choose a saved language preference; full translation is not available in the demo.
   - **Data demo:** button to reset demo data to the starting set, with a confirmation dialog.
   - **Tentang:** short note that this is an educational demo and no real money or personal data is used.
+- **Profile:** the local profile form and personal-data fields are removed; any saved profile entry is cleared when Settings loads.
 - **Status:** Built. Preferences persist in the browser; theme changes are applied to the settings page, dashboard and finances page.
 - **Navigation:** Uses the same left icon rail and working page links as Dashboard and Keuangan.
 - **Done when:** the theme switches instantly with no flash on reload, system mode follows OS changes, notifications stay in sync with the dashboard, and reset restores seeded demo data without changing the theme.

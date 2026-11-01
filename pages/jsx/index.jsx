@@ -36,9 +36,9 @@ function LandingPage() {
       </svg>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-canvas/90 backdrop-blur-md">
+      <header className="sticky top-0 z-40">
         <div className="mx-auto max-w-7xl px-3 pt-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between rounded-full border border-line bg-surface px-4 py-3 sm:px-5">
+          <div className="glass-surface glass-surface--blur flex items-center justify-between rounded-full px-4 py-3 sm:px-5">
             <a href="/" className="flex items-center gap-3 hover:underline active:underline" aria-label="Dompet Cerdas Beranda">
               <span className="grid size-10 place-items-center rounded-2xl bg-primary text-white">
                 <svg className="icon size-5 text-white" aria-hidden="true"><use href="#i-wallet" /></svg>
