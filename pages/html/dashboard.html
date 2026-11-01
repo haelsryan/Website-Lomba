@@ -23,7 +23,7 @@
     />
     <script type="module" src="/src/js/main.jsx"></script>
   </head>
-  <body class="page-transition bg-canvas p-3 font-sans text-navy antialiased lg:p-4">
+  <body data-page="dashboard" class="page-transition bg-canvas p-3 font-sans text-navy antialiased lg:p-4">
 
     <!-- SVG icon sprite -->
     <svg class="hidden" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -197,7 +197,7 @@
         <main class="flex min-w-0 flex-1 flex-col gap-4">
 
           <!-- Banner -->
-          <section class="relative overflow-hidden rounded-[1.75rem] bg-navy px-7 py-6">
+          <section class="dashboard-banner relative overflow-hidden rounded-[1.75rem] bg-navy px-7 py-6">
             <!-- Aurora: two soft blobs drift slowly — gives life to the dark panel without adding visual noise -->
             <div aria-hidden="true" class="pointer-events-none absolute inset-0">
               <div class="animate-drift absolute -left-24 -top-16 size-72 rounded-full bg-primary opacity-20 blur-3xl"></div>
@@ -357,7 +357,7 @@
             <div class="flex w-full shrink-0 flex-col gap-4 lg:w-56">
 
               <!-- Pengingat: navy background so renderReminder()'s text-white/* classes work -->
-              <section class="flex-1 rounded-[1.75rem] bg-navy p-5">
+              <section class="dashboard-reminders flex-1 rounded-[1.75rem] bg-navy p-5">
                 <h2 class="text-sm font-semibold text-white/50">Pengingat tagihan</h2>
                 <!-- renderReminder() populates this div -->
                 <div data-reminder class="mt-4"></div>

@@ -3,8 +3,35 @@ import ReactDOM from 'react-dom/client'
 import '../css/style.css'
 
 const REACT_ROOT = Symbol.for('dompet-cerdas.react-root')
+const ACCESSIBILITY_KEY = 'dompet-cerdas-settings'
+
+function prefersReducedMotion() {
+  const systemPreference = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  try {
+    const settings = JSON.parse(localStorage.getItem(ACCESSIBILITY_KEY) || '{}')
+    return systemPreference || Boolean(settings.accessibility?.reducedMotion)
+  } catch {
+    return systemPreference
+  }
+}
+
+function applyAccessibilityPreferences() {
+  try {
+    const settings = JSON.parse(localStorage.getItem(ACCESSIBILITY_KEY) || '{}')
+    const accessibility = settings.accessibility || {}
+    const root = document.documentElement
+    root.dataset.fontSize = accessibility.fontSize || 'default'
+    root.dataset.highContrast = String(Boolean(accessibility.highContrast))
+    root.dataset.reducedMotion = String(Boolean(accessibility.reducedMotion))
+  } catch {
+    document.documentElement.dataset.fontSize = 'default'
+    document.documentElement.dataset.highContrast = 'false'
+    document.documentElement.dataset.reducedMotion = 'false'
+  }
+}
 
 export function mountPage(Component, { effects = false } = {}) {
+  applyAccessibilityPreferences()
   const root = document.getElementById('root')
   if (root) {
     const reactRoot = root[REACT_ROOT] || ReactDOM.createRoot(root)
@@ -26,7 +53,7 @@ function PageEffects({ Component }) {
     if (!root) return
 
     const animations = []
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const reducedMotion = prefersReducedMotion()
 
     if (!reducedMotion) {
       const heading = root.querySelector('main h1')
@@ -90,7 +117,7 @@ const tone = (s) => TONES[[...s].reduce((a, c) => a + c.charCodeAt(0), 0) % TONE
 const initials = (n) => n.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 
 /* ---------- motion helpers (vanilla ports of React Bits effects) ---------- */
-const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reduced = prefersReducedMotion();
 const EASE = "cubic-bezier(.2,.8,.2,1)";
 const lastVal = {}, lastSig = {};
 
