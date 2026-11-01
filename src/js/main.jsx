@@ -3,35 +3,8 @@ import ReactDOM from 'react-dom/client'
 import '../css/style.css'
 
 const REACT_ROOT = Symbol.for('dompet-cerdas.react-root')
-const ACCESSIBILITY_KEY = 'dompet-cerdas-settings'
-
-function prefersReducedMotion() {
-  const systemPreference = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  try {
-    const settings = JSON.parse(localStorage.getItem(ACCESSIBILITY_KEY) || '{}')
-    return systemPreference || Boolean(settings.accessibility?.reducedMotion)
-  } catch {
-    return systemPreference
-  }
-}
-
-function applyAccessibilityPreferences() {
-  try {
-    const settings = JSON.parse(localStorage.getItem(ACCESSIBILITY_KEY) || '{}')
-    const accessibility = settings.accessibility || {}
-    const root = document.documentElement
-    root.dataset.fontSize = accessibility.fontSize || 'default'
-    root.dataset.highContrast = String(Boolean(accessibility.highContrast))
-    root.dataset.reducedMotion = String(Boolean(accessibility.reducedMotion))
-  } catch {
-    document.documentElement.dataset.fontSize = 'default'
-    document.documentElement.dataset.highContrast = 'false'
-    document.documentElement.dataset.reducedMotion = 'false'
-  }
-}
 
 export function mountPage(Component, { effects = false } = {}) {
-  applyAccessibilityPreferences()
   const root = document.getElementById('root')
   if (root) {
     const reactRoot = root[REACT_ROOT] || ReactDOM.createRoot(root)
@@ -53,7 +26,7 @@ function PageEffects({ Component }) {
     if (!root) return
 
     const animations = []
-    const reducedMotion = prefersReducedMotion()
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     if (!reducedMotion) {
       const heading = root.querySelector('main h1')
@@ -117,7 +90,7 @@ const tone = (s) => TONES[[...s].reduce((a, c) => a + c.charCodeAt(0), 0) % TONE
 const initials = (n) => n.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 
 /* ---------- motion helpers (vanilla ports of React Bits effects) ---------- */
-const reduced = prefersReducedMotion();
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const EASE = "cubic-bezier(.2,.8,.2,1)";
 const lastVal = {}, lastSig = {};
 
@@ -336,9 +309,9 @@ function renderUpgrade() {
   if (!host) return;
   host.innerHTML = S.premium
     ? `<h2 class="text-xl font-medium leading-snug">Premium aktif</h2><p class="mt-2 text-sm text-muted">Laporan arus kas lengkap sudah terbuka.</p>
-       <button type="button" data-act="plan" class="btn premium-cta mt-auto self-start">Kelola paket</button>`
+       <button type="button" data-act="plan" class="btn mt-auto self-start bg-primary-soft text-navy hover:bg-primary hover:text-white">Kelola paket</button>`
     : `<h2 class="text-xl font-medium leading-snug">Naik level ke Premium</h2><p class="mt-2 text-sm text-muted">Buka laporan arus kas lengkap dan analisis untuk usaha Anda.</p>
-       <button type="button" data-act="plan" class="btn premium-cta mt-auto self-start">${ico("up", "size-4")}Upgrade paket</button>`;
+       <button type="button" data-act="plan" class="btn mt-auto self-start bg-primary-soft text-navy hover:bg-primary hover:text-white">${ico("up", "size-4")}Upgrade paket</button>`;
 }
 
 function renderCalendar() {
@@ -587,53 +560,10 @@ const A = {
   },
 };
 
-function setSidebarExpanded(sidebar, expanded) {
-  const toggle = sidebar.querySelector("[data-sidebar-toggle]");
-  if (!toggle) return;
-  sidebar.dataset.expanded = String(expanded);
-  toggle.setAttribute("aria-expanded", String(expanded));
-  toggle.setAttribute("aria-label", expanded ? "Tutup navigasi" : "Buka navigasi");
-  const label = toggle.querySelector("[data-sidebar-toggle-label]");
-  if (label) label.textContent = expanded ? "Tutup" : "Menu";
-}
-
 document.addEventListener("click", (e) => {
-  const target = e.target;
-  if (!(target instanceof Element)) return;
-  const toggle = target.closest("[data-sidebar-toggle]");
-  if (toggle) {
-    const sidebar = toggle.closest(".app-sidebar");
-    if (sidebar) setSidebarExpanded(sidebar, toggle.getAttribute("aria-expanded") !== "true");
-    return;
-  }
-  document.querySelectorAll('.app-sidebar[data-expanded="true"]').forEach((sidebar) => {
-    if (sidebar.contains(target)) return;
-    if (sidebar.contains(document.activeElement)) document.activeElement.blur();
-    setSidebarExpanded(sidebar, false);
-  });
-
-  const el = target.closest("[data-act]");
+  const el = e.target.closest("[data-act]");
   if (!el) return;
   A[el.dataset.act]?.(el.dataset.id ? Number(el.dataset.id) : el.dataset.v);
-});
-
-document.addEventListener("focusout", (e) => {
-  const target = e.target;
-  if (!(target instanceof Element)) return;
-  const sidebar = target.closest('.app-sidebar[data-expanded="true"]');
-  if (sidebar && (!e.relatedTarget || !sidebar.contains(e.relatedTarget))) {
-    setSidebarExpanded(sidebar, false);
-  }
-});
-
-document.addEventListener("keydown", (e) => {
-  if (e.key !== "Escape") return;
-  document.querySelectorAll('.app-sidebar[data-expanded="true"]').forEach((sidebar) => {
-    setSidebarExpanded(sidebar, false);
-    const toggle = sidebar.querySelector("[data-sidebar-toggle]");
-    if (toggle && getComputedStyle(toggle).display !== "none") toggle.focus();
-    else if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
-  });
 });
 
 /* ---------- landing page calculator ---------- */

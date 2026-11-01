@@ -98,3 +98,35 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 - **Context:** App pages use full-page links, and their different shells made the navigation shift between screens.
 - **Decision:** Pin the desktop rail to the viewport and place the mobile navigation at the bottom; use a brief page-entry fade that respects reduced-motion preferences.
 - **Consequences:** App content reserves space for the fixed navigation, while links remain native full-page navigation without adding a router.
+
+## 020. Cursor-responsive landing hero texture
+- **Context:** The landing page needs the requested Gradient ASCII visual while preserving the existing fintech palette and readable hero content.
+- **Decision:** Render a lightweight local ASCII gradient from theme tokens behind the current hero; animate only while the pointer moves and keep it static when reduced motion is requested.
+- **Consequences:** Superseded by decision 021.
+- **Status:** The unused ASCII background implementation was removed when the landing hero moved to DotGrid.
+
+## 021. Dark DotGrid landing hero
+- **Context:** The supplied landing-page direction calls for a minimal dark hero with a subtle DotGrid background, one headline, and two actions.
+- **Decision:** Replace the previous hero composition with a full-viewport dark layout and a lazy-loaded, cursor-responsive DotGrid. Keep the hero background plain when reduced motion is enabled or DotGrid fails, and fade the headline and actions in once.
+- **Consequences:** DotGrid is an explicit, user-confirmed exception to the usual prohibition on dot-pattern backgrounds. The visual texture gives the hero a restrained identity and cursor feedback without competing with its text; motion respects reduced-motion preferences. The existing wallet glyph reinforces the finance identity, while destination-specific action labels avoid vague navigation. Plus Jakarta Sans preserves brand continuity; a single soft shadow and the requested chevron distinguish the primary action without decorating the secondary.
+- **Status:** Supersedes the landing-hero layouts in decisions 016, 017, and 020.
+
+## 022. Emphasized DotGrid hover
+- **Context:** The DotGrid should remain quiet at rest but respond more visibly when visitors explore the hero with a pointer.
+- **Decision:** Increase the hover response radius, dot swell, spring strength, and halo, using the hero foreground token as the active color.
+- **Consequences:** Pointer feedback is easier to notice without brightening the whole background; reduced-motion users continue to receive a plain hero.
+
+## 023. Landing section navigation
+- **Context:** Visitors need direct access to the landing page's existing content, including an About destination.
+- **Decision:** Restore visible links for Features, About, Simulator, and Learn in the hero navigation, and add a concise About section based on the product's documented audience and demo limits.
+- **Consequences:** Each link has a real destination, with a second horizontal row on narrow screens to preserve tap targets and the dashboard action.
+
+## 024. Typed Indonesian landing headline
+- **Context:** The hero headline should introduce the product in Indonesian with a brief, one-time motion treatment.
+- **Decision:** Use React Bits TextType for the headline, show its complete sentence to assistive technology, and render it immediately when reduced motion is preferred.
+- **Consequences:** TextType uses GSAP for its cursor effect; headline height is reserved to prevent the supporting content from shifting while it types.
+
+## 025. Theme-aware landing footer
+- **Context:** The landing footer needs useful destinations without the previous decorative glass panel.
+- **Decision:** Use the site's light/dark theme attribute to switch footer-specific semantic color variables, group only existing destinations, and label unavailable contact and social destinations in source as TODOs.
+- **Consequences:** Footer colors update immediately with the theme, and its decorative wordmark remains behind content within the clipped footer.

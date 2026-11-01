@@ -101,66 +101,37 @@ function Navigation() {
       className="app-sidebar"
       aria-label="Navigasi"
     >
-      <div className="sidebar-main-bubble">
-        <a
-          href="/"
-          className="mb-0 grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-primary/80 lg:mb-3 lg:size-10"
-          aria-label="Dompet Cerdas, beranda"
-        >
-          <svg className="icon" aria-hidden="true"><use href="#i-wallet" /></svg>
-        </a>
-        <button
-          type="button"
-          className="sidebar-toggle"
-          data-sidebar-toggle
-          aria-controls="sidebar-navigation"
-          aria-expanded="false"
-          aria-label="Buka navigasi"
-        >
-          <svg className="icon size-4" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
-          <span data-sidebar-toggle-label>Menu</span>
-        </button>
-        <nav id="sidebar-navigation" aria-label="Halaman utama">
-          <ul className="flex flex-row gap-0 lg:flex-col lg:gap-1" role="list">
-            <li>
-              <a href="/pages/html/dashboard.html" className="nav-link" aria-label="Dashboard">
-                <svg className="icon" aria-hidden="true"><use href="#i-home" /></svg>
-              </a>
-            </li>
-            <li>
-              <a href="/pages/html/finances.html" className="nav-link" aria-label="Keuangan">
-                <svg className="icon" aria-hidden="true"><use href="#i-chart" /></svg>
-              </a>
-            </li>
-            <li>
-              <a href="/pages/html/simulator.html" className="nav-link" aria-label="Simulator" aria-current="page">
-                <svg className="icon" aria-hidden="true"><use href="#i-calc" /></svg>
-              </a>
-            </li>
-            <li>
-              <a href="/pages/html/settings.html" className="nav-link" aria-label="Pengaturan">
-                <svg className="icon" aria-hidden="true"><use href="#i-gear" /></svg>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div className="sidebar-utility-bubble" role="group" aria-label="Bantuan dan akun">
-        <button type="button" data-act="help" className="nav-link" aria-label="Bantuan">
-          <svg className="icon" aria-hidden="true" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-            <circle cx="12" cy="17" r=".5" />
-          </svg>
-        </button>
-        <button type="button" data-act="logout" className="nav-link" aria-label="Keluar">
-          <svg className="icon" aria-hidden="true" viewBox="0 0 24 24">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <polyline points="16 17 21 12 16 7" />
-            <line x1="21" y1="12" x2="9" y2="12" />
-          </svg>
-        </button>
-      </div>
+      <a
+        href="/"
+        className="mb-0 grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-primary/80 lg:mb-3 lg:size-10"
+        aria-label="Dompet Cerdas, beranda"
+      >
+        <svg className="icon" aria-hidden="true"><use href="#i-wallet" /></svg>
+      </a>
+      <nav aria-label="Halaman utama">
+        <ul className="flex flex-row gap-0 lg:flex-col lg:gap-1" role="list">
+          <li>
+            <a href="/pages/html/dashboard.html" className="nav-link" aria-label="Dashboard">
+              <svg className="icon" aria-hidden="true"><use href="#i-home" /></svg>
+            </a>
+          </li>
+          <li>
+            <a href="/pages/html/finances.html" className="nav-link" aria-label="Keuangan">
+              <svg className="icon" aria-hidden="true"><use href="#i-chart" /></svg>
+            </a>
+          </li>
+          <li>
+            <a href="/pages/html/simulator.html" className="nav-link" aria-label="Simulator" aria-current="page">
+              <svg className="icon" aria-hidden="true"><use href="#i-calc" /></svg>
+            </a>
+          </li>
+          <li>
+            <a href="/pages/html/settings.html" className="nav-link" aria-label="Pengaturan">
+              <svg className="icon" aria-hidden="true"><use href="#i-gear" /></svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </aside>
   )
 }
