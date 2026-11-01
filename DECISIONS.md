@@ -77,6 +77,7 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 - **Context:** The sidebar stretched to the height of the page content because the app shell uses flex layout.
 - **Decision:** Keep the sidebar at its content height and sticky near the top while scrolling; switch to a horizontal rail below `lg`.
 - **Consequences:** Long pages no longer make the navigation rail grow, and the navigation fits the mobile layout without reducing content width.
+- **Status:** Superseded by decision 019.
 
 ## 016. Framed landing hero and wordmark footer
 - **Context:** The landing page should reflect the supplied rounded hero and large closing typography reference without using its embedded screenshot as product artwork.
@@ -92,3 +93,8 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 - **Context:** The landing page's two core capabilities need distinct visual weight without hiding either from visitors.
 - **Decision:** Give shared cash-flow tracking the wider feature panel because it is the product's most distinctive capability, and keep bill reminders as a supporting panel.
 - **Consequences:** The asymmetric feature layout communicates priority while preserving both examples and their explanations.
+
+## 019. Fixed app navigation and page transitions
+- **Context:** App pages use full-page links, and their different shells made the navigation shift between screens.
+- **Decision:** Pin the desktop rail to the viewport and place the mobile navigation at the bottom; use a brief page-entry fade that respects reduced-motion preferences.
+- **Consequences:** App content reserves space for the fixed navigation, while links remain native full-page navigation without adding a router.

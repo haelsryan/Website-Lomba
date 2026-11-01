@@ -23,7 +23,7 @@
     />
     <script type="module" src="/src/js/main.jsx"></script>
   </head>
-  <body class="bg-canvas p-3 font-sans text-navy antialiased lg:p-4">
+  <body class="page-transition bg-canvas p-3 font-sans text-navy antialiased lg:p-4">
 
     <!-- SVG icon sprite -->
     <svg class="hidden" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +134,7 @@
       data-toast
       role="status"
       aria-live="polite"
-      class="fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white shadow-lg"
+      class="fixed bottom-20 left-1/2 z-50 hidden -translate-x-1/2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white shadow-lg lg:bottom-6"
     ></div>
 
     <!-- Modal (native dialog for focus trap and Esc handling) -->
@@ -144,11 +144,11 @@
     ></dialog>
 
     <!-- Shell: outer panel fills the viewport -->
-    <div class="flex min-h-[calc(100dvh-1.5rem)] flex-col gap-3 rounded-[2.5rem] bg-panel p-2 lg:min-h-[calc(100dvh-2rem)] lg:flex-row lg:gap-4 lg:p-4">
+    <div class="flex min-h-[calc(100dvh-1.5rem)] flex-col gap-3 rounded-[2.5rem] bg-panel p-2 pb-20 lg:min-h-[calc(100dvh-2rem)] lg:flex-row lg:gap-4 lg:p-4 lg:pb-4">
 
       <!-- Sidebar pill -->
       <aside
-        class="app-sidebar flex w-full shrink-0 flex-row items-center justify-between gap-0 rounded-[2rem] bg-navy p-1 lg:w-14 lg:flex-col lg:items-center lg:justify-start lg:gap-1 lg:px-0 lg:py-5"
+        class="app-sidebar"
         aria-label="Navigasi"
       >
         <a

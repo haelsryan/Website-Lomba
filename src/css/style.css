@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --color-primary: #2563eb;
@@ -134,7 +139,31 @@
     @apply grid size-10 place-items-center rounded-full bg-surface text-navy transition hover:bg-primary-soft;
   }
   .app-sidebar {
-    @apply sticky top-4 h-fit self-start;
+    @apply fixed z-40 flex h-14 flex-row items-center justify-between gap-0 rounded-[2rem] bg-navy p-1;
+    inset: auto 0.75rem 0.75rem;
+  }
+  .page-transition {
+    animation: 250ms cubic-bezier(.2,.8,.2,1) both page-fade-in;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .page-transition {
+      animation: none;
+    }
+  }
+  @media (min-width: 64rem) {
+    .app-sidebar.app-sidebar {
+      inset: 1rem auto 1rem 1rem;
+      width: 3.5rem;
+      height: auto;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0.25rem;
+      padding: 1.25rem 0;
+    }
+
+    .app-sidebar + * {
+      margin-left: 4.5rem;
+    }
   }
   .nav-link {
     @apply grid size-11 place-items-center rounded-full text-white/70 transition hover:bg-white/10 hover:text-white aria-[current=page]:bg-primary-soft aria-[current=page]:text-navy;

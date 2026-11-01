@@ -20,7 +20,7 @@ export function Toast() {
     <div
       role="status"
       aria-live="polite"
-      className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white shadow-lg"
+      className="fixed bottom-20 left-1/2 z-50 -translate-x-1/2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white shadow-lg lg:bottom-6"
     >
       {message}
     </div>

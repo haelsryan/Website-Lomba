@@ -11,6 +11,7 @@ Related docs: `AGENTS.md` (rules), `PRODUCT.md` (who and why), `ARCHITECTURE.md`
 - **Audience:** young people, students and small business owners (UMKM) in Indonesia. Many use mid-range phones, so keep it light and readable.
 - **Priority:** desktop-first, but every page must work at 375px wide.
 - **Themes:** light and dark, switchable in Settings (section 4). Every screen must look finished in both.
+- **App page dials:** ENERGY 1 / RHYTHM 1 / MOTION 2.
 - **Reference:** the dashboard layout was adapted from a bento-style reference (dark sidebar pill, rounded cards on a tinted panel). Borrow structure and mood only, never branding.
 
 ## 2. Principles
@@ -128,7 +129,7 @@ Dashboard grid:
 ```
 
 - Sidebar: dark pill, icons only, logo on top, help and logout at the bottom.
-- Keep the sidebar content-sized and sticky while scrolling so longer pages do not stretch it.
+- Keep the navigation fixed to the viewport: a vertical rail on desktop and a bottom bar below `lg`. Reserve space so it never covers page content.
 - Main grid: flexible left content plus a 22rem right column. Below `xl` the right column stacks under the content. Below `lg` the sidebar becomes a horizontal bar.
 - Other pages reuse the same shell (panel + sidebar) and change only the main area.
 - Breakpoints to test: 375, 768, 1280 and 1440px.
@@ -153,6 +154,7 @@ Rules:
 - Every animation respects `prefers-reduced-motion` (skip it or show the end state at once).
 - Durations: 250 to 900 ms for UI motion. Easing: `cubic-bezier(.2,.8,.2,1)`.
 - Animate `transform`, `opacity` and `filter` only. Avoid animating layout during scroll.
+- App pages use a brief entry fade after navigation. Disable it when reduced motion is requested.
 - Effects must read colors from tokens so they work in both themes.
 
 Currently used effects: BlurText (headline), CountUp (numbers), SpotlightCard (cards), Magnet (banner button), Aurora-style blobs (banner), chart grow-in.

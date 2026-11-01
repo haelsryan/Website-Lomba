@@ -109,7 +109,7 @@ export function Sidebar({ page }) {
 
       {/* Sidebar */}
       <aside
-        className="app-sidebar flex w-full shrink-0 flex-row items-center justify-between gap-0 rounded-[2rem] bg-navy p-1 lg:w-14 lg:flex-col lg:items-center lg:justify-start lg:gap-1 lg:px-0 lg:py-5"
+        className="app-sidebar"
         aria-label="Navigasi"
       >
         <a

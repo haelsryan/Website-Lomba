@@ -98,7 +98,7 @@ function EstimateButton() {
 function Navigation() {
   return (
     <aside
-      className="app-sidebar flex w-full shrink-0 flex-row items-center justify-between gap-0 rounded-[2rem] bg-navy p-1 lg:w-14 lg:flex-col lg:items-center lg:justify-start lg:gap-1 lg:px-0 lg:py-5"
+      className="app-sidebar"
       aria-label="Navigasi"
     >
       <a
@@ -373,7 +373,7 @@ function SimulatorPage() {
         </defs>
       </svg>
 
-      <div className="flex min-h-[calc(100dvh-1.5rem)] flex-col gap-3 rounded-[2.5rem] bg-panel p-2 lg:min-h-[calc(100dvh-2rem)] lg:flex-row lg:gap-4 lg:p-4">
+      <div className="flex min-h-[calc(100dvh-1.5rem)] flex-col gap-3 rounded-[2.5rem] bg-panel p-2 pb-20 lg:min-h-[calc(100dvh-2rem)] lg:flex-row lg:gap-4 lg:p-4 lg:pb-4">
         <Navigation />
         <main className="min-w-0 flex-1">
           <div className="mx-auto max-w-6xl py-3">
