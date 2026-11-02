@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Modal } from '../../src/components/Modal.jsx'
-import { useAppState } from '../../src/hooks/useAppState.js'
-import { useTheme } from '../../src/hooks/useTheme.jsx'
-import { mountPage } from '../../src/js/main.jsx'
-import { ThemeToggle } from './settings/ThemeToggle.jsx'
+import { Modal } from '../components/ui/Modal.jsx'
+import { useAppState } from '../hooks/useAppState.js'
+import { useTheme } from '../hooks/useTheme.js'
+import { mountPage } from '../main.jsx'
+import { ThemeToggle } from '../components/settings/ThemeToggle.jsx'
 
 const DEMO_DATA_KEY = 'dompet-cerdas-v1'
 
@@ -75,23 +75,23 @@ function SettingsPage() {
           <nav aria-label="Halaman utama">
             <ul className="flex flex-row gap-0 lg:flex-col lg:gap-1" role="list">
               <li>
-                <a href="/pages/html/dashboard.html" className="nav-link" aria-label="Dashboard">
+                <a href="/pages/dashboard.html" className="nav-link" aria-label="Dashboard">
                   <svg className="icon" aria-hidden="true"><use href="#i-home" /></svg>
                 </a>
               </li>
               <li>
-                <a href="/pages/html/finances.html" className="nav-link" aria-label="Keuangan">
+                <a href="/pages/finances.html" className="nav-link" aria-label="Keuangan">
                   <svg className="icon" aria-hidden="true"><use href="#i-chart" /></svg>
                 </a>
               </li>
               <li>
-                <a href="/pages/html/simulator.html" className="nav-link" aria-label="Simulator">
+                <a href="/pages/simulator.html" className="nav-link" aria-label="Simulator">
                   <svg className="icon" aria-hidden="true"><use href="#i-calc" /></svg>
                 </a>
               </li>
               <li>
                 <a
-                  href="/pages/html/settings.html"
+                  href="/pages/settings.html"
                   className="nav-link"
                   aria-label="Pengaturan"
                   aria-current="page"

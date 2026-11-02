@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { mountPage } from '../../src/js/main.jsx'
-import Footer from '../../src/components/Footer.jsx'
-import DotBackground from './index/DotBackground.jsx'
-import Hero from './index/Hero.jsx'
-import Navbar from './index/Navbar.jsx'
+import { mountPage } from '../main.jsx'
+import Footer from '../components/layout/Footer.jsx'
+import DotBackground from '../components/landing/DotBackground.jsx'
+import Hero from '../components/landing/Hero.jsx'
+import Navbar from '../components/layout/Navbar.jsx'
 
 function LandingPage() {
   const [income, setIncome] = useState(5000000)
@@ -290,7 +290,7 @@ function LandingPage() {
                   <p className="text-xs text-navy/80">
                     Ingin mencatat pos-pos ini secara harian di dasbor?
                   </p>
-                  <a href="/pages/html/dashboard.html" className="btn bg-accent px-4 py-2 text-xs text-white hover:bg-accent/90 active:translate-y-px">
+                  <a href="/pages/dashboard.html" className="btn bg-accent px-4 py-2 text-xs text-white hover:bg-accent/90 active:translate-y-px">
                     Buka Dasbor
                   </a>
                 </div>
@@ -356,7 +356,7 @@ function LandingPage() {
                 Buka dasbor untuk melihat contoh pencatatan transaksi, pengingat tagihan, dan ringkasan arus kas.
               </p>
               <div className="mt-8 flex justify-center gap-4">
-                <a href="/pages/html/dashboard.html" className="btn bg-primary px-7 py-3.5 text-base font-semibold text-white hover:bg-primary/90 shadow-md active:translate-y-px">
+                <a href="/pages/dashboard.html" className="btn bg-primary px-7 py-3.5 text-base font-semibold text-white hover:bg-primary/90 shadow-md active:translate-y-px">
                   Buka Dasbor Dompet Cerdas
                 </a>
               </div>

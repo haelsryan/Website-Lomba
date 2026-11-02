@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import TextType from '../react-bits/TextType'
+import TextType from '../react-bits/TextType.jsx'
 
 export default function TypedHeading({ text, className = '' }) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(

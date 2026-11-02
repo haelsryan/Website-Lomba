@@ -1,2 +1,1 @@
-# AGENTS.md
-Semua dokumen proyek ada di `docs/`. Baca `docs/AGENTS.md` dulu, lalu `docs/DESIGN.md` dan `docs/TASKS.md`.
+Read and follow [docs/AGENTS.md](docs/AGENTS.md).

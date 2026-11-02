@@ -33,7 +33,7 @@ Related docs: `AGENTS.md` (rules), `PRODUCT.md` (who and why), `ARCHITECTURE.md`
 
 ## 4. Color tokens and themes
 
-All colors are semantic tokens defined in `src/css/style.css`. **Never hard-code a hex value or a raw Tailwind palette color (such as `bg-slate-200`) in components.** Because the tokens switch with the theme, most components need no `dark:` variants.
+All colors are semantic tokens defined in `src/styles/style.css`. **Never hard-code a hex value or a raw Tailwind palette color (such as `bg-slate-200`) in components.** Because the tokens switch with the theme, most components need no `dark:` variants.
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
@@ -148,7 +148,7 @@ Shared components live in `src/components/`; page-specific components stay with 
 
 ## 8. Motion and React Bits
 
-The project now uses React, so effects from React Bits (reactbits.dev) are allowed. Reuse implementations in `src/components/reactbits/`.
+The project now uses React, so effects from React Bits (reactbits.dev) are allowed. Reuse implementations in `src/components/react-bits/`.
 
 Rules:
 - Spend motion on a few moments: one entrance on load, count-up on key numbers, a hover glow on cards, one hero effect.

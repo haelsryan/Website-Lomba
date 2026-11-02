@@ -124,7 +124,7 @@ export function Sidebar({ page }) {
           <ul className="flex flex-row gap-0 lg:flex-col lg:gap-1" role="list">
             <li>
               <a 
-                href="/pages/html/dashboard.html"
+                href="/pages/dashboard.html"
                 className="nav-link" 
                 aria-label="Dashboard"
                 aria-current={page === 'dashboard' ? 'page' : undefined}
@@ -134,7 +134,7 @@ export function Sidebar({ page }) {
             </li>
             <li>
               <a 
-                href="/pages/html/finances.html"
+                href="/pages/finances.html"
                 className="nav-link" 
                 aria-label="Keuangan"
                 aria-current={page === 'finances' ? 'page' : undefined}
@@ -144,7 +144,7 @@ export function Sidebar({ page }) {
             </li>
             <li>
               <a
-                href="/pages/html/simulator.html"
+                href="/pages/simulator.html"
                 className="nav-link"
                 aria-label="Simulator"
                 aria-current={page === 'simulator' ? 'page' : undefined}
@@ -154,7 +154,7 @@ export function Sidebar({ page }) {
             </li>
             <li>
               <a
-                href="/pages/html/settings.html"
+                href="/pages/settings.html"
                 className="nav-link"
                 aria-label="Pengaturan"
                 aria-current={page === 'settings' ? 'page' : undefined}

@@ -1,7 +1,7 @@
 # Pages
 
 One section per page: what it is for, what is on it, how it behaves and when it is done.
-Files for an app page `<page>`: `pages/html/<page>.html`, `pages/jsx/<page>.jsx`, `pages/jsx/<page>/`.
+Files for an app page `<Page>`: `pages/<page>.html`, `src/pages/<Page>.jsx`, with shared components in `src/components/`.
 App pages use `AppShell` (panel plus sidebar); the landing page has its own responsive shell. All pages work in light and dark theme, and at 375px wide.
 The sidebar links to built pages only; Simulator and Belajar will appear when their pages are implemented.
 
@@ -10,7 +10,7 @@ Pages marked **Draft** were sketched from the product goals. Confirm them with t
 ---
 
 ## Landing page
-- **Files:** `index.html`, `pages/jsx/index.jsx`
+- **Files:** `index.html`, `src/pages/Landing.jsx`
 - **Purpose:** introduce Dompet Cerdas and let visitors open the demo or try the budget simulator.
 - **Layout:** a full-viewport dark hero with a compact brand, section navigation, and demo action. The headline sits lower left; it wraps and the buttons stack on mobile. Existing content sections, including About, lead to a responsive footer with brand details, grouped links, social profile placeholders, and a return-to-top button.
 - **Behavior:** the Indonesian headline types once with a reduced-motion static fallback, while the supporting copy and buttons keep their one-time entrance fade. Navbar links scroll to Features, About, Simulator, and Learn; dashboard actions open the demo. A lazy-loaded, low-contrast DotGrid responds to pointer movement and is omitted when reduced motion is requested; the hero remains dark if the effect cannot load. "Tantangan Keuangan" scrolls to the challenges section; the 50/30/20 simulator updates from the entered monthly income.
@@ -18,7 +18,7 @@ Pages marked **Draft** were sketched from the product goals. Confirm them with t
 - **Done when:** section and dashboard links work, the simulator updates, and the page holds up in both themes at 375, 768 and 1280px.
 
 ## Dashboard
-- **Files:** `pages/html/dashboard.html`, `pages/jsx/dashboard.jsx`, `pages/jsx/dashboard/`
+- **Files:** `pages/dashboard.html`, `src/pages/Dashboard.jsx`
 - **Status:** Spec is final. The behavior was prototyped in the earlier vanilla version (`index.html` plus `main.js` of the first build, if still in the repo). Rebuild it in React.
 - **Purpose:** show money status at a glance and offer the next step.
 - **Layout:** see `DESIGN.md` section 6.
@@ -44,7 +44,7 @@ Sections, with behavior:
 ---
 
 ## Keuangan (finances)  *Draft*
-- **Files:** `pages/html/finances.html`, `pages/jsx/finances.jsx`, `pages/jsx/finances/`
+- **Files:** `pages/finances.html`, `src/pages/Finances.jsx`
 - **Purpose:** see, search and manage all transactions, and watch budgets.
 - **Content:**
   - Transaction table: date, note, category, amount. Sort by date. Filter by week or month and by category.
@@ -58,7 +58,7 @@ Sections, with behavior:
 ---
 
 ## Simulator
-- **Files:** `pages/html/simulator.html`, `pages/jsx/simulator.jsx`, `pages/jsx/simulator/`
+- **Files:** `pages/simulator.html`, `src/pages/Simulator.jsx`
 - **Purpose:** let someone try "what if" plans without risk.
 - **Content:**
   - **Target tabungan:** inputs for goal amount, deadline (months) and current savings. Output: needed saving per month and a progress indicator.
@@ -72,7 +72,7 @@ Sections, with behavior:
 ---
 
 ## Belajar (learn)  *Draft*
-- **Files:** `pages/html/learn.html`, `pages/jsx/learn.jsx`, `pages/jsx/learn/`
+- **Files:** `pages/learn.html`, `src/pages/Learn.jsx`
 - **Purpose:** short lessons that build financial habits.
 - **Content:**
   - Lesson cards grouped by topic: budgeting (50/30/20), emergency fund, separating personal and business money, avoiding illegal pinjol.
@@ -85,7 +85,7 @@ Sections, with behavior:
 ---
 
 ## Pengaturan (settings)
-- **Files:** `pages/html/settings.html`, `pages/jsx/settings.jsx`, `pages/jsx/settings/`
+- **Files:** `pages/settings.html`, `src/pages/Settings.jsx`
 - **Purpose:** preferences and demo controls.
 - **Content:**
   - **Tampilan:** theme radio group with Terang, Gelap and Ikuti sistem. Spec in `DESIGN.md` section 4. Changes apply at once, persist, and follow the system when "Ikuti sistem" is chosen.

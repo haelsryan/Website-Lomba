@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { mountPage } from '../../src/js/main.jsx'
+import { mountPage } from '../main.jsx'
 
 const MAX_AMOUNT = 1_000_000_000_000_000
 const MAX_MONTHS = 600
@@ -111,22 +111,22 @@ function Navigation() {
       <nav aria-label="Halaman utama">
         <ul className="flex flex-row gap-0 lg:flex-col lg:gap-1" role="list">
           <li>
-            <a href="/pages/html/dashboard.html" className="nav-link" aria-label="Dashboard">
+            <a href="/pages/dashboard.html" className="nav-link" aria-label="Dashboard">
               <svg className="icon" aria-hidden="true"><use href="#i-home" /></svg>
             </a>
           </li>
           <li>
-            <a href="/pages/html/finances.html" className="nav-link" aria-label="Keuangan">
+            <a href="/pages/finances.html" className="nav-link" aria-label="Keuangan">
               <svg className="icon" aria-hidden="true"><use href="#i-chart" /></svg>
             </a>
           </li>
           <li>
-            <a href="/pages/html/simulator.html" className="nav-link" aria-label="Simulator" aria-current="page">
+            <a href="/pages/simulator.html" className="nav-link" aria-label="Simulator" aria-current="page">
               <svg className="icon" aria-hidden="true"><use href="#i-calc" /></svg>
             </a>
           </li>
           <li>
-            <a href="/pages/html/settings.html" className="nav-link" aria-label="Pengaturan">
+            <a href="/pages/settings.html" className="nav-link" aria-label="Pengaturan">
               <svg className="icon" aria-hidden="true"><use href="#i-gear" /></svg>
             </a>
           </li>

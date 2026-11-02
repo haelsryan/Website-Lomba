@@ -53,7 +53,7 @@ const linkGroups = [
   {
     title: 'Sumber daya',
     links: [
-      { label: 'Dashboard', href: '/pages/html/dashboard.html' },
+      { label: 'Dashboard', href: '/pages/dashboard.html' },
       { label: 'Tantangan Keuangan', href: '#masalah' },
     ],
   },

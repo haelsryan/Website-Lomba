@@ -6,7 +6,7 @@ How the project is organized and how data flows. Keep this in sync with the code
 
 - **Vite** for dev server and build, with `@vitejs/plugin-react`.
 - **React** (function components, hooks).
-- **Tailwind CSS v4** through `@tailwindcss/vite`. Tokens live in `src/css/style.css`.
+- **Tailwind CSS v4** through `@tailwindcss/vite`. Tokens live in `src/styles/style.css`.
 - No backend and no client-side router. Demo data and preferences live in `localStorage`.
 
 ## The big idea: one page, one JSX file
@@ -14,9 +14,8 @@ How the project is organized and how data flows. Keep this in sync with the code
 Every page is a separate document made of two files, plus an optional folder:
 
 ```
-pages/html/finances.html      shell: <head>, theme script, <div id="root">, loads the JSX below
-pages/jsx/finances.jsx        the page component and the mountPage(...) call
-pages/jsx/finances/           components that only this page uses (optional)
+pages/finances.html           shell: <head>, theme script, <div id="root">, loads the JSX below
+src/pages/Finances.jsx        the page component and the mountPage(...) call
 ```
 
 Why: a change to one page cannot break another, each page is easy to hand to a person or an AI tool, and the folder tells you at once what belongs where.
@@ -24,30 +23,24 @@ Why: a change to one page cannot break another, each page is easy to hand to a p
 ## Folder map
 
 ```
-index.html                  "/" entry. Redirects to the dashboard
-pages/
-├─ html/                    dashboard.html  finances.html  simulator.html  learn.html  settings.html
-└─ jsx/
-   ├─ dashboard.jsx         + dashboard/   (Banner, MembersCard, SpendCard, ...)
-   ├─ finances.jsx          + finances/
-   ├─ simulator.jsx         + simulator/
-   ├─ learn.jsx             + learn/
-   └─ settings.jsx          + settings/    (ThemeToggle, ...)
+index.html                  "/" landing page
+pages/                      dashboard.html  finances.html  simulator.html  learn.html  settings.html
 src/
-├─ components/              shared: AppShell, Sidebar, Card, Modal, Toast, Button, Icon, ...
-│  └─ reactbits/            copied React Bits components
-├─ hooks/                   useLocalStorage, useTheme (ThemeProvider), useToast, ...
+├─ assets/                  imported source assets
+├─ components/              shared and page-grouped components
+│  └─ react-bits/           copied React Bits components
+├─ hooks/                   useAppState.js, useTheme.js
 ├─ lib/                     money.js, dates.js, nav.js (the sidebar list), seed.js (demo data)
-├─ css/style.css            Tailwind import, light/dark tokens, shared classes
-├─ js/main.jsx              mountPage(): creates the root and wraps providers
-└─ assets/                  images and static assets
-App.jsx                     Vite template leftover. Not used by pages. Delete once nothing imports it
+├─ pages/                   Landing.jsx, Dashboard.jsx, Finances.jsx, Learn.jsx, Settings.jsx, Simulator.jsx
+├─ styles/style.css         Tailwind import, light/dark tokens, shared classes
+├─ App.jsx
+└─ main.jsx                 shared entry and page bootstrap
 ```
 
 ## Rules for the structure
 
 1. A page file imports from `src/` and from its own folder only. **Pages never import from each other.**
-2. Page-only components live in `pages/jsx/<page>/`. When a second page needs one, move it to `src/components/`.
+2. Page-only components live in the appropriate `src/components/` group. Shared code also lives in `src/components/`.
 3. Page-to-page navigation uses plain `<a href>` (a full page load). Build the list once in `src/lib/nav.js`, and let `AppShell` render it.
 4. Because each page is a new document, React state is lost on navigation. Anything that must survive goes through the `localStorage` hooks.
 5. Do not put business logic in JSX files. Put pure functions in `src/lib/` and stateful logic in `src/hooks/`.
@@ -73,7 +66,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: abs("./index.html"),
-        ...Object.fromEntries(pages.map((p) => [p, abs(`./pages/html/${p}.html`)])),
+        ...Object.fromEntries(pages.map((p) => [p, abs(`./pages/${p}.html`)])),
       },
     },
   },
@@ -105,7 +98,7 @@ HTML shell (one per page, only the title and the script path change):
   </head>
   <body class="bg-canvas font-sans text-ink antialiased">
     <div id="root"></div>
-    <script type="module" src="/pages/jsx/finances.jsx"></script>
+    <script type="module" src="/src/pages/Finances.jsx"></script>
   </body>
 </html>
 ```
@@ -115,17 +108,16 @@ The theme script is copied into every shell. Keep all copies identical.
 Bootstrap (shared by all pages):
 
 ```jsx
-// src/js/main.jsx
-import "../css/style.css";
+// src/main.jsx
+import "./styles/style.css";
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { ThemeProvider } from "@/hooks/useTheme.jsx";
+import ReactDOM from "react-dom/client";
 
-export function mountPage(page) {
-  createRoot(document.getElementById("root")).render(
-    <StrictMode>
-      <ThemeProvider>{page}</ThemeProvider>
-    </StrictMode>
+export function mountPage(Component) {
+  const root = document.getElementById("root");
+  if (!root) return;
+  ReactDOM.createRoot(root).render(
+    <StrictMode><Component /></StrictMode>
   );
 }
 ```
@@ -133,21 +125,14 @@ export function mountPage(page) {
 Page file:
 
 ```jsx
-// pages/jsx/finances.jsx
-import { mountPage } from "@/js/main.jsx";
-import AppShell from "@/components/AppShell.jsx";
-import TransactionTable from "./finances/TransactionTable.jsx";
+// src/pages/Finances.jsx
+import { mountPage } from "@/main.jsx";
 
 function FinancesPage() {
-  return (
-    <AppShell current="finances">
-      <h1 className="text-3xl font-medium tracking-tight">Keuangan</h1>
-      <TransactionTable />
-    </AppShell>
-  );
+  return <main><h1>Keuangan</h1></main>;
 }
 
-mountPage(<FinancesPage />);
+mountPage(FinancesPage);
 ```
 
 Nav list (single source for the sidebar):
@@ -155,22 +140,22 @@ Nav list (single source for the sidebar):
 ```js
 // src/lib/nav.js
 export const NAV = [
-  { id: "dashboard", label: "Dasbor", href: "/pages/html/dashboard.html", icon: "grid" },
-  { id: "finances", label: "Keuangan", href: "/pages/html/finances.html", icon: "wallet" },
-  { id: "simulator", label: "Simulator", href: "/pages/html/simulator.html", icon: "target" },
-  { id: "learn", label: "Belajar", href: "/pages/html/learn.html", icon: "book" },
-  { id: "settings", label: "Pengaturan", href: "/pages/html/settings.html", icon: "sliders" },
+  { id: "dashboard", label: "Dasbor", href: "/pages/dashboard.html", icon: "grid" },
+  { id: "finances", label: "Keuangan", href: "/pages/finances.html", icon: "wallet" },
+  { id: "simulator", label: "Simulator", href: "/pages/simulator.html", icon: "target" },
+  { id: "learn", label: "Belajar", href: "/pages/learn.html", icon: "book" },
+  { id: "settings", label: "Pengaturan", href: "/pages/settings.html", icon: "sliders" },
 ];
 ```
 
-Root `index.html` only redirects: a `<meta http-equiv="refresh" content="0; url=/pages/html/dashboard.html">` plus a visible link as a fallback.
+Root `index.html` serves the landing page. Other pages use lowercase `/pages/<page>.html` URLs.
 
 Optional: add a `jsconfig.json` with `"paths": { "@/*": ["src/*"] }` so the editor understands the `@` alias.
 
 ## Add a new page (checklist)
 
-1. Copy a shell to `pages/html/<page>.html`. Change the title and the script path.
-2. Create `pages/jsx/<page>.jsx` (and `pages/jsx/<page>/` if it needs its own components) using the page template.
+1. Copy a shell to `pages/<page>.html`. Change the title and the script path.
+2. Create `src/pages/<Page>.jsx` and reuse shared components from `src/components/`.
 3. Add the page name to the `pages` array in `vite.config.js`.
 4. Add an entry to `src/lib/nav.js`.
 5. Add a section to `PAGES.md` and a row to the pages table in `PRODUCT.md`.
@@ -217,5 +202,5 @@ Derived values:
 
 ## Build and deploy
 
-- `npm run build` writes to `dist/` and keeps the `pages/html/` paths, so the nav links work in production.
+- `npm run build` writes to `dist/` and keeps the lowercase `pages/` paths, so the nav links work in production.
 - Static hosting is enough (no server code).

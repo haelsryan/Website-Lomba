@@ -1,4 +1,4 @@
-import TypedHeading from '../../../src/components/fx/TypedHeading'
+import TypedHeading from '../fx/TypedHeading.jsx'
 
 export default function Hero() {
   return (
@@ -23,7 +23,7 @@ export default function Hero() {
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <a
-            href="/pages/html/dashboard.html"
+            href="/pages/dashboard.html"
             className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-hero-foreground px-6 text-sm font-semibold text-hero-bg shadow-lg shadow-hero-bg/20 transition hover:bg-hero-foreground/90 active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-safe:animate-fade-rise motion-safe:[animation-delay:120ms] sm:min-w-44"
           >
             Lihat Dashboard

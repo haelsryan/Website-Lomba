@@ -26,7 +26,7 @@ export default function Navbar() {
 
       <nav aria-label="Demo">
         <a
-          href="/pages/html/dashboard.html"
+          href="/pages/dashboard.html"
           className="inline-flex min-h-11 items-center justify-center rounded-full bg-hero-foreground px-5 text-sm font-semibold text-hero-bg transition hover:bg-hero-foreground/90 active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:px-6"
         >
           Open demo

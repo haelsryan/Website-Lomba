@@ -5,7 +5,7 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 
 ## 001. Tailwind CSS v4 with theme tokens
 - **Context:** Needs a consistent look across five pages without a lot of custom CSS.
-- **Decision:** Use Tailwind v4 through `@tailwindcss/vite`. Define colors and fonts in `src/css/style.css` (`@theme`). No `tailwind.config.js`.
+- **Decision:** Use Tailwind v4 through `@tailwindcss/vite`. Define colors and fonts in `src/styles/style.css` (`@theme`). No `tailwind.config.js`.
 - **Consequences:** Components use token utilities. No hard-coded colors. Dynamic class names must be written in full.
 
 ## 002. Start vanilla, then add React
@@ -40,7 +40,7 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 
 ## 008. One HTML shell and one JSX file per page
 - **Context:** Five pages (dashboard, finances, simulator, learn, settings) must stay easy to manage, and several people (and AI tools) work on them.
-- **Decision:** Multi-page Vite app. `pages/html/<page>.html` is the shell and loads `pages/jsx/<page>.jsx`, which renders itself with `mountPage()`. Page-only components live in `pages/jsx/<page>/`. Shared code lives in `src/components/`, `src/hooks/` and `src/lib/`. Pages never import each other. No client-side router. `App.jsx` from the Vite template is not used.
+- **Decision:** Multi-page Vite app. Lowercase `pages/<page>.html` entries load PascalCase `src/pages/<Page>.jsx` components or the shared `src/main.jsx` entry. Shared code lives in `src/components/`, `src/hooks/` and `src/lib/`. Pages never import each other. No client-side router. `src/App.jsx` is not used.
 - **Consequences:** Changing one page cannot break another. Page-to-page navigation is a full page load, so shared data goes through `localStorage` hooks. Each new page needs a Vite input entry and a nav entry (checklist in `ARCHITECTURE.md`).
 
 ## 009. Specs and tasks live in the repo
@@ -60,7 +60,7 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 
 ## 012. Sidebar destinations
 - **Context:** Sidebar navigation must not point to missing or empty pages.
-- **Decision:** Link the sidebar only to implemented pages and use the current `/pages/html/` routes.
+- **Decision:** Link the sidebar only to implemented pages and use the current `/pages/` routes.
 - **Consequences:** Navigation opens working screens instead of blank or missing pages. The sidebar links to Dashboard, Keuangan, Simulator and Pengaturan; add Belajar when it is implemented.
 
 ## 013. Simulator estimates

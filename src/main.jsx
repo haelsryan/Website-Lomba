@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import '../css/style.css'
+import './styles/style.css'
 
 const REACT_ROOT = Symbol.for('dompet-cerdas.react-root')
 

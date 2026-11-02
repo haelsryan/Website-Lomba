@@ -1,6 +1,6 @@
 import { Component, lazy, Suspense, useEffect, useState } from 'react'
 
-const DotGrid = lazy(() => import('../../../src/components/react-bits/DotGrid.jsx'))
+const DotGrid = lazy(() => import('../react-bits/DotGrid.jsx'))
 
 class DotGridErrorBoundary extends Component {
   state = { hasError: false }

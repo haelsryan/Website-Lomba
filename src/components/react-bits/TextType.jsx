@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  type ElementType,
   createElement,
   useCallback,
   useEffect,
@@ -12,41 +11,9 @@ import {
 } from 'react';
 import { gsap } from 'gsap';
 
-interface TextTypeProps {
-  className?: string;
-  showCursor?: boolean;
-  hideCursorWhileTyping?: boolean;
-  cursorStyle?: 'character' | 'bar' | 'block' | 'underscore';
-  cursorCharacter?: string | React.ReactNode;
-  cursorColor?: string;
-  cursorBlinkDuration?: number;
-  cursorClassName?: string;
-  cursorGlide?: boolean;
-  text: string | string[];
-  as?: ElementType;
-  typingSpeed?: number;
-  initialDelay?: number;
-  pauseDuration?: number;
-  deletingSpeed?: number;
-  deleteMode?: 'backspace' | 'select';
-  typeEffect?: 'none' | 'fade' | 'blur' | 'rise';
-  mistakes?: number;
-  prefix?: string;
-  prefixColor?: string;
-  loop?: boolean;
-  textColors?: string[];
-  variableSpeed?: { min: number; max: number };
-  onSentenceComplete?: (sentence: string, index: number) => void;
-  startOnVisible?: boolean;
-  reverseMode?: boolean;
-}
-
-type Effect = { keyframes: Keyframe[]; options: KeyframeAnimationOptions };
-type Typo = { plan: string[]; tail: string[]; fixing: boolean };
-
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
-const NEIGHBORS: Record<string, string> = {
+const NEIGHBORS = {
   a: 'qwsz',
   b: 'vghn',
   c: 'xdfv',
@@ -85,7 +52,7 @@ const NEIGHBORS: Record<string, string> = {
   9: '80o'
 };
 
-const EFFECTS: Record<'fade' | 'blur' | 'rise', Effect> = {
+const EFFECTS = {
   fade: {
     keyframes: [{ opacity: 0 }, { opacity: 1 }],
     options: { duration: 360, easing: 'cubic-bezier(0.25, 1, 0.5, 1)' }
@@ -106,20 +73,20 @@ const EFFECTS: Record<'fade' | 'blur' | 'rise', Effect> = {
   }
 };
 
-const SHAPES: Record<'bar' | 'block' | 'underscore', string> = {
+const SHAPES = {
   bar: 'ml-[0.06em] inline-block h-[1.1em] w-[max(2px,0.07em)] rounded-[1px] bg-current align-[-0.2em]',
   block: 'ml-[0.06em] inline-block h-[1.1em] w-[0.56em] rounded-[0.06em] bg-current align-[-0.2em]',
   underscore: 'ml-[0.06em] inline-block h-[max(2px,0.075em)] w-[0.56em] rounded-[1px] bg-current align-[-0.12em]'
 };
 
-const graphemes = (value: string): string[] => {
+const graphemes = (value) => {
   if (typeof Intl !== 'undefined' && Intl.Segmenter) {
     return Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(value), part => part.segment);
   }
   return Array.from(value);
 };
 
-const typoFor = (char: string): string | null => {
+const typoFor = (char) => {
   const keys = NEIGHBORS[char.toLowerCase()];
   if (!keys) return null;
   const pick = keys[Math.floor(Math.random() * keys.length)];
@@ -154,22 +121,22 @@ const TextType = ({
   startOnVisible = false,
   reverseMode = false,
   ...props
-}: TextTypeProps & React.HTMLAttributes<HTMLElement>) => {
+}) => {
   const [textIndex, setTextIndex] = useState(0);
   const [count, setCount] = useState(0);
   const [selected, setSelected] = useState(0);
-  const [typo, setTypo] = useState<Typo | null>(null);
+  const [typo, setTypo] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isVisible, setIsVisible] = useState(!startOnVisible);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const containerRef = useRef<HTMLElement>(null);
-  const caretRef = useRef<HTMLSpanElement>(null);
-  const cursorRef = useRef<HTMLSpanElement>(null);
-  const blinkRef = useRef<HTMLSpanElement>(null);
-  const blinkTimeline = useRef<ReturnType<typeof gsap.timeline> | null>(null);
-  const blinkResume = useRef<ReturnType<typeof gsap.delayedCall> | null>(null);
-  const caretPosition = useRef<{ x: number; y: number } | null>(null);
-  const placeCursor = useRef<(instant: boolean) => void>(() => {});
+  const containerRef = useRef(null);
+  const caretRef = useRef(null);
+  const cursorRef = useRef(null);
+  const blinkRef = useRef(null);
+  const blinkTimeline = useRef(null);
+  const blinkResume = useRef(null);
+  const caretPosition = useRef(null);
+  const placeCursor = useRef(() => {});
   const lastTypo = useRef(-1);
   const onSentenceCompleteRef = useRef(onSentenceComplete);
 
@@ -239,7 +206,7 @@ const TextType = ({
   }, [showCursor]);
 
   useIsomorphicLayoutEffect(() => {
-    placeCursor.current = (instant: boolean) => {
+    placeCursor.current = (instant) => {
       const caret = caretRef.current;
       const cursor = cursorRef.current;
       if (!caret || !cursor) return;
@@ -279,8 +246,8 @@ const TextType = ({
   useEffect(() => {
     if (!isVisible) return;
 
-    let timeout: ReturnType<typeof setTimeout> | undefined;
-    const wait = (ms: number, next: () => void) => {
+    let timeout;
+    const wait = (ms, next) => {
       timeout = setTimeout(next, ms);
     };
     const speed = () => minSpeed + Math.random() * (maxSpeed - minSpeed);
@@ -366,7 +333,7 @@ const TextType = ({
   ]);
 
   const animateChar = useCallback(
-    (node: HTMLSpanElement | null) => {
+    (node) => {
       const effect = typeEffect === 'none' ? undefined : EFFECTS[typeEffect];
       if (!node || !effect || reduceMotion || typeof node.animate !== 'function') return;
       node.animate(effect.keyframes, effect.options);

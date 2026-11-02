@@ -11,19 +11,19 @@ Legend: `- [ ]` open, `- [x]` done.
 ## T1. Multi-page foundation
 - [ ] **Read:** `ARCHITECTURE.md`
 - Set up `vite.config.js` (React plugin, Tailwind plugin, `@` alias, all pages as inputs).
-- Create `src/js/main.jsx` with `mountPage()`.
-- Create the five HTML shells in `pages/html/` (with the theme script) and a placeholder `pages/jsx/<page>.jsx` for each.
+- Create `src/main.jsx` with `mountPage()`.
+- Create the five HTML shells in `pages/` (with the theme script) and a placeholder `src/pages/<Page>.jsx` for each.
 - Make root `index.html` redirect to the dashboard.
 - Create `src/lib/nav.js`.
 - **Accept:**
-  - `npm run dev` serves all five `/pages/html/*.html` URLs, each showing its page title.
+  - `npm run dev` serves all five `/pages/*.html` URLs, each showing its page title.
   - `npm run build` passes and `dist/` contains all five pages.
   - No page imports from another page.
 ## T2. Tokens and theme engine
 - [ ] **Read:** `DESIGN.md` sections 3 to 5
-- Put the light and dark tokens in `src/css/style.css` (`@theme inline`, `@custom-variant dark`).
+- Put the light and dark tokens in `src/styles/style.css` (`@theme inline`, `@custom-variant dark`).
 - Add the shared classes (`.card`, `.btn`, `.icon-btn`, `.nav-link`, `.avatar`, `.icon`) using tokens only.
-- Create `src/hooks/useTheme.jsx` (`ThemeProvider`, `useTheme`) with `light`, `dark` and `system`, storage key `dompet-cerdas-theme`, and a listener for system changes.
+- Create `src/hooks/useTheme.js` (`ThemeProvider`, `useTheme`) with `light`, `dark` and `system`, storage key `dompet-cerdas-theme`, and a listener for system changes.
 - **Accept:**
   - Setting `data-theme="dark"` on `<html>` in devtools flips every color.
   - No hex values outside the token definitions.
@@ -41,15 +41,15 @@ Legend: `- [ ]` open, `- [x]` done.
   - Storage failures fall back to defaults without crashing.
 ## T4. Dashboard page
 - [ ] **Read:** `PAGES.md` (Dashboard), `DESIGN.md` section 8
-- Build `pages/jsx/dashboard.jsx` and the components in `pages/jsx/dashboard/`.
-- Reuse available React Bits effects in `src/components/reactbits/`. Ask before installing a new package.
+- Build `src/pages/Dashboard.jsx`.
+- Reuse available React Bits effects in `src/components/react-bits/`. Ask before installing a new package.
 - **Accept:**
   - Every behavior in the Dashboard table works with demo data and survives a refresh.
   - Looks finished in both themes at 375, 768 and 1280px.
   - Only one continuous background effect is active. Animations stop under `prefers-reduced-motion`.
 ## T5. Settings page with the theme toggle
 - [x] **Read:** `PAGES.md` (Pengaturan), `DESIGN.md` section 4
-- [x] Build `pages/jsx/settings.jsx` and `pages/jsx/settings/ThemeToggle.jsx` (a real radio group with visible labels).
+- [x] Build `src/pages/Settings.jsx` and `src/components/settings/ThemeToggle.jsx` (a real radio group with visible labels).
 - [x] Add the notification switch and the "reset demo data" action with a confirmation dialog.
 - [x] **Accept:**
   - [x] Choosing Terang, Gelap or Ikuti sistem changes the theme at once and persists.
