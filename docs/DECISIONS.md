@@ -81,8 +81,8 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 
 ## 016. Framed landing hero and wordmark footer
 - **Context:** The landing page should reflect the supplied rounded hero and large closing typography reference without using its embedded screenshot as product artwork.
-- **Decision:** Center the existing message and product preview in a rounded frame, then close with working page links and the requested "do it better" wordmark using the established color tokens.
-- **Consequences:** The landing page borrows the reference's composition while keeping Dompet Cerdas branding and theme support intact.
+- **Decision:** Center the existing message and product preview in a rounded frame, then close with working page links and the requested "Moneva" wordmark using the established color tokens.
+- **Consequences:** The landing page borrows the reference's composition while keeping Moneva branding and theme support intact.
 
 ## 017. Floating landing preview
 - **Context:** The new WEBP reference uses a compact header and a large product interface layered over a spacious hero.
@@ -130,3 +130,5 @@ Format: **Context**, **Decision**, **Consequences**. Add an entry whenever you m
 - **Context:** The landing footer needs useful destinations without the previous decorative glass panel.
 - **Decision:** Use the site's light/dark theme attribute to switch footer-specific semantic color variables, group only existing destinations, and label unavailable contact and social destinations in source as TODOs.
 - **Consequences:** Footer colors update immediately with the theme, and its decorative wordmark remains behind content within the clipped footer.
+
+Renamed the product to Moneva on 2026-11-02.

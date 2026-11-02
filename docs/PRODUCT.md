@@ -1,6 +1,6 @@
-# Product: 
+# Product: Moneva
 
-Tagline: **Financial Resilience for Everyone**.
+Tagline: **Your Money, Your Future, Your Way**.
 
 ## Problem
 
@@ -30,7 +30,7 @@ A calm, friendly money companion that shows your situation at a glance, nudges y
 
 | Page | Purpose | Status |
 |---|---|---|
-| **Landing page** | Introduce Dompet Cerdas, show the demo dashboard and link to the simulator | Built |
+| **Landing page** | Introduce Moneva, show the demo dashboard and link to the simulator | Built |
 | **Dashboard** | Overview: shared wallet members, weekly spending split (kebutuhan, tabungan, hiburan), 3-month savings bars, bill statistics, bill reminders for the selected date, week calendar, education videos, notifications, Premium card | Built (demo data in `localStorage`) |
 | **Keuangan (finances)** | Detailed transactions, budgets and cash flow | Intended. Update when built |
 | **Simulator** | Try "what if" scenarios (saving goal, emergency fund). Must show assumptions and say results are estimates | Built |
@@ -41,7 +41,7 @@ Update the Status column whenever a page changes. Detailed per-page specs live i
 
 ## Competition context
 
-This site is an entry for a web design competition with the theme **"Smart Ecosystems: Digital Solution for a Sustainable Future"**. Judges will look for an inclusive, smart solution that answers a real sustainability challenge. How Dompet Cerdas fits:
+This site is an entry for a web design competition with the theme **"Smart Ecosystems: Digital Solution for a Sustainable Future"**. Judges will look for an inclusive, smart solution that answers a real sustainability challenge. How Moneva fits:
 
 - **Economic sustainability:** helping households and UMKM stay financially resilient supports decent work and growth, and reduces poverty risk.
 - **Smart:** reminders, automatic summaries and simulations turn raw numbers into decisions.

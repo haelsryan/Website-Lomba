@@ -71,7 +71,7 @@ export default function Footer() {
         className="pointer-events-none absolute inset-x-0 bottom-10 -z-0 translate-y-1/2 select-none whitespace-nowrap text-center text-[clamp(2.5rem,16vw,17rem)] font-bold leading-none tracking-[-0.05em] text-[color:var(--footer-wordmark)] opacity-[0.05] sm:text-[clamp(5rem,16vw,17rem)] lg:text-[clamp(5rem,19.3vw,17rem)]"
         aria-hidden="true"
       >
-        do it better
+        Moneva
       </div>
       <div className="relative z-10 mx-auto max-w-7xl px-6 pb-8 pt-12 sm:px-8 sm:pb-10 sm:pt-16">
         <div className="grid gap-10 lg:grid-cols-[minmax(24rem,1fr)_2fr] lg:gap-12">
@@ -84,7 +84,7 @@ export default function Footer() {
                 </svg>
               </span>
               <span className="text-base font-semibold tracking-[-0.04em] text-[color:var(--footer-text)] sm:text-lg">
-                Dompet Cerdas
+                Moneva
               </span>
             </div>
 
@@ -93,13 +93,13 @@ export default function Footer() {
             </p>
 
             <div className="mt-5 flex items-center gap-2">
-              <SocialLink label="Dompet Cerdas di X">
+              <SocialLink label="Moneva di X">
                 {/* TODO: Replace with the verified X profile URL. */}
                 <svg className="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M18.9 2H22l-6.78 7.75L23.2 22h-6.25l-4.9-7.5L5.5 22H2.36l7.25-8.28L1.8 2h6.4l4.43 6.96L18.9 2Zm-1.1 18h1.73L7.26 3.9H5.4L17.8 20Z" />
                 </svg>
               </SocialLink>
-              <SocialLink label="Dompet Cerdas di Instagram">
+              <SocialLink label="Moneva di Instagram">
                 {/* TODO: Replace with the verified Instagram profile URL. */}
                 <svg className="size-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
@@ -107,7 +107,7 @@ export default function Footer() {
                   <circle cx="17.5" cy="6.8" r="1.1" fill="currentColor" />
                 </svg>
               </SocialLink>
-              <SocialLink label="Dompet Cerdas di LinkedIn">
+              <SocialLink label="Moneva di LinkedIn">
                 {/* TODO: Replace with the verified LinkedIn profile URL. */}
                 <svg className="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M5.2 7.8a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM3.5 9.5h3.4V21H3.5V9.5Zm5.5 0h3.3v1.6h.05c.46-.87 1.58-1.79 3.26-1.79 3.49 0 4.14 2.3 4.14 5.29V21h-3.45v-5.67c0-1.35-.03-3.08-1.88-3.08-1.89 0-2.18 1.47-2.18 2.98V21H9V9.5Z" />
@@ -125,7 +125,7 @@ export default function Footer() {
 
         <div className="relative z-10 mt-12 flex flex-col gap-3 border-t border-[var(--footer-border)] pt-6 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p className="m-0 text-[color:var(--footer-muted)]">
-            © 2026 Dompet Cerdas. Hak cipta dilindungi.
+            © 2026 Moneva. Hak cipta dilindungi.
           </p>
           <button
             type="button"

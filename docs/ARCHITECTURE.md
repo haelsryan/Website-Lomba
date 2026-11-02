@@ -82,7 +82,7 @@ HTML shell (one per page, only the title and the script path change):
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
-    <title>Keuangan | Dompet Cerdas</title>
+    <title>Keuangan | Moneva</title>
     <script>
       (function () {
         try {

@@ -1,6 +1,10 @@
 # Project instructions
 
-Dompet Cerdas is a Vite, React and Tailwind CSS v4 multi-page financial education demo for people in Indonesia. Pages are separate documents with lowercase HTML URLs; React page components live in `src/pages/`.
+Moneva is a Vite, React and Tailwind CSS v4 multi-page financial education demo for people in Indonesia.
+
+Tagline: Your Money, Your Future, Your Way.
+
+Pages are separate documents with lowercase HTML URLs; React page components live in `src/pages/`.
 
 ## Read before working
 

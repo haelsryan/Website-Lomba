@@ -61,7 +61,7 @@ function LandingPage() {
                   Banyak pelaku UMKM tidak tahu keuntungan bersih yang sesungguhnya karena uang hasil penjualan sering terpakai untuk keperluan dapur dan harian tanpa tercatat.
                 </p>
                 <div className="mt-6 rounded-2xl bg-white p-3 text-xs text-navy/90">
-                  <span className="font-semibold text-primary">Solusi Dompet Cerdas:</span> Pembagian pos kebutuhan, tabungan, dan operasional dalam satu layar ringkas.
+                  <span className="font-semibold text-primary">Solusi Moneva:</span> Pembagian pos kebutuhan, tabungan, dan operasional dalam satu layar ringkas.
                 </div>
               </article>
 
@@ -74,7 +74,7 @@ function LandingPage() {
                   Cicilan peralatan, tagihan utilitas, dan kewajiban bulanan sering terlambat dibayar bukan karena tidak ada uang, tetapi karena lupa jadwal tenggat waktu.
                 </p>
                 <div className="mt-6 rounded-2xl bg-white p-3 text-xs text-navy/90">
-                  <span className="font-semibold text-primary">Solusi Dompet Cerdas:</span> Kalender mingguan interaktif yang menandai tanggal tagihan secara visual.
+                  <span className="font-semibold text-primary">Solusi Moneva:</span> Kalender mingguan interaktif yang menandai tanggal tagihan secara visual.
                 </div>
               </article>
 
@@ -87,7 +87,7 @@ function LandingPage() {
                   Kurangnya literasi mengenai batas sehat rasio utang dan izin resmi OJK membuat banyak orang terjebak bunga pinjaman konsumtif yang mencekik.
                 </p>
                 <div className="mt-6 rounded-2xl bg-white p-3 text-xs text-navy/90">
-                  <span className="font-semibold text-primary">Solusi Dompet Cerdas:</span> Modul video edukatif cara cek legalitas pinjaman dan simulasi rasio pelunasan.
+                  <span className="font-semibold text-primary">Solusi Moneva:</span> Modul video edukatif cara cek legalitas pinjaman dan simulasi rasio pelunasan.
                 </div>
               </article>
             </div>
@@ -102,7 +102,7 @@ function LandingPage() {
                 Fitur yang berfokus pada ketahanan finansial
               </h2>
               <p className="mt-3 text-base text-muted">
-                Bukan software akuntansi yang rumit. Dompet Cerdas menyajikan instrumen esensial yang langsung dapat Anda gunakan hari ini.
+                Bukan software akuntansi yang rumit. Moneva menyajikan instrumen esensial yang langsung dapat Anda gunakan hari ini.
               </p>
             </div>
 
@@ -179,7 +179,7 @@ function LandingPage() {
         <section id="about" className="border-y border-line bg-panel py-16 sm:py-24">
           <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:px-8">
             <h2 className="text-3xl font-medium tracking-tight text-ink sm:text-4xl">
-              Tentang Dompet Cerdas
+              Tentang Moneva
             </h2>
             <div className="max-w-2xl">
               <p className="text-lg leading-relaxed text-ink">
@@ -307,7 +307,7 @@ function LandingPage() {
                 Edukasi keuangan dengan data demo lokal
               </h2>
               <p className="mt-3 text-base text-muted">
-                Dompet Cerdas adalah demo edukasi. Data di layar ini hanya contoh dan tidak mewakili rekening nyata.
+                Moneva adalah demo edukasi. Data di layar ini hanya contoh dan tidak mewakili rekening nyata.
               </p>
             </div>
 
@@ -357,7 +357,7 @@ function LandingPage() {
               </p>
               <div className="mt-8 flex justify-center gap-4">
                 <a href="/pages/dashboard.html" className="btn bg-primary px-7 py-3.5 text-base font-semibold text-white hover:bg-primary/90 shadow-md active:translate-y-px">
-                  Buka Dasbor Dompet Cerdas
+                  Buka Dasbor Moneva
                 </a>
               </div>
             </div>

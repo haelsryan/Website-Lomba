@@ -68,7 +68,7 @@ function SettingsPage() {
           <a
             href="/"
             className="mb-0 grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-primary/80 lg:mb-3 lg:size-10"
-            aria-label="Dompet Cerdas, beranda"
+            aria-label="Moneva, beranda"
           >
             <svg className="icon" aria-hidden="true"><use href="#i-wallet" /></svg>
           </a>
@@ -167,7 +167,7 @@ function SettingsPage() {
           </section>
         </div>
         <footer className="mt-12 border-t border-line pt-5 text-sm text-muted">
-          Dompet Cerdas adalah demo edukasi dan tidak memindahkan uang sungguhan.
+          Moneva adalah demo edukasi dan tidak memindahkan uang sungguhan.
         </footer>
         </main>
       </div>

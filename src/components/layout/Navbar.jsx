@@ -4,14 +4,14 @@ export default function Navbar() {
       <a
         href="/"
         className="inline-flex min-h-11 items-center gap-3 text-hero-foreground"
-        aria-label="Dompet Cerdas, Beranda"
+        aria-label="Moneva, Beranda"
       >
         <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary text-hero-foreground" aria-hidden="true">
           <svg className="icon size-5">
             <use href="#i-wallet" />
           </svg>
         </span>
-        <span className="text-base font-semibold tracking-[-0.04em] sm:text-lg">Dompet Cerdas</span>
+        <span className="text-base font-semibold tracking-[-0.04em] sm:text-lg">Moneva</span>
       </a>
 
       <nav

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './styles/style.css'
 
-const REACT_ROOT = Symbol.for('dompet-cerdas.react-root')
+const REACT_ROOT = Symbol.for('moneva.react-root')
 
 export function mountPage(Component, { effects = false } = {}) {
   const root = document.getElementById('root')

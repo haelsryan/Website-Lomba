@@ -1,6 +1,6 @@
-# Dompet Cerdas: Design Guide
+# Moneva: Design Guide
 
-Financial Resilience for Everyone.
+Your Money, Your Future, Your Way.
 Read this before building or changing any UI. Update it when a design decision changes.
 Related docs: `AGENTS.md` (rules), `PRODUCT.md` (who and why), `ARCHITECTURE.md` (code structure).
 
@@ -194,4 +194,4 @@ Currently used effects: BlurText (headline), CountUp (numbers), SpotlightCard (c
 - Use a low-contrast DotGrid as a subtle focus texture, not content. It stays subdued at rest and brightens with a stronger swell under the pointer. It is lazy-loaded and omitted when reduced motion is requested. Its presence is an explicit exception to the usual rule against dot-pattern backgrounds, confirmed for this reference.
 - Type the headline once on load and fade the supporting copy and actions in; reduced motion shows the complete headline without typing.
 - The hero headline is "Uangmu, masa depanmu." and types once on load; its full accessible name is announced as one sentence. Under reduced motion, show the full headline immediately. Keep the existing Indonesian subtitle and destination-specific actions.
-- The footer uses a two-part desktop layout with the brand beside three groups of working page links; on mobile, the brand stacks above a two-column link grid. Its large, subdued "Dompet Cerdas" wordmark sits behind the content, and the bottom bar contains only copyright and a reduced-motion-aware return-to-top control.
+- The footer uses a two-part desktop layout with the brand beside three groups of working page links; on mobile, the brand stacks above a two-column link grid. Its large, subdued "Moneva" wordmark sits behind the content, and the bottom bar contains only copyright and a reduced-motion-aware return-to-top control.

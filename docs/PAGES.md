@@ -11,7 +11,7 @@ Pages marked **Draft** were sketched from the product goals. Confirm them with t
 
 ## Landing page
 - **Files:** `index.html`, `src/pages/Landing.jsx`
-- **Purpose:** introduce Dompet Cerdas and let visitors open the demo or try the budget simulator.
+- **Purpose:** introduce Moneva and let visitors open the demo or try the budget simulator.
 - **Layout:** a full-viewport dark hero with a compact brand, section navigation, and demo action. The headline sits lower left; it wraps and the buttons stack on mobile. Existing content sections, including About, lead to a responsive footer with brand details, grouped links, social profile placeholders, and a return-to-top button.
 - **Behavior:** the Indonesian headline types once with a reduced-motion static fallback, while the supporting copy and buttons keep their one-time entrance fade. Navbar links scroll to Features, About, Simulator, and Learn; dashboard actions open the demo. A lazy-loaded, low-contrast DotGrid responds to pointer movement and is omitted when reduced motion is requested; the hero remains dark if the effect cannot load. "Tantangan Keuangan" scrolls to the challenges section; the 50/30/20 simulator updates from the entered monthly income.
 - **States:** the dashboard preview is labeled as example data.

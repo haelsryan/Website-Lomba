@@ -104,7 +104,7 @@ function Navigation() {
       <a
         href="/"
         className="mb-0 grid size-11 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-primary/80 lg:mb-3 lg:size-10"
-        aria-label="Dompet Cerdas, beranda"
+        aria-label="Moneva, beranda"
       >
         <svg className="icon" aria-hidden="true"><use href="#i-wallet" /></svg>
       </a>
