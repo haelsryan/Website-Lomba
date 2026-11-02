@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-import FluxLines from '../FluxLines.jsx'
 import {
   Calculator,
   BookOpen,
@@ -38,7 +36,7 @@ const features = [
       'Referensi resmi OJK',
     ],
     action: 'Jelajahi Pembelajaran',
-    href: '/pages/pembelajaran.html',
+    href: '/pages/learn.html',
   },
   {
     number: '03',
@@ -59,175 +57,140 @@ const features = [
 ]
 
 export default function Features() {
-
-    const [isDark, setIsDark] = useState(false)
-
-useEffect(() => {
-  const updateTheme = () => {
-    const themeElement =
-      document.documentElement.dataset.theme ||
-      document.body.dataset.theme
-
-    setIsDark(themeElement === 'dark')
-  }
-
-  updateTheme()
-
-  const observer = new MutationObserver(updateTheme)
-
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['data-theme'],
-  })
-
-  observer.observe(document.body, {
-    attributes: true,
-    attributeFilter: ['data-theme'],
-  })
-
-  return () => observer.disconnect()
-}, [])
-
   return (
     <section
       id="fitur"
-      className="feature-velocity relative overflow-hidden py-24 sm:py-32"
+      className="feature-velocity bg-canvas text-ink"
     >
-      <div className="feature-grid pointer-events-none absolute inset-0" />
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+        <header className="feature-heading-panel">
+          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
+            Explore Moneva
+          </span>
 
-      <div className="relative z-10 mx-auto max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8">
-        <div className="feature-heading-panel relative isolate overflow-hidden rounded-3xl border border-line p-6 sm:p-8 lg:p-10">
-          <div className="feature-flux-background pointer-events-none absolute z-0" aria-hidden="true">
-            <FluxLines
-              colors={
-                isDark
-                  ? ['#8eacc5', '#c0d3e2', '#6d8da8']
-                  : ['#456b89', '#7899b5', '#355b79']
-              }
-              glow={1.8}
-              rimWidth={0.18}
-              lineWidth={1.75}
-              flowDirection="down"
-              mouseInteraction={true}
-              clickSwirl={true}
-              speed={0.3}
-              scale={1.5}
-              turbulence={0.45}
-              fluidity={0.12}
-              sharpness={2.2}
-              shimmer={0.8}
-              opacity={0.45}
-              mouseStrength={0.5}
-              mouseRadius={0.35}
-              intro={true}
-              lightMode={!isDark}
-              transparent={true}
-            />
+          <h2 className="mt-6 max-w-4xl text-[clamp(2.5rem,7vw,5.25rem)] font-bold leading-[0.95] tracking-tight text-ink">
+            Everything you
+            <br />
+            <span className="font-serif font-normal italic">need</span> to grow.
+          </h2>
+
+          <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <p className="max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+              Tiga fitur utama Moneva untuk membantu Anda memahami, mengatur,
+              dan mengembangkan kondisi keuangan dengan lebih baik.
+            </p>
+
+            <p className="font-mono text-xs leading-relaxed text-muted md:shrink-0">
+              Understand your money.
+              <br />
+              Manage your future.
+            </p>
           </div>
+        </header>
 
-          <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
-            <div className="max-w-2xl space-y-5">
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">
-                Explore Moneva
-              </span>
-
-              <h2 className="text-4xl font-black uppercase leading-none tracking-tighter sm:text-6xl lg:text-7xl">
-                Everything You
-                <br />
-                Need to Grow.
-              </h2>
-
-              <p className="max-w-xl text-sm leading-relaxed text-muted sm:text-base">
-                Tiga fitur utama Moneva untuk membantu Anda memahami,
-                mengatur, dan mengembangkan kondisi keuangan dengan lebih baik.
-              </p>
-            </div>
-
-            <div className="max-w-xs">
-              <p className="font-mono text-xs uppercase leading-relaxed tracking-widest text-muted">
-                Understand your money.
-                <br />
-                Manage your future.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Feature Cards */}
-        <div className="grid gap-6 lg:grid-cols-3">
-
+        <div className="mt-20 grid gap-6 lg:grid-cols-3">
           {features.map((feature) => {
             const Icon = feature.icon
+            const [titleLead, ...titleRest] = feature.title.split(' ')
 
             return (
               <article
                 key={feature.number}
-                className={`feature-glass-card feature-card-${feature.color} group relative flex min-h-[480px] flex-col overflow-hidden rounded-3xl border border-line p-7 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl sm:p-8`}
+                className={`feature-glass-card feature-card-${feature.color} group flex min-h-[560px] flex-col overflow-hidden rounded-2xl border border-line p-8 transition duration-300 hover:-translate-y-1 hover:border-primary/40`}
               >
+                <div className="flex items-start justify-between">
+                  <span className={`feature-icon feature-icon-${feature.color}`}>
+                    <Icon className="size-5" strokeWidth={1.7} aria-hidden="true" />
+                  </span>
+                  <span className="font-mono text-xs tracking-widest text-muted">
+                    {feature.number}
+                  </span>
+                </div>
 
-                {/* Hover Glow */}
-                <div className="feature-card-glow pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+                <div className="mt-8">
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">
+                    {feature.label}
+                  </span>
 
-                {/* Card Number */}
-                <span className="absolute right-7 top-7 font-mono text-xs tracking-widest text-muted/60">
-                  {feature.number}
-                </span>
+                  <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-tight text-ink">
+                    <span className="block">{titleLead}</span>
+                    <span className="block text-muted">{titleRest.join(' ')}</span>
+                  </h3>
 
-                <div className="relative z-10 flex flex-1 flex-col">
+                  <p className="mt-4 text-sm leading-relaxed text-muted">
+                    {feature.description}
+                  </p>
+                </div>
 
-                  {/* Icon */}
-                  <div className={`feature-icon feature-icon-${feature.color}`}>
-                    <Icon className="size-7" strokeWidth={1.7} />
-                  </div>
-
-                  {/* Content */}
-                  <div className="mt-10">
-                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-muted">
-                      {feature.label}
-                    </span>
-
-                    <h3 className="mt-3 text-2xl font-black tracking-tight text-ink sm:text-3xl">
-                      {feature.title}
-                    </h3>
-
-                    <p className="mt-4 text-sm leading-relaxed text-muted">
-                      {feature.description}
-                    </p>
-                  </div>
-
-                  {/* Highlights */}
-                  <div className="mt-8 space-y-3">
-                    {feature.highlights.map((item) => (
-                      <div
-                        key={item}
-                        className="flex items-center gap-3 text-sm text-ink"
-                      >
-                        <span className={`feature-check feature-check-${feature.color}`}>
-                          ✓
-                        </span>
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Action */}
-                  <div className="mt-auto pt-10">
-                    <a
-                      href={feature.href}
-                      className={`feature-action feature-action-${feature.color}`}
+                <ul className="mt-6 space-y-3">
+                  {feature.highlights.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center gap-3 text-sm text-ink"
                     >
-                      <span>{feature.action}</span>
-                      <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
-                    </a>
-                  </div>
+                      <span
+                        className={`feature-check feature-check-${feature.color}`}
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
 
+                <div className="mt-auto pt-8">
+                  <a
+                    href={feature.href}
+                    className={`feature-action feature-action-${feature.color} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary`}
+                  >
+                    <span>{feature.action}</span>
+                    <ArrowUpRight className="size-4" aria-hidden="true" />
+                  </a>
+
+                  <div
+                    className="feature-card-visual mt-6 flex h-28 items-center justify-center overflow-hidden rounded-xl border p-4"
+                    aria-hidden="true"
+                  >
+                    {feature.number === '01' && (
+                      <div className="flex w-full items-center gap-3">
+                        <div className="grid size-16 shrink-0 grid-cols-2 gap-1.5">
+                          <span className="feature-visual-block rounded-sm" />
+                          <span className="feature-visual-block rounded-sm" />
+                          <span className="feature-visual-block rounded-sm" />
+                          <span className="feature-visual-block rounded-sm" />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <span className="feature-visual-line block w-3/4" />
+                          <span className="feature-visual-line block w-full" />
+                          <span className="feature-visual-line block w-1/2" />
+                        </div>
+                      </div>
+                    )}
+
+                    {feature.number === '02' && (
+                      <div className="feature-visual-sheet w-3/4 space-y-2 rounded-md border p-4">
+                        <span className="feature-visual-line block w-1/2" />
+                        <span className="feature-visual-line block w-full" />
+                        <span className="feature-visual-line block w-5/6" />
+                        <span className="feature-visual-line block w-2/3" />
+                      </div>
+                    )}
+
+                    {feature.number === '03' && (
+                      <div className="flex h-full w-4/5 items-end justify-center gap-3">
+                        <span className="feature-visual-bar h-1/3 w-1/5 rounded-t-sm" />
+                        <span className="feature-visual-bar h-2/3 w-1/5 rounded-t-sm" />
+                        <span className="feature-visual-bar h-full w-1/5 rounded-t-sm" />
+                        <span className="feature-visual-bar h-1/2 w-1/5 rounded-t-sm" />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </article>
             )
           })}
-
         </div>
-
       </div>
     </section>
   )
