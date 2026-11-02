@@ -1,4 +1,4 @@
-# Product: Dompet Cerdas
+# Product: 
 
 Tagline: **Financial Resilience for Everyone**.
 
