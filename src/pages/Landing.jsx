@@ -4,6 +4,7 @@ import Footer from '../components/layout/Footer.jsx'
 import DotBackground from '../components/landing/DotBackground.jsx'
 import Hero from '../components/landing/Hero.jsx'
 import Navbar from '../components/layout/Navbar.jsx'
+import Features from '../components/landing/Features.jsx'
 
 function LandingPage() {
   const [income, setIncome] = useState(5000000)
@@ -95,86 +96,7 @@ function LandingPage() {
         </section>
 
         {/* Features */}
-        <section id="fitur" className="py-16 sm:py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl font-medium tracking-tight text-navy sm:text-4xl">
-                Fitur yang berfokus pada ketahanan finansial
-              </h2>
-              <p className="mt-3 text-base text-muted">
-                Bukan software akuntansi yang rumit. Moneva menyajikan instrumen esensial yang langsung dapat Anda gunakan hari ini.
-              </p>
-            </div>
-
-            <div className="mt-12 grid gap-8 lg:grid-cols-[1.35fr_0.85fr]">
-              <div className="card flex flex-col justify-between p-6 sm:p-8">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span className="grid size-11 place-items-center rounded-2xl bg-primary text-white">
-                      <svg className="icon size-5 text-white" aria-hidden="true"><use href="#i-users" /></svg>
-                    </span>
-                    <div>
-                      <h3 className="text-2xl font-medium text-navy">Pencatatan Arus Kas Bersama</h3>
-                      <p className="text-xs text-muted">Untuk keluarga, tim usaha, dan kelompok mahasiswa</p>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-sm leading-relaxed text-muted">
-                    Tambahkan anggota keluarga atau rekan kerja untuk memantau pengeluaran bersama. Setiap anggota memiliki avatar dan riwayat transaksi yang transparan tanpa perlu login rumit.
-                  </p>
-                </div>
-
-                <div className="mt-6 rounded-2xl bg-canvas p-4">
-                  <p className="text-xs font-medium text-muted">Daftar Anggota Usaha Contoh:</p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-medium text-navy shadow-xs">
-                      Sari Wulandari (Kasir)
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-medium text-navy shadow-xs">
-                      Raka Pratama (Operasional)
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-medium text-navy shadow-xs">
-                      Dimas Saputra (Belanja)
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card flex flex-col justify-between p-5 sm:p-6">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span className="grid size-11 place-items-center rounded-2xl bg-primary text-white">
-                      <svg className="icon size-5 text-white" aria-hidden="true"><use href="#i-cal" /></svg>
-                    </span>
-                    <div>
-                      <h3 className="text-2xl font-medium text-navy">Kalender Pengingat Bebas Denda</h3>
-                      <p className="text-xs text-muted">Disiplin tenggat waktu cicilan &amp; utilitas</p>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-sm leading-relaxed text-muted">
-                    Visualisasikan minggu berjalan. Pilih tanggal untuk melihat tagihan jatuh tempo, lalu tandai lunas dengan satu ketukan begitu pembayaran selesai.
-                  </p>
-                </div>
-
-                <div className="mt-6 rounded-2xl bg-canvas p-4">
-                  <div className="flex items-center justify-between text-xs font-medium">
-                    <span className="text-navy">Jadwal Pekan Ini</span>
-                    <span className="text-primary font-semibold">Tandai Lunas Instan</span>
-                  </div>
-                  <div className="mt-2.5 space-y-2">
-                    <div className="flex items-center justify-between rounded-xl bg-white p-2.5 text-xs">
-                      <span className="font-medium text-navy">Internet &amp; WiFi Usaha</span>
-                      <span className="text-muted">10:00 WIB</span>
-                    </div>
-                    <div className="flex items-center justify-between rounded-xl bg-white p-2.5 text-xs">
-                      <span className="font-medium text-navy">Cicilan Alat Produksi</span>
-                      <span className="text-muted">09:00 WIB</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Features />
 
         <section id="about" className="border-y border-line bg-panel py-16 sm:py-24">
           <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:px-8">
