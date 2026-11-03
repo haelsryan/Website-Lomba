@@ -1,5 +1,6 @@
 import { mountPage } from '../main.jsx'
 import Footer from '../components/layout/Footer.jsx'
+import CtaFooter from '../components/landing/CtaFooter.jsx'
 import DotBackground from '../components/landing/DotBackground.jsx'
 import Hero from '../components/landing/Hero.jsx'
 import Navbar from '../components/layout/Navbar.jsx'
@@ -30,6 +31,7 @@ function LandingPage() {
         <TantanganKeuangan />
         <DashboardPreview />
         <SimulatorPreview />
+        <CtaFooter />
       </main>
 
       <Footer />

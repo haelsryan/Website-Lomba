@@ -50,12 +50,6 @@ export default function TantanganKeuangan() {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <header className="mb-20">
-          <span
-            id="edukasi"
-            className="text-xs font-semibold uppercase tracking-[0.3em] text-primary"
-          >
-            Tantangan Keuangan
-          </span>
           <h2
             id="tantangan-heading"
             className="mt-6 text-5xl font-bold leading-[0.95] tracking-tight text-ink sm:text-6xl lg:text-7xl"

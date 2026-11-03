@@ -152,6 +152,7 @@ const VIDEOS = [
 /* ---------- state ---------- */
 const KEY = "dompet-cerdas-v1";
 const today = new Date();
+let stateLoadError = false;
 function seed() {
   const wk = startOfWeek(today), m = (k) => dkey(new Date(today.getFullYear(), today.getMonth() - k, 15)), now = Date.now();
   return {
@@ -186,12 +187,28 @@ function seed() {
   };
 }
 let S;
-try { S = JSON.parse(localStorage.getItem(KEY)); } catch { /* ignore */ }
+try { S = JSON.parse(localStorage.getItem(KEY)); } catch { stateLoadError = true; }
 S ||= seed();
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { /* ignore */ } };
-const ui = { sel: new Date(today), week: startOfWeek(today), tab: "all", range: "weekly", finMonthOffset: 0, finFilter: "all" };
+const ui = {
+  sel: new Date(today),
+  week: startOfWeek(today),
+  tab: "all",
+  range: "weekly",
+  finMonthOffset: 0,
+  finFilter: "all",
+  dashboardPeriod: "6m",
+  dashboardTxFilter: "all",
+  dashboardSort: "newest",
+  dashboardSearch: "",
+};
 const seen = new Set();
-const commit = () => { save(); renderAll(); };
+const commit = () => {
+  save();
+  renderAll();
+  window.dispatchEvent(new Event("moneva:dashboard-data-change"));
+};
+export const getDashboardData = () => ({ transactions: S.tx, reminders: S.rem });
 const notify = (n) => {
   if (!S.muted) {
     S.notifs.unshift({ id: Date.now(), ts: Date.now(), read: false, who: "Saya", ...n });
@@ -200,7 +217,9 @@ const notify = (n) => {
 };
 
 /* ---------- modal + toast ---------- */
-const modal = $("[data-modal]");
+let modal;
+let dashboardInitialized = false;
+let interactionsBound = false;
 function openModal(title, body, onSubmit, submitLabel = "Simpan") {
   modal.innerHTML = `<form method="dialog" class="grid gap-4 p-6">
     <header class="flex items-center justify-between gap-4"><h2 class="text-xl font-medium">${title}</h2>
@@ -217,9 +236,6 @@ function openModal(title, body, onSubmit, submitLabel = "Simpan") {
   };
   if (!modal.open) modal.showModal();
 }
-if (modal) {
-  modal.addEventListener("click", (e) => { if (e.target === modal || e.target.closest("[data-close]")) modal.close(); });
-}
 let tt;
 const toast = (m) => {
   const el = $("[data-toast]");
@@ -229,15 +245,257 @@ const toast = (m) => {
 
 /* ---------- renderers ---------- */
 function renderMembers() {
-  $("[data-members]").innerHTML = S.members.map((m) => {
+  const list = $("[data-members]");
+  if (!list) return;
+  list.innerHTML = S.members.map((m) => {
     const [a, ...b] = m.name.split(" ");
     return `<li><button type="button" data-act="member" data-id="${m.id}" class="w-full rounded-2xl text-center transition hover:bg-primary-tint" aria-label="Kelola ${esc(m.name)}">
       <span class="avatar mx-auto size-16 bg-gradient-to-br text-lg ${tone(m.name)}">${initials(m.name)}</span>
       <span class="mt-1.5 block text-xs font-semibold leading-tight">${esc(a)}<br />${esc(b.join(" "))}</span></button></li>`;
   }).join("");
+  const empty = $("[data-members-empty]");
+  if (empty) empty.hidden = S.members.length > 0;
 }
 
 const weekTx = () => { const a = dkey(ui.week), b = dkey(addDays(ui.week, 6)); return S.tx.filter((t) => t.date >= a && t.date <= b); };
+function renderDashboardSummary() {
+  const date = $("[data-dashboard-date]");
+  if (date) date.textContent = fmt(today, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+  const period = $("[data-dashboard-period]");
+  const periodLabel = {
+    "7d": "7 hari terakhir",
+    "30d": "30 hari terakhir",
+    "6m": "6 bulan terakhir",
+    "1y": "1 tahun terakhir",
+  }[ui.dashboardPeriod];
+  if (period) period.textContent = periodLabel;
+
+  const incomeTx = transactionsInDashboardPeriod("in");
+  const expenseTx = transactionsInDashboardPeriod("out");
+  const income = incomeTx.reduce((sum, t) => sum + t.amount, 0);
+  const expenses = expenseTx.reduce((sum, t) => sum + t.amount, 0);
+  const savings = incomeTx
+    .filter((t) => t.cat === "tabungan")
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  const incomeEl = $("[data-summary-income]");
+  const expensesEl = $("[data-summary-expenses]");
+  const savingsEl = $("[data-summary-savings]");
+  if (incomeEl) incomeEl.textContent = idr(income);
+  if (expensesEl) expensesEl.textContent = idr(expenses);
+  if (savingsEl) savingsEl.textContent = idr(savings);
+  ["[data-summary-period]", "[data-summary-expense-period]"].forEach((selector) => {
+    const el = $(selector);
+    if (el) el.textContent = periodLabel;
+  });
+  const savingsPeriod = $("[data-summary-savings-period]");
+  if (savingsPeriod) savingsPeriod.textContent = `Setoran · ${periodLabel}`;
+}
+
+function dashboardRange() {
+  const start = new Date(today);
+  start.setHours(0, 0, 0, 0);
+  const period = ui.dashboardPeriod;
+  if (period === "7d") start.setDate(start.getDate() - 6);
+  else if (period === "30d") start.setDate(start.getDate() - 29);
+  else {
+    const months = period === "1y" ? 11 : 5;
+    start.setDate(1);
+    start.setMonth(start.getMonth() - months);
+  }
+  return { start, period };
+}
+
+function dashboardBuckets() {
+  const { start, end, period } = dashboardRange();
+  if (period === "7d" || period === "30d") {
+    return Array.from({ length: period === "7d" ? 7 : 30 }, (_, index) => {
+      const date = addDays(start, index);
+      return { key: dkey(date), label: fmt(date, { day: "numeric", month: "short" }) };
+    });
+  }
+
+  const count = period === "1y" ? 12 : 6;
+  return Array.from({ length: count }, (_, index) => {
+    const date = new Date(start.getFullYear(), start.getMonth() + index, 1);
+    return {
+      key: `${date.getFullYear()}-${pad(date.getMonth() + 1)}`,
+      label: fmt(date, { month: "short" }),
+    };
+  });
+}
+
+function transactionsInDashboardPeriod(type) {
+  const buckets = dashboardBuckets();
+  const monthly = ui.dashboardPeriod === "6m" || ui.dashboardPeriod === "1y";
+  return S.tx.filter((tx) => tx.type === type
+    && (monthly || tx.date <= dkey(today))
+    && buckets.some((bucket) => monthly ? tx.date.startsWith(bucket.key) : tx.date === bucket.key));
+}
+
+function renderIncomeChart() {
+  const chart = $("[data-income-chart]");
+  const totalEl = $("[data-income-total]");
+  if (!chart || !totalEl) return;
+
+  const buckets = dashboardBuckets();
+  const periodTx = transactionsInDashboardPeriod("in");
+  const series = buckets.map((bucket) => ({
+    ...bucket,
+    value: periodTx
+      .filter((tx) => (ui.dashboardPeriod === "6m" || ui.dashboardPeriod === "1y")
+        ? tx.date.startsWith(bucket.key)
+        : tx.date === bucket.key)
+      .reduce((sum, tx) => sum + tx.amount, 0),
+  }));
+  const total = series.reduce((sum, bucket) => sum + bucket.value, 0);
+  totalEl.textContent = `${idr(total)} pada periode ini`;
+  chart.setAttribute("aria-label", `Grafik pemasukan ${ui.dashboardPeriod === "7d" ? "7 hari" : ui.dashboardPeriod === "30d" ? "30 hari" : ui.dashboardPeriod === "6m" ? "6 bulan" : "1 tahun"} terakhir, total ${idr(total)}`);
+
+  const left = 78, right = 618, top = 20, bottom = 204;
+  const height = bottom - top;
+  const max = Math.max(...series.map((point) => point.value), 1);
+  const points = series.map((point, index) => ({
+    ...point,
+    x: left + (series.length === 1 ? 0 : (index / (series.length - 1)) * (right - left)),
+    y: bottom - (point.value / max) * height,
+  }));
+  const line = points.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ");
+  const area = `${line} L ${right} ${bottom} L ${left} ${bottom} Z`;
+  const ticks = Array.from({ length: 5 }, (_, index) => {
+    const y = bottom - (index / 4) * height;
+    const value = max * index / 4;
+    return `<line x1="${left}" y1="${y}" x2="${right}" y2="${y}" class="dashboard-chart-gridline" />
+      <text x="${left - 10}" y="${y + 4}" text-anchor="end" class="dashboard-chart-label">${esc(idr(value))}</text>`;
+  }).join("");
+  const stride = series.length > 8 ? Math.ceil(series.length / 6) : 1;
+  const labels = points
+    .filter((_, index) => index % stride === 0 || index === points.length - 1)
+    .map((point) => `<text x="${point.x}" y="236" text-anchor="middle" class="dashboard-chart-label">${esc(point.label)}</text>`)
+    .join("");
+  const markers = points.map((point) => `<circle cx="${point.x}" cy="${point.y}" r="3.5" class="dashboard-chart-point" tabindex="0">
+    <title>${esc(point.label)}: ${esc(idr(point.value))}</title></circle>`).join("");
+  const empty = total
+    ? ""
+    : `<text x="${(left + right) / 2}" y="${(top + bottom) / 2}" text-anchor="middle" class="dashboard-chart-empty">Belum ada pemasukan pada periode ini.</text>`;
+
+  chart.innerHTML = `<defs><linearGradient id="dashboard-income-fill" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="var(--app-primary-text)" stop-opacity=".18" />
+      <stop offset="100%" stop-color="var(--app-primary-text)" stop-opacity="0" />
+    </linearGradient></defs>
+    ${ticks}
+    ${total ? `<path d="${area}" fill="url(#dashboard-income-fill)" /><path d="${line}" class="dashboard-chart-line" />${markers}` : ""}
+    ${labels}${empty}`;
+}
+
+function renderActivityChart() {
+  const chart = $("[data-activity-chart]");
+  const legend = $("[data-activity-legend]");
+  if (!chart || !legend) return;
+
+  const rangeTx = transactionsInDashboardPeriod("out");
+  const totals = new Map();
+  rangeTx.forEach((tx) => totals.set(tx.cat, (totals.get(tx.cat) || 0) + tx.amount));
+  const categories = [...totals.entries()].sort((a, b) => b[1] - a[1]);
+  const total = categories.reduce((sum, [, value]) => sum + value, 0);
+  const categoryColors = {
+    kebutuhan: "var(--color-navy)",
+    tabungan: "var(--app-primary-text)",
+    hiburan: "var(--app-primary-soft)",
+  };
+  const circumference = 2 * Math.PI * 43;
+  let offset = 0;
+  const segments = categories.map(([category, value]) => {
+    const length = total ? (value / total) * circumference : 0;
+    const color = categoryColors[category] || "var(--app-muted)";
+    const segment = `<circle cx="60" cy="60" r="43" fill="none" stroke="${color}" stroke-width="16"
+      stroke-dasharray="${length} ${circumference - length}" stroke-dashoffset="${-offset}" transform="rotate(-90 60 60)" />`;
+    offset += length;
+    return segment;
+  }).join("");
+
+  chart.setAttribute("aria-label", total
+    ? `Distribusi pengeluaran ${ui.dashboardPeriod === "7d" ? "7 hari" : ui.dashboardPeriod === "30d" ? "30 hari" : ui.dashboardPeriod === "6m" ? "6 bulan" : "1 tahun"} terakhir, total ${idr(total)}`
+    : "Belum ada pengeluaran pada periode ini");
+  chart.innerHTML = `<svg class="dashboard-donut-svg" viewBox="0 0 120 120" aria-hidden="true">
+    <circle cx="60" cy="60" r="43" fill="none" stroke="var(--app-canvas)" stroke-width="16" />
+    ${segments}
+    <text x="60" y="56" text-anchor="middle" class="dashboard-donut-total">${esc(idr(total))}</text>
+    <text x="60" y="70" text-anchor="middle" class="dashboard-donut-caption">Pengeluaran</text>
+  </svg>`;
+  legend.innerHTML = total
+    ? categories.map(([category, value]) => {
+      const color = categoryColors[category] || "var(--app-muted)";
+      const label = CATS[category]?.[0] || "Lainnya";
+      const percent = Math.round((value / total) * 100);
+      return `<li><span class="dashboard-legend-swatch" style="--dashboard-legend-color:${color}" aria-hidden="true"></span>
+        <span class="dashboard-legend-name">${esc(label)}</span><span class="dashboard-legend-value">${percent}%</span>
+        <span class="dashboard-legend-amount">${esc(idr(value))}</span></li>`;
+    }).join("")
+    : '<li class="dashboard-activity-empty">Belum ada pengeluaran pada periode ini.</li>';
+}
+
+function renderDashboardTransactions() {
+  const list = $("[data-dashboard-transactions]");
+  const empty = $("[data-dashboard-transactions-empty]");
+  if (!list || !empty) return;
+
+  const query = ui.dashboardSearch.trim().toLocaleLowerCase("id");
+  let transactions = [...S.tx];
+  if (ui.dashboardTxFilter !== "all") transactions = transactions.filter((tx) => tx.type === ui.dashboardTxFilter);
+  if (query) {
+    transactions = transactions.filter((tx) => {
+      const category = CATS[tx.cat]?.[0] || "Lainnya";
+      return `${tx.note} ${category} ${tx.date}`.toLocaleLowerCase("id").includes(query);
+    });
+  }
+  transactions.sort((a, b) => {
+    const order = b.date.localeCompare(a.date) || b.id - a.id;
+    return ui.dashboardSort === "oldest" ? -order : order;
+  });
+
+  if (!transactions.length) {
+    list.replaceChildren();
+    empty.hidden = false;
+    empty.textContent = S.tx.length === 0
+      ? "Belum ada transaksi. Catat transaksi pertama untuk melihat riwayat di sini."
+      : "Tidak ada transaksi yang cocok. Ubah kata pencarian atau filter.";
+    return;
+  }
+
+  empty.hidden = true;
+  list.innerHTML = transactions.slice(0, 8).map((tx) => {
+    const category = CATS[tx.cat]?.[0] || "Lainnya";
+    const date = new Date(`${tx.date}T00:00:00`);
+    const sign = tx.type === "in" ? "+" : "−";
+    return `<li class="dashboard-transaction">
+      <span class="dashboard-transaction-icon ${tx.type === "in" ? "is-income" : "is-expense"}" aria-hidden="true">
+        <svg class="icon"><use href="#i-${tx.type === "in" ? "down" : "up"}" /></svg>
+      </span>
+      <span class="dashboard-transaction-copy"><span class="dashboard-transaction-name">${esc(tx.note)}</span>
+        <span class="dashboard-transaction-meta">${esc(category)} · ${esc(fmt(date, { day: "numeric", month: "short", year: "numeric" }))}</span></span>
+      <span class="dashboard-transaction-amount ${tx.type === "in" ? "is-income" : ""}">${sign}${esc(idr(tx.amount))}</span>
+      <button type="button" data-act="del-tx" data-id="${tx.id}" class="dashboard-transaction-delete" aria-label="Hapus ${esc(tx.note)}">
+        <svg class="icon" aria-hidden="true"><use href="#i-trash" /></svg>
+      </button>
+    </li>`;
+  }).join("");
+}
+
+function renderFincheckDashboard() {
+  renderDashboardSummary();
+  renderIncomeChart();
+  renderActivityChart();
+  renderDashboardTransactions();
+  $$("[data-act='income-period']").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.v === ui.dashboardPeriod));
+  });
+  $$("[data-act='dashboard-tx-filter']").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.v === ui.dashboardTxFilter));
+  });
+}
+
 // Renderers no-op when their hook is not on the current page (finances carries no dashboard widgets).
 function renderSpend() {
   const el = $("[data-spend]");
@@ -359,6 +617,8 @@ function renderNotifs() {
 
 function renderAll() {
   // Each renderer targets its own data-hook, so a page renders only the widgets it carries.
+  $("[data-income-chart]") && renderFincheckDashboard();
+  $("[data-summary-spend]") && renderDashboardSummary();
   $("[data-members]") && renderMembers();
   $("[data-spend]") && renderSpend();
   $("[data-impact]") && renderImpact();
@@ -369,6 +629,10 @@ function renderAll() {
   $("[data-videos]") && renderVideos();
   $("[data-notif-list]") && renderNotifs();
   $("[data-fin-list]") && renderFinances();
+  const loading = $("[data-dashboard-loading]");
+  if (loading) loading.hidden = true;
+  const error = $("[data-dashboard-error]");
+  if (error) error.hidden = !stateLoadError;
 }
 
 /* ---------- finances page renderers ---------- */
@@ -544,14 +808,28 @@ const A = {
   tab(v) { ui.tab = v; $$("[data-act=tab]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.v === v))); renderNotifs(); },
   range(v) { ui.range = v; $$("[data-act=range]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); renderStats(); },
   "fin-filter"(v) { ui.finFilter = v; $$("[data-act=fin-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); renderFinList(); },
+  "income-period"(v) {
+    if (!["7d", "30d", "6m", "1y"].includes(v)) return;
+    ui.dashboardPeriod = v;
+    renderFincheckDashboard();
+  },
+  "dashboard-tx-filter"(v) {
+    if (!["all", "in", "out"].includes(v)) return;
+    ui.dashboardTxFilter = v;
+    renderDashboardTransactions();
+    $$("[data-act='dashboard-tx-filter']").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.v === v));
+    });
+  },
   "fin-month"(v) { ui.finMonthOffset = Math.min(ui.finMonthOffset + +v, 0); renderFinances(); },
-  week(v) { ui.week = addDays(ui.week, +v); ui.sel = addDays(ui.sel, +v); renderCalendar(); renderSpend(); renderReminder(); },
+  week(v) { ui.week = addDays(ui.week, +v); ui.sel = addDays(ui.sel, +v); renderCalendar(); renderSpend(); renderReminder(); $("[data-summary-spend]") && renderDashboardSummary(); },
   day(v) { ui.sel = new Date(+v); renderCalendar(); renderReminder(); },
   help() {
     openModal("Bantuan", `<ul class="grid gap-3 text-sm"><li><b>Catat transaksi.</b> Tekan + di kartu Pengeluaran.</li>
       <li><b>Pengingat tagihan.</b> Pilih tanggal di kalender, lalu tekan Tambah pengingat.</li>
       <li><b>Penyimpanan.</b> Data tersimpan di browser ini saja.</li></ul>`);
   },
+  "reload-dashboard"() { location.reload(); },
   logout() {
     openModal("Keluar", '<p class="text-sm text-muted">Data demo di browser ini akan dikembalikan ke contoh awal.</p>', () => {
       try { localStorage.removeItem(KEY); } catch { /* ignore */ }
@@ -560,11 +838,31 @@ const A = {
   },
 };
 
-document.addEventListener("click", (e) => {
-  const el = e.target.closest("[data-act]");
-  if (!el) return;
-  A[el.dataset.act]?.(el.dataset.id ? Number(el.dataset.id) : el.dataset.v);
-});
+function bindPageInteractions() {
+  if (interactionsBound) return;
+  interactionsBound = true;
+  modal = $("[data-modal]");
+  if (modal) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal || e.target.closest("[data-close]")) modal.close();
+    });
+  }
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-act]");
+    if (!el) return;
+    A[el.dataset.act]?.(el.dataset.id ? Number(el.dataset.id) : el.dataset.v);
+  });
+  document.addEventListener("input", (e) => {
+    if (!e.target.matches("[data-dashboard-search]")) return;
+    ui.dashboardSearch = e.target.value;
+    renderDashboardTransactions();
+  });
+  document.addEventListener("change", (e) => {
+    if (!e.target.matches("[data-dashboard-sort]")) return;
+    ui.dashboardSort = e.target.value === "oldest" ? "oldest" : "newest";
+    renderDashboardTransactions();
+  });
+}
 
 /* ---------- landing page calculator ---------- */
 function initLandingCalc() {
@@ -610,6 +908,7 @@ function initLandingCalc() {
 
 /* ---------- init ---------- */
 function legacyInit() {
+  bindPageInteractions();
   const here = location.pathname.replace(/index\.html$/, "");
   $$("nav a.nav-link").forEach((a) => {
     if (a.pathname.replace(/index\.html$/, "") === here) a.setAttribute("aria-current", "page");
@@ -640,6 +939,12 @@ function legacyInit() {
       mag.style.transform = Math.hypot(dx, dy) < 90 ? `translate(${dx * 0.25}px, ${dy * 0.25}px)` : "";
     });
   }
+}
+
+export function initDashboard() {
+  if (dashboardInitialized) return;
+  dashboardInitialized = true;
+  legacyInit();
 }
 
 // Legacy pages have no React root and still need their vanilla initialization.
