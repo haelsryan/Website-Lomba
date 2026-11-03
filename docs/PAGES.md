@@ -19,27 +19,24 @@ Pages marked **Draft** were sketched from the product goals. Confirm them with t
 
 ## Dashboard
 - **Files:** `pages/dashboard.html`, `src/pages/Dashboard.jsx`
-- **Status:** Spec is final. The behavior was prototyped in the earlier vanilla version (`index.html` plus `main.js` of the first build, if still in the repo). Rebuild it in React.
+- **Status:** Implemented in React.
 - **Purpose:** show money status at a glance and offer the next step.
-- **Layout:** see `DESIGN.md` section 6.
+- **Layout:** four summary cards and two balanced charts sit above two content columns. The left contains transaction history and a compact calendar; the right contains notifications and upcoming bills. Cards follow their content height, see `DESIGN.md` section 6.
 
 Sections, with behavior:
 
 | Section | Behavior |
 |---|---|
-| Banner | Headline (BlurText) and "Tambah anggota" button (Magnet). Soft blue background with drifting blobs |
-| Anggota | Avatar grid (initials). Plus button adds a member (dialog with a name field). Clicking a member offers removal |
-| Pengeluaran | Weekly total (CountUp) for the week shown in the calendar. Split bar and legend by category. Plus button records a transaction (category, amount, note, date). Receipt button lists the week's transactions with delete |
-| Tabungan 3 bulan | Three bars from monthly `tabungan` totals. A bubble shows the change versus last month. Bars grow in when data changes |
-| Statistik | Mingguan or Bulanan toggle. Shows paid bills versus total bills, plus two tiles (paid, open) |
-| Pengingat | Bills for the selected calendar date. Check button marks the first one paid and reveals the next. "+ Tambah pengingat" adds one for that date. Empty state when none |
-| Paket Premium | Simulated toggle in a dialog. No payment. The card text changes when active |
-| Kalender | Seven-day strip (Monday first), previous and next week, dot on days with open bills. Selecting a day updates Pengingat. Changing the week updates Pengeluaran |
-| Video edukasi | Horizontal list. Opening one adds a view (once per visit) and lets the user post a comment |
-| Notifikasi | Tabs (Ringkasan, Dibagikan, Komentar), mute toggle, mark all read, open an item (marks it read). User actions create notifications. Relative time ("30 menit lalu") |
+| Header and summary | Shows the dashboard period and transaction action with total balance, income, expenses, and savings from stored data |
+| Grafik pemasukan | Shows transaction-based income for the selected period; period controls update the chart |
+| Porsi pengeluaran | Shows transaction-based expense categories |
+| Riwayat transaksi | Search and filter the latest transactions; links to the full financial ledger |
+| Notifikasi | Filter tabs, mute controls, mark all read, and open an item (marks it read). Relative time is shown |
+| Tagihan mendatang | Shows upcoming reminders with due dates, recorded amounts when available, and payment status. Users can add a reminder or mark it paid |
+| Kalender | Compact seven-day strip with previous/next week controls; selecting a day sets the reminder date |
 
-- **States:** every list has an empty state that says what to do next.
-- **Done when:** every row above works with demo data, state persists after refresh, and both themes look finished.
+- **States:** transactions, notifications, and bills have empty states that explain the next action.
+- **Done when:** period controls, transaction history, reminders, calendar, and notifications work with demo data, state persists after refresh, and both themes look finished.
 
 ---
 
