@@ -100,9 +100,6 @@ export default function SimulatorPreview() {
         </div>
 
         <div>
-          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
-            Simulasi
-          </span>
           <h2
             id="simulator-preview-heading"
             className="mt-6 text-5xl font-bold leading-[0.95] tracking-tight text-ink sm:text-6xl lg:text-7xl"
