@@ -698,7 +698,7 @@ input {
 
 .finance-summary {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.875rem;
 }
 
@@ -710,6 +710,28 @@ input {
   justify-content: space-between;
   gap: 0.7rem;
   padding: 1rem;
+}
+
+.finance-stat-card-link {
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.finance-stat-card-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--app-primary-text);
+}
+
+.finance-stat-card-link:active,
+.dashboard-summary-card-link:active {
+  transform: translateY(0);
+}
+
+.finance-stat-card-link:focus-visible,
+.dashboard-summary-card-link:focus-visible {
+  outline: 2px solid var(--app-primary-text);
+  outline-offset: 3px;
 }
 
 .finance-stat-top {
@@ -1035,7 +1057,7 @@ input {
 
 .dashboard-columns {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.8fr) minmax(17rem, 0.82fr);
   align-items: start;
   gap: 1rem;
   min-width: 0;
@@ -1691,28 +1713,71 @@ input {
   gap: 1rem;
 }
 
+.dashboard-calendar-weekdays,
 .dashboard-calendar-days {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 0.125rem;
-  margin: 0.75rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
+.dashboard-calendar-weekdays {
+  margin-top: 0.75rem;
+  color: var(--app-muted);
+  font-size: 0.6875rem;
+  text-align: center;
+}
+
+.dashboard-calendar-weekdays > li {
+  min-width: 0;
+}
+
+.dashboard-calendar-days {
+  margin-top: 0.25rem;
+}
+
 .dashboard-calendar-days button {
-  min-height: 2.75rem;
+  display: flex;
+  min-height: 2.25rem;
+  aspect-ratio: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-radius: 0.625rem;
+}
+
+.dashboard-calendar-days button.is-outside-month:not([aria-pressed="true"]) {
+  color: var(--app-muted);
+}
+
+.dashboard-calendar-day-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.15rem;
+  min-height: 0.4rem;
+}
+
+.dashboard-calendar-day-indicator {
+  display: block;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 9999px;
+}
+
+.dashboard-calendar-day-indicator.is-income {
+  background: #10b981;
+}
+
+.dashboard-calendar-day-indicator.is-expense {
+  background: var(--finance-negative);
 }
 
 .dashboard-calendar-days button[aria-pressed="true"] {
   border-color: var(--app-sidebar);
   background: var(--app-sidebar);
   color: #fff;
-}
-
-.dashboard-calendar-days button[aria-pressed="true"] span:first-child {
-  color: rgba(255, 255, 255, 0.76);
 }
 
 .dashboard-notification-card {
@@ -1729,13 +1794,18 @@ input {
   margin-top: 0.75rem;
 }
 
-.dashboard-notification-list-wrap {
+.dashboard-scroll-list-wrap {
+  height: 16rem;
   min-height: 0;
-  max-height: 24rem;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin-top: 0.75rem;
   padding-right: 0.25rem;
   scrollbar-width: thin;
+}
+
+.dashboard-notification-list-wrap {
+  min-width: 0;
 }
 
 .dashboard-notification-list {
@@ -2141,6 +2211,31 @@ input {
   padding: 1rem 1rem 0.875rem 3.75rem;
 }
 
+.dashboard-summary-card-link {
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.dashboard-summary-card-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--app-primary-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .finance-stat-card-link,
+  .dashboard-summary-card-link {
+    transition: none;
+  }
+
+  .finance-stat-card-link:hover,
+  .finance-stat-card-link:active,
+  .dashboard-summary-card-link:hover,
+  .dashboard-summary-card-link:active {
+    transform: none;
+  }
+}
+
 .dashboard-summary-icon {
   position: absolute;
   top: 1rem;
@@ -2216,7 +2311,7 @@ input {
 
 .dashboard-card .dashboard-range-button[aria-pressed="true"],
 .dashboard-card .dashboard-range-button[aria-selected="true"] {
-  background: var(--app-primary-text);
+  background: #10b981;
   color: #fff;
 }
 
@@ -2429,7 +2524,7 @@ input {
 .dashboard-transaction-list {
   display: grid;
   gap: 0;
-  margin: 0.75rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }

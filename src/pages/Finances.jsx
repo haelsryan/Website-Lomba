@@ -1,17 +1,21 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { getDashboardData, mountPage } from '../main.jsx'
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
+import {
+  getDashboardData,
+  getDashboardTransactions,
+  mountPage,
+  subscribeToDashboardTransactions,
+  updateDashboardTransactions,
+} from '../main.jsx'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
-
-const dashboardTransactions = getDashboardData().transactions
 
 const normalizeTransaction = (item) => ({
   id: item.id,
-  name: item.note || 'Transaksi',
-  category: item.type === 'in' ? 'tabungan' : (item.cat || 'kebutuhan'),
+  name: item.name || item.note || 'Transaksi',
+  category: item.cat || 'kebutuhan',
   type: item.type === 'in' ? 'income' : 'expense',
   amount: item.amount,
   date: item.date,
-  method: 'Transfer',
+  method: item.method || 'Transfer',
   note: item.note || 'Transaksi',
 })
 
@@ -84,7 +88,16 @@ const previousMonths = (count) => {
   return months
 }
 
-const initialTransactions = dashboardTransactions.map(normalizeTransaction)
+const toDashboardTransaction = (item) => ({
+  id: item.id,
+  date: item.date,
+  cat: item.category,
+  type: item.type === 'income' ? 'in' : 'out',
+  amount: item.amount,
+  name: item.name,
+  method: item.method,
+  note: item.note || item.name,
+})
 
 const initialBudgets = {
   kebutuhan: 2200000,
@@ -98,9 +111,9 @@ const formatChange = (value) => {
   return `${sign}${value.toFixed(1)}%`
 }
 
-function StatCard({ icon, label, value, change, tone, helper, positive = true }) {
-  return (
-    <article className="card dashboard-card finance-stat-card">
+function StatCard({ icon, label, value, change, tone, helper, positive = true, href }) {
+  const content = (
+    <>
       <div className="finance-stat-top">
         <span className={`finance-stat-icon ${tone}`}>{icon}</span>
         <span className="finance-stat-change" data-trend={positive ? 'positive' : 'negative'}>
@@ -112,8 +125,13 @@ function StatCard({ icon, label, value, change, tone, helper, positive = true })
         <p className="finance-stat-value">{value}</p>
       </div>
       <p className="finance-stat-helper">{helper}</p>
-    </article>
+    </>
   )
+
+  const className = `card dashboard-card finance-stat-card${href ? ' finance-stat-card-link' : ''}`
+  return href
+    ? <a href={href} className={className}>{content}</a>
+    : <article className={className}>{content}</article>
 }
 
 function MiniAreaChart({ data, series }) {
@@ -232,7 +250,12 @@ function FinancesPage() {
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState('newest')
-  const [transactions, setTransactions] = useState(initialTransactions)
+  const storedTransactions = useSyncExternalStore(
+    subscribeToDashboardTransactions,
+    getDashboardTransactions,
+    getDashboardTransactions,
+  )
+  const transactions = useMemo(() => storedTransactions.map(normalizeTransaction), [storedTransactions])
   const [budgets, setBudgets] = useState(initialBudgets)
   const [modalOpen, setModalOpen] = useState(false)
   const modalRef = useRef(null)
@@ -335,6 +358,7 @@ function FinancesPage() {
 
   const totalIncome = currentPeriodTransactions.filter((item) => item.type === 'income').reduce((sum, item) => sum + item.amount, 0)
   const totalExpense = currentPeriodTransactions.filter((item) => item.type === 'expense').reduce((sum, item) => sum + item.amount, 0)
+  const currentBalance = getDashboardData().currentBalance
   const totalSavings = currentPeriodTransactions
     .filter((item) => item.type === 'income' && ['tabungan', 'savings'].includes(item.category))
     .reduce((sum, item) => sum + item.amount, 0)
@@ -417,16 +441,17 @@ function FinancesPage() {
     const amount = Number(form.amount)
     if (!form.name.trim() || Number.isNaN(amount) || amount <= 0) return
 
-    setTransactions((previous) => [{
+    const nextTransactions = [{
       id: Date.now(),
       name: form.name.trim(),
-      category: form.type === 'income' ? 'income' : form.category,
+      category: form.category,
       type: form.type,
       amount,
       date: form.date,
       method: form.method,
       note: form.note.trim() || form.name.trim(),
-    }, ...previous])
+    }, ...transactions]
+    updateDashboardTransactions(nextTransactions.map(toDashboardTransaction))
 
     setForm({
       type: 'expense',
@@ -502,12 +527,22 @@ function FinancesPage() {
             positive={savingsDelta >= 0}
           />
           <StatCard
+            icon={<svg className="icon size-4" aria-hidden="true"><use href="#i-wallet" /></svg>}
+            label="Total saldo"
+            value={currency(currentBalance)}
+            change="Saat ini"
+            tone="bg-primary-tint text-primary"
+            helper="Pemasukan total dikurangi pengeluaran total"
+            positive={currentBalance >= 0}
+            href="#finance-transactions"
+          />
+          <StatCard
             icon={<svg className="icon size-4" aria-hidden="true"><use href="#i-chart" /></svg>}
-            label="Saldo bersih"
+            label="Saldo bersih periode"
             value={currency(summaryNet)}
             change={summaryNet >= 0 ? 'Surplus' : 'Defisit'}
             tone="bg-primary-tint text-primary"
-            helper={summaryNet >= 0 ? 'Pemasukan lebih besar dari pengeluaran' : 'Pengeluaran melebihi pemasukan'}
+            helper={`${summaryNet >= 0 ? 'Pemasukan lebih besar dari pengeluaran' : 'Pengeluaran melebihi pemasukan'} · ${headerText}`}
             positive={summaryNet >= 0}
           />
         </section>
@@ -607,7 +642,7 @@ function FinancesPage() {
           </article>
         </section>
 
-        <section className="card dashboard-card finance-section-card">
+        <section id="finance-transactions" className="card dashboard-card finance-section-card">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-ink">Riwayat transaksi</h2>
@@ -674,7 +709,10 @@ function FinancesPage() {
                             </p>
                             <p className="text-xs text-muted">{item.method}</p>
                           </div>
-                          <button type="button" onClick={() => setTransactions((previous) => previous.filter((entry) => entry.id !== item.id))} className="btn bg-surface text-muted hover:text-red-500" aria-label={`Hapus ${item.name}`}>
+                          <button type="button" onClick={() => {
+                            const nextTransactions = transactions.filter((entry) => entry.id !== item.id)
+                            updateDashboardTransactions(nextTransactions.map(toDashboardTransaction))
+                          }} className="btn bg-surface text-muted hover:text-red-500" aria-label={`Hapus ${item.name}`}>
                             <svg className="icon size-4" aria-hidden="true"><use href="#i-trash" /></svg>
                           </button>
                         </div>

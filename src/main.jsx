@@ -81,6 +81,7 @@ const dkey = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate
 const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
 const startOfWeek = (d) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return addDays(x, -((x.getDay() + 6) % 7)); };
 const idr = (n) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", notation: "compact", maximumFractionDigits: 1 }).format(n);
+const fullIdr = (n) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
 const fmt = (d, o) => new Intl.DateTimeFormat("id-ID", o).format(d);
 const ago = (ts) => { const m = Math.floor((Date.now() - ts) / 6e4); return m < 1 ? "baru saja" : m < 60 ? `${m} menit lalu` : m < 1440 ? `${Math.floor(m / 60)} jam lalu` : `${Math.floor(m / 1440)} hari lalu`; };
 const INPUT = "w-full rounded-xl border border-slate-300 bg-surface px-3 py-2 text-sm font-normal";
@@ -193,6 +194,7 @@ const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch
 const ui = {
   sel: new Date(today),
   week: startOfWeek(today),
+  calendarMonth: new Date(today.getFullYear(), today.getMonth(), 1),
   tab: "all",
   range: "weekly",
   finMonthOffset: 0,
@@ -208,7 +210,25 @@ const commit = () => {
   renderAll();
   window.dispatchEvent(new Event("moneva:dashboard-data-change"));
 };
-export const getDashboardData = () => ({ transactions: S.tx, reminders: S.rem });
+const calculateCurrentBalance = (transactions) => transactions.reduce(
+  (balance, transaction) => balance + (transaction.type === "in" ? transaction.amount : -transaction.amount),
+  0,
+);
+export const getDashboardData = () => ({
+  transactions: S.tx,
+  reminders: S.rem,
+  currentBalance: calculateCurrentBalance(S.tx),
+});
+export const getDashboardTransactions = () => S.tx;
+export const subscribeToDashboardTransactions = (listener) => {
+  window.addEventListener("moneva:dashboard-data-change", listener);
+  return () => window.removeEventListener("moneva:dashboard-data-change", listener);
+};
+export const updateDashboardTransactions = (transactions) => {
+  if (!Array.isArray(transactions)) throw new TypeError("Transactions must be an array");
+  S.tx = transactions;
+  commit();
+};
 const notify = (n) => {
   if (!S.muted) {
     S.notifs.unshift({ id: Date.now(), ts: Date.now(), read: false, who: "Saya", ...n });
@@ -273,6 +293,7 @@ function renderDashboardSummary() {
 
   const incomeTx = transactionsInDashboardPeriod("in");
   const expenseTx = transactionsInDashboardPeriod("out");
+  const balance = calculateCurrentBalance(S.tx);
   const income = incomeTx.reduce((sum, t) => sum + t.amount, 0);
   const expenses = expenseTx.reduce((sum, t) => sum + t.amount, 0);
   const savings = incomeTx
@@ -282,6 +303,8 @@ function renderDashboardSummary() {
   const incomeEl = $("[data-summary-income]");
   const expensesEl = $("[data-summary-expenses]");
   const savingsEl = $("[data-summary-savings]");
+  const balanceEl = $("[data-summary-balance]");
+  if (balanceEl) balanceEl.textContent = fullIdr(balance);
   if (incomeEl) incomeEl.textContent = idr(income);
   if (expensesEl) expensesEl.textContent = idr(expenses);
   if (savingsEl) savingsEl.textContent = idr(savings);
@@ -465,7 +488,7 @@ function renderDashboardTransactions() {
   }
 
   empty.hidden = true;
-  list.innerHTML = transactions.slice(0, 8).map((tx) => {
+  list.innerHTML = transactions.map((tx) => {
     const category = CATS[tx.cat]?.[0] || "Lainnya";
     const date = new Date(`${tx.date}T00:00:00`);
     const sign = tx.type === "in" ? "+" : "−";
@@ -481,6 +504,17 @@ function renderDashboardTransactions() {
       </button>
     </li>`;
   }).join("");
+}
+
+function getCalendarDayIndicators(dateKey) {
+  const indicators = { income: false, expense: false };
+  for (const tx of S.tx) {
+    if (tx.date !== dateKey) continue;
+    if (tx.type === "in") indicators.income = true;
+    if (tx.type === "out") indicators.expense = true;
+    if (indicators.income && indicators.expense) break;
+  }
+  return indicators;
 }
 
 function renderFincheckDashboard() {
@@ -575,14 +609,25 @@ function renderUpgrade() {
 function renderCalendar() {
   const title = $("[data-cal-title]"), days = $("[data-cal-days]");
   if (!title || !days) return;
-  title.textContent = fmt(addDays(ui.week, 3), { month: "long", year: "numeric" });
-  days.innerHTML = Array.from({ length: 7 }, (_, i) => {
-    const d = addDays(ui.week, i), k = dkey(d), on = k === dkey(ui.sel), has = S.rem.some((r) => r.date === k && !r.done);
-    return `<li><button type="button" data-act="day" data-v="${d.getTime()}" aria-pressed="${on}" aria-label="${fmt(d, { weekday: "long", day: "numeric", month: "long" })}"
-      class="group w-full rounded-2xl border border-transparent px-0.5 py-2 transition hover:bg-white aria-pressed:border-navy aria-pressed:bg-navy aria-pressed:text-white">
-      <span class="block text-xs text-muted group-aria-pressed:text-white/70">${fmt(d, { weekday: "short" })}</span>
-      <span class="mt-1 block text-lg font-semibold">${d.getDate()}</span>
-      <span class="mx-auto mt-1 block size-1 rounded-full ${has ? "bg-primary group-aria-pressed:bg-white" : "bg-transparent"}"></span></button></li>`;
+  const monthStart = new Date(ui.calendarMonth.getFullYear(), ui.calendarMonth.getMonth(), 1);
+  const monthDays = new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 0).getDate();
+  const leadingDays = (monthStart.getDay() + 6) % 7;
+  const rowCount = Math.ceil((leadingDays + monthDays) / 7);
+  title.textContent = fmt(monthStart, { month: "long", year: "numeric" });
+  days.innerHTML = Array.from({ length: rowCount * 7 }, (_, i) => {
+    const d = addDays(monthStart, i - leadingDays);
+    const k = dkey(d), on = k === dkey(ui.sel);
+    const inMonth = d.getMonth() === monthStart.getMonth();
+    const indicators = getCalendarDayIndicators(k);
+    const hasReminder = S.rem.some((r) => r.date === k && !r.done);
+    return `<li><button type="button" data-act="day" data-v="${d.getTime()}" aria-pressed="${on}"${k === dkey(today) ? ' aria-current="date"' : ""} aria-label="${fmt(d, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}"
+      class="group w-full rounded-2xl border border-transparent px-0.5 transition hover:bg-white aria-pressed:border-navy aria-pressed:bg-navy aria-pressed:text-white${inMonth ? "" : " is-outside-month"}">
+      <span class="font-semibold">${d.getDate()}</span>
+      <span class="dashboard-calendar-day-indicators" aria-hidden="true">
+        ${indicators.income ? '<span class="dashboard-calendar-day-indicator is-income"></span>' : ""}
+        ${indicators.expense ? '<span class="dashboard-calendar-day-indicator is-expense"></span>' : ""}
+      </span>
+      <span class="mx-auto mt-1 block size-1 rounded-full ${hasReminder ? "bg-primary group-aria-pressed:bg-white" : "bg-transparent"}"></span></button></li>`;
   }).join("");
 }
 
@@ -603,8 +648,15 @@ function renderNotifs() {
   if (!list) return;
   list.hidden = S.muted;
   $("[data-notif-muted]")?.classList.toggle("hidden", !S.muted);
-  $$("[data-act=mute]").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.v === "on") === S.muted)));
-  const items = S.notifs.filter((n) => ui.tab === "all" || n.type === ui.tab);
+  const muteButton = $('[data-act="toggle-mute"]');
+  if (muteButton) {
+    muteButton.setAttribute("aria-label", S.muted ? "Nyalakan notifikasi" : "Matikan notifikasi");
+    muteButton.setAttribute("aria-pressed", String(S.muted));
+    $("use", muteButton).setAttribute("href", S.muted ? "#i-bell-off" : "#i-bell");
+  }
+  const items = S.notifs
+    .filter((n) => ui.tab === "all" || n.type === ui.tab)
+    .slice(0, 4);
   list.innerHTML = items.length ? items.map((n) => `<li class="rounded-2xl bg-canvas border border-navy/5 p-3">
     <div class="flex items-start gap-3">
       <span class="avatar size-10 shrink-0 bg-gradient-to-br text-sm ${tone(n.who)}">${initials(n.who)}</span>
@@ -690,7 +742,7 @@ function renderFinList() {
             </span>
             <span class="min-w-0 flex-1">
               <span class="block truncate text-sm font-semibold">${esc(t.note)}</span>
-              <span class="block text-xs text-muted">${CATS[t.cat][0]}</span>
+              <span class="block text-xs text-muted">${CATS[t.cat]?.[0] || "Lainnya"}</span>
             </span>
             <span class="shrink-0 text-sm font-semibold ${t.type === "in" ? "text-primary" : ""}">${t.type === "in" ? "+" : "−"}${idr(t.amount)}</span>
             <button type="button" data-act="del-tx" data-id="${t.id}" class="icon-btn size-8 bg-surface" aria-label="Hapus ${esc(t.note)}">
@@ -759,8 +811,8 @@ const A = {
   history() {
     const tx = weekTx().sort((a, b) => b.date.localeCompare(a.date));
     openModal("Transaksi minggu ini", tx.length
-      ? `<ul class="grid gap-2">${tx.map((t) => `<li class="flex items-center gap-3 rounded-2xl bg-canvas p-3 text-sm"><span class="size-2 shrink-0 rounded-full ${CATS[t.cat][1]}"></span>
-          <span class="min-w-0 flex-1"><b class="block truncate">${esc(t.note)}</b><span class="text-xs text-muted">${CATS[t.cat][0]}, ${t.date}</span></span>
+      ? `<ul class="grid gap-2">${tx.map((t) => `<li class="flex items-center gap-3 rounded-2xl bg-canvas p-3 text-sm"><span class="size-2 shrink-0 rounded-full ${CATS[t.cat]?.[1] || "bg-primary-soft"}"></span>
+          <span class="min-w-0 flex-1"><b class="block truncate">${esc(t.note)}</b><span class="text-xs text-muted">${CATS[t.cat]?.[0] || "Lainnya"}, ${t.date}</span></span>
           <span class="font-semibold">${t.type === "in" ? "+" : "−"}${idr(t.amount)}</span>
           <button type="button" data-act="del-tx" data-id="${t.id}" class="icon-btn size-8" aria-label="Hapus transaksi">${ico("trash", "size-4")}</button></li>`).join("")}</ul>`
       : '<p class="text-sm text-muted">Belum ada transaksi minggu ini. Tekan tombol + di kartu Pengeluaran untuk mencatat.</p>');
@@ -804,7 +856,7 @@ const A = {
     n.go ? A.video(n.go) : openModal("Notifikasi", `<p class="text-sm">${esc(n.text)}</p><p class="text-xs text-muted">${ago(n.ts)}</p>`);
   },
   "read-all"() { S.notifs.forEach((n) => (n.read = true)); commit(); },
-  mute(v) { S.muted = v === "on"; save(); renderNotifs(); toast(S.muted ? "Notifikasi dimatikan" : "Notifikasi dinyalakan"); },
+  "toggle-mute"() { S.muted = !S.muted; save(); renderNotifs(); toast(S.muted ? "Notifikasi dimatikan" : "Notifikasi dinyalakan"); },
   tab(v) { ui.tab = v; $$("[data-act=tab]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.v === v))); renderNotifs(); },
   range(v) { ui.range = v; $$("[data-act=range]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); renderStats(); },
   "fin-filter"(v) { ui.finFilter = v; $$("[data-act=fin-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); renderFinList(); },
@@ -822,8 +874,20 @@ const A = {
     });
   },
   "fin-month"(v) { ui.finMonthOffset = Math.min(ui.finMonthOffset + +v, 0); renderFinances(); },
-  week(v) { ui.week = addDays(ui.week, +v); ui.sel = addDays(ui.sel, +v); renderCalendar(); renderSpend(); renderReminder(); $("[data-summary-spend]") && renderDashboardSummary(); },
-  day(v) { ui.sel = new Date(+v); renderCalendar(); renderReminder(); },
+  month(v) {
+    const nextMonth = new Date(ui.calendarMonth.getFullYear(), ui.calendarMonth.getMonth() + Number(v), 1);
+    const selectedDay = Math.min(ui.sel.getDate(), new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0).getDate());
+    ui.calendarMonth = nextMonth;
+    ui.sel = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), selectedDay);
+    renderCalendar();
+    renderReminder();
+  },
+  day(v) {
+    ui.sel = new Date(+v);
+    ui.calendarMonth = new Date(ui.sel.getFullYear(), ui.sel.getMonth(), 1);
+    renderCalendar();
+    renderReminder();
+  },
   help() {
     openModal("Bantuan", `<ul class="grid gap-3 text-sm"><li><b>Catat transaksi.</b> Tekan + di kartu Pengeluaran.</li>
       <li><b>Pengingat tagihan.</b> Pilih tanggal di kalender, lalu tekan Tambah pengingat.</li>

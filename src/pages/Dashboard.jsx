@@ -39,7 +39,7 @@ function DashboardHeader() {
 
 function SummaryCards() {
   const summaries = [
-    { icon: 'wallet', label: 'Total saldo', value: 'Belum tersedia', hook: 'data-summary-balance', meta: 'Saldo awal belum dicatat' },
+    { icon: 'wallet', label: 'Total saldo', value: 'Belum tersedia', hook: 'data-summary-balance', meta: 'Dari semua transaksi tersimpan' },
     { icon: 'down', label: 'Total pemasukan', hook: 'data-summary-income', metaHook: 'data-summary-period' },
     { icon: 'up', label: 'Total pengeluaran', hook: 'data-summary-expenses', metaHook: 'data-summary-expense-period' },
     { icon: 'chart', label: 'Total tabungan', hook: 'data-summary-savings', metaHook: 'data-summary-savings-period' },
@@ -47,14 +47,31 @@ function SummaryCards() {
 
   return (
     <section className="dashboard-summary" aria-label="Ringkasan keuangan">
-      {summaries.map(({ icon, label, value, hook, meta, metaHook }) => (
-        <article className="card dashboard-card dashboard-summary-card" key={label}>
-          <span className="dashboard-summary-icon"><Icon name={icon} /></span>
-          <p className="dashboard-summary-label">{label}</p>
-          <p className="dashboard-summary-value" {...(hook ? { [hook]: '' } : {})}>{value}</p>
-          <p className="dashboard-summary-meta" {...(metaHook ? { [metaHook]: '' } : {})}>{meta}</p>
-        </article>
-      ))}
+      {summaries.map(({ icon, label, value, hook, meta, metaHook }) => {
+        const content = (
+          <>
+            <span className="dashboard-summary-icon"><Icon name={icon} /></span>
+            <p className="dashboard-summary-label">{label}</p>
+            <p className="dashboard-summary-value" {...(hook ? { [hook]: '' } : {})}>{value}</p>
+            <p className="dashboard-summary-meta" {...(metaHook ? { [metaHook]: '' } : {})}>{meta}</p>
+          </>
+        )
+
+        return hook === 'data-summary-balance' ? (
+          <a
+            href="/pages/finances.html"
+            className="card dashboard-card dashboard-summary-card dashboard-summary-card-link"
+            aria-label="Lihat total saldo di halaman Keuangan"
+            key={label}
+          >
+            {content}
+          </a>
+        ) : (
+          <article className="card dashboard-card dashboard-summary-card" key={label}>
+            {content}
+          </article>
+        )
+      })}
     </section>
   )
 }
@@ -117,8 +134,19 @@ function TransactionHistory() {
           </select>
         </label>
       </div>
-      <ul data-dashboard-transactions className="dashboard-transaction-list" role="list" />
-      <p data-dashboard-transactions-empty className="dashboard-empty-state" hidden />
+      <div className="dashboard-scroll-list-wrap" data-scroll-list>
+        <ul
+          data-dashboard-transactions
+          className="dashboard-transaction-list"
+          role="list"
+        />
+
+        <p
+          data-dashboard-transactions-empty
+          className="dashboard-empty-state"
+          hidden
+        />
+      </div>
     </section>
   )
 }
@@ -192,27 +220,34 @@ function DashboardCalendar() {
       <header className="dashboard-card-header">
         <h2 data-cal-title />
         <div className="dashboard-icon-group">
-          <button type="button" data-act="week" data-v="-7" className="icon-btn dashboard-icon-action" aria-label="Minggu lalu"><Icon name="chevron-l" /></button>
-          <button type="button" data-act="week" data-v="7" className="icon-btn dashboard-icon-action" aria-label="Minggu depan"><Icon name="chevron-r" /></button>
+          <button type="button" data-act="month" data-v="-1" className="icon-btn dashboard-icon-action" aria-label="Bulan sebelumnya"><Icon name="chevron-l" /></button>
+          <button type="button" data-act="month" data-v="1" className="icon-btn dashboard-icon-action" aria-label="Bulan berikutnya"><Icon name="chevron-r" /></button>
         </div>
       </header>
-      <ul data-cal-days className="dashboard-calendar-days" role="list" aria-label="Hari dalam minggu ini" />
+      <ul className="dashboard-calendar-weekdays" role="list" aria-label="Hari dalam minggu">
+        {['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'].map((day) => (
+          <li key={day}>{day}</li>
+        ))}
+      </ul>
+      <ul data-cal-days className="dashboard-calendar-days" role="list" aria-label="Tanggal dalam bulan" />
     </section>
   )
 }
 
 function DashboardLeftColumn() {
   return (
-    <section className="dashboard-column dashboard-column-left" aria-label="Transaksi dan kalender">
+    <section className="dashboard-column dashboard-column-left" aria-label="Ringkasan pengeluaran dan transaksi">
+      <IncomeChart />
+      <ActivityChart />
       <TransactionHistory />
-      <DashboardCalendar />
     </section>
   )
 }
 
 function DashboardRightColumn({ reminders }) {
   return (
-    <aside className="dashboard-column dashboard-column-right" aria-label="Notifikasi dan tagihan">
+    <aside className="dashboard-column dashboard-column-right" aria-label="Kalender, notifikasi, dan tagihan">
+      <DashboardCalendar />
       <DashboardNotifications />
       <UpcomingBills reminders={reminders} />
     </aside>
@@ -225,8 +260,15 @@ function DashboardNotifications() {
       <header className="dashboard-card-header dashboard-notification-header">
         <div><p className="dashboard-section-kicker">Aktivitas terbaru</p><h2>Notifikasi</h2></div>
         <div className="dashboard-icon-group">
-          <button type="button" data-act="mute" data-v="off" aria-pressed="true" className="icon-btn dashboard-icon-action" aria-label="Notifikasi aktif"><Icon name="bell" /></button>
-          <button type="button" data-act="mute" data-v="on" aria-pressed="false" className="icon-btn dashboard-icon-action" aria-label="Matikan notifikasi"><Icon name="bell-off" /></button>
+          <button
+            type="button"
+            data-act="toggle-mute"
+            className="icon-btn dashboard-icon-action"
+            aria-label="Matikan notifikasi"
+            aria-pressed="false"
+          >
+            <Icon name="bell" />
+          </button>
         </div>
       </header>
       <div className="dashboard-notification-tabs" role="tablist" aria-label="Filter notifikasi">
@@ -235,7 +277,7 @@ function DashboardNotifications() {
         <button type="button" role="tab" data-act="tab" data-v="comment" aria-selected="false" className="btn dashboard-range-button">Komentar</button>
         <button type="button" role="tab" data-act="tab" data-v="view" aria-selected="false" className="btn dashboard-range-button">Dilihat</button>
       </div>
-      <div className="dashboard-notification-list-wrap">
+      <div className="dashboard-scroll-list-wrap dashboard-notification-list-wrap">
         <ul data-notif-list className="dashboard-notification-list" role="list" />
         <p data-notif-muted className="hidden dashboard-muted-state">Notifikasi dimatikan.</p>
       </div>
@@ -276,7 +318,6 @@ function Dashboard() {
               <button type="button" data-act="reload-dashboard" className="dashboard-text-action">Muat ulang dashboard</button>
             </div>
             <SummaryCards />
-            <div className="dashboard-insights-row"><IncomeChart /><ActivityChart /></div>
             <div className="dashboard-columns">
               <DashboardLeftColumn />
               <DashboardRightColumn reminders={reminders} />

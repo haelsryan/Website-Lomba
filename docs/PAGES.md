@@ -33,7 +33,7 @@ Sections, with behavior:
 | Riwayat transaksi | Search and filter the latest transactions; links to the full financial ledger |
 | Notifikasi | Filter tabs, mute controls, mark all read, and open an item (marks it read). Relative time is shown |
 | Tagihan mendatang | Shows upcoming reminders with due dates, recorded amounts when available, and payment status. Users can add a reminder or mark it paid |
-| Kalender | Compact seven-day strip with previous/next week controls; selecting a day sets the reminder date |
+| Kalender | Full Monday-to-Sunday monthly grid with previous/next month controls and dynamic transaction indicators; selecting a day sets the reminder date |
 
 - **States:** transactions, notifications, and bills have empty states that explain the next action.
 - **Done when:** period controls, transaction history, reminders, calendar, and notifications work with demo data, state persists after refresh, and both themes look finished.
@@ -48,7 +48,7 @@ Sections, with behavior:
   - Add, edit and delete a transaction (same dialog fields as the dashboard).
   - Budget cards for Kebutuhan, Tabungan and Hiburan with progress bars against a 50/30/20 split of a monthly income the user can set.
   - Summary line: total this month and difference versus last month.
-- **Data:** the same `Transaction` list as the dashboard (shared hook). A change here must show on the dashboard after navigation.
+- **Data:** the same persisted `Transaction` list as the dashboard. Current total balance uses all transactions; period net uses only the selected range. A change here must show on the dashboard after navigation.
 - **States:** empty (no transactions), no results for a filter.
 - **Done when:** CRUD works, filters work, budgets update live, and the dashboard reflects the changes.
 

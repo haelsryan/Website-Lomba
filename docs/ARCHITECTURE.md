@@ -165,7 +165,7 @@ Optional: add a `jsconfig.json` with `"paths": { "@/*": ["src/*"] }` so the edit
 
 | Key | Content | Owner |
 |---|---|---|
-| `dompet-cerdas-v1` | Demo data: members, transactions, reminders, notifications, videos, plan, mute flag | `useDemoData` hook (shared by dashboard, finances, simulator) |
+| `dompet-cerdas-v1` | Demo data: members, transactions, reminders, notifications, videos, plan, mute flag | `src/main.jsx` state; Dashboard and Finance use its transaction APIs |
 | `dompet-cerdas-theme` | `light`, `dark` or `system` | `useTheme` and the Settings page |
 
 Rules:
@@ -179,7 +179,7 @@ Rules:
 
 ```
 Member        { id, name }
-Transaction   { id, date: "YYYY-MM-DD", cat: "kebutuhan" | "tabungan" | "hiburan", amount: number (IDR), note }
+Transaction   { id, date: "YYYY-MM-DD", cat, type: "in" | "out", amount: number (IDR), note, name?, method? }
 Reminder      { id, date: "YYYY-MM-DD", title, time: "HH:MM", done: boolean }
 Notification  { id, who, type: "shared" | "comment" | "view", label, text, ts: epoch ms, read: boolean, go?: videoId }
 VideoState    { [videoId]: { views, c: commentCount, list: string[] } }
@@ -187,6 +187,7 @@ Settings      { premium: boolean, muted: boolean }
 ```
 
 Derived values:
+- Current balance = all stored income transactions minus all stored expense transactions; period net is calculated separately for the selected date range.
 - Weekly spending = sum of transactions in the displayed week (Monday to Sunday).
 - Savings per month = sum of `tabungan` transactions in that calendar month. The "+N%" bubble compares this month with last month.
 - Bill stats = reminders in the current week or month, counted as done versus total.

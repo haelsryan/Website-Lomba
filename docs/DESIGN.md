@@ -126,14 +126,14 @@ Behavior (Settings page, section "Tampilan"):
 
             ```
             [ sidebar ] [ header and financial summary                         ]
-                        [ income trend                 ][ spending distribution ]
-            [ transaction history          ][ notifications                     ]
-            [ compact calendar              ][ upcoming bills                   ]
+                        [ income trend                 ][ monthly calendar       ]
+                        [ spending distribution        ][ notifications          ]
+                        [ transaction history          ][ upcoming bills         ]
             ```
 
             - Sidebar: dark pill, icons only, logo on top, help and logout at the bottom.
             - Keep the navigation fixed to the viewport: a vertical rail on desktop and a bottom bar below `lg`. Reserve space so it never covers page content.
-            - Dashboard content uses two balanced, independent columns: transaction history and a compact calendar on the left; notifications and upcoming bills on the right. The two charts share the available width evenly. Cards follow their content height rather than sharing fixed-height rows.
+            - Dashboard content uses two balanced, independent columns: income chart, spending distribution and transaction history on the left; monthly calendar, notifications and upcoming bills on the right. The two charts share the available width evenly. Cards follow their content height rather than sharing fixed-height rows.
             - Collapse the content columns on narrow screens. Keep the existing responsive sidebar behavior unchanged.
 - Other pages reuse the same shell (panel + sidebar) and change only the main area.
 - Breakpoints to test: 375, 768, 1280 and 1440px.
