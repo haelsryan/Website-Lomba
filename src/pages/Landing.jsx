@@ -11,7 +11,7 @@ import SimulatorPreview from '../components/landing/SimulatorPreview.jsx'
 
 function LandingPage() {
   return (
-    <>
+    <div className="landing-page">
       <svg className="hidden" aria-hidden="true">
         <symbol id="i-wallet" viewBox="0 0 24 24">
           <path d="M20 7H5a2 2 0 0 1 0-4h13v4" />
@@ -21,22 +21,22 @@ function LandingPage() {
       </svg>
 
       <main>
-        <div className="flex min-h-svh flex-col overflow-hidden bg-hero-bg text-hero-foreground">
+        <Navbar />
+        <div className="landing-hero-shell flex flex-col overflow-hidden bg-hero-bg text-hero-foreground">
           <DotBackground />
-          <Navbar />
           <Hero />
         </div>
 
-        <Features />
         <TantanganKeuangan />
+        <Features />
         <DashboardPreview />
         <SimulatorPreview />
         <CtaFooter />
       </main>
 
       <Footer />
-    </>
-  )
+    </div>
+  );
 }
 
 mountPage(LandingPage)

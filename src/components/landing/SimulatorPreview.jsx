@@ -102,25 +102,18 @@ export default function SimulatorPreview() {
         <div>
           <h2
             id="simulator-preview-heading"
-            className="mt-6 text-5xl font-bold leading-[0.95] tracking-tight text-ink sm:text-6xl lg:text-7xl"
+            className="landing-section-title mt-6 text-ink"
           >
             <span className="block">Atur anggaranmu</span>
             <span className="block text-muted">
-              dengan <span className="font-serif font-normal italic">metode</span>{' '}
+              dengan <span className="landing-accent">metode</span>{' '}
               50/30/20.
             </span>
           </h2>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted">
+          <p className="landing-section-copy mt-6 max-w-xl text-muted">
             Sesuaikan contoh pemasukan untuk melihat pembagian anggaran
             kebutuhan, keinginan, dan tabungan.
           </p>
-          <a
-            href="#simulasi"
-            className="mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-primary active:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-          >
-            Coba Simulator
-            <ArrowUpRight className="size-4" aria-hidden="true" />
-          </a>
         </div>
       </div>
     </section>

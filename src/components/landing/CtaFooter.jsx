@@ -22,7 +22,7 @@ export default function CtaFooter() {
           className="pointer-events-none absolute inset-[-3rem] -z-10 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.6),transparent_70%)]"
           aria-hidden="true"
         />
-        <h2 className="font-serif text-5xl leading-[1.05] tracking-tight text-white sm:text-6xl">
+        <h2 className="landing-section-title text-white">
           Mulai kelola keuangan
           <br />
           Anda dengan lebih tenang.
@@ -34,7 +34,7 @@ export default function CtaFooter() {
           <Wallet className="size-4" aria-hidden="true" />
           Mulai Gratis
         </a>
-        <p className="mt-4 text-sm text-white/70">Coba demo pengelolaan keuangan Moneva.</p>
+        <p className="mt-4 text-base leading-relaxed text-white/70">Coba demo pengelolaan keuangan Moneva.</p>
       </div>
     </section>
   )

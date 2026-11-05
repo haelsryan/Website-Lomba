@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
 import { mountPage } from '../main.jsx'
-import './learn.css'
+import '../styles/learn.css'
 import {
   LEARN_ARTICLES,
   LEARN_CATEGORIES,
