@@ -81,11 +81,17 @@ function IncomeChart() {
     <section className="card dashboard-card dashboard-income-card">
       <header className="dashboard-card-header">
         <div><p className="dashboard-section-kicker">Arus masuk</p><h2>Total pemasukan</h2><p className="dashboard-chart-total" data-income-total /></div>
-        <div className="dashboard-period-control" role="group" aria-label="Periode grafik pemasukan">
-          <button type="button" data-act="income-period" data-v="7d" aria-pressed="false" className="btn dashboard-range-button">7 hari</button>
-          <button type="button" data-act="income-period" data-v="30d" aria-pressed="false" className="btn dashboard-range-button">30 hari</button>
+        <div
+          className="dashboard-period-control gooey-nav"
+          role="group"
+          aria-label="Periode grafik pemasukan"
+          style={{ '--gooey-items': 5, '--gooey-indicator-width': '20%', '--gooey-offset': '300%' }}
+        >
+          <button type="button" data-act="income-period" data-v="7d" aria-pressed="false" className="btn dashboard-range-button">Minggu ini</button>
+          <button type="button" data-act="income-period" data-v="30d" aria-pressed="false" className="btn dashboard-range-button">Bulan ini</button>
+          <button type="button" data-act="income-period" data-v="3m" aria-pressed="false" className="btn dashboard-range-button">3 bulan</button>
           <button type="button" data-act="income-period" data-v="6m" aria-pressed="true" className="btn dashboard-range-button">6 bulan</button>
-          <button type="button" data-act="income-period" data-v="1y" aria-pressed="false" className="btn dashboard-range-button">1 tahun</button>
+          <button type="button" data-act="income-period" data-v="1y" aria-pressed="false" className="btn dashboard-range-button">Tahun ini</button>
         </div>
       </header>
       <div className="dashboard-income-chart-wrap">

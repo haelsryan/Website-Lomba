@@ -1,12 +1,16 @@
+import { useState } from 'react'
+
 function IconSprite() {
   const icons = {
     wallet: <><rect x="2" y="6" width="20" height="14" rx="2" /><path d="M2 10h20M16 14h2" /></>,
     home: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M9 22V12h6v10" /></>,
     chart: <path d="M18 20V10M12 20V4M6 20v-6" />,
     calc: <><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M8 6h8M8 10h8M8 14h2M8 18h2M14 14h2M14 18h2" /></>,
+    book: <><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22z" /><path d="M4 5.5v14A2.5 2.5 0 0 1 6.5 17H20M8 7h8M8 11h7" /></>,
     gear: <><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></>,
     help: <><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><circle cx="12" cy="17" r=".5" fill="currentColor" /></>,
     logout: <><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></>,
+    menu: <><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="18" x2="20" y2="18" /></>,
     plus: <><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></>,
     'chevron-l': <polyline points="15 18 9 12 15 6" />,
     'chevron-r': <polyline points="9 18 15 12 9 6" />,
@@ -26,10 +30,20 @@ function IconSprite() {
   }
 
   return (
-    <svg className="dashboard-icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className="dashboard-icon-sprite"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <defs>
         {Object.entries(icons).map(([name, paths]) => (
-          <symbol key={name} id={`i-${name}`} viewBox="0 0 24 24">{paths}</symbol>
+          <symbol
+            key={name}
+            id={`i-${name}`}
+            viewBox="0 0 24 24"
+          >
+            {paths}
+          </symbol>
         ))}
       </defs>
     </svg>
@@ -37,39 +51,129 @@ function IconSprite() {
 }
 
 function Icon({ name }) {
-  return <svg className="icon" aria-hidden="true"><use href={`#i-${name}`} /></svg>
+  return (
+    <svg className="icon" aria-hidden="true">
+      <use href={`#i-${name}`} />
+    </svg>
+  )
 }
 
 export function DashboardSidebar({ page }) {
+  const [expanded, setExpanded] = useState(false)
   const links = [
-    { href: '/pages/dashboard.html', icon: 'home', label: 'Dashboard', id: 'dashboard' },
-    { href: '/pages/finances.html', icon: 'chart', label: 'Keuangan', id: 'finances' },
-    { href: '/pages/simulator.html', icon: 'calc', label: 'Simulator', id: 'simulator' },
-    { href: '/pages/settings.html', icon: 'gear', label: 'Pengaturan', id: 'settings' },
+    {
+      href: '/pages/dashboard.html',
+      icon: 'home',
+      label: 'Dashboard',
+      id: 'dashboard',
+    },
+    {
+      href: '/pages/finances.html',
+      icon: 'chart',
+      label: 'Keuangan',
+      id: 'finances',
+    },
+    {
+      href: '/pages/simulator.html',
+      icon: 'calc',
+      label: 'Simulator',
+      id: 'simulator',
+    },
+    {
+      href: '/pages/learn.html',
+      icon: 'book',
+      label: 'Belajar',
+      id: 'learn',
+    },
+    {
+      href: '/pages/settings.html',
+      icon: 'gear',
+      label: 'Pengaturan',
+      id: 'settings',
+    },
   ]
 
   return (
     <>
       <IconSprite />
-      <aside className="app-sidebar dashboard-sidebar" aria-label="Navigasi Moneva">
-        <a href="/" className="dashboard-brand" aria-label="Moneva, beranda">
-          <span className="dashboard-brand-mark"><Icon name="wallet" /></span>
+
+      <aside
+        className={`app-sidebar dashboard-sidebar${expanded ? ' is-expanded' : ''}`}
+        aria-label="Navigasi Moneva"
+      >
+        <a
+          href="/"
+          className="dashboard-brand"
+          aria-label="Moneva, beranda"
+        >
+          <span className="dashboard-brand-mark">
+            <Icon name="wallet" />
+          </span>
         </a>
-        <nav className="dashboard-navigation" aria-label="Halaman utama">
+
+        <button
+          type="button"
+          className="dashboard-sidebar-toggle dashboard-nav-link"
+          aria-label={expanded ? 'Ciutkan navigasi' : 'Perluas navigasi'}
+          aria-expanded={expanded}
+          onClick={() => setExpanded((current) => !current)}
+        >
+          <Icon name="menu" />
+          <span className="dashboard-nav-label">Menu</span>
+        </button>
+
+        <nav
+          className="dashboard-navigation"
+          aria-label="Halaman utama"
+        >
           <ul className="dashboard-nav-list" role="list">
             {links.map(({ href, icon, label, id }) => (
-              <li key={href}>
-                <a href={href} className="nav-link dashboard-nav-link" aria-label={label} title={label} aria-current={page === id ? 'page' : undefined}>
+              <li key={id}>
+                <a
+                  href={href}
+                  className="nav-link dashboard-nav-link"
+                  aria-label={label}
+                  title={label}
+                  aria-current={
+                    page === id ? 'page' : undefined
+                  }
+                >
                   <Icon name={icon} />
-                  <span className="dashboard-nav-label">{label}</span>
+                  <span className="dashboard-nav-label">
+                    {label}
+                  </span>
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="dashboard-sidebar-spacer" aria-hidden="true" />
-        <button type="button" data-act="help" className="nav-link dashboard-nav-link" aria-label="Bantuan" title="Bantuan"><Icon name="help" /></button>
-        <button type="button" data-act="logout" className="nav-link dashboard-nav-link" aria-label="Keluar" title="Keluar"><Icon name="logout" /></button>
+
+        <div
+          className="dashboard-sidebar-spacer"
+          aria-hidden="true"
+        />
+
+        <button
+          type="button"
+          data-act="help"
+          className="nav-link dashboard-nav-link"
+          aria-label="Bantuan"
+          title="Bantuan"
+        >
+          <Icon name="help" />
+          <span className="dashboard-nav-label">Bantuan</span>
+        </button>
+
+        <button
+          type="button"
+          data-act="logout"
+          className="nav-link dashboard-nav-link"
+          aria-label="Keluar"
+          title="Keluar"
+        >
+          <Icon name="logout" />
+          <span className="dashboard-nav-label">Keluar</span>
+        </button>
       </aside>
     </>
   )

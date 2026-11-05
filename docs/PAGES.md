@@ -27,7 +27,8 @@ Sections, with behavior:
 
 | Section | Behavior |
 |---|---|
-| Header and summary | Shows the dashboard period and transaction action with total balance, income, expenses, and savings from stored data |
+| Header and summary | Shows the selected period (current week, current month, 3 or 6 recent months, or current year) and transaction action with total balance, income, expenses, and savings from stored data. Shared profile and notification controls are available from the top-right header |
+| Target keuangan | Shows saved savings targets with their target amount, monthly estimate, completion estimate, and progress. Targets are created in the Simulator and stored locally |
 | Grafik pemasukan | Shows transaction-based income for the selected period; period controls update the chart |
 | Porsi pengeluaran | Shows transaction-based expense categories |
 | Riwayat transaksi | Search and filter the latest transactions; links to the full financial ledger |
@@ -58,26 +59,34 @@ Sections, with behavior:
 - **Files:** `pages/simulator.html`, `src/pages/Simulator.jsx`
 - **Purpose:** let someone try "what if" plans without risk.
 - **Content:**
-  - **Target tabungan:** inputs for goal amount, deadline (months) and current savings. Output: needed saving per month and a progress indicator.
-  - **Dana darurat:** inputs for monthly needs, current emergency savings and a monthly saving amount. Output: a target of 3 to 6 months of needs and how long it may take to reach each.
-- **Rules:** show the assumptions next to every result and label it "Estimasi". Interest or return defaults to 0% and is optional. Never promise returns.
+  - **Target tabungan:** formatted Rupiah inputs, quick durations, reverse monthly-capacity calculation, optional return, inflation and contribution-growth assumptions, progress, projections and duration comparisons.
+  - **Dana darurat:** profile-based minimum and ideal targets, adjustable month assumptions, progress and estimated completion times.
+  - **Anggaran 50/30/20:** configurable allocations compared with current-month demo transactions.
+  - **Utang dan cicilan:** simplified balance-based interest estimate with an accelerated-payment comparison.
+  - **Usaha UMKM:** unit contribution, break-even, monthly profit and working-capital estimates.
+  - **Bunga majemuk and dampak inflasi:** illustrative projections with assumptions shown alongside the results.
+  - Saved scenarios can be renamed, deleted, restored and compared. A savings goal can be added to Dashboard. Summaries can be copied or printed from the browser.
+- **Rules:** show the assumptions next to every result and label it "Estimasi". Interest or return defaults to 0% and is optional. Never promise returns. Calculations are educational estimates, not lender-specific quotes or investment advice.
 - **States:** validation messages next to fields, results hidden until inputs are valid.
 - **Navigation:** uses the same left icon rail as Dashboard, Keuangan and Pengaturan.
-- **Status:** Built. Results are calculated locally from the values entered and are not saved.
-- **Done when:** both calculators work, handle zero and large numbers, and results are readable by screen readers.
+- **Status:** Built. Results are calculated locally; scenarios and saved goals persist in the browser.
+- **Done when:** calculators work, handle invalid and large values, show assumptions, and results are readable by screen readers.
 
 ---
 
-## Belajar (learn)  *Draft*
+## Belajar (learn)
 - **Files:** `pages/learn.html`, `src/pages/Learn.jsx`
+- **Status:** Implemented in React. YouTube topics remain visibly unconfigured until verified video IDs are added.
 - **Purpose:** short lessons that build financial habits.
 - **Content:**
-  - Lesson cards grouped by topic: budgeting (50/30/20), emergency fund, separating personal and business money, avoiding illegal pinjol.
-  - A lesson view with short text, key takeaways and an optional video.
-  - "Tandai selesai" saves progress locally and shows a progress bar per topic.
-  - A pinjol safety checklist that points to OJK as the official source.
-- **Rules:** educational only. No advice to buy specific products.
-- **Done when:** lessons open, progress persists, and content is readable at 375px.
+  - Searchable article and video-topic cards grouped by financial topic.
+  - Article details with complete Indonesian educational content, reading time, publication date, key takeaways and an OJK reference for online-lending safety.
+  - "Tandai selesai" saves reading progress locally and shows a progress bar per topic.
+  - Bookmarks persist locally and can be filtered from the material list.
+  - Video topics open a player only when their data includes a valid YouTube ID; otherwise, the page labels the missing configuration and links to a YouTube topic search.
+  - Simulator results link to the corresponding existing learning article.
+- **Rules:** educational only. No advice to buy specific products. Popularity is not claimed without usage data.
+- **Done when:** lessons open, bookmarks and progress persist, the OJK reference works, unconfigured videos are not presented as playable, and content is readable at 375px in both themes.
 
 ---
 
@@ -85,7 +94,10 @@ Sections, with behavior:
 - **Files:** `pages/settings.html`, `src/pages/Settings.jsx`
 - **Purpose:** preferences and demo controls.
 - **Content:**
-  - **Tampilan:** theme radio group with Terang, Gelap and Ikuti sistem. Spec in `DESIGN.md` section 4. Changes apply at once, persist, and follow the system when "Ikuti sistem" is chosen.
+  - **Profil:** editable name, email, short bio, and user type, stored in the browser.
+  - **Tampilan:** theme radio group with Terang, Gelap and Ikuti sistem. Changes apply at once, persist, and follow the system when "Ikuti sistem" is chosen.
+  - **Aksesibilitas:** text scale, high contrast, and reduced motion.
+  - **Preferensi:** toggle the supplied cloud wallpaper.
   - **Notifikasi:** turn notifications on or off (the same flag as the dashboard mute).
   - **Data demo:** button to reset demo data to the starting set, with a confirmation dialog.
   - **Tentang:** short note that this is an educational demo and no real money or personal data is used.

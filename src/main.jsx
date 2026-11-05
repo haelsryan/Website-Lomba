@@ -284,10 +284,11 @@ function renderDashboardSummary() {
 
   const period = $("[data-dashboard-period]");
   const periodLabel = {
-    "7d": "7 hari terakhir",
-    "30d": "30 hari terakhir",
+    "7d": "minggu ini",
+    "30d": "bulan ini",
+    "3m": "3 bulan terakhir",
     "6m": "6 bulan terakhir",
-    "1y": "1 tahun terakhir",
+    "1y": "tahun ini",
   }[ui.dashboardPeriod];
   if (period) period.textContent = periodLabel;
 
@@ -320,26 +321,32 @@ function dashboardRange() {
   const start = new Date(today);
   start.setHours(0, 0, 0, 0);
   const period = ui.dashboardPeriod;
-  if (period === "7d") start.setDate(start.getDate() - 6);
-  else if (period === "30d") start.setDate(start.getDate() - 29);
-  else {
-    const months = period === "1y" ? 11 : 5;
+  if (period === "7d") {
+    start.setDate(start.getDate() - ((start.getDay() + 6) % 7));
+  } else if (period === "30d") {
     start.setDate(1);
-    start.setMonth(start.getMonth() - months);
+  } else if (period === "3m" || period === "6m") {
+    start.setDate(1);
+    start.setMonth(start.getMonth() - (period === "3m" ? 2 : 5));
+  } else {
+    start.setMonth(0, 1);
   }
   return { start, period };
 }
 
 function dashboardBuckets() {
-  const { start, end, period } = dashboardRange();
+  const { start, period } = dashboardRange();
   if (period === "7d" || period === "30d") {
-    return Array.from({ length: period === "7d" ? 7 : 30 }, (_, index) => {
+    const count = period === "7d"
+      ? 7
+      : new Date(start.getFullYear(), start.getMonth() + 1, 0).getDate();
+    return Array.from({ length: count }, (_, index) => {
       const date = addDays(start, index);
       return { key: dkey(date), label: fmt(date, { day: "numeric", month: "short" }) };
     });
   }
 
-  const count = period === "1y" ? 12 : 6;
+  const count = period === "1y" ? 12 : period === "3m" ? 3 : 6;
   return Array.from({ length: count }, (_, index) => {
     const date = new Date(start.getFullYear(), start.getMonth() + index, 1);
     return {
@@ -351,9 +358,9 @@ function dashboardBuckets() {
 
 function transactionsInDashboardPeriod(type) {
   const buckets = dashboardBuckets();
-  const monthly = ui.dashboardPeriod === "6m" || ui.dashboardPeriod === "1y";
+  const monthly = ["3m", "6m", "1y"].includes(ui.dashboardPeriod);
   return S.tx.filter((tx) => tx.type === type
-    && (monthly || tx.date <= dkey(today))
+    && tx.date <= dkey(today)
     && buckets.some((bucket) => monthly ? tx.date.startsWith(bucket.key) : tx.date === bucket.key));
 }
 
@@ -367,14 +374,21 @@ function renderIncomeChart() {
   const series = buckets.map((bucket) => ({
     ...bucket,
     value: periodTx
-      .filter((tx) => (ui.dashboardPeriod === "6m" || ui.dashboardPeriod === "1y")
+      .filter((tx) => (["3m", "6m", "1y"].includes(ui.dashboardPeriod))
         ? tx.date.startsWith(bucket.key)
         : tx.date === bucket.key)
       .reduce((sum, tx) => sum + tx.amount, 0),
   }));
   const total = series.reduce((sum, bucket) => sum + bucket.value, 0);
   totalEl.textContent = `${idr(total)} pada periode ini`;
-  chart.setAttribute("aria-label", `Grafik pemasukan ${ui.dashboardPeriod === "7d" ? "7 hari" : ui.dashboardPeriod === "30d" ? "30 hari" : ui.dashboardPeriod === "6m" ? "6 bulan" : "1 tahun"} terakhir, total ${idr(total)}`);
+  const periodLabel = {
+    "7d": "minggu ini",
+    "30d": "bulan ini",
+    "3m": "3 bulan terakhir",
+    "6m": "6 bulan terakhir",
+    "1y": "tahun ini",
+  }[ui.dashboardPeriod];
+  chart.setAttribute("aria-label", `Grafik pemasukan ${periodLabel}, total ${idr(total)}`);
 
   const left = 78, right = 618, top = 20, bottom = 204;
   const height = bottom - top;
@@ -438,8 +452,15 @@ function renderActivityChart() {
     return segment;
   }).join("");
 
+  const periodLabel = {
+    "7d": "minggu ini",
+    "30d": "bulan ini",
+    "3m": "3 bulan terakhir",
+    "6m": "6 bulan terakhir",
+    "1y": "tahun ini",
+  }[ui.dashboardPeriod];
   chart.setAttribute("aria-label", total
-    ? `Distribusi pengeluaran ${ui.dashboardPeriod === "7d" ? "7 hari" : ui.dashboardPeriod === "30d" ? "30 hari" : ui.dashboardPeriod === "6m" ? "6 bulan" : "1 tahun"} terakhir, total ${idr(total)}`
+    ? `Distribusi pengeluaran ${periodLabel}, total ${idr(total)}`
     : "Belum ada pengeluaran pada periode ini");
   chart.innerHTML = `<svg class="dashboard-donut-svg" viewBox="0 0 120 120" aria-hidden="true">
     <circle cx="60" cy="60" r="43" fill="none" stroke="var(--app-canvas)" stroke-width="16" />
@@ -861,8 +882,14 @@ const A = {
   range(v) { ui.range = v; $$("[data-act=range]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); renderStats(); },
   "fin-filter"(v) { ui.finFilter = v; $$("[data-act=fin-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); renderFinList(); },
   "income-period"(v) {
-    if (!["7d", "30d", "6m", "1y"].includes(v)) return;
+    if (!["7d", "30d", "3m", "6m", "1y"].includes(v)) return;
     ui.dashboardPeriod = v;
+    const buttons = $$("[data-act='income-period']");
+    buttons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.v === v));
+    });
+    const selectedIndex = buttons.findIndex((button) => button.dataset.v === v);
+    buttons[0]?.parentElement?.style.setProperty("--gooey-offset", `${selectedIndex * 100}%`);
     renderFincheckDashboard();
   },
   "dashboard-tx-filter"(v) {
