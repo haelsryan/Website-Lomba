@@ -50,10 +50,21 @@ function LandingPage() {
             </a>
 
             <nav aria-label="Navigasi situs" className="hidden items-center gap-5 lg:flex">
-              <a href="#masalah" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Tantangan</a>
-              <a href="#fitur" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Fitur Utama</a>
-              <a href="#simulasi" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Simulasi Anggaran</a>
-              <a href="#edukasi" className="text-sm font-medium text-muted transition hover:text-primary-text active:underline">Edukasi</a>
+              <a href="#masalah" className="text-sm font-medium text-muted transition hover:text-primary-text">
+                Tantangan
+              </a>
+
+              <a href="#fitur" className="text-sm font-medium text-muted transition hover:text-primary-text">
+                Fitur Utama
+              </a>
+
+              <a href="#simulasi" className="text-sm font-medium text-muted transition hover:text-primary-text">
+                Simulasi Anggaran
+              </a>
+
+              <a
+                href="/pages/jsx/learn.html"
+                className="text-sm font-medium text-muted transition hover:text-primary-text">Learn</a>
             </nav>
 
             <div className="flex items-center gap-3">
@@ -67,7 +78,7 @@ function LandingPage() {
             <a href="#masalah" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Tantangan</a>
             <a href="#fitur" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Fitur</a>
             <a href="#simulasi" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Simulasi</a>
-            <a href="#edukasi" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Edukasi</a>
+            <a href="/pages/jsx/learn.html" className="inline-flex min-h-11 items-center rounded-full px-2 text-xs font-medium text-ink transition hover:bg-primary-soft active:underline">Learn</a>
           </nav>
         </div>
       </header>

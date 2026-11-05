@@ -68,16 +68,18 @@ Sections, with behavior:
 
 ---
 
-## Belajar (learn)  *Draft*
+## Belajar (learn)
 - **Files:** `pages/learn.html`, `src/pages/Learn.jsx`
+- **Status:** Implemented in React. YouTube topics remain visibly unconfigured until verified video IDs are added.
 - **Purpose:** short lessons that build financial habits.
 - **Content:**
-  - Lesson cards grouped by topic: budgeting (50/30/20), emergency fund, separating personal and business money, avoiding illegal pinjol.
-  - A lesson view with short text, key takeaways and an optional video.
-  - "Tandai selesai" saves progress locally and shows a progress bar per topic.
-  - A pinjol safety checklist that points to OJK as the official source.
-- **Rules:** educational only. No advice to buy specific products.
-- **Done when:** lessons open, progress persists, and content is readable at 375px.
+  - Searchable article and video-topic cards grouped by financial topic.
+  - Article details with complete Indonesian educational content, reading time, publication date, key takeaways and an OJK reference for online-lending safety.
+  - "Tandai selesai" saves reading progress locally and shows a progress bar per topic.
+  - Bookmarks persist locally and can be filtered from the material list.
+  - Video topics open a player only when their data includes a valid YouTube ID; otherwise, the page labels the missing configuration and links to a YouTube topic search.
+- **Rules:** educational only. No advice to buy specific products. Popularity is not claimed without usage data.
+- **Done when:** lessons open, bookmarks and progress persist, the OJK reference works, unconfigured videos are not presented as playable, and content is readable at 375px in both themes.
 
 ---
 
