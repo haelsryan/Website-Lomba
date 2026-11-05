@@ -1,42 +1,39 @@
-// Placeholder challenge items: replace these with findings from Moneva audience research.
 const challenges = [
   {
     number: '01',
-    label: 'ARUS KAS',
-    titleFirst: 'Uang cepat',
-    titleSecond: 'habis',
+    label: 'KEAMANAN FINANSIAL',
+    titleFirst: 'Rasa aman',
+    titleSecond: 'masih tertinggal',
     description:
-      'Pemasukan terasa tidak cukup sampai akhir bulan ketika kebutuhan rutin belum direncanakan.',
-    visual: [
-      'h-5 w-2/5 bg-primary/25',
-      'h-8 w-3/4 bg-primary/50',
-      'h-6 w-1/2 bg-primary/25',
+      'Lebih sedikit responden Gen Z merasa aman secara finansial dibanding baby boomer.',
+    metric: 'Merasa aman secara finansial',
+    data: [
+      { label: 'Gen Z', value: 49 },
+      { label: 'Baby boomer', value: 63 },
     ],
   },
   {
     number: '02',
-    label: 'PENGELUARAN',
-    titleFirst: 'Belanja tanpa',
-    titleSecond: 'rencana',
+    label: 'RENCANA JANGKA PANJANG',
+    titleFirst: 'Rencana keuangan',
+    titleSecond: 'sering berhenti di setahun',
     description:
-      'Pengeluaran kecil yang tidak tercatat bisa membuat anggaran bulanan sulit dipantau.',
-    visual: [
-      'h-5 w-1/2 bg-primary/25',
-      'h-8 w-1/3 bg-primary/50',
-      'h-6 w-2/3 bg-primary/25',
+      'Lebih dari setengah responden belum memiliki rencana keuangan lebih dari 12 bulan.',
+    metric: 'Belum punya rencana lebih dari 12 bulan',
+    data: [
+      { label: 'Responden', value: 55 },
     ],
   },
   {
     number: '03',
-    label: 'KEBIASAAN MENABUNG',
-    titleFirst: 'Mulai terasa',
-    titleSecond: 'membingungkan',
+    label: 'NASIHAT KEUANGAN',
+    titleFirst: 'Banyak mengambil',
+    titleSecond: 'keputusan sendiri',
     description:
-      'Menentukan langkah awal dan jumlah tabungan dapat terasa sulit tanpa rencana sederhana.',
-    visual: [
-      'h-5 w-1/3 bg-primary/25',
-      'h-8 w-1/2 bg-primary/50',
-      'h-6 w-3/4 bg-primary/25',
+      'Sebagian responden Gen Z tidak mencari bantuan atau nasihat saat mengambil keputusan finansial.',
+    metric: 'Gen Z yang tidak mencari nasihat',
+    data: [
+      { label: 'Gen Z', value: 29 },
     ],
   },
 ]
@@ -52,20 +49,17 @@ export default function TantanganKeuangan() {
         <header className="mb-20">
           <h2
             id="tantangan-heading"
-            className="mt-6 text-5xl font-bold leading-[0.95] tracking-tight text-ink sm:text-6xl lg:text-7xl"
+            className="landing-section-title mt-6 text-ink"
           >
             <span className="block">Keuangan Gen Z</span>
             <span className="block text-muted">
-              <span className="font-serif font-normal italic">bukan</span> soal
+              <span className="landing-accent">bukan</span> soal
               gaji
             </span>
           </h2>
-          {/* Placeholder copy; replace with concise, research-backed audience insight. */}
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted">
-            Banyak anak muda menghadapi pemasukan yang habis sebelum akhir bulan,
-            pengeluaran tak terencana, dan kebingungan menentukan awal untuk
-            menabung (contoh placeholder, ganti dengan temuan riset audiens
-            Moneva).
+          <p className="landing-section-copy mt-6 max-w-xl text-muted">
+            Riset Sun Life Indonesia 2025 menyoroti tantangan Gen Z dalam merasa
+            aman secara finansial, merencanakan masa depan, dan mencari nasihat.
           </p>
         </header>
 
@@ -73,13 +67,13 @@ export default function TantanganKeuangan() {
           {challenges.map((challenge) => (
             <article
               key={challenge.number}
-              className="flex min-h-[320px] flex-col rounded-2xl border border-line bg-surface p-8 transition duration-300 hover:-translate-y-1 hover:border-primary/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              className="feature-glass-card flex min-h-[320px] flex-col overflow-hidden rounded-[28px] border border-line bg-white p-6 text-ink transition-colors duration-300 hover:border-primary/40 motion-reduce:transition-none sm:p-7"
             >
               <div className="flex items-start justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+                <span className="text-xs font-medium uppercase tracking-[0.16em] text-muted">
                   {challenge.label}
                 </span>
-                <span className="font-mono text-xs text-muted/60">
+                <span className="text-xs text-muted/60">
                   {challenge.number}
                 </span>
               </div>
@@ -93,20 +87,59 @@ export default function TantanganKeuangan() {
                 {challenge.description}
               </p>
 
-              <div
-                className="mt-auto flex h-12 items-end gap-2 pt-6"
-                aria-hidden="true"
-              >
-                {challenge.visual.map((barClass, index) => (
-                  <span
-                    key={`${challenge.number}-${index}`}
-                    className={`rounded-t-sm ${barClass}`}
-                  />
+              <figure className="mt-auto space-y-3 pt-6">
+                <figcaption className="text-xs font-medium text-muted">
+                  {challenge.metric}
+                </figcaption>
+                {challenge.data.map((point) => (
+                  <div key={point.label}>
+                    <div className="mb-1.5 flex items-center justify-between gap-3 text-xs">
+                      <span className="text-muted">{point.label}</span>
+                      <span className="font-semibold tabular-nums text-ink">
+                        {point.value}%
+                      </span>
+                    </div>
+                    <div
+                      className="h-2 overflow-hidden rounded-full bg-primary-tint"
+                      role="meter"
+                      aria-label={`${challenge.metric}: ${point.label}`}
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow={point.value}
+                    >
+                      <span
+                        className="block h-full rounded-full bg-primary"
+                        style={{ width: `${point.value}%` }}
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </div>
                 ))}
-              </div>
+              </figure>
             </article>
           ))}
         </div>
+
+        <p className="mt-8 text-xs leading-relaxed text-muted">
+          Sumber:{' '}
+          <a
+            className="font-medium text-primary-text underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            href="https://www.sunlife.co.id/id/about-us/newsroom/press-releases/2025/sun-life-indonesia-financial-resilience-index-reveals-gen-z/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Sun Life Indonesia, Financial Resilience Index 2025
+          </a>
+          {' · '}
+          <a
+            className="font-medium text-primary-text underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            href="https://sumut.antaranews.com/berita/628953/indeks-ketahanan-finansial-sun-life-indonesia-ungkap-gen-z-paling-rentan"
+            target="_blank"
+            rel="noreferrer"
+          >
+            ANTARA, 3 Juli 2025
+          </a>
+        </p>
       </div>
     </section>
   )

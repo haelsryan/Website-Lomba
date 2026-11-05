@@ -37,9 +37,9 @@ const linkGroups = [
   {
     title: 'Produk',
     links: [
-      { label: 'Fitur', href: '#fitur' },
-      { label: 'Simulator', href: '#simulasi' },
-      { label: 'Belajar', href: '#edukasi' },
+      { label: 'Problems', href: '#masalah' },
+      { label: 'Features', href: '#fitur' },
+      { label: 'Preview', href: '#about' },
     ],
   },
   {

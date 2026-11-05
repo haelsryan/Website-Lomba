@@ -1,197 +1,202 @@
-import {
-  Calculator,
-  BookOpen,
-  LayoutDashboard,
-  ArrowUpRight,
-} from 'lucide-react'
+const lessons = [
+  { title: "Atur anggaran bulanan", progress: "w-3/4" },
+  { title: "Mulai dana darurat", progress: "w-1/2" },
+  { title: "Kenali bunga pinjaman", progress: "w-1/3" },
+];
+
+const dashboardBars = [
+  "h-1/3",
+  "h-2/3",
+  "h-1/2",
+  "h-full",
+  "h-3/5",
+  "h-4/5",
+  "h-1/2",
+];
 
 const features = [
   {
-    number: '01',
-    label: 'FINANCIAL SIMULATOR',
-    title: 'Simulator Keuangan',
+    title: "Simulator Keuangan",
     description:
-      'Rencanakan keuangan dengan lebih mudah. Hitung pembagian pemasukan, kebutuhan, keinginan, dan tabungan melalui simulasi interaktif.',
-    icon: Calculator,
-    color: 'blue',
-    highlights: [
-      'Kalkulasi otomatis',
-      'Metode anggaran 50/30/20',
-      'Hasil perhitungan langsung',
-    ],
-    action: 'Coba Simulator',
-    href: '#simulasi',
+      "Hitung pembagian pemasukan dan target tabungan Anda dengan mudah.",
+    href: "#simulasi",
+    ctaLabel: "Coba Simulator",
+    Mockup: SimulatorMockup,
   },
   {
-    number: '02',
-    label: 'FINANCIAL EDUCATION',
-    title: 'Pusat Pembelajaran',
+    title: "Pusat Pembelajaran",
     description:
-      'Tingkatkan literasi keuangan melalui berbagai materi edukasi berupa video dan artikel yang mengacu pada sumber resmi, termasuk OJK.',
-    icon: BookOpen,
-    color: 'blue',
-    highlights: [
-      'Video pembelajaran',
-      'Artikel edukasi keuangan',
-      'Referensi resmi OJK',
-    ],
-    action: 'Jelajahi Pembelajaran',
-    href: '/pages/learn.html',
+      "Pilih materi singkat untuk memahami pengelolaan uang sehari-hari.",
+    href: "/pages/learn.html",
+    ctaLabel: "Jelajahi Pembelajaran",
+    Mockup: LessonMockup,
   },
   {
-    number: '03',
-    label: 'FINANCIAL DASHBOARD',
-    title: 'Dashboard Keuangan',
+    title: "Dashboard Keuangan",
     description:
-      'Pantau kondisi keuangan dalam satu tempat. Catat pemasukan dan pengeluaran, serta lihat ringkasan arus kas secara praktis.',
-    icon: LayoutDashboard,
-    color: 'blue',
-    highlights: [
-      'Catatan pemasukan',
-      'Catatan pengeluaran',
-      'Ringkasan keuangan',
-    ],
-    action: 'Buka Dashboard',
-    href: '/pages/dashboard.html',
+      "Lihat saldo, pemasukan, dan pengeluaran Anda dalam satu ringkasan.",
+    href: "/pages/dashboard.html",
+    ctaLabel: "Buka Dashboard",
+    Mockup: DashboardMockup,
   },
-]
+];
 
 export default function Features() {
   return (
     <section
       id="fitur"
-      className="feature-velocity bg-canvas text-ink"
+      className="feature-velocity relative overflow-hidden bg-canvas py-24 text-ink lg:py-32"
     >
-      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
         <header className="feature-heading-panel">
-          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
-            Explore Moneva
-          </span>
-
-          <h2 className="mt-6 max-w-4xl text-[clamp(2.5rem,7vw,5.25rem)] font-bold leading-[0.95] tracking-tight text-ink">
+          <h2 className="landing-section-title mt-6 max-w-4xl text-ink">
             Everything you
             <br />
-            <span className="font-serif font-normal italic">need</span> to grow.
+            <span className="landing-accent">need</span> to grow.
           </h2>
 
           <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <p className="max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+            <p className="landing-section-copy max-w-xl text-muted">
               Tiga fitur utama Moneva untuk membantu Anda memahami, mengatur,
               dan mengembangkan kondisi keuangan dengan lebih baik.
-            </p>
-
-            <p className="font-mono text-xs leading-relaxed text-muted md:shrink-0">
-              Understand your money.
-              <br />
-              Manage your future.
             </p>
           </div>
         </header>
 
-        <div className="mt-20 grid gap-6 lg:grid-cols-3">
-          {features.map((feature) => {
-            const Icon = feature.icon
-            const [titleLead, ...titleRest] = feature.title.split(' ')
-
-            return (
-              <article
-                key={feature.number}
-                className={`feature-glass-card feature-card-${feature.color} group flex min-h-[560px] flex-col overflow-hidden rounded-2xl border border-line p-8 transition duration-300 hover:-translate-y-1 hover:border-primary/40`}
-              >
-                <div className="flex items-start justify-between">
-                  <span className={`feature-icon feature-icon-${feature.color}`}>
-                    <Icon className="size-5" strokeWidth={1.7} aria-hidden="true" />
-                  </span>
-                  <span className="font-mono text-xs tracking-widest text-muted">
-                    {feature.number}
-                  </span>
-                </div>
-
-                <div className="mt-8">
-                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">
-                    {feature.label}
-                  </span>
-
-                  <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-tight text-ink">
-                    <span className="block">{titleLead}</span>
-                    <span className="block text-muted">{titleRest.join(' ')}</span>
-                  </h3>
-
-                  <p className="mt-4 text-sm leading-relaxed text-muted">
-                    {feature.description}
-                  </p>
-                </div>
-
-                <ul className="mt-6 space-y-3">
-                  {feature.highlights.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-3 text-sm text-ink"
-                    >
-                      <span
-                        className={`feature-check feature-check-${feature.color}`}
-                        aria-hidden="true"
-                      >
-                        ✓
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-auto pt-8">
-                  <a
-                    href={feature.href}
-                    className={`feature-action feature-action-${feature.color} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary`}
-                  >
-                    <span>{feature.action}</span>
-                    <ArrowUpRight className="size-4" aria-hidden="true" />
-                  </a>
-
-                  <div
-                    className="feature-card-visual mt-6 flex h-28 items-center justify-center overflow-hidden rounded-xl border p-4"
-                    aria-hidden="true"
-                  >
-                    {feature.number === '01' && (
-                      <div className="flex w-full items-center gap-3">
-                        <div className="grid size-16 shrink-0 grid-cols-2 gap-1.5">
-                          <span className="feature-visual-block rounded-sm" />
-                          <span className="feature-visual-block rounded-sm" />
-                          <span className="feature-visual-block rounded-sm" />
-                          <span className="feature-visual-block rounded-sm" />
-                        </div>
-                        <div className="flex-1 space-y-2">
-                          <span className="feature-visual-line block w-3/4" />
-                          <span className="feature-visual-line block w-full" />
-                          <span className="feature-visual-line block w-1/2" />
-                        </div>
-                      </div>
-                    )}
-
-                    {feature.number === '02' && (
-                      <div className="feature-visual-sheet w-3/4 space-y-2 rounded-md border p-4">
-                        <span className="feature-visual-line block w-1/2" />
-                        <span className="feature-visual-line block w-full" />
-                        <span className="feature-visual-line block w-5/6" />
-                        <span className="feature-visual-line block w-2/3" />
-                      </div>
-                    )}
-
-                    {feature.number === '03' && (
-                      <div className="flex h-full w-4/5 items-end justify-center gap-3">
-                        <span className="feature-visual-bar h-1/3 w-1/5 rounded-t-sm" />
-                        <span className="feature-visual-bar h-2/3 w-1/5 rounded-t-sm" />
-                        <span className="feature-visual-bar h-full w-1/5 rounded-t-sm" />
-                        <span className="feature-visual-bar h-1/2 w-1/5 rounded-t-sm" />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </article>
-            )
-          })}
+        <div className="feature-card-grid mt-14 mx-auto grid w-full max-w-5xl justify-center gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {features.map(({ Mockup, ...feature }) => (
+            <FeatureCard key={feature.title} {...feature}>
+              <Mockup />
+            </FeatureCard>
+          ))}
         </div>
       </div>
     </section>
-  )
+  );
+}
+
+function FeatureCard({
+  title,
+  description,
+  href,
+  ctaLabel,
+  children,
+}) {
+  return (
+    <a
+      href={href}
+      aria-label={`${title}: ${ctaLabel}`}
+      className="feature-glass-card feature-card-blue feature-card-link group flex h-full flex-col overflow-hidden rounded-[28px] border border-line bg-white text-ink transition-colors duration-300 hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+    >
+      <div className="feature-card-visual relative aspect-[4/3.2] overflow-hidden bg-primary-tint">
+        <div className="feature-mockup-position absolute bottom-[-2%] left-1/2 z-20 w-[calc(100%-2.5rem)] max-w-[25rem] -translate-x-1/2 transition duration-300 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+          {children}
+        </div>
+      </div>
+
+      <div className="feature-card-caption flex flex-1 flex-col p-6 sm:p-7">
+        <div className="feature-card-heading flex flex-wrap items-start gap-2.5">
+          <h3 className="text-2xl font-medium leading-tight tracking-tight text-ink">
+            {title}
+          </h3>
+        </div>
+        <p className="feature-card-description mt-2 text-sm leading-relaxed text-muted">
+          {description}
+        </p>
+        <span className="mt-auto inline-flex min-h-11 items-end pt-4 text-sm font-semibold text-primary-text">
+          {ctaLabel}
+        </span>
+      </div>
+    </a>
+  );
+}
+
+function SimulatorMockup() {
+  return (
+    <div
+      aria-hidden="true"
+      className="feature-mockup rounded-2xl border border-line bg-surface p-4 shadow-sm"
+    >
+      <span className="text-sm font-semibold text-ink">Rencana tabungan</span>
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className="min-w-0">
+          <p className="text-xs leading-4 text-muted">Pemasukan bulanan</p>
+          <div className="mt-1 flex min-h-10 items-center gap-1.5 rounded-lg border border-line bg-canvas px-2.5 text-xs font-medium text-ink">
+            <span className="text-muted">Rp</span>
+            <span className="truncate">5.000.000</span>
+          </div>
+        </div>
+        <div className="min-w-0">
+          <p className="text-xs leading-4 text-muted">Target tabungan</p>
+          <div className="mt-1 flex min-h-10 items-center gap-1.5 rounded-lg border border-line bg-canvas px-2.5 text-xs font-medium text-ink">
+            <span className="text-muted">Rp</span>
+            <span className="truncate">15.000.000</span>
+          </div>
+        </div>
+      </div>
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl bg-primary-tint px-3 py-2.5">
+        <span className="text-xs text-ink">Setoran per bulan</span>
+        <span className="text-sm font-semibold text-primary-text">
+          Rp 1.250.000
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function LessonMockup() {
+  return (
+    <div
+      aria-hidden="true"
+      className="feature-mockup rounded-2xl border border-line bg-surface p-4 shadow-sm"
+    >
+      <span className="text-sm font-semibold text-ink">Materi belajar</span>
+      <ul className="mt-3">
+        {lessons.map((lesson) => (
+          <li
+            key={lesson.title}
+            className="border-t border-line py-2.5 first:border-t-0"
+          >
+            <p className="truncate text-xs font-medium text-ink">
+              {lesson.title}
+            </p>
+            <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-primary-tint">
+              <span
+                className={`block h-full rounded-full bg-primary ${lesson.progress}`}
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function DashboardMockup() {
+  return (
+    <div
+      aria-hidden="true"
+      className="feature-mockup rounded-2xl border border-line bg-surface p-4 shadow-sm"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs text-muted">Saldo saat ini</p>
+          <p className="mt-1 text-2xl font-semibold tracking-tight text-ink">
+            Rp 4.820.000
+          </p>
+        </div>
+      </div>
+      <div className="mt-4">
+        <p className="text-xs text-muted">Arus uang mingguan</p>
+        <div className="mt-2 flex h-16 items-end gap-2 border-b border-line px-1 pb-1">
+          {dashboardBars.map((height, index) => (
+            <span
+              key={index}
+              className={`flex-1 rounded-t-sm bg-primary/70 ${height}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }

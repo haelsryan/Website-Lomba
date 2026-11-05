@@ -25,6 +25,8 @@ Related docs: `AGENTS.md` (rules), `PRODUCT.md` (who and why), `ARCHITECTURE.md`
 ## 3. Typography
 
 - **Font:** Plus Jakarta Sans (400 to 800), loaded from Google Fonts in `<head>`. Fallback: `ui-sans-serif, system-ui, sans-serif`.
+- The landing page uses Plus Jakarta Sans for readable interface copy, with Cormorant Garamond italic as an elegant editorial accent on emphasized words. Its hero keeps a larger display scale; all section headings share `clamp(3rem, 5vw, 4.5rem)`, and section intro copy uses 16px with 1.625 line-height.
+- Keep the landing navigation sticky at the top across the page so section links stay available while scrolling.
 - Page title (`h1`): `text-3xl font-medium tracking-tight`.
 - Card title (`h2`): `text-xl font-medium`. Small card label: `text-sm text-muted`.
 - Big numbers: `text-4xl` or `text-5xl font-medium tracking-tight`.
@@ -126,14 +128,14 @@ Behavior (Settings page, section "Tampilan"):
 
             ```
             [ sidebar ] [ header and financial summary                         ]
-                        [ income trend                 ][ spending distribution ]
-            [ transaction history          ][ notifications                     ]
-            [ compact calendar              ][ upcoming bills                   ]
+                        [ income trend                 ][ monthly calendar       ]
+                        [ spending distribution        ][ notifications          ]
+                        [ transaction history          ][ upcoming bills         ]
             ```
 
             - Sidebar: dark pill, icons only, logo on top, help and logout at the bottom.
             - Keep the navigation fixed to the viewport: a vertical rail on desktop and a bottom bar below `lg`. Reserve space so it never covers page content.
-            - Dashboard content uses two balanced, independent columns: transaction history and a compact calendar on the left; notifications and upcoming bills on the right. The two charts share the available width evenly. Cards follow their content height rather than sharing fixed-height rows.
+            - Dashboard content uses two balanced, independent columns: income chart, spending distribution and transaction history on the left; monthly calendar, notifications and upcoming bills on the right. The two charts share the available width evenly. Cards follow their content height rather than sharing fixed-height rows.
             - Collapse the content columns on narrow screens. Keep the existing responsive sidebar behavior unchanged.
 - Other pages reuse the same shell (panel + sidebar) and change only the main area.
 - Breakpoints to test: 375, 768, 1280 and 1440px.
@@ -191,10 +193,11 @@ Currently used effects: BlurText (headline), CountUp (numbers), SpotlightCard (c
 
 ## 12. Landing page
 - **Design read:** A landing page for young people and UMKM in Indonesia, using a spacious, restrained fintech style. ENERGY 2 / RHYTHM 2 / MOTION 2.
-- Use a full-viewport dark hero with the brand at top left, section navigation, and one dashboard action. Navigation links target the existing features, About, simulator, and education sections; keep them on one row on desktop and a separate tap-friendly row on mobile. Place the single-line desktop headline and two actions at the lower left; stack the actions and allow the headline to wrap on mobile.
+- Use a full-viewport dark hero with the brand at top left, section navigation, and one dashboard action. Navigation links target the existing Problems, Features, and Preview sections; keep them on one row on desktop and a separate tap-friendly row on mobile. Place the single-line desktop headline and two actions at the lower left; stack the actions and allow the headline to wrap on mobile.
 - The About section explains the demo and its audience using product facts, with no fabricated results or service claims.
 - Use a low-contrast DotGrid as a subtle focus texture, not content. It stays subdued at rest and brightens with a stronger swell under the pointer. It is lazy-loaded and omitted when reduced motion is requested. Its presence is an explicit exception to the usual rule against dot-pattern backgrounds, confirmed for this reference.
 - Type the headline once on load and fade the supporting copy and actions in; reduced motion shows the complete headline without typing.
 - The hero headline is "Uangmu, masa depanmu." and types once on load; its full accessible name is announced as one sentence. Under reduced motion, show the full headline immediately. Keep the existing Indonesian subtitle and destination-specific actions.
-- The Features section uses one FluxLines effect inside its full-width heading panel; keep the feature cards outside the effect and the heading readable in both themes. Omit the effect for reduced-motion users.
+- The Features section keeps its heading and intro above a responsive three-card grid. Each card pairs a simple theme-aware blue-tinted visual zone with a cropped product mockup, caption, and action. The restrained tint supports Moneva's blue identity without competing with the product mockups; text stays on solid theme-aware surfaces.
+- The research cards share the feature cards' rounded surface, border, padding, and hover treatment so evidence feels part of the same landing-page system.
 - The footer uses a two-part desktop layout with the brand beside three groups of working page links; on mobile, the brand stacks above a two-column link grid. Its large, subdued "Moneva" wordmark sits behind the content, and the bottom bar contains only copyright and a reduced-motion-aware return-to-top control.

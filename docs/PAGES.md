@@ -13,7 +13,8 @@ Pages marked **Draft** were sketched from the product goals. Confirm them with t
 - **Files:** `index.html`, `src/pages/Landing.jsx`
 - **Purpose:** introduce Moneva and let visitors open the demo or try the budget simulator.
 - **Layout:** a full-viewport dark hero with a compact brand, section navigation, and demo action. The headline sits lower left; it wraps and the buttons stack on mobile. Existing content sections, including About, lead to a responsive footer with brand details, grouped links, social profile placeholders, and a return-to-top button.
-- **Behavior:** the Indonesian headline types once with a reduced-motion static fallback, while the supporting copy and buttons keep their one-time entrance fade. Navbar links scroll to Features, About, Simulator, and Learn; dashboard actions open the demo. A lazy-loaded, low-contrast DotGrid responds to pointer movement and is omitted when reduced motion is requested; the hero remains dark if the effect cannot load. "Tantangan Keuangan" scrolls to the challenges section; the 50/30/20 simulator updates from the entered monthly income.
+- **Behavior:** the Indonesian headline types once with a reduced-motion static fallback, while the supporting copy and buttons keep their one-time entrance fade. Navbar links scroll to Problems, Features, and Preview; dashboard actions open the demo. A lazy-loaded, low-contrast DotGrid responds to pointer movement and is omitted when reduced motion is requested; the hero remains dark if the effect cannot load. "Tantangan Keuangan" scrolls to the challenges section; the 50/30/20 simulator updates from the entered monthly income.
+- The financial challenges section summarizes Sun Life Indonesia's 2025 findings with labeled percentage bars for financial confidence, long-term planning, and advice-seeking, with links to the release and its ANTARA coverage.
 - **States:** the dashboard preview is labeled as example data.
 - **Done when:** section and dashboard links work, the simulator updates, and the page holds up in both themes at 375, 768 and 1280px.
 
@@ -33,7 +34,7 @@ Sections, with behavior:
 | Riwayat transaksi | Search and filter the latest transactions; links to the full financial ledger |
 | Notifikasi | Filter tabs, mute controls, mark all read, and open an item (marks it read). Relative time is shown |
 | Tagihan mendatang | Shows upcoming reminders with due dates, recorded amounts when available, and payment status. Users can add a reminder or mark it paid |
-| Kalender | Compact seven-day strip with previous/next week controls; selecting a day sets the reminder date |
+| Kalender | Full Monday-to-Sunday monthly grid with previous/next month controls and dynamic transaction indicators; selecting a day sets the reminder date |
 
 - **States:** transactions, notifications, and bills have empty states that explain the next action.
 - **Done when:** period controls, transaction history, reminders, calendar, and notifications work with demo data, state persists after refresh, and both themes look finished.
@@ -48,7 +49,7 @@ Sections, with behavior:
   - Add, edit and delete a transaction (same dialog fields as the dashboard).
   - Budget cards for Kebutuhan, Tabungan and Hiburan with progress bars against a 50/30/20 split of a monthly income the user can set.
   - Summary line: total this month and difference versus last month.
-- **Data:** the same `Transaction` list as the dashboard (shared hook). A change here must show on the dashboard after navigation.
+- **Data:** the same persisted `Transaction` list as the dashboard. Current total balance uses all transactions; period net uses only the selected range. A change here must show on the dashboard after navigation.
 - **States:** empty (no transactions), no results for a filter.
 - **Done when:** CRUD works, filters work, budgets update live, and the dashboard reflects the changes.
 
@@ -68,16 +69,18 @@ Sections, with behavior:
 
 ---
 
-## Belajar (learn)  *Draft*
+## Belajar (learn)
 - **Files:** `pages/learn.html`, `src/pages/Learn.jsx`
+- **Status:** Implemented in React. YouTube topics remain visibly unconfigured until verified video IDs are added.
 - **Purpose:** short lessons that build financial habits.
 - **Content:**
-  - Lesson cards grouped by topic: budgeting (50/30/20), emergency fund, separating personal and business money, avoiding illegal pinjol.
-  - A lesson view with short text, key takeaways and an optional video.
-  - "Tandai selesai" saves progress locally and shows a progress bar per topic.
-  - A pinjol safety checklist that points to OJK as the official source.
-- **Rules:** educational only. No advice to buy specific products.
-- **Done when:** lessons open, progress persists, and content is readable at 375px.
+  - Searchable article and video-topic cards grouped by financial topic.
+  - Article details with complete Indonesian educational content, reading time, publication date, key takeaways and an OJK reference for online-lending safety.
+  - "Tandai selesai" saves reading progress locally and shows a progress bar per topic.
+  - Bookmarks persist locally and can be filtered from the material list.
+  - Video topics open a player only when their data includes a valid YouTube ID; otherwise, the page labels the missing configuration and links to a YouTube topic search.
+- **Rules:** educational only. No advice to buy specific products. Popularity is not claimed without usage data.
+- **Done when:** lessons open, bookmarks and progress persist, the OJK reference works, unconfigured videos are not presented as playable, and content is readable at 375px in both themes.
 
 ---
 
