@@ -2,6 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './styles/style.css'
 
+// Initialize reduced motion state immediately before rendering
+if (typeof window !== 'undefined') {
+  const savedMotion = localStorage.getItem('moneva-reduced-motion')
+  const isReduced = savedMotion !== null
+    ? savedMotion === 'true'
+    : window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  document.documentElement.setAttribute('data-reduced-motion', isReduced ? 'true' : 'false')
+}
+
 const REACT_ROOT = Symbol.for('moneva.react-root')
 
 export function mountPage(Component, { effects = false } = {}) {
@@ -26,7 +35,7 @@ function PageEffects({ Component }) {
     if (!root) return
 
     const animations = []
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const reducedMotion = document.documentElement.getAttribute('data-reduced-motion') === 'true' || window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     if (!reducedMotion) {
       const heading = root.querySelector('main h1')
@@ -91,7 +100,16 @@ const tone = (s) => TONES[[...s].reduce((a, c) => a + c.charCodeAt(0), 0) % TONE
 const initials = (n) => n.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 
 /* ---------- motion helpers (vanilla ports of React Bits effects) ---------- */
-const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let reduced = false;
+const checkReduced = () => {
+  reduced = (typeof document !== 'undefined' && document.documentElement.getAttribute('data-reduced-motion') === 'true') ||
+    (typeof matchMedia !== 'undefined' && matchMedia("(prefers-reduced-motion: reduce)").matches);
+};
+checkReduced();
+if (typeof window !== 'undefined') {
+  window.addEventListener('moneva:motion-change', checkReduced);
+  window.addEventListener('storage', checkReduced);
+}
 const EASE = "cubic-bezier(.2,.8,.2,1)";
 const lastVal = {}, lastSig = {};
 

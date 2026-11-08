@@ -11,10 +11,10 @@ export function ThemeToggle({ value, onChange }) {
       {OPTIONS.map((option) => (
         <label
           key={option.value}
-          className={`flex cursor-pointer items-start gap-3 rounded-xl border p-4 transition-colors ${
+          className={`flex cursor-pointer items-start gap-3 rounded-2xl border p-4 transition-all duration-200 ${
             value === option.value
-              ? 'border-primary bg-primary-tint'
-              : 'border-line bg-surface hover:bg-panel'
+              ? 'border-primary bg-primary-tint/80 dark:bg-primary/15 shadow-sm ring-1 ring-primary/30'
+              : 'border-line/70 dark:border-white/10 bg-surface/80 dark:bg-white/[0.03] hover:bg-panel dark:hover:bg-white/[0.06] hover:border-line dark:hover:border-white/20'
           }`}
         >
           <input
