@@ -7,6 +7,8 @@ import {
   updateDashboardTransactions,
 } from '../main.jsx'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
+import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
+import { GooeyNav } from '../components/ui/GooeyNav.jsx'
 
 const normalizeTransaction = (item) => ({
   id: item.id,
@@ -471,32 +473,33 @@ function FinancesPage() {
     <div className="dashboard-layout finance-layout">
       <DashboardSidebar page="finances" />
       <main className="finance-main">
-        <header className="finance-header">
-          <div className="finance-header-top">
-            <div>
-              <h1>Keuangan</h1>
-              <p className="finance-intro">Ringkasan pemasukan, pengeluaran, dan tabungan Anda.</p>
-            </div>
-            <button type="button" onClick={() => setModalOpen(true)} className="btn bg-primary text-white hover:bg-primary/90">
+        <GlobalHeader
+          title="Keuangan"
+          subtitle="Ringkasan pemasukan, pengeluaran, dan tabungan Anda."
+          showDateLine={false}
+          actionButton={
+            <button
+              type="button"
+              onClick={() => setModalOpen(true)}
+              className="btn dashboard-primary-action inline-flex items-center gap-2 rounded-2xl bg-primary px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-primary/25 transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 active:scale-95"
+            >
               <svg className="icon size-4" aria-hidden="true"><use href="#i-plus" /></svg>
-              Catat transaksi
+              <span>Catat transaksi</span>
             </button>
-          </div>
+          }
+        />
 
-          <div className="finance-period-control" role="group" aria-label="Pilih periode ringkasan">
-            {Object.entries(rangeConfig).map(([key, config]) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setPeriod(key)}
-                aria-pressed={period === key}
-                className={`btn min-h-11 px-3.5 text-xs ${period === key ? 'bg-navy text-white' : 'bg-canvas text-navy'}`}
-              >
-                {config.label}
-              </button>
-            ))}
-          </div>
-        </header>
+        <div className="mb-6 flex items-center justify-start overflow-x-auto pb-1">
+          <GooeyNav
+            items={Object.entries(rangeConfig).map(([key, config]) => ({
+              id: key,
+              label: config.label,
+            }))}
+            activeId={period}
+            onChange={setPeriod}
+            ariaLabel="Pilih periode ringkasan keuangan"
+          />
+        </div>
 
         <section className="finance-summary" aria-label="Ringkasan keuangan">
           <StatCard
@@ -620,7 +623,7 @@ function FinancesPage() {
           <article className="card dashboard-card finance-section-card">
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-xl font-semibold text-ink">Pengelolaan anggaran</h2>
-              <button type="button" onClick={() => setModalOpen(true)} className="btn bg-primary-soft text-navy hover:bg-primary hover:text-white">Tambah</button>
+              <button type="button" onClick={() => setModalOpen(true)} className="btn text-xs font-semibold rounded-xl bg-primary/10 text-primary dark:bg-white/10 dark:text-white hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-all duration-200 active:scale-95 cursor-pointer px-3 py-1.5">Tambah</button>
             </div>
             <div className="mt-4 space-y-3">
               {budgetRows.map((budget) => (
@@ -653,7 +656,7 @@ function FinancesPage() {
                 type="search"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                className="w-full rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-primary sm:w-52"
+                className="w-full rounded-xl border border-line dark:border-white/15 bg-surface/80 dark:bg-white/5 px-3 py-2 text-sm text-ink outline-none focus:border-primary dark:focus:border-primary-text sm:w-52 transition-all"
                 placeholder="Cari transaksi"
               />
               <div className="flex flex-wrap gap-2">
@@ -663,7 +666,11 @@ function FinancesPage() {
                     type="button"
                     onClick={() => setFilter(option)}
                     aria-pressed={filter === option}
-                    className={`btn min-h-10 px-3 text-xs ${filter === option ? 'bg-navy text-white' : 'bg-canvas text-navy'}`}
+                    className={`btn min-h-10 px-3.5 text-xs font-medium rounded-xl transition-all duration-200 active:scale-95 ${
+                      filter === option
+                        ? 'bg-primary text-white shadow-md shadow-primary/25 font-semibold'
+                        : 'bg-canvas dark:bg-white/10 text-ink dark:text-slate-200 border border-line/60 dark:border-white/10 hover:bg-primary/10 hover:text-primary dark:hover:bg-white/15'
+                    }`}
                   >
                     {option === 'all' ? 'Semua' : option === 'income' ? 'Pemasukan' : 'Pengeluaran'}
                   </button>
@@ -673,7 +680,7 @@ function FinancesPage() {
                 value={sort}
                 onChange={(event) => setSort(event.target.value)}
                 aria-label="Urutkan transaksi"
-                className="rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-primary"
+                className="rounded-xl border border-line dark:border-white/15 bg-surface dark:bg-slate-900 px-3 py-2 text-sm text-ink outline-none focus:border-primary dark:focus:border-primary-text transition-all"
               >
                 <option value="newest">Terbaru</option>
                 <option value="oldest">Terlama</option>
@@ -712,7 +719,7 @@ function FinancesPage() {
                           <button type="button" onClick={() => {
                             const nextTransactions = transactions.filter((entry) => entry.id !== item.id)
                             updateDashboardTransactions(nextTransactions.map(toDashboardTransaction))
-                          }} className="btn bg-surface text-muted hover:text-red-500" aria-label={`Hapus ${item.name}`}>
+                          }} className="grid size-8 place-items-center rounded-xl bg-surface dark:bg-white/10 border border-line/40 dark:border-white/10 text-muted hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all active:scale-95 cursor-pointer" aria-label={`Hapus ${item.name}`}>
                             <svg className="icon size-4" aria-hidden="true"><use href="#i-trash" /></svg>
                           </button>
                         </div>
@@ -737,7 +744,7 @@ function FinancesPage() {
             >
             <div className="mb-4 flex items-center justify-between gap-3">
               <h2 id="finance-modal-title" className="finance-section-title">Catat transaksi</h2>
-              <button type="button" onClick={() => setModalOpen(false)} className="btn bg-canvas text-navy" aria-label="Tutup dialog">
+              <button type="button" onClick={() => setModalOpen(false)} className="grid size-9 place-items-center rounded-xl bg-canvas dark:bg-white/10 text-muted hover:text-ink dark:hover:text-white transition-colors cursor-pointer" aria-label="Tutup dialog">
                 <svg className="icon size-4" aria-hidden="true"><use href="#i-x" /></svg>
               </button>
             </div>
@@ -749,7 +756,7 @@ function FinancesPage() {
                   <select
                     value={form.type}
                     onChange={(event) => setForm((previous) => ({ ...previous, type: event.target.value }))}
-                    className="rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink"
+                    className="rounded-xl border border-line dark:border-white/15 bg-canvas/80 dark:bg-slate-900 px-3 py-2.5 text-sm text-ink outline-none focus:border-primary dark:focus:border-primary-text transition-all"
                   >
                     <option value="expense">Pengeluaran</option>
                     <option value="income">Pemasukan</option>
@@ -761,7 +768,7 @@ function FinancesPage() {
                   <select
                     value={form.category}
                     onChange={(event) => setForm((previous) => ({ ...previous, category: event.target.value }))}
-                    className="rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink"
+                    className="rounded-xl border border-line dark:border-white/15 bg-canvas/80 dark:bg-slate-900 px-3 py-2.5 text-sm text-ink outline-none focus:border-primary dark:focus:border-primary-text transition-all"
                   >
                     {Object.entries(categoryMeta).map(([key, item]) => (
                       <option key={key} value={key}>{item.label}</option>
@@ -776,7 +783,7 @@ function FinancesPage() {
                   type="text"
                   value={form.name}
                   onChange={(event) => setForm((previous) => ({ ...previous, name: event.target.value }))}
-                  className="rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink"
+                  className="rounded-xl border border-line dark:border-white/15 bg-canvas/80 dark:bg-white/5 px-3 py-2.5 text-sm text-ink outline-none focus:border-primary dark:focus:border-primary-text focus:ring-1 focus:ring-primary/20 transition-all"
                   placeholder="Contoh: Gaji bulanan"
                   required
                 />
@@ -791,7 +798,7 @@ function FinancesPage() {
                     step="1000"
                     value={form.amount}
                     onChange={(event) => setForm((previous) => ({ ...previous, amount: event.target.value }))}
-                    className="rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink"
+                    className="rounded-xl border border-line dark:border-white/15 bg-canvas/80 dark:bg-white/5 px-3 py-2.5 text-sm text-ink outline-none focus:border-primary dark:focus:border-primary-text focus:ring-1 focus:ring-primary/20 transition-all"
                     required
                   />
                 </label>
@@ -802,7 +809,7 @@ function FinancesPage() {
                     type="date"
                     value={form.date}
                     onChange={(event) => setForm((previous) => ({ ...previous, date: event.target.value }))}
-                    className="rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink"
+                    className="rounded-xl border border-line dark:border-white/15 bg-canvas/80 dark:bg-white/5 px-3 py-2.5 text-sm text-ink outline-none focus:border-primary dark:focus:border-primary-text focus:ring-1 focus:ring-primary/20 transition-all"
                     required
                   />
                 </label>
@@ -814,7 +821,7 @@ function FinancesPage() {
                   <select
                     value={form.method}
                     onChange={(event) => setForm((previous) => ({ ...previous, method: event.target.value }))}
-                    className="rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink"
+                    className="rounded-xl border border-line dark:border-white/15 bg-canvas/80 dark:bg-slate-900 px-3 py-2.5 text-sm text-ink outline-none focus:border-primary dark:focus:border-primary-text transition-all"
                   >
                     <option value="Transfer">Transfer</option>
                     <option value="E-wallet">E-wallet</option>
@@ -829,15 +836,15 @@ function FinancesPage() {
                     type="text"
                     value={form.note}
                     onChange={(event) => setForm((previous) => ({ ...previous, note: event.target.value }))}
-                    className="rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink"
+                    className="rounded-xl border border-line dark:border-white/15 bg-canvas/80 dark:bg-white/5 px-3 py-2.5 text-sm text-ink outline-none focus:border-primary dark:focus:border-primary-text focus:ring-1 focus:ring-primary/20 transition-all"
                     placeholder="Opsional"
                   />
                 </label>
               </div>
 
-              <div className="flex justify-end gap-2 pt-2">
-                <button type="button" onClick={() => setModalOpen(false)} className="btn bg-canvas text-navy">Batal</button>
-                <button type="submit" className="btn bg-primary text-white">Simpan</button>
+              <div className="flex justify-end gap-2.5 pt-2">
+                <button type="button" onClick={() => setModalOpen(false)} className="btn rounded-xl px-4 py-2.5 text-sm font-medium bg-canvas dark:bg-white/10 text-ink dark:text-slate-200 hover:bg-line/50 dark:hover:bg-white/15 transition-all active:scale-95 cursor-pointer">Batal</button>
+                <button type="submit" className="btn-primary dashboard-primary-action rounded-xl px-5 py-2.5 text-sm font-semibold bg-primary text-white shadow-md shadow-primary/25 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all active:scale-95 cursor-pointer">Simpan</button>
               </div>
             </form>
           </div>

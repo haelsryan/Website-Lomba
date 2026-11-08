@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { mountPage } from '../main.jsx'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
+import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
+import { GooeyNav } from '../components/ui/GooeyNav.jsx'
 
 const MAX_AMOUNT = 1_000_000_000_000_000
 const MAX_MONTHS = 600
@@ -100,9 +102,9 @@ function NumberField({
         {label}
       </label>
 
-      <div className="flex overflow-hidden rounded-xl border border-line bg-surface focus-within:ring-2 focus-within:ring-primary">
+      <div className="flex overflow-hidden rounded-xl border border-line dark:border-white/15 bg-surface/80 dark:bg-white/5 focus-within:border-primary dark:focus-within:border-primary-text focus-within:ring-2 focus-within:ring-primary/20 backdrop-blur-sm transition-all duration-200">
         <span
-          className="flex items-center border-r border-line px-3 text-sm text-muted"
+          className="flex items-center border-r border-line dark:border-white/15 px-3 text-sm text-muted dark:text-slate-400 bg-canvas/40 dark:bg-white/5 font-medium"
           aria-hidden="true"
         >
           Rp
@@ -169,7 +171,7 @@ function MonthsField({
         Jangka waktu
       </label>
 
-      <div className="flex overflow-hidden rounded-xl border border-line bg-surface focus-within:ring-2 focus-within:ring-primary">
+      <div className="flex overflow-hidden rounded-xl border border-line dark:border-white/15 bg-surface/80 dark:bg-white/5 focus-within:border-primary dark:focus-within:border-primary-text focus-within:ring-2 focus-within:ring-primary/20 backdrop-blur-sm transition-all duration-200">
         <input
           id="goal-months"
           type="number"
@@ -188,7 +190,7 @@ function MonthsField({
           className="min-h-11 w-full min-w-0 bg-transparent px-3 py-2 text-sm text-ink outline-none"
         />
 
-        <span className="flex items-center border-l border-line px-3 text-sm text-muted">
+        <span className="flex items-center border-l border-line dark:border-white/15 px-3 text-sm text-muted dark:text-slate-400 bg-canvas/40 dark:bg-white/5 font-medium">
           bulan
         </span>
       </div>
@@ -221,7 +223,7 @@ function EstimateButton() {
   return (
     <button
       type="submit"
-      className="min-h-11 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      className="btn-primary dashboard-primary-action min-h-11 rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/25 transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary inline-flex items-center justify-center cursor-pointer"
     >
       Hitung estimasi
     </button>
@@ -286,7 +288,7 @@ function GoalSimulator() {
   return (
     <section
       aria-labelledby="goal-heading"
-      className="card border border-line p-5 sm:p-7"
+      className="card p-5 sm:p-7"
     >
       <div className="mb-6">
         <h2
@@ -488,7 +490,7 @@ function EmergencySimulator() {
   return (
     <section
       aria-labelledby="emergency-heading"
-      className="card border border-line p-5 sm:p-7"
+      className="card p-5 sm:p-7"
     >
       <div className="mb-6">
         <h2
@@ -579,7 +581,7 @@ function EmergencySimulator() {
             ].map(([label, duration]) => (
               <div
                 key={label}
-                className="rounded-xl bg-canvas p-4"
+                className="rounded-2xl bg-canvas/60 dark:bg-white/5 border border-line/40 dark:border-white/10 p-4 transition-all hover:bg-canvas/80 dark:hover:bg-white/[0.08]"
               >
                 <dt className="text-sm text-muted">
                   {label}
@@ -631,26 +633,35 @@ function SimulatorPage() {
 
           <div className="mx-auto w-full max-w-6xl py-3">
 
-            {/* Page header */}
-            <header className="mb-8 max-w-2xl">
-              <p className="mb-2 text-sm font-semibold text-primary">
-                Rencana keuangan
-              </p>
+            <GlobalHeader
+              title="Simulator"
+              subtitle="Coba beberapa skenario sederhana untuk membantu merencanakan keuangan."
+              showDateLine={false}
+            />
 
-              <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-                Simulator
-              </h1>
-
-              <p className="mt-3 leading-7 text-muted">
-                Coba beberapa skenario sederhana. Hasilnya perkiraan
-                untuk membantu merencanakan langkah berikutnya.
-              </p>
-            </header>
+            {/* Simulator calculator selector */}
+            <div className="mb-6">
+              <GooeyNav
+                items={[
+                  { id: 'goal', label: 'Target tabungan' },
+                  { id: 'emergency', label: 'Dana darurat' },
+                ]}
+                activeId={activeCalculator}
+                onChange={setActiveCalculator}
+                size="md"
+                className="w-full sm:w-auto"
+              />
+            </div>
 
             {/* Simulator cards */}
-            <div className="grid items-start gap-5 xl:grid-cols-2">
-              <GoalSimulator />
-              <EmergencySimulator />
+            <div className="simulator-calculators">
+
+              <div className="simulator-calculator-panel" hidden={activeCalculator !== 'goal'}>
+                <GoalSimulator />
+              </div>
+              <div className="simulator-calculator-panel" hidden={activeCalculator !== 'emergency'}>
+                <EmergencySimulator />
+              </div>
             </div>
 
             {/* Disclaimer */}

@@ -1,6 +1,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
+import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
 import { mountPage } from '../main.jsx'
 import '../styles/learn.css'
 import {
@@ -385,64 +386,6 @@ function LearnArtwork({ kind, label, hero = false }) {
   )
 }
 
-// ==================================================
-// HEADER
-// ==================================================
-
-function LearnHeader({ query, onQueryChange }) {
-  return (
-    <header className="learn-header">
-      <div className="learn-header-title">
-        <h1>Learn</h1>
-        <p>
-          Perluas wawasan dan tingkatkan literasi keuangan Anda.
-        </p>
-      </div>
-
-      <div className="learn-header-actions">
-        <label className="learn-search">
-          <Icon name="search" />
-
-          <span className="sr-only">
-            Cari artikel, video, atau kategori
-          </span>
-
-          <input
-            type="search"
-            value={query}
-            onChange={(event) =>
-              onQueryChange(event.target.value)
-            }
-            placeholder="Cari materi belajar"
-            autoComplete="off"
-          />
-        </label>
-
-        <a
-          href="/pages/dashboard.html#dashboard-notifications"
-          className="learn-notification-link"
-          aria-label="Lihat notifikasi di Dashboard"
-          title="Lihat notifikasi"
-        >
-          <Icon name="bell" />
-        </a>
-
-        <span
-          className="learn-profile"
-          aria-label="Profil pengguna demo"
-        >
-          <span
-            className="learn-profile-avatar"
-            aria-hidden="true"
-          >
-            D
-          </span>
-          <span>Demo</span>
-        </span>
-      </div>
-    </header>
-  )
-}
 
 // ==================================================
 // HERO
@@ -923,7 +866,7 @@ function ArticleDetail({
             </div>
 
             <div className="learn-article-toolbar">
-              <span>Materi edukasi Dompet Cerdas</span>
+              <span>Materi edukasi Moneva</span>
 
               <BookmarkButton
                 item={item}
@@ -1478,10 +1421,29 @@ function LearnPage() {
       <div className="dashboard-workspace learn-workspace">
         <main className="dashboard-main learn-main">
 
-          <LearnHeader
-            query={query}
-            onQueryChange={setQuery}
+          <GlobalHeader
+            title="Belajar & Edukasi"
+            subtitle="Perluas wawasan dan tingkatkan literasi keuangan Anda."
+            showDateLine={false}
           />
+
+          <div className="mb-2 flex items-center justify-between gap-4">
+            <label className="relative flex-1 max-w-md">
+              <span className="sr-only">Cari materi belajar</span>
+              <div className="relative">
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Cari artikel, video, atau topik edukasi..."
+                  className="w-full rounded-2xl bg-surface/80 dark:bg-white/5 border border-line/60 dark:border-white/10 px-4 py-2.5 pl-10 text-xs sm:text-sm text-ink outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none">
+                  <Icon name="search" />
+                </span>
+              </div>
+            </label>
+          </div>
 
           {activeArticle ? (
 
@@ -1499,8 +1461,6 @@ function LearnPage() {
 
             /* Learn home */
             <>
-              <LearnHero />
-
               <LearningStats
                 articleCount={LEARN_ARTICLES.length}
                 videoCount={videoCount}

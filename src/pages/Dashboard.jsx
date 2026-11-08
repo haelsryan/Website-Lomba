@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getDashboardData, initDashboard, mountPage } from '../main.jsx'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
+import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
 
 function Icon({ name, className = 'icon', ...props }) {
   return <svg className={className} aria-hidden="true" {...props}><use href={`#i-${name}`} /></svg>
@@ -17,57 +18,43 @@ const formatDate = (value) => new Intl.DateTimeFormat('id-ID', {
   month: 'short',
 }).format(new Date(`${value}T00:00:00`))
 
-function DashboardHeader() {
-  return (
-    <header className="dashboard-banner">
-      <div className="dashboard-banner-copy">
-        <h1>Dashboard</h1>
-        <p className="dashboard-intro">Ringkasan kondisi keuangan Anda.</p>
-        <p className="dashboard-date-line"><span data-dashboard-date /><span aria-hidden="true">·</span><span data-dashboard-period /></p>
-      </div>
-      <div className="dashboard-header-actions">
-        <button type="button" data-act="help" className="dashboard-help-action" aria-label="Buka bantuan"><Icon name="help" /></button>
-        <a href="#dashboard-notifications" className="dashboard-notification-shortcut" aria-label="Lihat notifikasi"><Icon name="bell" /></a>
-        <span className="dashboard-profile" aria-label="Profil pengguna demo">
-          <span className="dashboard-profile-avatar" aria-hidden="true">D</span><span>Demo</span>
-        </span>
-        <button type="button" data-act="add-tx" className="btn dashboard-primary-action"><Icon name="plus" />Catat transaksi</button>
-      </div>
-    </header>
-  )
-}
-
 function SummaryCards() {
   const summaries = [
-    { icon: 'wallet', label: 'Total saldo', value: 'Belum tersedia', hook: 'data-summary-balance', meta: 'Dari semua transaksi tersimpan' },
-    { icon: 'down', label: 'Total pemasukan', hook: 'data-summary-income', metaHook: 'data-summary-period' },
-    { icon: 'up', label: 'Total pengeluaran', hook: 'data-summary-expenses', metaHook: 'data-summary-expense-period' },
-    { icon: 'chart', label: 'Total tabungan', hook: 'data-summary-savings', metaHook: 'data-summary-savings-period' },
+    { icon: 'wallet', label: 'Total saldo', value: 'Belum tersedia', hook: 'data-summary-balance', meta: 'Dari semua transaksi tersimpan', tone: 'bg-primary/10 text-primary dark:bg-primary/20' },
+    { icon: 'down', label: 'Total pemasukan', hook: 'data-summary-income', metaHook: 'data-summary-period', tone: 'bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400' },
+    { icon: 'up', label: 'Total pengeluaran', hook: 'data-summary-expenses', metaHook: 'data-summary-expense-period', tone: 'bg-rose-500/10 text-rose-600 dark:bg-rose-500/20 dark:text-rose-400' },
+    { icon: 'chart', label: 'Total tabungan', hook: 'data-summary-savings', metaHook: 'data-summary-savings-period', tone: 'bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400' },
   ]
 
   return (
-    <section className="dashboard-summary" aria-label="Ringkasan keuangan">
-      {summaries.map(({ icon, label, value, hook, meta, metaHook }) => {
+    <section className="dashboard-summary grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" aria-label="Ringkasan keuangan">
+      {summaries.map(({ icon, label, value, hook, meta, metaHook, tone }) => {
         const content = (
-          <>
-            <span className="dashboard-summary-icon"><Icon name={icon} /></span>
-            <p className="dashboard-summary-label">{label}</p>
-            <p className="dashboard-summary-value" {...(hook ? { [hook]: '' } : {})}>{value}</p>
-            <p className="dashboard-summary-meta" {...(metaHook ? { [metaHook]: '' } : {})}>{meta}</p>
-          </>
+          <div className="flex flex-col justify-between h-full">
+            <div className="flex items-center justify-between mb-3">
+              <span className="dashboard-summary-label text-xs font-semibold uppercase tracking-wider text-muted">{label}</span>
+              <span className={`dashboard-summary-icon grid size-10 place-items-center rounded-2xl ${tone} shadow-sm transition-transform duration-200 group-hover:scale-110`}>
+                <Icon name={icon} className="size-5" />
+              </span>
+            </div>
+            <div>
+              <p className="dashboard-summary-value text-2xl lg:text-3xl font-extrabold tracking-tight text-ink font-mono sm:font-sans" {...(hook ? { [hook]: '' } : {})}>{value}</p>
+              <p className="dashboard-summary-meta mt-1.5 text-xs text-muted" {...(metaHook ? { [metaHook]: '' } : {})}>{meta}</p>
+            </div>
+          </div>
         )
 
         return hook === 'data-summary-balance' ? (
           <a
             href="/pages/finances.html"
-            className="card dashboard-card dashboard-summary-card dashboard-summary-card-link"
+            className="card dashboard-card dashboard-summary-card dashboard-summary-card-link p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group"
             aria-label="Lihat total saldo di halaman Keuangan"
             key={label}
           >
             {content}
           </a>
         ) : (
-          <article className="card dashboard-card dashboard-summary-card" key={label}>
+          <article className="card dashboard-card dashboard-summary-card p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group" key={label}>
             {content}
           </article>
         )
@@ -311,7 +298,7 @@ function Dashboard() {
         <DashboardSidebar page="dashboard" />
         <div className="dashboard-workspace">
           <main className="dashboard-main">
-            <DashboardHeader />
+            <GlobalHeader title="Dashboard" subtitle="Ringkasan kondisi keuangan Anda." />
             <p data-dashboard-loading className="dashboard-state-note" role="status">Memuat data dashboard...</p>
             <div data-dashboard-error hidden className="dashboard-error-state" role="alert">
               <p>Data tersimpan tidak dapat dibaca. Dashboard menampilkan data contoh.</p>
