@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
 import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
 import { mountPage } from '../main.jsx'
+import { ProtectedPage } from '../components/auth/ProtectedPage.jsx'
 import '../styles/learn.css'
 import {
   LEARN_ARTICLES,
@@ -1637,4 +1638,8 @@ function LearnPage() {
   )
 }
 
-mountPage(LearnPage)
+mountPage(() => (
+  <ProtectedPage>
+    <LearnPage />
+  </ProtectedPage>
+))

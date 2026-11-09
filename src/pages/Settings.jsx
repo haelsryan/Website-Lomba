@@ -9,6 +9,7 @@ import { useTheme } from '../hooks/useTheme.js'
 import { useMotion } from '../hooks/useMotion.js'
 import { mountPage } from '../main.jsx'
 import { ThemeToggle } from '../components/settings/ThemeToggle.jsx'
+import { ProtectedPage } from '../components/auth/ProtectedPage.jsx'
 
 const DEMO_DATA_KEY = 'dompet-cerdas-v1'
 
@@ -280,4 +281,8 @@ function SettingsPage() {
   )
 }
 
-mountPage(SettingsPage, { effects: true })
+mountPage(() => (
+  <ProtectedPage>
+    <SettingsPage />
+  </ProtectedPage>
+), { effects: true })

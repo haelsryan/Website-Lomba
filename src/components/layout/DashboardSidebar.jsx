@@ -1,6 +1,8 @@
 
 import { useState } from 'react'
 
+const AUTH_SESSION_KEY = 'moneva-auth-session'
+
 function IconSprite() {
   const icons = {
     wallet: <>
@@ -151,6 +153,13 @@ export function DashboardSidebar({ page }) {
     setter(false)
   }
 
+  const handleLogout = () => {
+    // Clear auth session
+    localStorage.removeItem(AUTH_SESSION_KEY)
+    // Redirect to login
+    window.location.href = '/pages/login.html'
+  }
+
   return (
     <>
       <IconSprite />
@@ -259,7 +268,7 @@ export function DashboardSidebar({ page }) {
 
             <button
               type="button"
-              data-act="logout"
+              onClick={handleLogout}
               className="group flex items-center h-10 w-full rounded-2xl text-rose-500 transition-all duration-200 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:bg-rose-500/15 overflow-hidden text-left"
               aria-label="Keluar"
               title="Keluar"

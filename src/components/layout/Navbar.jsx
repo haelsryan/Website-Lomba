@@ -23,12 +23,18 @@ export default function Navbar() {
         <a className="transition-colors hover:text-hero-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary" href="#about">Preview</a>
       </nav>
 
-      <nav aria-label="Demo">
+      <nav aria-label="Demo" className="flex items-center gap-3">
         <a
-          href="/pages/dashboard.html"
+          href="/pages/login.html"
           className="inline-flex min-h-11 items-center justify-center rounded-full bg-hero-foreground px-5 text-sm font-semibold text-hero-bg transition hover:bg-hero-foreground/90 active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:px-6"
         >
-          Dashboard
+          Masuk
+        </a>
+        <a
+          href="/pages/signup.html"
+          className="inline-flex min-h-11 items-center justify-center rounded-full border-2 border-hero-foreground/30 px-5 text-sm font-semibold text-hero-foreground transition hover:bg-hero-foreground/10 active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:px-6"
+        >
+          Daftar
         </a>
       </nav>
     </header>

@@ -72,6 +72,8 @@ const timeAgo = (ts) => {
         : `${Math.floor(m / 1440)} hari lalu`
 }
 
+const AUTH_SESSION_KEY = 'moneva-auth-session'
+
 export function GlobalHeader({
   title = 'Dashboard',
   subtitle = 'Ringkasan kondisi keuangan Anda.',
@@ -84,6 +86,11 @@ export function GlobalHeader({
   const [notifFilter, setNotifFilter] = useState('all')
 
   const headerRef = useRef(null)
+
+  const handleLogout = () => {
+    localStorage.removeItem(AUTH_SESSION_KEY)
+    window.location.href = '/pages/login.html'
+  }
 
   // Load and subscribe to notifications
   useEffect(() => {
@@ -176,17 +183,6 @@ export function GlobalHeader({
 
       {/* Top Right Controls */}
       <div className="dashboard-header-actions flex flex-wrap items-center gap-2.5 sm:gap-3">
-        {/* Help Action */}
-        <button
-          type="button"
-          data-act="help"
-          className="dashboard-help-action grid size-10 place-items-center rounded-2xl bg-surface/80 dark:bg-white/10 border border-line/60 dark:border-white/15 text-muted transition-all duration-200 hover:text-ink hover:bg-surface dark:hover:bg-white/20 hover:shadow-sm active:scale-95"
-          aria-label="Buka bantuan Moneva"
-          title="Bantuan"
-        >
-          <Icon name="help" className="size-4" />
-        </button>
-
         {/* Notification Button + Dropdown */}
         <div className="relative">
           <button
@@ -396,7 +392,7 @@ export function GlobalHeader({
                 <div className="my-1 h-px bg-line/40 dark:bg-white/10" />
                 <button
                   type="button"
-                  data-act="logout"
+                  onClick={handleLogout}
                   className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-rose-500 transition-colors hover:bg-rose-500/10 text-left"
                   role="menuitem"
                 >

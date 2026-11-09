@@ -9,6 +9,7 @@ import {
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
 import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
 import { GooeyNav } from '../components/ui/GooeyNav.jsx'
+import { ProtectedPage } from '../components/auth/ProtectedPage.jsx'
 
 const normalizeTransaction = (item) => ({
   id: item.id,
@@ -854,4 +855,8 @@ function FinancesPage() {
   )
 }
 
-mountPage(FinancesPage)
+mountPage(() => (
+  <ProtectedPage>
+    <FinancesPage />
+  </ProtectedPage>
+))

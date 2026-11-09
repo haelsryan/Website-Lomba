@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getDashboardData, initDashboard, mountPage } from '../main.jsx'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
 import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
+import { ProtectedPage } from '../components/auth/ProtectedPage.jsx'
 
 function Icon({ name, className = 'icon', ...props }) {
   return <svg className={className} aria-hidden="true" {...props}><use href={`#i-${name}`} /></svg>
@@ -322,4 +323,8 @@ function Dashboard() {
   )
 }
 
-mountPage(Dashboard)
+mountPage(() => (
+  <ProtectedPage>
+    <Dashboard />
+  </ProtectedPage>
+))
