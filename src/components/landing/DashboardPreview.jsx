@@ -31,29 +31,19 @@ export default function DashboardPreview() {
     >
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-20 lg:px-10">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
-            Dashboard
-          </span>
           <h2
             id="dashboard-preview-heading"
-            className="mt-6 text-5xl font-bold leading-[0.95] tracking-tight text-ink sm:text-6xl lg:text-7xl"
+            className="landing-section-title mt-6 text-ink"
           >
             <span className="block">Pantau semua</span>
             <span className="block text-muted">
-              dalam satu <span className="font-serif font-normal italic">tempat.</span>
+              dalam satu <span className="landing-accent">tempat.</span>
             </span>
           </h2>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted">
+          <p className="landing-section-copy mt-6 max-w-xl text-muted">
             Lihat ringkasan pemasukan, pengeluaran, saldo, dan transaksi
             terbaru dalam satu tampilan.
           </p>
-          <a
-            href="/pages/dashboard.html"
-            className="mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-primary active:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-          >
-            Buka Dashboard
-            <ArrowUpRight className="size-4" aria-hidden="true" />
-          </a>
         </div>
 
         <div className="rounded-2xl border border-line bg-surface p-5 transition duration-300 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-7">

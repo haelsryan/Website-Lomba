@@ -10,14 +10,14 @@ export default function Hero() {
         <h1
           id="landing-title"
           aria-label="Uangmu, masa depanmu."
-          className="mb-4 min-h-[3.1em] max-w-6xl text-[clamp(3rem,7.5vw,6.5rem)] font-semibold leading-[0.98] tracking-[-0.06em] text-hero-foreground sm:min-h-[1.1em]"
+          className="landing-hero-title mb-4 min-h-[3.1em] max-w-6xl font-semibold leading-[0.98] tracking-[-0.06em] text-hero-foreground sm:min-h-[1.1em]"
         >
           <span aria-hidden="true">
             <TypedHeading text="Uangmu, masa depanmu." />
           </span>
         </h1>
 
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-hero-foreground/80 motion-safe:animate-fade-rise motion-safe:[animation-delay:120ms]">
+        <p className="landing-hero-copy mt-6 max-w-2xl leading-relaxed text-hero-foreground/80 motion-safe:animate-fade-rise motion-safe:[animation-delay:120ms]">
           Catat pengeluaran, atur rencana, dan bangun tabungan yang tahan lama.
         </p>
 

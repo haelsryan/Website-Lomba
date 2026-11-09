@@ -64,8 +64,9 @@ Legend: `- [ ]` open, `- [x]` done.
 - [x] Build both calculators, with visible assumptions and estimates for valid inputs.
 - [x] **Accept:** both calculators work for edge values; assumptions and the word "Estimasi" appear next to results; no promise of returns anywhere.
 ## T8. Learn page
-- [ ] **Read:** `PAGES.md` (Belajar)
-- **Accept:** lessons open, progress persists, the pinjol checklist links to OJK as the source, and the layout works at 375px.
+- [x] **Read:** `PAGES.md` (Belajar)
+- [x] Build the Learn page with searchable, filterable articles and video topics, saved materials, and persisted reading progress.
+- [x] **Accept:** article details open, bookmarks and progress persist, the pinjol article links to OJK, unverified video topics do not claim to be playable, and the layout works at 375px in both themes.
 ## T9. Quality pass
 - [ ] **Read:** `AGENTS.md` (Definition of done)
 - Check every page in both themes at 375, 768 and 1280px, with keyboard only, with a screen reader spot check, and with reduced motion on.
