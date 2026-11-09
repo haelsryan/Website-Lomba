@@ -622,7 +622,7 @@ function FinancesPage() {
 
           <article className="card dashboard-card finance-section-card">
             <div className="flex items-center justify-between gap-3">
-              <h2 className="text-xl font-semibold text-ink">Pengelolaan anggaran</h2>
+              <h2 className="finance-section-title">Pengelolaan anggaran</h2>
               <button type="button" onClick={() => setModalOpen(true)} className="btn text-xs font-semibold rounded-xl bg-primary/10 text-primary dark:bg-white/10 dark:text-white hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-all duration-200 active:scale-95 cursor-pointer px-3 py-1.5">Tambah</button>
             </div>
             <div className="mt-4 space-y-3">
@@ -648,8 +648,8 @@ function FinancesPage() {
         <section id="finance-transactions" className="card dashboard-card finance-section-card">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-ink">Riwayat transaksi</h2>
-              <p className="text-xs text-muted">{transactionGroups.reduce((count, [, items]) => count + items.length, 0)} transaksi</p>
+              <h2 className="finance-section-title">Riwayat transaksi</h2>
+              <p className="finance-section-description">{transactionGroups.reduce((count, [, items]) => count + items.length, 0)} transaksi</p>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <input

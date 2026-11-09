@@ -32,13 +32,13 @@ function SummaryCards() {
         const content = (
           <div className="flex flex-col justify-between h-full">
             <div className="flex items-center justify-between mb-3">
-              <span className="dashboard-summary-label text-xs font-semibold uppercase tracking-wider text-muted">{label}</span>
+              <span className="dashboard-summary-label text-sm font-semibold text-muted">{label}</span>
               <span className={`dashboard-summary-icon grid size-10 place-items-center rounded-2xl ${tone} shadow-sm transition-transform duration-200 group-hover:scale-110`}>
                 <Icon name={icon} className="size-5" />
               </span>
             </div>
             <div>
-              <p className="dashboard-summary-value text-2xl lg:text-3xl font-extrabold tracking-tight text-ink font-mono sm:font-sans" {...(hook ? { [hook]: '' } : {})}>{value}</p>
+              <p className="dashboard-summary-value text-2xl lg:text-3xl font-semibold tracking-tight text-ink font-mono sm:font-sans" {...(hook ? { [hook]: '' } : {})}>{value}</p>
               <p className="dashboard-summary-meta mt-1.5 text-xs text-muted" {...(metaHook ? { [metaHook]: '' } : {})}>{meta}</p>
             </div>
           </div>

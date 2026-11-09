@@ -247,7 +247,7 @@ export function ProfileSettings() {
           <button
             type="button"
             onClick={handleStartEdit}
-            className="inline-flex items-center gap-2 self-start rounded-2xl bg-primary px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-primary/20 transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 active:scale-95"
+            className="inline-flex items-center gap-2 self-start rounded-2xl bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/20 transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 active:scale-95"
           >
             <ProfileIcon name="edit" className="size-3.5" />
             <span>Edit Profil</span>
@@ -259,7 +259,7 @@ export function ProfileSettings() {
       {feedback && (
         <div
           role={feedback.type === 'error' ? 'alert' : 'status'}
-          className={`mt-6 flex items-center gap-3 rounded-2xl p-4 text-xs font-medium backdrop-blur-md transition-all ${
+          className={`mt-6 flex items-center gap-3 rounded-2xl p-4 text-sm font-medium backdrop-blur-md transition-all ${
             feedback.type === 'success'
               ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20'
               : 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20'
@@ -306,7 +306,7 @@ export function ProfileSettings() {
               title="Ganti foto profil"
             >
               <ProfileIcon name="camera" className="size-5 mb-1" />
-              <span className="text-[10px] font-semibold">Ubah</span>
+              <span className="text-[11px] font-semibold">Ubah</span>
             </button>
           )}
         </div>
@@ -323,11 +323,11 @@ export function ProfileSettings() {
             </span>
           </div>
 
-          <p className="text-xs sm:text-sm text-muted">
+          <p className="text-sm sm:text-base text-muted">
             {formData.email || 'demo@moneva.id'}
           </p>
 
-          <div className="pt-2 flex flex-wrap items-center gap-3 text-xs text-muted/90">
+          <div className="pt-2 flex flex-wrap items-center gap-3 text-sm text-muted/90">
             <span className="inline-flex items-center gap-1">
               <span className="size-2 rounded-full bg-emerald-500" />
               {profile.accountStatus || 'Akun Demo Terverifikasi'}
@@ -351,7 +351,7 @@ export function ProfileSettings() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-surface/80 dark:bg-white/5 border border-line/60 dark:border-white/10 px-3 py-2 text-xs font-semibold text-ink hover:bg-surface hover:shadow-xs transition-all"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-surface/80 dark:bg-white/5 border border-line/60 dark:border-white/10 px-3 py-2 text-sm font-semibold text-ink hover:bg-surface hover:shadow-xs transition-all"
             >
               <ProfileIcon name="camera" className="size-3.5 text-primary" />
               <span>Unggah Foto</span>
@@ -360,7 +360,7 @@ export function ProfileSettings() {
               <button
                 type="button"
                 onClick={handleRemoveAvatar}
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-rose-500/10 border border-rose-500/20 px-3 py-2 text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 transition-all"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-rose-500/10 border border-rose-500/20 px-3 py-2 text-sm font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 transition-all"
               >
                 <ProfileIcon name="trash" className="size-3.5" />
                 <span>Hapus Foto</span>
@@ -371,7 +371,7 @@ export function ProfileSettings() {
       </div>
 
       {isEditing && (
-        <p className="mt-2 text-[11px] text-muted text-right sm:text-left">
+        <p className="mt-2 text-xs text-muted text-right sm:text-left">
           Format didukung: JPG, PNG, atau WebP (maksimal 2 MB).
         </p>
       )}
@@ -390,7 +390,7 @@ export function ProfileSettings() {
             <div>
               <label
                 htmlFor="profile-name"
-                className="block text-xs font-semibold text-ink mb-1.5"
+                className="block text-sm font-semibold text-ink mb-1.5"
               >
                 Nama Lengkap <span className="text-rose-500">*</span>
               </label>
@@ -424,7 +424,7 @@ export function ProfileSettings() {
             <div>
               <label
                 htmlFor="profile-email"
-                className="block text-xs font-semibold text-ink mb-1.5"
+                className="block text-sm font-semibold text-ink mb-1.5"
               >
                 Alamat Email <span className="text-rose-500">*</span>
               </label>
@@ -458,7 +458,7 @@ export function ProfileSettings() {
             <div>
               <label
                 htmlFor="profile-phone"
-                className="block text-xs font-semibold text-ink mb-1.5"
+                className="block text-sm font-semibold text-ink mb-1.5"
               >
                 Nomor Telepon
               </label>
@@ -491,7 +491,7 @@ export function ProfileSettings() {
             <div>
               <label
                 htmlFor="profile-dob"
-                className="block text-xs font-semibold text-ink mb-1.5"
+                className="block text-sm font-semibold text-ink mb-1.5"
               >
                 Tanggal Lahir
               </label>
@@ -529,7 +529,7 @@ export function ProfileSettings() {
             <div>
               <label
                 htmlFor="profile-gender"
-                className="block text-xs font-semibold text-ink mb-1.5"
+                className="block text-sm font-semibold text-ink mb-1.5"
               >
                 Jenis Kelamin
               </label>
@@ -558,12 +558,12 @@ export function ProfileSettings() {
               <div className="flex items-center justify-between mb-1.5">
                 <label
                   htmlFor="profile-bio"
-                  className="block text-xs font-semibold text-ink"
+                  className="block text-sm font-semibold text-ink"
                 >
                   Biografi Singkat
                 </label>
                 {isEditing && (
-                  <span className="text-[11px] text-muted">
+                  <span className="text-xs text-muted">
                     {(formData.bio || '').length}/250
                   </span>
                 )}
@@ -608,7 +608,7 @@ export function ProfileSettings() {
             <div>
               <label
                 htmlFor="profile-usertype"
-                className="block text-xs font-semibold text-ink mb-1.5"
+                className="block text-sm font-semibold text-ink mb-1.5"
               >
                 Tipe Profil Pengguna
               </label>
@@ -637,7 +637,7 @@ export function ProfileSettings() {
             <div>
               <label
                 htmlFor="profile-goal"
-                className="block text-xs font-semibold text-ink mb-1.5"
+                className="block text-sm font-semibold text-ink mb-1.5"
               >
                 Fokus Finansial Utama
               </label>
@@ -675,7 +675,7 @@ export function ProfileSettings() {
                   }
                   className="mt-1 size-4 accent-primary rounded focus:ring-primary"
                 />
-                <span className="text-xs">
+                <span className="text-sm">
                   <span className="block font-semibold text-ink">
                     Peringatan Anggaran & Target Finansial
                   </span>
@@ -695,13 +695,13 @@ export function ProfileSettings() {
             <button
               type="button"
               onClick={handleCancelEdit}
-              className="rounded-2xl bg-surface/80 dark:bg-white/10 border border-line/60 dark:border-white/15 px-5 py-2.5 text-xs font-semibold text-muted dark:text-slate-300 hover:text-ink dark:hover:text-white hover:bg-surface dark:hover:bg-white/20 transition-all active:scale-95 cursor-pointer"
+              className="rounded-2xl bg-surface/80 dark:bg-white/10 border border-line/60 dark:border-white/15 px-5 py-2.5 text-sm font-semibold text-muted dark:text-slate-300 hover:text-ink dark:hover:text-white hover:bg-surface dark:hover:bg-white/20 transition-all active:scale-95 cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
-              className="btn-primary dashboard-primary-action inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-2.5 text-xs font-semibold text-white shadow-md shadow-primary/25 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all active:scale-95 cursor-pointer"
+              className="btn-primary dashboard-primary-action inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/25 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all active:scale-95 cursor-pointer"
             >
               <ProfileIcon name="check" className="size-4" />
               <span>Simpan Perubahan</span>

@@ -102,7 +102,7 @@ function SettingsPage() {
               >
                 <h2
                   id="appearance-heading"
-                  className="mb-5 text-lg font-bold text-ink"
+                  className="mb-5 text-xl font-bold text-ink"
                 >
                   Tampilan
                 </h2>
@@ -129,7 +129,7 @@ function SettingsPage() {
               >
                 <h2
                   id="accessibility-heading"
-                  className="mb-2 text-lg font-bold text-ink"
+                  className="mb-2 text-xl font-bold text-ink"
                 >
                   Aksesibilitas
                 </h2>
@@ -138,13 +138,13 @@ function SettingsPage() {
                   Atur kenyamanan visual dan pengalaman gerak antarmuka Moneva.
                 </p>
 
-                <div className="rounded-2xl bg-surface/50 dark:bg-white/[0.04] p-4 border border-line/40 dark:border-white/10">
+                <div className="rounded-2xl bg-surface/80 dark:bg-white/[0.04] p-4 border border-line/40 dark:border-white/10">
                   <label className="flex items-start justify-between gap-4 cursor-pointer">
                     <div className="space-y-1">
                       <span className="block font-semibold text-sm text-ink">
                         Kurangi Animasi (Reduce Motion)
                       </span>
-                      <span className="block text-xs leading-5 text-muted">
+                      <span className="block text-sm leading-5 text-muted">
                         Kurangi gerakan dan transisi visual untuk pengalaman yang lebih nyaman.
                       </span>
                     </div>
@@ -170,7 +170,7 @@ function SettingsPage() {
               >
                 <h2
                   id="notification-heading"
-                  className="text-lg font-bold text-ink"
+                  className="text-xl font-bold text-ink"
                 >
                   Notifikasi
                 </h2>
@@ -220,7 +220,7 @@ function SettingsPage() {
                   <div className="max-w-xl">
                     <h2
                       id="data-heading"
-                      className="text-lg font-bold text-ink"
+                      className="text-xl font-bold text-ink"
                     >
                       Data demo
                     </h2>
