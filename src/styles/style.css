@@ -3691,6 +3691,169 @@ textarea {
   grid-template-columns: minmax(0, 1fr);
 }
 
+.landing-page {
+  --landing-section-title-size: clamp(3rem, 5vw, 4.5rem);
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+.landing-page .landing-accent {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.12em;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0;
+  line-height: 0.9;
+}
+
+.landing-navbar {
+  flex-shrink: 0;
+}
+
+.landing-hero-shell {
+  min-height: calc(100svh - 5.75rem);
+}
+
+.landing-page main [id="fitur"],
+.landing-page main [id="about"],
+.landing-page main [id="simulasi"] {
+  scroll-margin-top: 6rem;
+}
+
+@media (max-width: 47.999rem) {
+  .landing-hero-shell {
+    min-height: calc(100svh - 7rem);
+  }
+
+  .landing-page main [id="fitur"],
+  .landing-page main [id="about"],
+  .landing-page main [id="simulasi"] {
+    scroll-margin-top: 7rem;
+  }
+}
+
+.landing-page .landing-hero-title {
+  font-family: inherit;
+  font-size: clamp(3rem, 7.5vw, 6.5rem);
+}
+
+.landing-page .landing-hero-copy {
+  font-size: 1.125rem;
+}
+
+.landing-page .landing-section-title {
+  font-family: inherit;
+  font-size: var(--landing-section-title-size);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.landing-page .landing-section-copy {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.625;
+}
+
+.landing-page .feature-card-grid {
+  grid-auto-rows: 1fr;
+}
+
+.landing-page .feature-card-heading {
+  min-height: 2.4em;
+}
+
+.landing-page .feature-card-description {
+  min-height: 3.75rem;
+}
+
 /* =========================================================
    MONEVA — BUTTON MICRO-INTERACTIONS & POPUP ANIMATIONS
+========================================================= */
+
+/* Primary Action Buttons */
+.btn-primary,
+.dashboard-primary-action {
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 180ms ease,
+    background-color 180ms ease !important;
+}
+
+.btn-primary:hover,
+.dashboard-primary-action:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px -4px rgba(37, 99, 235, 0.45);
+}
+
+.btn-primary:active,
+.dashboard-primary-action:active {
+  transform: scale(0.97);
+}
+
+/* Accessible Focus Outlines */
+button:focus-visible,
+.btn:focus-visible,
+a.btn:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--button-focus);
+  outline-offset: 2px;
+}
+
+/* Accessible Disabled State */
+button:disabled,
+.btn:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+[aria-disabled="true"] {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Dialog & Modal Glass Animations */
+dialog::backdrop {
+  background: rgba(11, 18, 32, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+dialog[open] {
+  animation: moneva-modal-in 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes moneva-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Global Reduced Motion Controls */
+[data-reduced-motion="true"] *,
+[data-reduced-motion="true"] *::before,
+[data-reduced-motion="true"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0.001ms !important;
+}
+
+[data-reduced-motion="true"] .moneva-sidebar-zone-a,
+[data-reduced-motion="true"] .moneva-sidebar-zone-b,
+[data-reduced-motion="true"] .gooey-nav-indicator,
+[data-reduced-motion="true"] .dashboard-card,
+[data-reduced-motion="true"] .card,
+[data-reduced-motion="true"] .glass-bezel {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
 }

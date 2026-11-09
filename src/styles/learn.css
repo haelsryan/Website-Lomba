@@ -1,3 +1,14 @@
+
+/* =========================================================
+   MONEVA — LEARN PAGE
+   Compact traveler-style learning cards
+   Scoped to Learn page only
+========================================================= */
+
+/* =========================================================
+   1. BASE LAYOUT
+========================================================= */
+
 .learn-layout {
   min-width: 0;
   min-height: 100vh;
@@ -61,7 +72,9 @@
   flex: 0 0 18px;
 }
 
-/* Header ========================= */
+/* =========================================================
+   2. HEADER
+========================================================= */
 
 .learn-header {
   display: flex;
@@ -639,7 +652,9 @@
   background: var(--app-line);
 }
 
-
+/* =========================================================
+   10. COMPACT CARD
+========================================================= */
 
 .learn-content-card {
   position: relative;
@@ -1930,4 +1945,142 @@
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
+}
+
+[data-reduced-motion="true"] .learn-main *,
+[data-reduced-motion="true"] .learn-main *::before,
+[data-reduced-motion="true"] .learn-main *::after {
+  scroll-behavior: auto !important;
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .01ms !important;
+  transform: none !important;
+}
+
+/* =========================================================
+   24. MONEVA — LEARN BUTTON MICRO-INTERACTIONS & GLASS BEZELS
+========================================================= */
+
+.learn-primary-action {
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 180ms ease,
+    background-color 180ms ease !important;
+}
+
+.learn-primary-action:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px -4px rgba(37, 99, 235, 0.45);
+}
+
+.learn-primary-action:active {
+  transform: scale(0.97);
+}
+
+.learn-secondary-action,
+.learn-category-button,
+.learn-filter-tab,
+.learn-dialog-close,
+.learn-bookmark-button,
+.learn-back-link,
+.learn-article-toolbar button {
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease !important;
+}
+
+.learn-secondary-action:hover,
+.learn-category-button:hover,
+.learn-filter-tab:hover,
+.learn-bookmark-button:hover,
+.learn-back-link:hover,
+.learn-article-toolbar button:hover {
+  transform: translateY(-1px);
+}
+
+.learn-dialog-close:hover {
+  transform: scale(1.06);
+}
+
+.learn-secondary-action:active,
+.learn-category-button:active,
+.learn-filter-tab:active,
+.learn-dialog-close:active,
+.learn-bookmark-button:active,
+.learn-back-link:active,
+.learn-article-toolbar button:active {
+  transform: scale(0.95);
+}
+
+/* Glass bezels on Learn cards */
+.learn-hero,
+.learn-stat,
+.learn-progress,
+.learn-content-card,
+.learn-article-container,
+.learn-article-info-card {
+  border: 1px solid var(--glass-bezel-border);
+  box-shadow: var(--glass-bezel-shadow), var(--glass-bezel-highlight);
+  background: var(--glass-bezel-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.learn-content-card:hover {
+  border-color: var(--glass-border-luminous);
+  box-shadow: var(--glass-shadow-elevated), var(--glass-highlight);
+}
+
+/* Dark Mode Visibility for Learn Small Buttons & Controls */
+[data-theme="dark"] .learn-category-button,
+[data-theme="dark"] .learn-filter-tab,
+[data-theme="dark"] .learn-secondary-action,
+[data-theme="dark"] .learn-dialog-close,
+[data-theme="dark"] .learn-back-link,
+[data-theme="dark"] .learn-article-toolbar button,
+[data-theme="dark"] .learn-bookmark-button,
+[data-theme="dark"] .learn-notification-link {
+  background: var(--button-bg);
+  border-color: var(--button-border);
+  color: var(--button-text);
+}
+
+[data-theme="dark"] .learn-category-button:hover,
+[data-theme="dark"] .learn-filter-tab:hover,
+[data-theme="dark"] .learn-secondary-action:hover,
+[data-theme="dark"] .learn-dialog-close:hover,
+[data-theme="dark"] .learn-back-link:hover,
+[data-theme="dark"] .learn-article-toolbar button:hover,
+[data-theme="dark"] .learn-bookmark-button:hover,
+[data-theme="dark"] .learn-notification-link:hover {
+  background: var(--button-hover);
+  border-color: var(--glass-border-luminous);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .learn-category-button[aria-pressed="true"],
+[data-theme="dark"] .learn-filter-tab[aria-pressed="true"] {
+  background: var(--brand-primary, #2563eb) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+[data-theme="dark"] .learn-search {
+  background: var(--button-bg);
+  border-color: var(--button-border);
+}
+
+[data-theme="dark"] .learn-search:focus-within {
+  border-color: var(--button-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+[data-theme="dark"] .learn-video-dialog {
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-elevated);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow-elevated), var(--glass-highlight);
 }
