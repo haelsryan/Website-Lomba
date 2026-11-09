@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { mountPage } from '../main.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 
+
 function Icon({ name, className = 'size-5' }) {
   const icons = {
     wallet: (

@@ -4,6 +4,7 @@ import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
 import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
 import { ProtectedPage } from '../components/auth/ProtectedPage.jsx'
 
+
 function Icon({ name, className = 'icon', ...props }) {
   return <svg className={className} aria-hidden="true" {...props}><use href={`#i-${name}`} /></svg>
 }
@@ -305,7 +306,7 @@ function Dashboard() {
         <DashboardSidebar page="dashboard" />
         <div className="dashboard-workspace">
           <main className="dashboard-main">
-            <GlobalHeader title="Dashboard" subtitle="Ringkasan kondisi keuangan Anda." />
+            <GlobalHeader title="Dashboard"/>
             <p data-dashboard-loading className="dashboard-state-note" role="status">Memuat data dashboard...</p>
             <div data-dashboard-error hidden className="dashboard-error-state" role="alert">
               <p>Data tersimpan tidak dapat dibaca. Dashboard menampilkan data contoh.</p>

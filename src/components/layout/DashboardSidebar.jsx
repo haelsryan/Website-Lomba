@@ -1,5 +1,6 @@
 
 import { useState } from 'react'
+import logo from "../../img/logo_transparan.png"
 
 const AUTH_SESSION_KEY = 'moneva-auth-session'
 
@@ -178,26 +179,37 @@ export function DashboardSidebar({ page }) {
           onPointerEnter={handleEnter(setZoneAExpanded)}
           onPointerLeave={handleLeave(setZoneAExpanded)}
         >
-          {/* BRAND */}
-          <a
-            href="/"
-            className="flex items-center gap-3 rounded-2xl text-ink transition-colors group overflow-hidden h-10 w-full"
-            aria-label="Moneva, beranda"
-          >
-            <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-gradient-to-tr from-primary to-blue-500 text-white shadow-md shadow-primary/25 transition-transform duration-200 group-hover:scale-105">
-              <NavIcon name="wallet" />
-            </span>
+          
+{/* BRAND */}
+<a
+  href="/"
+  className="flex items-center gap-3 rounded-2xl text-ink transition-colors group overflow-hidden h-10 w-full"
+  aria-label="Moneva, beranda"
+>
+  {/* LOGO MONEVA */}
+  <span className="grid size-10 shrink-0 place-items-center transition-transform duration-200 group-hover:scale-105">
+    <img
+      src={logo}
+      alt="Moneva Logo"
+      className="w-10 h-10 object-contain"
+    />
+  </span>
 
-            <div className={`flex flex-col whitespace-nowrap transition-all duration-200 ${zoneAExpanded
-                ? 'opacity-100 translate-x-0'
-                : 'opacity-0 -translate-x-3 pointer-events-none w-0 overflow-hidden'
-              }`}>
-              <span className="text-sm font-bold tracking-tight text-ink leading-tight">MONEVA</span>
-              <span className="text-[10px] font-medium text-muted leading-tight">Smart Financials</span>
-            </div>
-          </a>
+  {/* BRAND TEXT */}
+      <div className={`flex flex-col whitespace-nowrap transition-all duration-200 ${
+        zoneAExpanded
+          ? 'opacity-100 translate-x-0'
+          : 'opacity-0 -translate-x-3 pointer-events-none w-0 overflow-hidden'
+      }`}>
+        <span className="text-sm font-bold tracking-tight text-ink leading-tight">
+          MONEVA
+        </span>
+        <span className="text-[10px] font-medium text-muted leading-tight">
+          Smart Financials
+        </span>
+      </div>
+    </a>
 
-          <div className="my-2.5 h-px w-full bg-line/40 dark:bg-white/10" />
 
           {/* MAIN NAVIGATION */}
           <nav aria-label="Menu Utama">

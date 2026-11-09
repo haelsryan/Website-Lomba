@@ -15,7 +15,7 @@ function LandingPage() {
   }).format(n)
 
   const presets = [3000000, 5000000, 10000000, 20000000]
-
+  
   return (
     <>
       {/* SVG sprite */}

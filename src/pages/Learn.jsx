@@ -10,6 +10,7 @@ import {
   LEARN_CATEGORIES,
   LEARN_VIDEOS,
 } from './learnContent.js'
+import logo from "../img/logo_transparan.png";
 
 // ==================================================
 // CONFIGURATION
@@ -1424,7 +1425,6 @@ function LearnPage() {
 
           <GlobalHeader
             title="Belajar & Edukasi"
-            subtitle="Perluas wawasan dan tingkatkan literasi keuangan Anda."
             showDateLine={false}
           />
 

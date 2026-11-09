@@ -11,6 +11,7 @@ import { mountPage } from '../main.jsx'
 import { ThemeToggle } from '../components/settings/ThemeToggle.jsx'
 import { ProtectedPage } from '../components/auth/ProtectedPage.jsx'
 
+
 const DEMO_DATA_KEY = 'dompet-cerdas-v1'
 
 function SettingsPage() {
@@ -86,7 +87,6 @@ function SettingsPage() {
             {/* Page header */}
             <GlobalHeader
               title="Pengaturan"
-              subtitle="Atur tampilan dan preferensi akun Moneva Anda."
               showDateLine={false}
             />
 

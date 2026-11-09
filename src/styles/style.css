@@ -4005,3 +4005,45 @@ dialog[open] {
     border-top-color: var(--app-primary-text);
   }
 }
+
+.learn-logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* =========================================
+   GLOBAL PAGE TITLE ANIMATION
+   Digunakan oleh Dashboard, Finance,
+   Setting, Simulator, dan Learn.
+========================================= */
+
+@keyframes global-header-title-in {
+  from {
+    opacity: 0;
+    filter: blur(7px);
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.global-header-title {
+  animation: global-header-title-in
+    0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Mengikuti preferensi pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+  .global-header-title {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}

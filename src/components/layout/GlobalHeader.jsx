@@ -76,7 +76,6 @@ const AUTH_SESSION_KEY = 'moneva-auth-session'
 
 export function GlobalHeader({
   title = 'Dashboard',
-  subtitle = 'Ringkasan kondisi keuangan Anda.',
   showDateLine = true,
   actionButton = null,
 }) {
@@ -166,12 +165,10 @@ export function GlobalHeader({
     >
       {/* Title & Subtitle */}
       <div className="dashboard-banner-copy min-w-0">
-        <h1 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+        <h1 className="global-header-title text-2xl font-bold tracking-tight text-ink sm:text-3xl">
           {title}
         </h1>
-        <p className="dashboard-intro mt-1 text-sm text-muted">
-          {subtitle}
-        </p>
+
         {showDateLine && (
           <p className="dashboard-date-line mt-2 flex items-center gap-2 text-xs font-medium text-muted/80">
             <span data-dashboard-date className="font-semibold text-ink" />
