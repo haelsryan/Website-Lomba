@@ -2,6 +2,8 @@
 
 Moneva adalah website keuangan pribadi yang membantu Anda memahami, mengatur, dan mengembangkan kondisi keuangan dengan lebih baik. Website ini berisi simulator anggaran, pusat pembelajaran literasi keuangan, dan dashboard untuk mencatat pemasukan serta pengeluaran.
 
+Website ini dibuat untuk mengikuti perlombaan Web Design di INVOFEST 2026
+
 ## Fitur
 
 - **Simulator Keuangan**: hitung pembagian pemasukan, kebutuhan, keinginan, dan tabungan. Metode anggaran 50/30/20 sudah tersedia.
