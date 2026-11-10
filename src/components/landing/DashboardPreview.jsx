@@ -36,11 +36,11 @@ export default function DashboardPreview() {
             className="landing-section-title mt-6 text-ink"
           >
             <span className="block">Pantau semua</span>
-            <span className="block text-muted">
+            <span className="block text-ink">
               dalam satu <span className="landing-accent">tempat.</span>
             </span>
           </h2>
-          <p className="landing-section-copy mt-6 max-w-xl text-muted">
+          <p className="landing-section-copy mt-6 max-w-xl text-ink">
             Lihat ringkasan pemasukan, pengeluaran, saldo, dan transaksi
             terbaru dalam satu tampilan.
           </p>
@@ -49,7 +49,7 @@ export default function DashboardPreview() {
         <div className="rounded-2xl border border-line bg-surface p-5 transition duration-300 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-7">
           <div className="flex items-center justify-between gap-4">
             <h3 className="text-sm font-semibold text-ink">Ringkasan keuangan</h3>
-            <span className="text-xs text-muted">Data contoh</span>
+            <span className="text-xs text-ink">Data contoh</span>
           </div>
 
           <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
@@ -58,7 +58,7 @@ export default function DashboardPreview() {
                 key={stat.label}
                 className="min-w-0 rounded-xl border border-line bg-transparent p-3 sm:p-4"
               >
-                <p className="truncate text-[10px] text-muted sm:text-xs">
+                <p className="truncate text-[10px] text-ink sm:text-xs">
                   {stat.label}
                 </p>
                 <p className="mt-2 break-words text-xs font-semibold text-ink sm:text-base">
@@ -88,7 +88,7 @@ export default function DashboardPreview() {
                   key={transaction.label}
                   className="flex min-h-11 items-center justify-between gap-4 border-b border-line py-2 text-sm last:border-b-0"
                 >
-                  <span className="text-muted">{transaction.label}</span>
+                  <span className="text-ink">{transaction.label}</span>
                   <span className="shrink-0 font-medium text-ink">
                     {transaction.amount}
                   </span>

@@ -52,12 +52,12 @@ export default function TantanganKeuangan() {
             className="landing-section-title mt-6 text-ink"
           >
             <span className="block">Keuangan Gen Z</span>
-            <span className="block text-muted">
+            <span className="block text-ink">
               <span className="landing-accent">bukan</span> soal
               gaji
             </span>
           </h2>
-          <p className="landing-section-copy mt-6 max-w-xl text-muted">
+          <p className="landing-section-copy mt-6 max-w-xl text-ink">
             Riset Sun Life Indonesia 2025 menyoroti tantangan Gen Z dalam merasa
             aman secara finansial, merencanakan masa depan, dan mencari nasihat.
           </p>
@@ -70,31 +70,31 @@ export default function TantanganKeuangan() {
               className="feature-glass-card flex min-h-[320px] flex-col overflow-hidden rounded-[28px] border border-line bg-white p-6 text-ink transition-colors duration-300 hover:border-primary/40 motion-reduce:transition-none sm:p-7"
             >
               <div className="flex items-start justify-between">
-                <span className="text-xs font-medium uppercase tracking-[0.16em] text-muted">
+                <span className="text-xs font-medium uppercase tracking-[0.16em] text-ink">
                   {challenge.label}
                 </span>
-                <span className="text-xs text-muted/60">
+                <span className="text-xs text-ink/60">
                   {challenge.number}
                 </span>
               </div>
 
               <h3 className="mt-8 text-2xl font-semibold leading-tight">
                 <span className="block text-ink">{challenge.titleFirst}</span>
-                <span className="block text-muted">{challenge.titleSecond}</span>
+                <span className="block text-ink">{challenge.titleSecond}</span>
               </h3>
 
-              <p className="mt-4 text-sm leading-relaxed text-muted">
+              <p className="mt-4 text-sm leading-relaxed text-ink">
                 {challenge.description}
               </p>
 
               <figure className="mt-auto space-y-3 pt-6">
-                <figcaption className="text-xs font-medium text-muted">
+                <figcaption className="text-xs font-medium text-ink">
                   {challenge.metric}
                 </figcaption>
                 {challenge.data.map((point) => (
                   <div key={point.label}>
                     <div className="mb-1.5 flex items-center justify-between gap-3 text-xs">
-                      <span className="text-muted">{point.label}</span>
+                      <span className="text-ink">{point.label}</span>
                       <span className="font-semibold tabular-nums text-ink">
                         {point.value}%
                       </span>
@@ -120,7 +120,7 @@ export default function TantanganKeuangan() {
           ))}
         </div>
 
-        <p className="mt-8 text-xs leading-relaxed text-muted">
+        <p className="mt-8 text-xs leading-relaxed text-ink">
           Sumber:{' '}
           <a
             className="font-medium text-primary-text underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"

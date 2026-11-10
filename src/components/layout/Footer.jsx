@@ -15,7 +15,7 @@ function SocialLink({ label, children }) {
 function FooterLinkGroup({ title, links }) {
   return (
     <div>
-      <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[color:var(--footer-muted)]">
+      <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black">
         {title}
       </h2>
       <ul className="mt-4 grid gap-1">
@@ -91,7 +91,7 @@ export default function Footer() {
               </span>
             </div>
 
-            <p className="mt-4 whitespace-nowrap text-xs leading-relaxed text-[color:var(--footer-muted)] sm:text-sm">
+            <p className="mt-4 whitespace-nowrap text-xs leading-relaxed text-black sm:text-sm">
               Keuangan cerdas untuk masa depan yang berkelanjutan.
             </p>
 
@@ -127,7 +127,7 @@ export default function Footer() {
         </div>
 
         <div className="relative z-10 mt-12 flex flex-col gap-3 border-t border-[var(--footer-border)] pt-6 text-sm sm:flex-row sm:items-center sm:justify-between">
-          <p className="m-0 text-[color:var(--footer-muted)]">
+          <p className="m-0 text-black">
             © 2026 Moneva. Hak cipta dilindungi.
           </p>
           <button

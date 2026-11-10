@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { mountPage } from '../main.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import logo from "../img/logo_transparan.png"
 
 
 function Icon({ name, className = 'size-5' }) {
@@ -123,8 +124,12 @@ function LoginPage() {
             className="auth-brand inline-flex items-center gap-3 text-ink transition-opacity hover:opacity-80"
             aria-label="Kembali ke beranda"
           >
-            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-primary to-blue-500 text-white shadow-md shadow-primary/25">
-              <Icon name="wallet" className="size-5" />
+            <span className="grid size-10 shrink-0 place-items-center" aria-hidden="true">
+              <img
+                src={logo}
+                alt=""
+                className="w-10 h-10 object-contain"
+              />
             </span>
             <span className="text-base font-bold tracking-tight sm:text-lg">Moneva</span>
           </a>
