@@ -2,10 +2,15 @@
 import { useState } from 'react'
 import { Modal } from '../components/ui/Modal.jsx'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
+import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
+import { ProfileSettings } from '../components/settings/ProfileSettings.jsx'
 import { useAppState } from '../hooks/useAppState.js'
 import { useTheme } from '../hooks/useTheme.js'
+import { useMotion } from '../hooks/useMotion.js'
 import { mountPage } from '../main.jsx'
 import { ThemeToggle } from '../components/settings/ThemeToggle.jsx'
+import { ProtectedPage } from '../components/auth/ProtectedPage.jsx'
+
 
 const DEMO_DATA_KEY = 'dompet-cerdas-v1'
 
@@ -16,6 +21,7 @@ function SettingsPage() {
     setTheme,
     error: themeError,
   } = useTheme()
+  const { reducedMotion, toggleReducedMotion } = useMotion()
 
   const [resetOpen, setResetOpen] = useState(false)
   const [resetError, setResetError] = useState('')
@@ -79,20 +85,13 @@ function SettingsPage() {
           <main className="dashboard-main settings-main">
 
             {/* Page header */}
-            <div className="mb-8 max-w-2xl">
-              <p className="mb-2 text-sm font-semibold text-primary">
-                Preferensi
-              </p>
+            <GlobalHeader
+              title="Pengaturan"
+              showDateLine={false}
+            />
 
-              <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-                Pengaturan
-              </h1>
-
-              <p className="mt-3 leading-7 text-muted">
-                Atur tampilan dan notifikasi.
-                Perubahan hanya disimpan di browser ini.
-              </p>
-            </div>
+            {/* Profile Management Section */}
+            <ProfileSettings />
 
             {/* Settings sections */}
             <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(16rem,1fr)]">
@@ -100,11 +99,11 @@ function SettingsPage() {
               {/* Appearance */}
               <section
                 aria-labelledby="appearance-heading"
-                className="card border border-line p-5 sm:p-7"
+                className="card p-5 sm:p-7"
               >
                 <h2
                   id="appearance-heading"
-                  className="mb-5 text-lg font-bold text-ink"
+                  className="mb-5 text-xl font-bold text-ink"
                 >
                   Tampilan
                 </h2>
@@ -124,14 +123,55 @@ function SettingsPage() {
                 )}
               </section>
 
+              {/* Accessibility / Motion & Animation */}
+              <section
+                aria-labelledby="accessibility-heading"
+                className="card p-5 sm:p-7"
+              >
+                <h2
+                  id="accessibility-heading"
+                  className="mb-2 text-xl font-bold text-ink"
+                >
+                  Aksesibilitas
+                </h2>
+
+                <p className="text-sm leading-6 text-muted mb-6">
+                  Atur kenyamanan visual dan pengalaman gerak antarmuka Moneva.
+                </p>
+
+                <div className="rounded-2xl bg-surface/80 dark:bg-white/[0.04] p-4 border border-line/40 dark:border-white/10">
+                  <label className="flex items-start justify-between gap-4 cursor-pointer">
+                    <div className="space-y-1">
+                      <span className="block font-semibold text-sm text-ink">
+                        Kurangi Animasi (Reduce Motion)
+                      </span>
+                      <span className="block text-sm leading-5 text-muted">
+                        Kurangi gerakan dan transisi visual untuk pengalaman yang lebih nyaman.
+                      </span>
+                    </div>
+
+                    <div className="relative inline-flex items-center shrink-0 mt-1">
+                      <input
+                        type="checkbox"
+                        checked={reducedMotion}
+                        onChange={toggleReducedMotion}
+                        className="sr-only peer"
+                        aria-label="Kurangi animasi"
+                      />
+                      <div className="w-11 h-6 bg-canvas dark:bg-white/15 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner" />
+                    </div>
+                  </label>
+                </div>
+              </section>
+
               {/* Notifications */}
               <section
                 aria-labelledby="notification-heading"
-                className="card border border-line p-5 sm:p-7"
+                className="card p-5 sm:p-7"
               >
                 <h2
                   id="notification-heading"
-                  className="text-lg font-bold text-ink"
+                  className="text-xl font-bold text-ink"
                 >
                   Notifikasi
                 </h2>
@@ -174,14 +214,14 @@ function SettingsPage() {
               {/* Demo data */}
               <section
                 aria-labelledby="data-heading"
-                className="card border border-line p-5 sm:p-7 lg:col-span-2"
+                className="card p-5 sm:p-7 lg:col-span-2"
               >
                 <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
 
                   <div className="max-w-xl">
                     <h2
                       id="data-heading"
-                      className="text-lg font-bold text-ink"
+                      className="text-xl font-bold text-ink"
                     >
                       Data demo
                     </h2>
@@ -199,7 +239,7 @@ function SettingsPage() {
                       setResetError('')
                       setResetOpen(true)
                     }}
-                    className="shrink-0 rounded-xl border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:bg-panel"
+                    className="shrink-0 rounded-xl border border-line dark:border-white/15 px-4 py-2.5 text-sm font-semibold text-ink dark:text-slate-200 bg-surface/80 dark:bg-white/5 hover:bg-panel dark:hover:bg-white/10 hover:border-line dark:hover:border-white/25 transition-all duration-200 active:scale-95 shadow-sm cursor-pointer"
                   >
                     Reset data demo
                   </button>
@@ -241,4 +281,8 @@ function SettingsPage() {
   )
 }
 
-mountPage(SettingsPage, { effects: true })
+mountPage(() => (
+  <ProtectedPage>
+    <SettingsPage />
+  </ProtectedPage>
+), { effects: true })

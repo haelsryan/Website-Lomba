@@ -9,6 +9,7 @@ import TantanganKeuangan from '../components/landing/TantanganKeuangan.jsx'
 import DashboardPreview from '../components/landing/DashboardPreview.jsx'
 import SimulatorPreview from '../components/landing/SimulatorPreview.jsx'
 
+
 function LandingPage() {
   return (
     <div className="landing-page">

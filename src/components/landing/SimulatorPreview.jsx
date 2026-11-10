@@ -105,7 +105,7 @@ export default function SimulatorPreview() {
             className="landing-section-title mt-6 text-ink"
           >
             <span className="block">Atur anggaranmu</span>
-            <span className="block text-muted">
+            <span className="block text-ink">
               dengan <span className="landing-accent">metode</span>{' '}
               50/30/20.
             </span>

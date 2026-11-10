@@ -1,45 +1,112 @@
 
+import { useState } from 'react'
+import logo from "../../img/logo_transparan.png"
+
+const AUTH_SESSION_KEY = 'moneva-auth-session'
+
 function IconSprite() {
   const icons = {
-    wallet: <><rect x="2" y="6" width="20" height="14" rx="2" /><path d="M2 10h20M16 14h2" /></>,
-    home: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M9 22V12h6v10" /></>,
+    wallet: <>
+      <rect x="2" y="6" width="20" height="14" rx="2" />
+      <path d="M2 10h20M16 14h2" />
+    </>,
+    home: <>
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <path d="M9 22V12h6v10" />
+    </>,
     chart: <path d="M18 20V10M12 20V4M6 20v-6" />,
-    calc: <><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M8 6h8M8 10h8M8 14h2M8 18h2M14 14h2M14 18h2" /></>,
-    book: <><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22z" /><path d="M4 5.5v14A2.5 2.5 0 0 1 6.5 17H20M8 7h8M8 11h7" /></>,
-    gear: <><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></>,
-    help: <><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><circle cx="12" cy="17" r=".5" fill="currentColor" /></>,
-    logout: <><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></>,
-    plus: <><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></>,
+    calc: <>
+      <rect x="4" y="2" width="16" height="20" rx="2" />
+      <path d="M8 6h8M8 10h8M8 14h2M8 18h2M14 14h2M14 18h2" />
+    </>,
+    book: <>
+      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22z" />
+      <path d="M4 5.5v14A2.5 2.5 0 0 1 6.5 17H20M8 7h8M8 11h7" />
+    </>,
+    gear: <>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+    </>,
+    help: <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+      <circle cx="12" cy="17" r=".5" fill="currentColor" />
+    </>,
+    logout: <>
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <polyline points="16 17 21 12 16 7" />
+      <line x1="21" y1="12" x2="9" y2="12" />
+    </>,
+    plus: <>
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </>,
     'chevron-l': <polyline points="15 18 9 12 15 6" />,
     'chevron-r': <polyline points="9 18 15 12 9 6" />,
-    bell: <><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></>,
-    'bell-off': <><path d="M13.73 21a2 2 0 0 1-3.46 0" /><path d="M17.63 17.63A9 9 0 0 1 18 15c0-7-3-9-3-9a6 6 0 0 0-9.56-4.44" /><path d="M5.52 5.52A9 9 0 0 0 6 8c0 4.67-1.6 7.17-2.63 8.3" /><line x1="1" y1="1" x2="23" y2="23" /></>,
-    receipt: <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></>,
+    bell: <>
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+    </>,
+    'bell-off': <>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+      <path d="M17.63 17.63A9 9 0 0 1 18 15c0-7-3-9-3-9a6 6 0 0 0-9.56-4.44" />
+      <path d="M5.52 5.52A9 9 0 0 0 6 8c0 4.67-1.6 7.17-2.63 8.3" />
+      <line x1="1" y1="1" x2="23" y2="23" />
+    </>,
+    receipt: <>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+    </>,
     check: <polyline points="20 6 9 17 4 12" />,
-    trash: <><polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" /><path d="M10 11v6M14 11v6M9 6V4h6v2" /></>,
-    x: <><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></>,
-    link: <><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></>,
-    cal: <><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></>,
-    eye: <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></>,
-    search: <><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></>,
+    trash: <>
+      <polyline points="3 6 5 6 21 6" />
+      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+      <path d="M10 11v6M14 11v6M9 6V4h6v2" />
+    </>,
+    x: <>
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </>,
+    link: <>
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </>,
+    cal: <>
+      <rect x="3" y="4" width="18" height="18" rx="2" />
+      <line x1="16" y1="2" x2="16" y2="6" />
+      <line x1="8" y1="2" x2="8" y2="6" />
+      <line x1="3" y1="10" x2="21" y2="10" />
+    </>,
+    eye: <>
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </>,
     chat: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />,
-    up: <><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></>,
-    down: <><line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" /></>,
+    up: <>
+      <line x1="12" y1="19" x2="12" y2="5" />
+      <polyline points="5 12 12 5 19 12" />
+    </>,
+    down: <>
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <polyline points="19 12 12 19 5 12" />
+    </>,
+    search: <>
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </>,
   }
 
   return (
     <svg
-      className="dashboard-icon-sprite"
       aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
+      style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}
     >
       <defs>
         {Object.entries(icons).map(([name, paths]) => (
-          <symbol
-            key={name}
-            id={`i-${name}`}
-            viewBox="0 0 24 24"
-          >
+          <symbol key={name} id={`i-${name}`} viewBox="0 0 24 24">
             {paths}
           </symbol>
         ))}
@@ -48,117 +115,229 @@ function IconSprite() {
   )
 }
 
-function Icon({ name }) {
+function NavIcon({ name, className = 'size-5' }) {
   return (
-    <svg className="icon" aria-hidden="true">
+    <svg
+      className={`icon ${className} shrink-0`}
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <use href={`#i-${name}`} />
     </svg>
   )
 }
 
 export function DashboardSidebar({ page }) {
+  const [zoneAExpanded, setZoneAExpanded] = useState(false)
+  const [zoneBExpanded, setZoneBExpanded] = useState(false)
+
   const links = [
-    {
-      href: '/pages/dashboard.html',
-      icon: 'home',
-      label: 'Dashboard',
-      id: 'dashboard',
-    },
-    {
-      href: '/pages/finances.html',
-      icon: 'chart',
-      label: 'Keuangan',
-      id: 'finances',
-    },
-    {
-      href: '/pages/simulator.html',
-      icon: 'calc',
-      label: 'Simulator',
-      id: 'simulator',
-    },
-    {
-      href: '/pages/learn.html',
-      icon: 'book',
-      label: 'Belajar',
-      id: 'learn',
-    },
-    {
-      href: '/pages/settings.html',
-      icon: 'gear',
-      label: 'Pengaturan',
-      id: 'settings',
-    },
+    { href: '/pages/dashboard.html', icon: 'home', label: 'Dashboard', id: 'dashboard' },
+    { href: '/pages/finances.html', icon: 'chart', label: 'Keuangan', id: 'finances' },
+    { href: '/pages/simulator.html', icon: 'calc', label: 'Simulator', id: 'simulator' },
+    { href: '/pages/learn.html', icon: 'book', label: 'Belajar', id: 'learn' },
+    { href: '/pages/settings.html', icon: 'gear', label: 'Pengaturan', id: 'settings' },
   ]
+
+  const handleEnter = (setter) => (e) => {
+    if (e.pointerType === 'touch') return
+    setter(true)
+  }
+
+  const handleLeave = (setter) => (e) => {
+    if (e.pointerType === 'touch') return
+    setter(false)
+  }
+
+  const handleLogout = () => {
+    // Clear auth session
+    localStorage.removeItem(AUTH_SESSION_KEY)
+    // Redirect to login
+    window.location.href = '/pages/login.html'
+  }
 
   return (
     <>
       <IconSprite />
 
+      {/* DESKTOP SIDEBAR */}
       <aside
-        className="app-sidebar dashboard-sidebar"
-        aria-label="Navigasi Moneva"
+        className="moneva-sidebar-root hidden lg:flex fixed left-4 top-4 bottom-4 z-50 flex-col justify-between pointer-events-none select-none"
+        aria-label="Navigasi Utama Moneva"
       >
-        <a
-          href="/"
-          className="dashboard-brand"
-          aria-label="Moneva, beranda"
-        >
-          <span className="dashboard-brand-mark">
-            <Icon name="wallet" />
-          </span>
-        </a>
-
-        <nav
-          className="dashboard-navigation"
-          aria-label="Halaman utama"
-        >
-          <ul className="dashboard-nav-list" role="list">
-            {links.map(({ href, icon, label, id }) => (
-              <li key={id}>
-                <a
-                  href={href}
-                  className="nav-link dashboard-nav-link"
-                  aria-label={label}
-                  title={label}
-                  aria-current={
-                    page === id ? 'page' : undefined
-                  }
-                >
-                  <Icon name={icon} />
-                  <span className="dashboard-nav-label">
-                    {label}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
+        {/* ZONE A */}
         <div
-          className="dashboard-sidebar-spacer"
-          aria-hidden="true"
-        />
+          className={`moneva-sidebar-zone-a pointer-events-auto transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-3xl p-3 backdrop-blur-xl border border-white/40 dark:border-white/10 ${zoneAExpanded
+              ? 'w-60 bg-surface/90 dark:bg-slate-900/90 shadow-2xl'
+              : 'w-16 bg-surface/75 dark:bg-slate-900/80 shadow-lg'
+            }`}
+          onPointerEnter={handleEnter(setZoneAExpanded)}
+          onPointerLeave={handleLeave(setZoneAExpanded)}
+        >
+          
+{/* BRAND */}
+<a
+  href="/"
+  className="flex items-center gap-3 rounded-2xl text-ink transition-colors group overflow-hidden h-10 w-full"
+  aria-label="Moneva, beranda"
+>
+  {/* LOGO MONEVA */}
+  <span className="grid size-10 shrink-0 place-items-center transition-transform duration-200 group-hover:scale-105">
+    <img
+      src={logo}
+      alt="Moneva Logo"
+      className="w-10 h-10 object-contain"
+    />
+  </span>
+
+  {/* BRAND TEXT */}
+      <div className={`flex flex-col whitespace-nowrap transition-all duration-200 ${
+        zoneAExpanded
+          ? 'opacity-100 translate-x-0'
+          : 'opacity-0 -translate-x-3 pointer-events-none w-0 overflow-hidden'
+      }`}>
+        <span className="text-sm font-bold tracking-tight text-ink leading-tight">
+          MONEVA
+        </span>
+        <span className="text-[10px] font-medium text-muted leading-tight">
+          Smart Financials
+        </span>
+      </div>
+    </a>
+
+
+          {/* MAIN NAVIGATION */}
+          <nav aria-label="Menu Utama">
+            <ul className="flex flex-col gap-1.5">
+              {links.map(({ href, icon, label, id }) => {
+                const isActive = page === id
+
+                return (
+                  <li key={id}>
+                    <a
+                      href={href}
+                      className={`relative flex items-center h-10 w-full rounded-2xl transition-all duration-200 overflow-hidden group ${isActive
+                          ? 'bg-primary text-white shadow-md shadow-primary/25 font-semibold'
+                          : 'text-muted hover:text-ink hover:bg-primary/10 dark:hover:bg-white/5'
+                        }`}
+                      aria-current={isActive ? 'page' : undefined}
+                      title={label}
+                    >
+                      <span className="grid size-10 shrink-0 place-items-center">
+                        <NavIcon
+                          name={icon}
+                          className={`size-5 transition-transform duration-200 ${isActive ? 'scale-105' : 'group-hover:scale-110'
+                            }`}
+                        />
+                      </span>
+
+                      <span className={`text-sm whitespace-nowrap transition-all duration-200 pl-1 ${zoneAExpanded
+                          ? 'opacity-100 translate-x-0 max-w-full'
+                          : 'opacity-0 -translate-x-3 pointer-events-none max-w-0 overflow-hidden'
+                        }`}>
+                        {label}
+                      </span>
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+        </div>
+
+        {/* ZONE B */}
+        <div
+          className={`moneva-sidebar-zone-b pointer-events-auto transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-3xl p-3 backdrop-blur-xl border border-white/40 dark:border-white/10 ${zoneBExpanded
+              ? 'w-60 bg-surface/90 dark:bg-slate-900/90 shadow-2xl'
+              : 'w-16 bg-surface/75 dark:bg-slate-900/80 shadow-lg'
+            }`}
+          onPointerEnter={handleEnter(setZoneBExpanded)}
+          onPointerLeave={handleLeave(setZoneBExpanded)}
+        >
+          <div className="flex flex-col gap-1.5" role="group" aria-label="Menu Bantuan & Keluar">
+            <button
+              type="button"
+              data-act="help"
+              className="group flex items-center h-10 w-full rounded-2xl text-muted transition-all duration-200 hover:bg-primary/10 hover:text-ink dark:hover:bg-white/5 overflow-hidden text-left"
+              aria-label="Bantuan"
+              title="Bantuan"
+            >
+              <span className="grid size-10 shrink-0 place-items-center">
+                <NavIcon name="help" className="size-5 group-hover:scale-110 transition-transform" />
+              </span>
+              <span className={`text-sm font-medium whitespace-nowrap transition-all duration-200 pl-1 ${zoneBExpanded
+                  ? 'opacity-100 translate-x-0 max-w-full'
+                  : 'opacity-0 -translate-x-3 pointer-events-none max-w-0 overflow-hidden'
+                }`}>
+                Bantuan
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="group flex items-center h-10 w-full rounded-2xl text-rose-500 transition-all duration-200 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:bg-rose-500/15 overflow-hidden text-left"
+              aria-label="Keluar"
+              title="Keluar"
+            >
+              <span className="grid size-10 shrink-0 place-items-center">
+                <NavIcon name="logout" className="size-5 group-hover:scale-110 transition-transform" />
+              </span>
+              <span className={`text-sm font-medium whitespace-nowrap transition-all duration-200 pl-1 ${zoneBExpanded
+                  ? 'opacity-100 translate-x-0 max-w-full'
+                  : 'opacity-0 -translate-x-3 pointer-events-none max-w-0 overflow-hidden'
+                }`}>
+                Keluar
+              </span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* MOBILE BOTTOM NAVIGATION */}
+      <nav
+        aria-label="Navigasi Seluler"
+        className="fixed bottom-3 inset-x-3 z-50 flex items-center justify-around rounded-2xl bg-surface/85 dark:bg-slate-900/85 backdrop-blur-xl px-2 py-1.5 shadow-xl border border-white/40 dark:border-white/10 lg:hidden"
+      >
+        {links.map(({ href, icon, label, id }) => {
+          const isActive = page === id
+
+          return (
+            <a
+              key={id}
+              href={href}
+              className={`flex flex-col items-center justify-center rounded-xl p-2 transition-colors ${isActive
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-muted dark:text-slate-300 hover:text-ink dark:hover:text-white active:scale-95'
+                }`}
+              aria-label={label}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              <NavIcon name={icon} className="size-5" />
+              <span className="text-[10px] font-medium tracking-tight mt-0.5">
+                {label}
+              </span>
+            </a>
+          )
+        })}
 
         <button
           type="button"
           data-act="help"
-          className="nav-link dashboard-nav-link"
+          className="flex flex-col items-center justify-center rounded-xl p-2 text-muted dark:text-slate-300 hover:text-ink dark:hover:text-white active:scale-95"
           aria-label="Bantuan"
-          title="Bantuan"
         >
-          <Icon name="help" />
+          <NavIcon name="help" className="size-5" />
+          <span className="text-[10px] font-medium tracking-tight mt-0.5">
+            Bantuan
+          </span>
         </button>
-
-        <button
-          type="button"
-          data-act="logout"
-          className="nav-link dashboard-nav-link"
-          aria-label="Keluar"
-          title="Keluar"
-        >
-          <Icon name="logout" />
-        </button>
-      </aside>
+      </nav>
     </>
   )
 }

@@ -22,6 +22,8 @@ export default defineConfig({
         simulator: resolve(import.meta.dirname, 'pages/simulator.html'),
         learn: resolve(import.meta.dirname, 'pages/learn.html'),
         settings: resolve(import.meta.dirname, 'pages/settings.html'),
+        login: resolve(import.meta.dirname, 'pages/login.html'),
+        signup: resolve(import.meta.dirname, 'pages/signup.html'),
       },
     },
   },
