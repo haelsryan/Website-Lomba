@@ -59,6 +59,7 @@ Rules:
 - Body text meets WCAG AA (4.5:1) in both themes. Check any new pair before using it.
 - Never use pure black or pure white as a text color.
 - Brand blue `#2563EB` and navy `#172B4D` are the identity. Do not add new brand colors without updating this table.
+- App pages use `src/img/awan.png` in light mode and `src/img/awangelap.png` in dark mode as a subdued wallpaper behind the shared layout. A theme-matched tint keeps text readable; landing sections keep their own backgrounds.
 
 ### Dark mode implementation
 
@@ -162,6 +163,7 @@ Rules:
 - Animate `transform`, `opacity` and `filter` only. Avoid animating layout during scroll.
 - App pages use a brief entry fade after navigation. Disable it when reduced motion is requested.
 - Effects must read colors from tokens so they work in both themes.
+- Selection controls use a restrained sliding pill so users can track the active period or calculator; its short spring motion reinforces state changes without adding motion to the data itself.
 
 Currently used effects: BlurText (headline), CountUp (numbers), SpotlightCard (cards), Magnet (banner button), Aurora-style blobs (banner), chart grow-in.
 

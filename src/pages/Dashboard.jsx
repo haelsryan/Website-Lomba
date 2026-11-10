@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { getDashboardData, initDashboard, mountPage } from '../main.jsx'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
 import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
+import { ProtectedPage } from '../components/auth/ProtectedPage.jsx'
+
 
 function Icon({ name, className = 'icon', ...props }) {
   return <svg className={className} aria-hidden="true" {...props}><use href={`#i-${name}`} /></svg>
@@ -32,13 +34,13 @@ function SummaryCards() {
         const content = (
           <div className="flex flex-col justify-between h-full">
             <div className="flex items-center justify-between mb-3">
-              <span className="dashboard-summary-label text-xs font-semibold uppercase tracking-wider text-muted">{label}</span>
+              <span className="dashboard-summary-label text-sm font-semibold text-muted">{label}</span>
               <span className={`dashboard-summary-icon grid size-10 place-items-center rounded-2xl ${tone} shadow-sm transition-transform duration-200 group-hover:scale-110`}>
                 <Icon name={icon} className="size-5" />
               </span>
             </div>
             <div>
-              <p className="dashboard-summary-value text-2xl lg:text-3xl font-extrabold tracking-tight text-ink font-mono sm:font-sans" {...(hook ? { [hook]: '' } : {})}>{value}</p>
+              <p className="dashboard-summary-value text-2xl lg:text-3xl font-semibold tracking-tight text-ink font-mono sm:font-sans" {...(hook ? { [hook]: '' } : {})}>{value}</p>
               <p className="dashboard-summary-meta mt-1.5 text-xs text-muted" {...(metaHook ? { [metaHook]: '' } : {})}>{meta}</p>
             </div>
           </div>
@@ -68,11 +70,17 @@ function IncomeChart() {
     <section className="card dashboard-card dashboard-income-card">
       <header className="dashboard-card-header">
         <div><p className="dashboard-section-kicker">Arus masuk</p><h2>Total pemasukan</h2><p className="dashboard-chart-total" data-income-total /></div>
-        <div className="dashboard-period-control" role="group" aria-label="Periode grafik pemasukan">
-          <button type="button" data-act="income-period" data-v="7d" aria-pressed="false" className="btn dashboard-range-button">7 hari</button>
-          <button type="button" data-act="income-period" data-v="30d" aria-pressed="false" className="btn dashboard-range-button">30 hari</button>
+        <div
+          className="dashboard-period-control gooey-nav"
+          role="group"
+          aria-label="Periode grafik pemasukan"
+          style={{ '--gooey-items': 5, '--gooey-indicator-width': '20%', '--gooey-offset': '300%' }}
+        >
+          <button type="button" data-act="income-period" data-v="7d" aria-pressed="false" className="btn dashboard-range-button">Minggu ini</button>
+          <button type="button" data-act="income-period" data-v="30d" aria-pressed="false" className="btn dashboard-range-button">Bulan ini</button>
+          <button type="button" data-act="income-period" data-v="3m" aria-pressed="false" className="btn dashboard-range-button">3 bulan</button>
           <button type="button" data-act="income-period" data-v="6m" aria-pressed="true" className="btn dashboard-range-button">6 bulan</button>
-          <button type="button" data-act="income-period" data-v="1y" aria-pressed="false" className="btn dashboard-range-button">1 tahun</button>
+          <button type="button" data-act="income-period" data-v="1y" aria-pressed="false" className="btn dashboard-range-button">Tahun ini</button>
         </div>
       </header>
       <div className="dashboard-income-chart-wrap">
@@ -298,7 +306,7 @@ function Dashboard() {
         <DashboardSidebar page="dashboard" />
         <div className="dashboard-workspace">
           <main className="dashboard-main">
-            <GlobalHeader title="Dashboard" subtitle="Ringkasan kondisi keuangan Anda." />
+            <GlobalHeader title="Dashboard"/>
             <p data-dashboard-loading className="dashboard-state-note" role="status">Memuat data dashboard...</p>
             <div data-dashboard-error hidden className="dashboard-error-state" role="alert">
               <p>Data tersimpan tidak dapat dibaca. Dashboard menampilkan data contoh.</p>
@@ -316,4 +324,8 @@ function Dashboard() {
   )
 }
 
-mountPage(Dashboard)
+mountPage(() => (
+  <ProtectedPage>
+    <Dashboard />
+  </ProtectedPage>
+))

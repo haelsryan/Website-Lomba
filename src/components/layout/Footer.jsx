@@ -1,3 +1,5 @@
+import logo from '../../img/logo_transparan.png'
+
 function SocialLink({ label, children }) {
   return (
     <a
@@ -13,7 +15,7 @@ function SocialLink({ label, children }) {
 function FooterLinkGroup({ title, links }) {
   return (
     <div>
-      <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[color:var(--footer-muted)]">
+      <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-black">
         {title}
       </h2>
       <ul className="mt-4 grid gap-1">
@@ -77,18 +79,19 @@ export default function Footer() {
         <div className="grid gap-10 lg:grid-cols-[minmax(24rem,1fr)_2fr] lg:gap-12">
           <div>
             <div className="flex items-center gap-3">
-              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[var(--footer-primary)] text-white" aria-hidden="true">
-                <svg className="size-5" viewBox="0 0 24 24" fill="none">
-                  <path d="M20 8H5a2 2 0 1 1 0-4h13v4M3 6v13a2 2 0 0 0 2 2h15V8H5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" />
-                  <circle cx="16.5" cy="14" r="1" fill="currentColor" />
-                </svg>
+              <span className="grid size-10 shrink-0 place-items-center" aria-hidden="true">
+                <img
+                  src={logo}
+                  alt=""
+                  className="w-10 h-10 object-contain"
+                />
               </span>
               <span className="text-base font-semibold tracking-[-0.04em] text-[color:var(--footer-text)] sm:text-lg">
                 Moneva
               </span>
             </div>
 
-            <p className="mt-4 whitespace-nowrap text-xs leading-relaxed text-[color:var(--footer-muted)] sm:text-sm">
+            <p className="mt-4 whitespace-nowrap text-xs leading-relaxed text-black sm:text-sm">
               Keuangan cerdas untuk masa depan yang berkelanjutan.
             </p>
 
@@ -124,7 +127,7 @@ export default function Footer() {
         </div>
 
         <div className="relative z-10 mt-12 flex flex-col gap-3 border-t border-[var(--footer-border)] pt-6 text-sm sm:flex-row sm:items-center sm:justify-between">
-          <p className="m-0 text-[color:var(--footer-muted)]">
+          <p className="m-0 text-black">
             © 2026 Moneva. Hak cipta dilindungi.
           </p>
           <button

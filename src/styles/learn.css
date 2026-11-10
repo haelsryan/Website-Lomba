@@ -1,3 +1,14 @@
+
+/* =========================================================
+   MONEVA — LEARN PAGE
+   Compact traveler-style learning cards
+   Scoped to Learn page only
+========================================================= */
+
+/* =========================================================
+   1. BASE LAYOUT
+========================================================= */
+
 .learn-layout {
   min-width: 0;
   min-height: 100vh;
@@ -61,7 +72,9 @@
   flex: 0 0 18px;
 }
 
-/* Header ========================= */
+/* =========================================================
+   2. HEADER
+========================================================= */
 
 .learn-header {
   display: flex;
@@ -88,7 +101,7 @@
 .learn-header p {
   margin: 7px 0 0;
   color: var(--app-muted);
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
 }
 
@@ -129,7 +142,7 @@
   outline: 0;
   background: transparent;
   color: var(--app-ink);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .learn-search input::placeholder {
@@ -160,7 +173,7 @@
   align-items: center;
   gap: 9px;
   color: var(--app-ink);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
   white-space: nowrap;
 }
@@ -262,7 +275,7 @@
   padding: 0 18px;
   border: 1px solid transparent;
   border-radius: 12px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.3;
   text-decoration: none;
@@ -346,7 +359,7 @@
 .learn-stat-copy span {
   margin: 0;
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.45;
 }
 
@@ -388,7 +401,7 @@
 .learn-section-heading p {
   margin: 5px 0 0;
   color: var(--app-muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.55;
 }
 
@@ -412,7 +425,7 @@
   gap: 8px;
   margin-bottom: 8px;
   color: var(--app-ink);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .learn-progress-label span:last-child {
@@ -481,7 +494,7 @@
 .learn-category-heading p {
   margin: 0;
   color: var(--app-muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 /* Category buttons */
@@ -508,7 +521,7 @@
   border-radius: 30px;
   background: var(--app-surface);
   color: var(--app-ink);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
   transition: .2s ease;
@@ -546,7 +559,7 @@
 .learn-featured-heading p {
   margin: 5px 0 0;
   color: var(--app-muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 /* Filter tabs */
@@ -573,7 +586,7 @@
   border-radius: 25px;
   background: var(--app-surface);
   color: var(--app-ink);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
   transition: .2s ease;
@@ -639,7 +652,9 @@
   background: var(--app-line);
 }
 
-
+/* =========================================================
+   10. COMPACT CARD
+========================================================= */
 
 .learn-content-card {
   position: relative;
@@ -744,8 +759,8 @@
 .learn-card-category {
   display: block;
   margin: 0;
-  color: rgba(255, 255, 255, .85);
-  font-size: 10px;
+  color: rgba(255, 255, 255, .88);
+  font-size: 11px;
   font-weight: 650;
   line-height: 1.35;
 }
@@ -754,7 +769,7 @@
   display: -webkit-box;
   overflow: hidden;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 720;
   line-height: 1.35;
   -webkit-box-orient: vertical;
@@ -809,7 +824,7 @@
   border-radius: 20px;
   background: var(--app-surface);
   color: var(--app-ink);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -839,7 +854,7 @@
   min-width: 0;
   overflow: hidden;
   color: var(--app-muted);
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.4;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -851,7 +866,7 @@
   border-radius: 6px;
   background: var(--app-primary-soft);
   color: var(--app-primary-text);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -873,7 +888,7 @@
 .learn-secondary-heading p {
   margin: 5px 0 0;
   color: var(--app-muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
 }
 
@@ -888,7 +903,7 @@
   border-radius: 8px;
   background: transparent;
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
   transition: .2s ease;
 }
@@ -975,7 +990,7 @@
 .learn-storage-error p {
   margin: 0;
   color: var(--app-muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
 }
 
@@ -1034,7 +1049,7 @@
 
 .learn-breadcrumb {
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 /* Main article layout */
@@ -1070,7 +1085,7 @@
   border-radius: 20px;
   background: var(--app-primary-soft);
   color: var(--app-primary-text);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 750;
 }
 
@@ -1089,7 +1104,7 @@
   flex-wrap: wrap;
   gap: 12px 19px;
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .learn-article-meta span {
@@ -1116,7 +1131,7 @@
   border-top: 1px solid var(--app-line);
   border-bottom: 1px solid var(--app-line);
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .learn-article-toolbar .learn-bookmark-button {
@@ -1129,7 +1144,7 @@
   border-radius: 9px;
   background: var(--app-surface);
   color: var(--app-ink);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
 }
 
@@ -1185,7 +1200,7 @@
 
 .learn-article-content p {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.9;
 }
 
@@ -1202,7 +1217,7 @@
 .learn-takeaways h2 {
   margin: 0 0 14px;
   color: var(--app-ink);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 730;
 }
 
@@ -1219,7 +1234,7 @@
   align-items: flex-start;
   gap: 9px;
   color: var(--app-muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.65;
 }
 
@@ -1244,7 +1259,7 @@
 
 .learn-article-source > span {
   color: var(--app-muted);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 650;
   text-transform: uppercase;
   letter-spacing: .05em;
@@ -1256,7 +1271,7 @@
   align-items: center;
   gap: 7px;
   color: var(--app-primary-text);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -1289,14 +1304,14 @@
 .learn-article-completion strong {
   display: block;
   color: var(--app-ink);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 720;
 }
 
 .learn-article-completion p {
   margin: 5px 0 0;
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -1312,7 +1327,7 @@
   border-radius: 10px;
   background: var(--app-accent);
   color: #ffffff;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   transition: .2s ease;
 }
@@ -1356,7 +1371,7 @@
 .learn-article-info-card h2 {
   margin: 0;
   color: var(--app-ink);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 730;
 }
 
@@ -1376,12 +1391,12 @@
 
 .learn-article-info-row span {
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .learn-article-info-row strong {
   color: var(--app-ink);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
   text-align: right;
 }
@@ -1392,7 +1407,7 @@
   margin: 0;
   padding-left: 17px;
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.6;
 }
 
@@ -1413,7 +1428,7 @@
 .learn-article-note p {
   margin: 0;
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
 }
 
@@ -1426,7 +1441,7 @@
   border: 0;
   background: transparent;
   color: var(--app-primary-text);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -1478,7 +1493,7 @@
 
 .learn-video-dialog-header > div > span {
   color: var(--app-primary-text);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -1547,7 +1562,7 @@
   max-width: 450px;
   margin: 0;
   color: var(--app-muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.65;
 }
 
@@ -1732,7 +1747,7 @@
 
   .learn-profile {
     gap: 6px;
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .learn-profile-avatar {
@@ -1753,7 +1768,7 @@
   }
 
   .learn-hero-copy > p:not(.learn-eyebrow) {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .learn-artwork-hero {
@@ -1779,7 +1794,7 @@
 
   .learn-stat-copy p,
   .learn-stat-copy span {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .learn-stat-copy strong {
@@ -1804,7 +1819,7 @@
   .learn-category-button {
     min-height: 36px;
     padding: 0 12px;
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .learn-featured-heading {
@@ -1831,12 +1846,15 @@
   }
 
   .learn-card-title {
-    font-size: 12px;
+    font-size: 15px;
   }
 
-  .learn-card-category,
+  .learn-card-category {
+    font-size: 11px;
+  }
+
   .learn-card-meta {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .learn-card-art {

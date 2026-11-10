@@ -3,12 +3,14 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { DashboardSidebar } from '../components/layout/DashboardSidebar.jsx'
 import { GlobalHeader } from '../components/layout/GlobalHeader.jsx'
 import { mountPage } from '../main.jsx'
+import { ProtectedPage } from '../components/auth/ProtectedPage.jsx'
 import '../styles/learn.css'
 import {
   LEARN_ARTICLES,
   LEARN_CATEGORIES,
   LEARN_VIDEOS,
 } from './learnContent.js'
+import logo from "../img/logo_transparan.png";
 
 // ==================================================
 // CONFIGURATION
@@ -1423,7 +1425,6 @@ function LearnPage() {
 
           <GlobalHeader
             title="Belajar & Edukasi"
-            subtitle="Perluas wawasan dan tingkatkan literasi keuangan Anda."
             showDateLine={false}
           />
 
@@ -1637,4 +1638,8 @@ function LearnPage() {
   )
 }
 
-mountPage(LearnPage)
+mountPage(() => (
+  <ProtectedPage>
+    <LearnPage />
+  </ProtectedPage>
+))

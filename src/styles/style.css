@@ -92,8 +92,8 @@
   --app-surface: #ffffff;
 
   --app-ink: #171717;
-  --app-muted: #595959;
-  --app-line: #deddd8;
+  --app-muted: #4d5766;
+  --app-line: #d8d7d1;
 
   --app-primary-soft: #e7edff;
   --app-primary-tint: #f0f3ff;
@@ -101,6 +101,8 @@
 
   --app-accent: #2563eb;
   --app-sidebar: #171717;
+  --app-wallpaper-image: url("../img/awan.png");
+  --app-wallpaper-tint: rgb(247 246 242 / 74%);
 
   /* Brand Tokens - Moneva Official */
   --brand-primary: #2563eb;
@@ -112,23 +114,23 @@
   --brand-danger: #dc2626;
 
   /* Button Surface Tokens - Light Mode */
-  --button-bg: rgba(255, 255, 255, 0.85);
-  --button-hover: rgba(255, 255, 255, 0.98);
-  --button-border: rgba(23, 43, 77, 0.14);
+  --button-bg: rgba(255, 255, 255, 0.94);
+  --button-hover: rgba(255, 255, 255, 1);
+  --button-border: rgba(23, 43, 77, 0.18);
   --button-text: #172b4d;
-  --button-muted: #64748b;
+  --button-muted: #4d5766;
   --button-focus: #2563eb;
 
   /* Glass Bezel Tokens - Light Mode */
-  --glass-bezel-bg: rgba(255, 255, 255, 0.68);
-  --glass-bezel-border: rgba(255, 255, 255, 0.55);
-  --glass-bezel-shadow: 0 10px 35px -5px rgba(23, 43, 77, 0.06), 0 2px 8px -1px rgba(23, 43, 77, 0.03);
-  --glass-bezel-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.75);
+  --glass-bezel-bg: rgba(255, 255, 255, 0.92);
+  --glass-bezel-border: rgba(23, 43, 77, 0.10);
+  --glass-bezel-shadow: 0 10px 35px -5px rgba(23, 43, 77, 0.07), 0 2px 8px -1px rgba(23, 43, 77, 0.04);
+  --glass-bezel-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
 
   /* Glass Surface Tokens - Light Mode */
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-bg-elevated: rgba(255, 255, 255, 0.88);
-  --glass-bg-subtle: rgba(255, 255, 255, 0.45);
+  --glass-bg: rgba(255, 255, 255, 0.92);
+  --glass-bg-elevated: rgba(255, 255, 255, 0.97);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.72);
   --glass-border: rgba(255, 255, 255, 0.75);
   --glass-border-subtle: rgba(226, 232, 240, 0.7);
   --glass-border-luminous: rgba(37, 99, 235, 0.35);
@@ -201,8 +203,8 @@
   --app-surface: #101010;
 
   --app-ink: #f5f5f5;
-  --app-muted: #b0b0b0;
-  --app-line: #303030;
+  --app-muted: #b6c0cd;
+  --app-line: #334155;
 
   --app-primary-soft: #26375f;
   --app-primary-tint: #1b2742;
@@ -210,25 +212,27 @@
 
   --app-accent: #2563eb;
   --app-sidebar: #0d1013;
+  --app-wallpaper-image: url("../img/awangelap.png");
+  --app-wallpaper-tint: rgb(11 18 32 / 76%);
 
   /* Button Surface Tokens - Dark Mode */
-  --button-bg: rgba(255, 255, 255, 0.10);
-  --button-hover: rgba(255, 255, 255, 0.18);
-  --button-border: rgba(255, 255, 255, 0.18);
+  --button-bg: rgba(255, 255, 255, 0.12);
+  --button-hover: rgba(255, 255, 255, 0.20);
+  --button-border: rgba(255, 255, 255, 0.22);
   --button-text: #f8fafc;
   --button-muted: #cbd5e1;
   --button-focus: #60a5fa;
 
   /* Glass Bezel Tokens - Dark Mode */
-  --glass-bezel-bg: rgba(15, 23, 42, 0.68);
-  --glass-bezel-border: rgba(255, 255, 255, 0.10);
+  --glass-bezel-bg: rgba(17, 27, 46, 0.90);
+  --glass-bezel-border: rgba(255, 255, 255, 0.14);
   --glass-bezel-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.5), 0 2px 8px -1px rgba(0, 0, 0, 0.25);
   --glass-bezel-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 
   /* Glass Surface Tokens - Dark Mode */
-  --glass-bg: rgba(15, 23, 42, 0.70);
-  --glass-bg-elevated: rgba(23, 43, 77, 0.82);
-  --glass-bg-subtle: rgba(15, 23, 42, 0.45);
+  --glass-bg: rgba(17, 27, 46, 0.92);
+  --glass-bg-elevated: rgba(20, 30, 50, 0.97);
+  --glass-bg-subtle: rgba(17, 27, 46, 0.72);
   --glass-border: rgba(255, 255, 255, 0.12);
   --glass-border-subtle: rgba(255, 255, 255, 0.06);
   --glass-border-luminous: rgba(96, 165, 250, 0.35);
@@ -257,8 +261,8 @@
   --app-panel: #f0efeb;
   --app-surface: #ffffff;
   --app-ink: #171717;
-  --app-muted: #595959;
-  --app-line: #deddd8;
+  --app-muted: #4d5766;
+  --app-line: #d8d7d1;
   --app-primary-soft: #e7edff;
   --app-primary-tint: #f0f3ff;
   --app-primary-text: #2563eb;
@@ -904,6 +908,16 @@ input {
   color: var(--app-ink);
 }
 
+.simulator-layout {
+  padding: 0;            /* hapus padding .dashboard-layout */
+  border-radius: 0;      /* pastikan tidak ada radius */
+}
+
+.simulator-layout {
+  margin: -0.875rem;     /* negasi padding .dashboard-page (jika ada) */
+  padding: 1rem;         /* beri padding konten sendiri */
+}
+
 .simulator-calculators {
   display: grid;
   width: 100%;
@@ -923,9 +937,6 @@ input {
   z-index: 1;
   min-width: 0;
   min-height: 2.75rem;
-  padding: 0.5rem 0.75rem;
-  border: 0;
-  border-radius: 9999px;
   background: transparent;
   color: var(--app-muted);
   font: inherit;
@@ -1049,7 +1060,7 @@ input {
 .finance-stat-card {
   display: flex;
   min-width: 0;
-  min-height: 10.25rem;
+  min-height: 9.5rem;
   flex-direction: column;
   justify-content: space-between;
   gap: 0.7rem;
@@ -1106,7 +1117,7 @@ input {
   border-radius: 0.625rem;
   background: var(--app-primary-tint);
   color: var(--app-primary-text);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1.25;
   text-align: center;
@@ -1121,8 +1132,8 @@ input {
 .finance-stat-label {
   margin: 0;
   color: var(--app-muted);
-  font-size: 0.8125rem;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 600;
   line-height: 1.35;
 }
 
@@ -1130,7 +1141,7 @@ input {
   overflow-wrap: anywhere;
   margin: 0.3rem 0 0;
   color: var(--app-ink);
-  font-size: clamp(1.05rem, 1.45vw, 1.5rem);
+  font-size: clamp(1.15rem, 1.5vw, 1.6rem);
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.2;
@@ -1139,8 +1150,8 @@ input {
 .finance-stat-helper {
   margin: 0;
   color: var(--app-muted);
-  font-size: 0.75rem;
-  line-height: 1.45;
+  font-size: 0.8125rem;
+  line-height: 1.5;
 }
 
 .finance-charts-grid,
@@ -1170,20 +1181,21 @@ input {
   margin-bottom: 0.75rem;
 }
 
-.finance-section-title {
+.finance-section-title,
+.dashboard-card .finance-section-title {
   margin: 0;
   color: var(--app-ink);
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.35;
+  font-size: 1.25rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
 }
 
 .finance-section-description {
-  margin: 0.3rem 0 0;
+  margin: 0.35rem 0 0;
   color: var(--app-muted);
-  font-size: 0.8125rem;
-  line-height: 1.45;
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 .finance-chart-legend {
@@ -1305,6 +1317,12 @@ input {
 }
 
 @media (max-width: 1199px) {
+  .finance-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
   .finance-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1592,7 +1610,6 @@ input {
 
 .dashboard-page {
   min-width: 320px;
-  padding: 0.875rem;
   overflow-x: hidden;
   background: var(--app-canvas);
   color: var(--app-ink);
@@ -1844,7 +1861,8 @@ input {
 .dashboard-summary-meta {
   margin: 0;
   color: var(--app-muted);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
 }
 
 .dashboard-summary-value {
@@ -1859,7 +1877,7 @@ input {
 
 .dashboard-summary-meta {
   margin-top: 0.45rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
 }
 
 .dashboard-widget-row,
@@ -2714,7 +2732,7 @@ textarea {
 
 .dashboard-summary-card {
   position: relative;
-  padding: 1rem 1rem 0.875rem 3.75rem;
+  padding: 1rem;
 }
 
 .dashboard-summary-card-link {
@@ -2744,16 +2762,13 @@ textarea {
 }
 
 .dashboard-summary-icon {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+  position: static;
   display: grid;
   width: 2.25rem;
   height: 2.25rem;
+  flex: 0 0 auto;
   place-items: center;
   border-radius: 0.75rem;
-  background: var(--app-primary-tint);
-  color: var(--app-primary-text);
 }
 
 .dashboard-summary-icon .icon {
@@ -3351,18 +3366,16 @@ textarea {
   }
 
   .dashboard-summary-card {
-    padding: 0.75rem 0.55rem 0.75rem 2.9rem;
+    padding: 0.8rem;
   }
 
   .dashboard-summary-icon {
-    top: 0.75rem;
-    left: 0.55rem;
     width: 1.9rem;
     height: 1.9rem;
   }
 
   .dashboard-summary-label {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
   }
 
   .dashboard-summary-value {
@@ -3370,7 +3383,7 @@ textarea {
   }
 
   .dashboard-summary-meta {
-    font-size: 0.625rem;
+    font-size: 0.6875rem;
   }
 
   .dashboard-widget-row,
@@ -3430,13 +3443,7 @@ textarea {
   }
 
   .dashboard-summary-card {
-    padding-left: 0.55rem;
-  }
-
-  .dashboard-summary-icon {
-    position: static;
-    float: left;
-    margin: 0 0.4rem 0.25rem 0;
+    padding: 0.7rem;
   }
 
   .dashboard-transactions-tools .dashboard-range-button {
@@ -3687,6 +3694,77 @@ textarea {
   grid-template-columns: minmax(0, 1fr);
 }
 
+.landing-page {
+  --landing-section-title-size: clamp(3rem, 5vw, 4.5rem);
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+.btn-primary:hover,
+.dashboard-primary-action:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px -4px rgba(37, 99, 235, 0.45);
+}
+
+.btn-primary:active,
+.dashboard-primary-action:active {
+  transform: scale(0.97);
+}
+
+/* Accessible Focus Outlines */
+button:focus-visible,
+.btn:focus-visible,
+a.btn:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--button-focus);
+  outline-offset: 2px;
+}
+
+/* Accessible Disabled State */
+button:disabled,
+.btn:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+[aria-disabled="true"] {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.landing-page .landing-hero-copy {
+  font-size: 1.125rem;
+}
+
+.landing-page .landing-section-title {
+  font-family: inherit;
+  font-size: var(--landing-section-title-size);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.landing-page .landing-section-copy {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.625;
+}
+
+.landing-page .feature-card-grid {
+  grid-auto-rows: 1fr;
+}
+
+.landing-page .feature-card-heading {
+  min-height: 2.4em;
+}
+
+.landing-page .feature-card-description {
+  min-height: 3.75rem;
+}
+
 /* =========================================================
    MONEVA — BUTTON MICRO-INTERACTIONS & POPUP ANIMATIONS
 ========================================================= */
@@ -3777,4 +3855,191 @@ dialog[open] {
   transition: none !important;
   animation: none !important;
   transform: none !important;
+}
+
+
+/* =========================================
+   AUTH PAGES — LOGIN & SIGNUP
+========================================= */
+
+.auth-page {
+  min-width: 320px;
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+.auth-bg-image {
+  background-image: var(--app-wallpaper-image);
+}
+
+.auth-bg-overlay {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.auth-card-inner {
+  animation: auth-card-enter 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes auth-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-card-inner {
+    animation: none;
+  }
+}
+
+.auth-input {
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.auth-input:focus {
+  border-color: var(--app-primary-text);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.auth-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.auth-checkbox:checked {
+  background-color: var(--app-primary-text);
+  border-color: var(--app-primary-text);
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth-submit {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-submit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 600ms ease;
+}
+
+.auth-submit:hover::before {
+  transform: translateX(100%);
+}
+
+.auth-user-type {
+  cursor: pointer;
+}
+
+.auth-user-type:hover {
+  transform: translateY(-1px);
+}
+
+.auth-user-type:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 479px) {
+  .auth-card-inner {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .auth-user-types {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-header {
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* Protected route loading state */
+.auth-loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--app-canvas);
+  z-index: 9999;
+}
+
+.auth-loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid var(--app-line);
+  border-top-color: var(--app-primary-text);
+  border-radius: 50%;
+  animation: auth-spin 800ms linear infinite;
+}
+
+@keyframes auth-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-loading-spinner {
+    animation: none;
+    border-top-color: var(--app-primary-text);
+  }
+}
+
+.learn-logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* =========================================
+   GLOBAL PAGE TITLE ANIMATION
+   Digunakan oleh Dashboard, Finance,
+   Setting, Simulator, dan Learn.
+========================================= */
+
+@keyframes global-header-title-in {
+  from {
+    opacity: 0;
+    filter: blur(7px);
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.global-header-title {
+  animation: global-header-title-in
+    0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Mengikuti preferensi pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+  .global-header-title {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
 }

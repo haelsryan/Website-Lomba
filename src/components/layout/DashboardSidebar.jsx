@@ -1,4 +1,8 @@
+
 import { useState } from 'react'
+import logo from "../../img/logo_transparan.png"
+
+const AUTH_SESSION_KEY = 'moneva-auth-session'
 
 function IconSprite() {
   const icons = {
@@ -32,6 +36,66 @@ function IconSprite() {
       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
       <polyline points="16 17 21 12 16 7" />
       <line x1="21" y1="12" x2="9" y2="12" />
+    </>,
+    plus: <>
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </>,
+    'chevron-l': <polyline points="15 18 9 12 15 6" />,
+    'chevron-r': <polyline points="9 18 15 12 9 6" />,
+    bell: <>
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+    </>,
+    'bell-off': <>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+      <path d="M17.63 17.63A9 9 0 0 1 18 15c0-7-3-9-3-9a6 6 0 0 0-9.56-4.44" />
+      <path d="M5.52 5.52A9 9 0 0 0 6 8c0 4.67-1.6 7.17-2.63 8.3" />
+      <line x1="1" y1="1" x2="23" y2="23" />
+    </>,
+    receipt: <>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+    </>,
+    check: <polyline points="20 6 9 17 4 12" />,
+    trash: <>
+      <polyline points="3 6 5 6 21 6" />
+      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+      <path d="M10 11v6M14 11v6M9 6V4h6v2" />
+    </>,
+    x: <>
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </>,
+    link: <>
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </>,
+    cal: <>
+      <rect x="3" y="4" width="18" height="18" rx="2" />
+      <line x1="16" y1="2" x2="16" y2="6" />
+      <line x1="8" y1="2" x2="8" y2="6" />
+      <line x1="3" y1="10" x2="21" y2="10" />
+    </>,
+    eye: <>
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </>,
+    chat: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />,
+    up: <>
+      <line x1="12" y1="19" x2="12" y2="5" />
+      <polyline points="5 12 12 5 19 12" />
+    </>,
+    down: <>
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <polyline points="19 12 12 19 5 12" />
+    </>,
+    search: <>
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
     </>,
   }
 
@@ -90,6 +154,13 @@ export function DashboardSidebar({ page }) {
     setter(false)
   }
 
+  const handleLogout = () => {
+    // Clear auth session
+    localStorage.removeItem(AUTH_SESSION_KEY)
+    // Redirect to login
+    window.location.href = '/pages/login.html'
+  }
+
   return (
     <>
       <IconSprite />
@@ -108,26 +179,37 @@ export function DashboardSidebar({ page }) {
           onPointerEnter={handleEnter(setZoneAExpanded)}
           onPointerLeave={handleLeave(setZoneAExpanded)}
         >
-          {/* BRAND */}
-          <a
-            href="/"
-            className="flex items-center gap-3 rounded-2xl text-ink transition-colors group overflow-hidden h-10 w-full"
-            aria-label="Moneva, beranda"
-          >
-            <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-gradient-to-tr from-primary to-blue-500 text-white shadow-md shadow-primary/25 transition-transform duration-200 group-hover:scale-105">
-              <NavIcon name="wallet" />
-            </span>
+          
+{/* BRAND */}
+<a
+  href="/"
+  className="flex items-center gap-3 rounded-2xl text-ink transition-colors group overflow-hidden h-10 w-full"
+  aria-label="Moneva, beranda"
+>
+  {/* LOGO MONEVA */}
+  <span className="grid size-10 shrink-0 place-items-center transition-transform duration-200 group-hover:scale-105">
+    <img
+      src={logo}
+      alt="Moneva Logo"
+      className="w-10 h-10 object-contain"
+    />
+  </span>
 
-            <div className={`flex flex-col whitespace-nowrap transition-all duration-200 ${zoneAExpanded
-                ? 'opacity-100 translate-x-0'
-                : 'opacity-0 -translate-x-3 pointer-events-none w-0 overflow-hidden'
-              }`}>
-              <span className="text-sm font-bold tracking-tight text-ink leading-tight">MONEVA</span>
-              <span className="text-[10px] font-medium text-muted leading-tight">Smart Financials</span>
-            </div>
-          </a>
+  {/* BRAND TEXT */}
+      <div className={`flex flex-col whitespace-nowrap transition-all duration-200 ${
+        zoneAExpanded
+          ? 'opacity-100 translate-x-0'
+          : 'opacity-0 -translate-x-3 pointer-events-none w-0 overflow-hidden'
+      }`}>
+        <span className="text-sm font-bold tracking-tight text-ink leading-tight">
+          MONEVA
+        </span>
+        <span className="text-[10px] font-medium text-muted leading-tight">
+          Smart Financials
+        </span>
+      </div>
+    </a>
 
-          <div className="my-2.5 h-px w-full bg-line/40 dark:bg-white/10" />
 
           {/* MAIN NAVIGATION */}
           <nav aria-label="Menu Utama">
@@ -198,7 +280,7 @@ export function DashboardSidebar({ page }) {
 
             <button
               type="button"
-              data-act="logout"
+              onClick={handleLogout}
               className="group flex items-center h-10 w-full rounded-2xl text-rose-500 transition-all duration-200 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:bg-rose-500/15 overflow-hidden text-left"
               aria-label="Keluar"
               title="Keluar"
