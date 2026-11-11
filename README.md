@@ -29,8 +29,8 @@ Website ini dibuat untuk mengikuti perlombaan Web Design di INVOFEST 2026
 1. Clone repositori:
 
    ```bash
-   git clone https://github.com/USERNAME/moneva.git
-   cd moneva
+   git clone https://github.com/USERNAME/moneva.git](https://github.com/haelsryan/Website-Lomba.git)
+   cd Website-Lomba
    ```
 
 2. Pasang dependensi:
